@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.core.dao.SysAuthoritiesVOMapper">
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.SysAuthoritiesVO">
+    <result column="AUTHORITY_ID" jdbcType="VARCHAR" property="authorityId" />
+    <result column="AUTHORITY_NAME" jdbcType="VARCHAR" property="authorityName" />
+    <result column="AUTHORITY_DESC" jdbcType="VARCHAR" property="authorityDesc" />
+    <result column="ENABLED" jdbcType="DECIMAL" property="enabled" />
+    <result column="ISSYS" jdbcType="DECIMAL" property="issys" />
+    <result column="MODULE" jdbcType="VARCHAR" property="module" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.SysAuthoritiesVO">
+    insert into SYS_AUTHORITIES_T (AUTHORITY_ID, AUTHORITY_NAME, AUTHORITY_DESC, 
+      ENABLED, ISSYS, MODULE
+      )
+    values (#{authorityId,jdbcType=VARCHAR}, #{authorityName,jdbcType=VARCHAR}, #{authorityDesc,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL}, #{issys,jdbcType=DECIMAL}, #{module,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.SysAuthoritiesVO">
+    insert into SYS_AUTHORITIES_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        AUTHORITY_ID,
+      </if>
+      <if test="authorityName != null">
+        AUTHORITY_NAME,
+      </if>
+      <if test="authorityDesc != null">
+        AUTHORITY_DESC,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="issys != null">
+        ISSYS,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityName != null">
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityDesc != null">
+        #{authorityDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="issys != null">
+        #{issys,jdbcType=DECIMAL},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.core.dao.SysResourcesVOMapper">
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.SysResourcesVO">
+    <result column="RESOURCE_ID" jdbcType="VARCHAR" property="resourceId" />
+    <result column="RESOURCE_NAME" jdbcType="VARCHAR" property="resourceName" />
+    <result column="RESOURCE_DESC" jdbcType="VARCHAR" property="resourceDesc" />
+    <result column="RESOURCE_TYPE" jdbcType="VARCHAR" property="resourceType" />
+    <result column="RESOURCE_STRING" jdbcType="VARCHAR" property="resourceString" />
+    <result column="PRIORITY" jdbcType="DECIMAL" property="priority" />
+    <result column="ENABLED" jdbcType="DECIMAL" property="enabled" />
+    <result column="ISSYS" jdbcType="DECIMAL" property="issys" />
+    <result column="MODULE" jdbcType="VARCHAR" property="module" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.SysResourcesVO">
+    insert into SYS_RESOURCES_T (RESOURCE_ID, RESOURCE_NAME, RESOURCE_DESC, 
+      RESOURCE_TYPE, RESOURCE_STRING, PRIORITY, 
+      ENABLED, ISSYS, MODULE
+      )
+    values (#{resourceId,jdbcType=VARCHAR}, #{resourceName,jdbcType=VARCHAR}, #{resourceDesc,jdbcType=VARCHAR}, 
+      #{resourceType,jdbcType=VARCHAR}, #{resourceString,jdbcType=VARCHAR}, #{priority,jdbcType=DECIMAL}, 
+      #{enabled,jdbcType=DECIMAL}, #{issys,jdbcType=DECIMAL}, #{module,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.SysResourcesVO">
+    insert into SYS_RESOURCES_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="resourceId != null">
+        RESOURCE_ID,
+      </if>
+      <if test="resourceName != null">
+        RESOURCE_NAME,
+      </if>
+      <if test="resourceDesc != null">
+        RESOURCE_DESC,
+      </if>
+      <if test="resourceType != null">
+        RESOURCE_TYPE,
+      </if>
+      <if test="resourceString != null">
+        RESOURCE_STRING,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="issys != null">
+        ISSYS,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceName != null">
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDesc != null">
+        #{resourceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null">
+        #{resourceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceString != null">
+        #{resourceString,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="issys != null">
+        #{issys,jdbcType=DECIMAL},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ICustom.ear-1.0.0-SNAPSHOT">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+        <wb-resource deploy-path="/" source-path="/extra" tag="defaultRootSource"/>
+        <dependent-module archiveName="ICustom.common.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.common.api/1.0.0-SNAPSHOT/ICustom.common.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.common.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.common.impl/1.0.0-SNAPSHOT/ICustom.common.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.api/1.0.0-SNAPSHOT/ICustom.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.impl/1.0.0-SNAPSHOT/ICustom.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.core.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.core.api/1.0.0-SNAPSHOT/ICustom.core.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.core.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.core.impl/1.0.0-SNAPSHOT/ICustom.core.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.lookup.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.lookup.api/1.0.0-SNAPSHOT/ICustom.lookup.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.lookup.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.lookup.impl/1.0.0-SNAPSHOT/ICustom.lookup.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.security.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.security.api/1.0.0-SNAPSHOT/ICustom.security.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.security.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.security.impl/1.0.0-SNAPSHOT/ICustom.security.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.email.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.email.api/1.0.0-SNAPSHOT/ICustom.email.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.email.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.email.impl/1.0.0-SNAPSHOT/ICustom.email.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.international.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.international.api/1.0.0-SNAPSHOT/ICustom.international.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.international.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.international.impl/1.0.0-SNAPSHOT/ICustom.international.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.attachments.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.attachments.api/1.0.0-SNAPSHOT/ICustom.attachments.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.attachments.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.attachments.impl/1.0.0-SNAPSHOT/ICustom.attachments.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.web-1.0.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/ICustom.web/ICustom.web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.iexcel.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.iexcel.api/1.0.0-SNAPSHOT/ICustom.iexcel.api-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.iexcel.impl/1.0.0-SNAPSHOT/ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="component.inclusion.patterns" value="META-INF/**,**/ICustom*.jar,**/ICustom*.war"/>
+    </wb-module>
+</project-modules>

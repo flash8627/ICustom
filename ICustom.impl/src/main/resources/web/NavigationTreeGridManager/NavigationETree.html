@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>导航管理</title>
+    
+	
+	
+	
+</head>
+<body>
+<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/icon.css">
+	<script src="../resources/jquery/jquery.min.js"></script>
+	<script src="../resources/jquery/jquery.easyui.min.js"></script>
+<script src="../resources/utils/formatDate.js"></script>
+	
+	<style type="text/css">
+		.buttonEnabled{}
+		.buttonShield{}
+	</style>
+	
+	<script src="js/global.js"></script>
+	<script src="NavigationETreeService.js"></script>
+	<script src="NavigationETree.js"></script>
+	<script type="text/javascript">
+	</script>
+	
+	<h1>导航管理</h1>
+	<div style="margin:20px 0;"></div>
+	
+	<div style="margin:8px;">
+		<a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-add" plain="true" onclick="onAddItem()">添加</a>
+		<a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-edit" onclick="onEditItem()">编辑</a>
+		<a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-remove" plain="true" onclick="onRemoveItem()">删除</a>
+	</div>
+	
+	<table id="tg" style="width:100%;height:400px"></table>
+	<div style="margin:8px;">
+	<a href="#" class="easyui-linkbutton formbtn" iconCls="icon-save" onclick="onSaveItem()">保存</a>
+	<a href="#" class="easyui-linkbutton formbtn" iconCls="icon-cancel" onclick="onEditCancel()">撤销</a>
+	</div>
+	

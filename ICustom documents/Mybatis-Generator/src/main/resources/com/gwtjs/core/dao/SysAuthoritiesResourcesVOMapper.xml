@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.core.dao.SysAuthoritiesResourcesVOMapper">
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.SysAuthoritiesResourcesVO">
+    <result column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="AUTHORITY_ID" jdbcType="VARCHAR" property="authorityId" />
+    <result column="RESOURCE_ID" jdbcType="VARCHAR" property="resourceId" />
+    <result column="ENABLED" jdbcType="DECIMAL" property="enabled" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.SysAuthoritiesResourcesVO">
+    insert into SYS_AUTHORITIES_RESOURCES_T (ID, AUTHORITY_ID, RESOURCE_ID, 
+      ENABLED)
+    values (#{id,jdbcType=DECIMAL}, #{authorityId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.SysAuthoritiesResourcesVO">
+    insert into SYS_AUTHORITIES_RESOURCES_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="authorityId != null">
+        AUTHORITY_ID,
+      </if>
+      <if test="resourceId != null">
+        RESOURCE_ID,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="authorityId != null">
+        #{authorityId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

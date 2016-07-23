@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Editable TreeGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/icon.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../demo.css"> -->
+	<script src="../resources/jquery/jquery.min.js"></script>
+	<script src="../resources/jquery/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		.buttonEnabled{}
+		.buttonShield{}
+	</style>
+</head>
+<body>
+	<h2>Editable TreeGrid</h2>
+	<div class="demo-info">
+		<div class="demo-tip icon-tip"></div>
+		<div>Select one node and click edit button to perform editing.</div>
+	</div>
+
+
+<div style="margin:10px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="edit()">Edit</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="insert()">Insert</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="deleteRow()">Delete</a>
+	</div>
+	<table id="tg" class="easyui-treegrid" title="Editable TreeGrid" style="width:700px;"
+			data-options="
+				iconCls: 'icon-ok',
+				rownumbers: true,
+				animate: true,
+				collapsible: true,
+				fitColumns: true,
+				url: 'treegrid_data2.json',
+				idField: 'id',
+				treeField: 'name',
+				showFooter: true
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'name',width:180,editor:'text'">Task Name</th>
+				<th data-options="field:'persons',width:60,align:'right',editor:'numberbox'">Persons</th>
+				<th data-options="field:'begin',width:80,editor:'datebox'">Begin Date</th>
+				<th data-options="field:'end',width:80,editor:'datebox'">End Date</th>
+				<th data-options="field:'progress',width:120,formatter:formatProgress,editor:'numberbox'">Progress</th>
+			</tr>
+		</thead>
+	</table>
+	
+<script type="text/javascript">
+		
+		function formatProgress(value){
+	    	if (value){
+		    	var s = '<div style="width:100%;border:1px solid #ccc">' +
+		    			'<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'
+		    			'</div>';
+		    	return s;
+	    	} else {
+		    	return '';
+	    	}
+		}
+		var editingId;
+		function deleteRow(){
+			if (editingId != undefined){
+				$('#tg').treegrid('select', editingId);
+				return;
+			}
+			var row = $('#tg').treegrid('getSelected');
+			if (row){
+				editingId = row.id
+				$('#tg').treegrid('remove', editingId);
+				$('#tg').treegrid('reloadFooter');
+			}
+			$(".actionbtn").toggleClass("l-btn-disabled");
+		}
+		function edit(){
+			if (editingId != undefined){
+				$('#tg').treegrid('select', editingId);
+				return;
+			}
+			var row = $('#tg').treegrid('getSelected');
+			if (row){
+				editingId = row.id
+				$('#tg').treegrid('beginEdit', editingId);
+			}
+			$(".actionbtn").toggleClass("l-btn-disabled");
+		}
+		function insert(){
+			if (editingId != undefined){
+				$('#tg').treegrid('select', editingId);
+				return;
+			}
+			/**/
+			var rows = $('#tg').treegrid('getChildren');
+			editingId = rows.length+1;
+			var row = null;
+			var _data = {"id":editingId,"name":"new name","persons":0,"begin":"3/19/2010","end":"3/20/2010","progress":10};
+			var _parentId = 0;
+			var row = $('#tg').treegrid('getSelected');
+			if (row){
+				$('#tg').treegrid('expand',row.id);
+				_parentId = row.id;
+			}else{
+				var root = $('#tg').treegrid('getRoot');
+				_parentId = null;
+			}
+			
+			$('#tg').treegrid('append',{
+				parent: _parentId,  // 这里指定父级标识就可以了
+				data: [_data]
+			});
+			
+			$('#tg').treegrid('beginEdit',_data.id);
+			$(".actionbtn").toggleClass("l-btn-disabled");
+		}
+		function save(){
+			if (editingId != undefined){
+				var t = $('#tg');
+				t.treegrid('endEdit', editingId);
+				editingId = undefined;
+				var persons = 0;
+				var rows = t.treegrid('getChildren');
+				for(var i=0; i<rows.length; i++){
+					var p = parseInt(rows[i].persons);
+					if (!isNaN(p)){
+						persons += p;
+					}
+				}
+				var frow = t.treegrid('getFooterRows')[0];
+				frow.persons = persons;
+				t.treegrid('reloadFooter');
+				$(".actionbtn").toggleClass("l-btn-disabled");
+			}
+		}
+		function cancel(){
+			if (editingId != undefined){
+				$('#tg').treegrid('cancelEdit', editingId);
+				editingId = undefined;
+			}
+			$(".actionbtn").toggleClass("l-btn-disabled");
+		}
+	</script>
+	
+	<div style="margin:10px 0;">
+		<a href="javascript:void(0)" disabled="disabled"  class="easyui-linkbutton actionbtn" onclick="save()">Save</a>
+		<a href="javascript:void(0)" disabled="disabled" class="easyui-linkbutton actionbtn" onclick="cancel()">Cancel</a>
+	</div>
+
+	

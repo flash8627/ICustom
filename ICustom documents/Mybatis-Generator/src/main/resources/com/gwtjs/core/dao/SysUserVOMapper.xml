@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.core.dao.SysUserVOMapper">
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.SysUserVO">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    <result column="USER_DESC" jdbcType="VARCHAR" property="userDesc" />
+    <result column="ENABLED" jdbcType="DECIMAL" property="enabled" />
+    <result column="ISSYS" jdbcType="DECIMAL" property="issys" />
+    <result column="USER_DEPT" jdbcType="VARCHAR" property="userDept" />
+    <result column="USER_DUTY" jdbcType="VARCHAR" property="userDuty" />
+    <result column="SUB_SYSTEM" jdbcType="VARCHAR" property="subSystem" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.SysUserVO">
+    insert into SYS_USERS_T (USER_ID, USER_ACCOUNT, USER_NAME, 
+      USER_PASSWORD, USER_DESC, ENABLED, 
+      ISSYS, USER_DEPT, USER_DUTY, 
+      SUB_SYSTEM)
+    values (#{userId,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
+      #{issys,jdbcType=DECIMAL}, #{userDept,jdbcType=VARCHAR}, #{userDuty,jdbcType=VARCHAR}, 
+      #{subSystem,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.SysUserVO">
+    insert into SYS_USERS_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userAccount != null">
+        USER_ACCOUNT,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userPassword != null">
+        USER_PASSWORD,
+      </if>
+      <if test="userDesc != null">
+        USER_DESC,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="issys != null">
+        ISSYS,
+      </if>
+      <if test="userDept != null">
+        USER_DEPT,
+      </if>
+      <if test="userDuty != null">
+        USER_DUTY,
+      </if>
+      <if test="subSystem != null">
+        SUB_SYSTEM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="issys != null">
+        #{issys,jdbcType=DECIMAL},
+      </if>
+      <if test="userDept != null">
+        #{userDept,jdbcType=VARCHAR},
+      </if>
+      <if test="userDuty != null">
+        #{userDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="subSystem != null">
+        #{subSystem,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.SysUserVO">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+    <result column="USER_DESC" jdbcType="VARCHAR" property="userDesc" />
+    <result column="ENABLED" jdbcType="DECIMAL" property="enabled" />
+    <result column="ISSYS" jdbcType="DECIMAL" property="issys" />
+    <result column="USER_DEPT" jdbcType="VARCHAR" property="userDept" />
+    <result column="USER_DUTY" jdbcType="VARCHAR" property="userDuty" />
+    <result column="SUB_SYSTEM" jdbcType="VARCHAR" property="subSystem" />
+  </resultMap>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.SysUserVO">
+    insert into SYS_USERS_T (USER_ID, USER_ACCOUNT, USER_NAME, 
+      USER_PASSWORD, USER_DESC, ENABLED, 
+      ISSYS, USER_DEPT, USER_DUTY, 
+      SUB_SYSTEM)
+    values (#{userId,jdbcType=VARCHAR}, #{userAccount,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR}, #{enabled,jdbcType=DECIMAL}, 
+      #{issys,jdbcType=DECIMAL}, #{userDept,jdbcType=VARCHAR}, #{userDuty,jdbcType=VARCHAR}, 
+      #{subSystem,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.SysUserVO">
+    insert into SYS_USERS_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="userAccount != null">
+        USER_ACCOUNT,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userPassword != null">
+        USER_PASSWORD,
+      </if>
+      <if test="userDesc != null">
+        USER_DESC,
+      </if>
+      <if test="enabled != null">
+        ENABLED,
+      </if>
+      <if test="issys != null">
+        ISSYS,
+      </if>
+      <if test="userDept != null">
+        USER_DEPT,
+      </if>
+      <if test="userDuty != null">
+        USER_DUTY,
+      </if>
+      <if test="subSystem != null">
+        SUB_SYSTEM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="issys != null">
+        #{issys,jdbcType=DECIMAL},
+      </if>
+      <if test="userDept != null">
+        #{userDept,jdbcType=VARCHAR},
+      </if>
+      <if test="userDuty != null">
+        #{userDuty,jdbcType=VARCHAR},
+      </if>
+      <if test="subSystem != null">
+        #{subSystem,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

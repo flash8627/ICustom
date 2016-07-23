@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="ICustom.common.api.java"/>
+	<classpathentry kind="src" path="ICustom.api.java"/>
+	<classpathentry kind="src" path="ICustom.core.imp.resources"/>
+	<classpathentry kind="src" path="ICustom.core.imp.java"/>
+	<classpathentry kind="src" path="ICustom.core.api.java"/>
+	<classpathentry kind="src" path="ICustom.impl.resources"/>
+	<classpathentry kind="src" path="ICustom.impl.java"/>
+	<classpathentry kind="src" path="ICustom.common.impl.resources"/>
+	<classpathentry kind="src" path="ICustom.common.impl.java"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
+</classpath>

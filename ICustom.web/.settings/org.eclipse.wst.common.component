@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ICustom">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.impl.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.imp.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.imp.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.api.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.api.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.api.java"/>
+        <property name="java-output-path" value="/ICustom/target/classes"/>
+        <property name="context-root" value="ICustom.web"/>
+    </wb-module>
+</project-modules>

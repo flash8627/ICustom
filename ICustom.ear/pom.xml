@@ -1,0 +1,269 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.gwtjs.ICustom</groupId>
+		<artifactId>com.gwtjs.ICustom</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>ICustom.ear</artifactId>
+	<packaging>ear</packaging>
+
+	<name>ICustom.ear</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.common.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.common.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.core.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.core.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.lookup.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.lookup.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.security.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.security.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.email.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.email.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.iexcel.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.iexcel.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.international.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.international.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.attachments.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.attachments.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.data.dictionary.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.data.dictionary.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<packagingIncludes>META-INF/**,**/ICustom*.jar,**/ICustom*.war</packagingIncludes>
+					<earSourceDirectory>extra</earSourceDirectory>
+					<modules>
+					
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.common.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.common.impl</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.core.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.core.impl</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.lookup.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.lookup.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.security.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.security.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.email.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.email.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.international.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.international.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.attachments.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.attachments.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.data.dictionary.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.data.dictionary.impl</artifactId>
+						</jarModule>
+						
+						<webModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.web</artifactId>
+							<contextRoot>/</contextRoot>
+						</webModule>
+						
+					</modules>
+
+
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.core.dao.NavigationVOMapper">
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.NavigationVO">
+    <id column="ITEM_ID" jdbcType="DECIMAL" property="itemId" />
+    <result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName" />
+    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="ORDER_CODE" jdbcType="DECIMAL" property="orderCode" />
+    <result column="CREATED_USER" jdbcType="DECIMAL" property="createdUser" />
+    <result column="CREATED_DATE" jdbcType="DATE" property="createdDate" />
+    <result column="UPDATE_LAST_USER" jdbcType="DECIMAL" property="updateLastUser" />
+    <result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ITEM_ID, ITEM_NAME, PARENT_ID, ICON, URL, ORDER_CODE, CREATED_USER, CREATED_DATE, 
+    UPDATE_LAST_USER, UPDATE_LAST_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_NAVIGATION_T
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SYS_NAVIGATION_T
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.NavigationVO">
+    insert into SYS_NAVIGATION_T (ITEM_ID, ITEM_NAME, PARENT_ID, 
+      ICON, URL, ORDER_CODE, 
+      CREATED_USER, CREATED_DATE, UPDATE_LAST_USER, 
+      UPDATE_LAST_DATE)
+    values (#{itemId,jdbcType=DECIMAL}, #{itemName,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, 
+      #{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{orderCode,jdbcType=DECIMAL}, 
+      #{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE}, #{updateLastUser,jdbcType=DECIMAL}, 
+      #{updateLastDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.NavigationVO">
+    insert into SYS_NAVIGATION_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="orderCode != null">
+        ORDER_CODE,
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER,
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE,
+      </if>
+      <if test="updateLastUser != null">
+        UPDATE_LAST_USER,
+      </if>
+      <if test="updateLastDate != null">
+        UPDATE_LAST_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=DECIMAL},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="updateLastUser != null">
+        #{updateLastUser,jdbcType=DECIMAL},
+      </if>
+      <if test="updateLastDate != null">
+        #{updateLastDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.core.entity.NavigationVO">
+    update SYS_NAVIGATION_T
+    <set>
+      <if test="itemName != null">
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="updateLastUser != null">
+        UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+      </if>
+      <if test="updateLastDate != null">
+        UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gwtjs.core.entity.NavigationVO">
+    update SYS_NAVIGATION_T
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      ICON = #{icon,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+      CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+      CREATED_DATE = #{createdDate,jdbcType=DATE},
+      UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+      UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE}
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.gwtjs.core.entity.NavigationVO">
+    <id column="ITEM_ID" jdbcType="DECIMAL" property="itemId" />
+    <result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName" />
+    <result column="PARENT_ID" jdbcType="DECIMAL" property="parentId" />
+    <result column="ICON" jdbcType="VARCHAR" property="icon" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="ORDER_CODE" jdbcType="DECIMAL" property="orderCode" />
+    <result column="CREATED_USER" jdbcType="DECIMAL" property="createdUser" />
+    <result column="CREATED_DATE" jdbcType="DATE" property="createdDate" />
+    <result column="UPDATE_LAST_USER" jdbcType="DECIMAL" property="updateLastUser" />
+    <result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ITEM_ID, ITEM_NAME, PARENT_ID, ICON, URL, ORDER_CODE, CREATED_USER, CREATED_DATE, 
+    UPDATE_LAST_USER, UPDATE_LAST_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_NAVIGATION_T
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SYS_NAVIGATION_T
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.gwtjs.core.entity.NavigationVO">
+    insert into SYS_NAVIGATION_T (ITEM_ID, ITEM_NAME, PARENT_ID, 
+      ICON, URL, ORDER_CODE, 
+      CREATED_USER, CREATED_DATE, UPDATE_LAST_USER, 
+      UPDATE_LAST_DATE)
+    values (#{itemId,jdbcType=DECIMAL}, #{itemName,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL}, 
+      #{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{orderCode,jdbcType=DECIMAL}, 
+      #{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE}, #{updateLastUser,jdbcType=DECIMAL}, 
+      #{updateLastDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gwtjs.core.entity.NavigationVO">
+    insert into SYS_NAVIGATION_T
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        ITEM_ID,
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="orderCode != null">
+        ORDER_CODE,
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER,
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE,
+      </if>
+      <if test="updateLastUser != null">
+        UPDATE_LAST_USER,
+      </if>
+      <if test="updateLastDate != null">
+        UPDATE_LAST_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="itemId != null">
+        #{itemId,jdbcType=DECIMAL},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        #{orderCode,jdbcType=DECIMAL},
+      </if>
+      <if test="createdUser != null">
+        #{createdUser,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="updateLastUser != null">
+        #{updateLastUser,jdbcType=DECIMAL},
+      </if>
+      <if test="updateLastDate != null">
+        #{updateLastDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.core.entity.NavigationVO">
+    update SYS_NAVIGATION_T
+    <set>
+      <if test="itemName != null">
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCode != null">
+        ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+      </if>
+      <if test="createdUser != null">
+        CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+      </if>
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="updateLastUser != null">
+        UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+      </if>
+      <if test="updateLastDate != null">
+        UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gwtjs.core.entity.NavigationVO">
+    update SYS_NAVIGATION_T
+    set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=DECIMAL},
+      ICON = #{icon,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+      CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+      CREATED_DATE = #{createdDate,jdbcType=DATE},
+      UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+      UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE}
+    where ITEM_ID = #{itemId,jdbcType=DECIMAL}
+  </update>
+</mapper>
