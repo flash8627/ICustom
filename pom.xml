@@ -189,6 +189,8 @@
 		<module>ICustom.data.dictionary.impl</module>
 		<module>ICustom.bbs.api</module>
 		<module>ICustom.bbs.impl</module>
+		<module>ICustom.workflow.api</module>
+		<module>ICustom.workflow.impl</module>
 		<module>ICustom.ear</module>
 		<module>ICustom.web</module>
 	</modules>
