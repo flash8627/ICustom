@@ -23,6 +23,18 @@
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.angularjs</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.fckeditor</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.common.api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
@@ -126,6 +138,18 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.attachments.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.bbs.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.bbs.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -244,6 +268,26 @@
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.data.dictionary.api</artifactId>
+						</jarModule>
+		
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.bbs.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.bbs.impl</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.angularjs</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.fckeditor</artifactId>
 						</jarModule>
 
 						<jarModule>

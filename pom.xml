@@ -165,6 +165,8 @@
 	</dependencies>
 	
 	<modules>
+		<module>ICustom.angularjs</module>
+		<module>ICustom.fckeditor</module>
 		<module>ICustom.core.api</module>
 		<module>ICustom.core.impl</module>
 		<module>ICustom.common.api</module>
@@ -185,6 +187,8 @@
 		<module>ICustom.iexcel.impl</module>
 		<module>ICustom.data.dictionary.api</module>
 		<module>ICustom.data.dictionary.impl</module>
+		<module>ICustom.bbs.api</module>
+		<module>ICustom.bbs.impl</module>
 		<module>ICustom.ear</module>
 		<module>ICustom.web</module>
 	</modules>

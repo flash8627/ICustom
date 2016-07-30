@@ -21,6 +21,22 @@ public class NavigationServiceImpl implements NavigationService {
 	private static final Logger log = LoggerFactory
 		      .getLogger(NavigationServiceImpl.class);
 	
+	/**
+	 * 站点菜单
+	 */
+	@Override
+	public List<NavigationVO> findNavigationSiteMenu() {
+		NavigationVO nav = navigationDAO.findNavigationTreeRoot();
+		List<NavigationVO> menus = this.findNavigationTree(nav.getItemId());
+		for (NavigationVO menu : menus) {
+			List<NavigationVO>child = this.findNavigationTree(menu.getItemId());
+			if(child.size()>0){
+				menu.setChildren(child);
+			}
+		}
+		return menus;
+	}
+	
 	@Inject
 	private NavigationDAO navigationDAO;
 	
@@ -41,7 +57,7 @@ public class NavigationServiceImpl implements NavigationService {
 		NavigationVO record = navigationDAO.findNavigationTreeRoot();
 		List<NavigationVO> list = new ArrayList<NavigationVO>();
 		
-		if(record.isLeaf()){
+		if(record!=null && record.isLeaf()){
 			List<NavigationVO> children = this.findNavigationChildren(record.getItemId());
 			record.setChildren(children);
 		}

@@ -18,6 +18,9 @@ import com.gwtjs.common.entity.ResultWrapper;
 @Produces(MediaType.APPLICATION_JSON)
 public interface NavigationService {
 	
+	@GET @Path("findNavigationSiteMenu")
+	List<NavigationVO> findNavigationSiteMenu();
+	
 	@GET @Path("findNavigationTree")
 	List<NavigationVO> findNavigationTree();
 	

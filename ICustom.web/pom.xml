@@ -14,6 +14,18 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.angularjs</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.fckeditor</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
@@ -120,6 +132,18 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.data.dictionary.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.bbs.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.bbs.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		

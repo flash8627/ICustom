@@ -159,9 +159,6 @@ public class ResourcesFilter implements Filter {
 		if(bodyEnd==-1){
 			bodyEnd = result.length();
 		}
-		System.out.println("result.length()"+result.length());
-		System.out.println("bodyStart"+bodyStart);
-		System.out.println("bodyEnd"+bodyEnd);
 		result = result.substring(bodyStart,bodyEnd);
 		return result;
 	}
