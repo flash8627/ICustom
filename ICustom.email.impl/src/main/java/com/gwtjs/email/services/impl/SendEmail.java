@@ -1,15 +1,15 @@
-package timerEmail;
+package com.gwtjs.email.services.impl;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.MultiPartEmail;
-import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.SimpleEmail;
-import org.apache.commons.net.MalformedServerReplyException;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.util.*;
+import com.gwtjs.email.dao.EmailDao;
+import com.gwtjs.email.vo.Email;
 
 public class SendEmail {
 

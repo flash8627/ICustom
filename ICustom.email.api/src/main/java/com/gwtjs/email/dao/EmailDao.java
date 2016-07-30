@@ -1,4 +1,4 @@
-package timerEmail;
+package com.gwtjs.email.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.gwtjs.email.vo.Email;
 
 public class EmailDao {
 	static {

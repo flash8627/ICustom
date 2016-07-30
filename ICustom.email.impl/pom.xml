@@ -1,25 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
+	<parent>
 		<groupId>com.gwtjs.ICustom</groupId>
 		<artifactId>com.gwtjs.ICustom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-  
-  <artifactId>ICustom.email.impl</artifactId>
-  <packaging>jar</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<artifactId>ICustom.email.impl</artifactId>
+	<packaging>jar</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>com.gwtjs.ICustom</groupId>
-		<artifactId>ICustom.email.api</artifactId>
-     <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+	
+		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.3.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.email.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+	</dependencies>
+	
 </project>

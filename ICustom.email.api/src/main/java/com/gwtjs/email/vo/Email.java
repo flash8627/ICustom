@@ -1,4 +1,4 @@
-package timerEmail;
+package com.gwtjs.email.vo;
 
 import java.util.Date;
 

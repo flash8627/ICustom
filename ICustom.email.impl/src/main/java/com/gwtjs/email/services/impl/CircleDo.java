@@ -1,4 +1,4 @@
-package timerEmail;
+package com.gwtjs.email.services.impl;
 
 import java.util.TimerTask;
 
