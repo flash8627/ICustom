@@ -36,6 +36,9 @@ public interface NavigationService {
 	@GET @Path("findNavigation/{itemId}")
     NavigationVO selectByPrimaryKey(@PathParam("itemId")Integer itemId);
 	
+	@GET @Path("findNavItemId")
+	Integer selectByItemId();
+	
 	@POST @Path("batchInsert")
 	ResultWrapper batchInsert(List<NavigationVO> list);
 	

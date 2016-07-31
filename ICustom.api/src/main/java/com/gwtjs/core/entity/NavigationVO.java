@@ -32,6 +32,8 @@ public class NavigationVO extends BaseResource {
 	private String icon;
 	// 叶子节点否?
 	private boolean leaf;
+	// 资源类型
+	private int resourceType;
 	// 栏目地址
 	private String url;
 
@@ -105,6 +107,14 @@ public class NavigationVO extends BaseResource {
 
 	public void setChildrenCount(int childrenCount) {
 		this.childrenCount = childrenCount;
+	}
+
+	public int getResourceType() {
+		return resourceType;
+	}
+
+	public void setResourceType(int resourceType) {
+		this.resourceType = resourceType;
 	}
 
 }

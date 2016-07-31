@@ -64,7 +64,6 @@ create table SYS_NAVIGATION_T
   icon             VARCHAR2(30),
   url              VARCHAR2(200),
   order_code       NUMBER(20),
-  resource_type    NUMBER(1),
   created_user     NUMBER(30),
   created_date     DATE,
   update_last_user NUMBER(30),

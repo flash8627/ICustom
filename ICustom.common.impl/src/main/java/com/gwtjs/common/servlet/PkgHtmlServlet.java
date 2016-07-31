@@ -1,4 +1,4 @@
-package com.gwtjs.core.servlet;
+package com.gwtjs.common.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.gwtjs.core.servlet.HtmlInputStreamUtils;
 
 /**
  * Servlet implementation class PkgHtmlServlet

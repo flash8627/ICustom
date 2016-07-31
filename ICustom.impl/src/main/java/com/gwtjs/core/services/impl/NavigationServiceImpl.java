@@ -17,10 +17,16 @@ import com.gwtjs.core.services.NavigationService;
 
 @Named("navigationService")
 public class NavigationServiceImpl implements NavigationService {
-	
+
 	private static final Logger log = LoggerFactory
-		      .getLogger(NavigationServiceImpl.class);
-	
+			.getLogger(NavigationServiceImpl.class);
+
+	@Override
+	public Integer selectByItemId() {
+		// TODO Auto-generated method stub
+		return navigationDAO.selectByItemId();
+	}
+
 	/**
 	 * 站点菜单
 	 */
@@ -29,51 +35,55 @@ public class NavigationServiceImpl implements NavigationService {
 		NavigationVO nav = navigationDAO.findNavigationTreeRoot();
 		List<NavigationVO> menus = this.findNavigationTree(nav.getItemId());
 		for (NavigationVO menu : menus) {
-			List<NavigationVO>child = this.findNavigationTree(menu.getItemId());
-			if(child.size()>0){
+			List<NavigationVO> child = this
+					.findNavigationTree(menu.getItemId());
+			if (child.size() > 0) {
 				menu.setChildren(child);
 			}
 		}
 		return menus;
 	}
-	
+
 	@Inject
 	private NavigationDAO navigationDAO;
-	
+
 	@Override
 	public List<NavigationVO> findNavigationTree(Integer parentId) {
 		List<NavigationVO> list = this.findNavigationChildren(parentId);
 		for (NavigationVO record : list) {
-			if(record.isLeaf()){
-				List<NavigationVO> children = this.findNavigationChildren(record.getItemId());
+			if (record.isLeaf()) {
+				List<NavigationVO> children = this
+						.findNavigationChildren(record.getItemId());
 				record.setChildren(children);
 			}
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<NavigationVO> findNavigationTree() {
 		NavigationVO record = navigationDAO.findNavigationTreeRoot();
 		List<NavigationVO> list = new ArrayList<NavigationVO>();
-		
-		if(record!=null && record.isLeaf()){
-			List<NavigationVO> children = this.findNavigationChildren(record.getItemId());
+
+		if (record != null && record.isLeaf()) {
+			List<NavigationVO> children = this.findNavigationChildren(record
+					.getItemId());
 			record.setChildren(children);
 		}
 		list.add(record);
 		log.debug("", list);
 		return list;
 	}
-	
+
 	@Override
 	public List<NavigationVO> findNavigationList() {
 		NavigationVO record = new NavigationVO();
 		return this.findNavigationList(record);
 	}
-	
+
 	/**
 	 * 重载封装
+	 * 
 	 * @param parentId
 	 * @return
 	 */
@@ -87,7 +97,7 @@ public class NavigationServiceImpl implements NavigationService {
 	public List<NavigationVO> findNavigationList(NavigationVO record) {
 		return navigationDAO.findNavigationList(record);
 	}
-	
+
 	@Override
 	public NavigationVO selectByPrimaryKey(Integer itemId) {
 		return navigationDAO.selectByPrimaryKey(itemId);
@@ -96,7 +106,7 @@ public class NavigationServiceImpl implements NavigationService {
 	@Override
 	public ResultWrapper batchInsert(List<NavigationVO> list) {
 		int msg = navigationDAO.batchInsert(list);
-		return ResultWrapper.successResult(msg,list);
+		return ResultWrapper.successResult(msg, list);
 	}
 
 	@Override
@@ -113,8 +123,8 @@ public class NavigationServiceImpl implements NavigationService {
 
 	@Override
 	public ResultWrapper insert(NavigationVO record) {
-		Integer itemId = navigationDAO.selectByItemId();
-		record.setItemId(itemId);
+		//Integer itemId = navigationDAO.selectByItemId();
+		//record.setItemId(itemId);
 		record.setCreatedUser(new Long("10001"));
 		record.setCreatedDate(new Date());
 		int msg = navigationDAO.insert(record);
@@ -138,7 +148,5 @@ public class NavigationServiceImpl implements NavigationService {
 		int msg = navigationDAO.updateByPrimaryKey(record);
 		return ResultWrapper.successResult(msg, record);
 	}
-	
-	
-    
+
 }

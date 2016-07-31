@@ -53,7 +53,7 @@ var menuCallback = function(response){
 			menuHtml += '<li>';
 			var rows = response[i];
 			menuHtml += anode(rows);
-			if('SHOW'==rows.itemName){
+			if('SHOP'==rows.itemName){
 				menuHtml += newRed;
 			}
 			if('BLOG'==rows.itemName){
@@ -84,8 +84,8 @@ var menuCallback = function(response){
 			menuHtml += '</li>';
 		}
 	}
-	//$('#navbar-nav').html(menuHtml);
+	$('#navbar-nav').html(menuHtml);
 
-	console.warn('menuHtml',menuHtml);
+	//console.warn('menuHtml',menuHtml);
 }
 

@@ -1,6 +1,11 @@
 var NavigationService = function() {
     var BASE = '../services/sysRestMGR';
     return {
+    	getItemId: function(callback) {
+            AjaxUtil.sendGetRequest(BASE + '/findNavItemId', function(result) {
+                callback(result);
+            });
+        },
         findChildren: function(callback,itemId) {
             AjaxUtil.sendGetRequest(BASE + '/findNavigationList/'+itemId, function(navigationList) {
                 NavigationView.renderNavigationTable(navigationList);
@@ -13,9 +18,10 @@ var NavigationService = function() {
                 NavigationView.renderNavigationModal(title, navigation);
             });
         },
-        createNavigation: function(navigation) {
+        createNavigation: function(navigation,callback) {
             AjaxUtil.sendPostData(BASE + '/insert', navigation, function(navigation) {
-                return navigation;//NavigationView.insertNavigationRow(navigation.obj);
+                //return navigation;//NavigationView.insertNavigationRow(navigation.obj);
+            	//callback(navigation.obj);
             });
         },
         batchInsertNavigation: function(items) {

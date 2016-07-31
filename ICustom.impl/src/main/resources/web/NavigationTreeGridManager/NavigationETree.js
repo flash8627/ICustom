@@ -1,5 +1,5 @@
 var BASE = '../services/sysRestMGR';
-var tDate = '1450464709000';
+
 var tname = 'zh_cn=System User,zh_en=System User';
 
 $(function() {
@@ -56,6 +56,8 @@ var viewGrid = function(itemId) {
 		}, {
 			title : '图标',field : 'icon',	width : 120,editor : 'text'
 		}, {
+			title : '资源类型',field : 'resourceType',	width : 120,editor : 'text',formatter : resourceTypeFormatter
+		}, {
 			title : '排序码',field : 'orderCode',width : 80,editor : 'numberbox'
 		}, {
 			title : '创建用户',field : 'createdUser',width : 120,align : 'right',formatter : createNameFormatter
@@ -74,24 +76,33 @@ updateNameFormatter = function(value, rowData) {
 	if (!value) {
 		return "";
 	}
-	
 	if (!rowData.lastNameCn) {
 		return value;
 	}
-	
 	return rowData.lastNameCn;
 }
 
+resourceTypeFormatter = function(value, rowData) {
+	if (!value) {
+		return "页面";
+	}
+	if (value==0 || value ==1) {
+		return "页面";
+	}else if (value==2){
+		return "按钮";
+	}else if (value==3){
+		return "其它";
+	}
+	return "";
+}
 
 createNameFormatter = function(value, rowData) {
 	if (!value) {
 		return "";
 	}
-	
 	if (!rowData.nameCn) {
 		return value;
 	}
-	
 	return rowData.nameCn;
 }
 
@@ -135,8 +146,10 @@ function expandNode(){
 }
 
 var editingId;
+var createFlag = false;
 
 function onEditItem() {
+	createFlag = false;
 	if (editingId != undefined) {
 		$('#tg').treegrid('select', editingId);
 		return;
@@ -153,28 +166,7 @@ function onAddItem() {
 	if (node == null) {
 		jQuery.messager.alert('提示:', '请选择上一级条目!', 'info');
 	} else {
-		var index = 0;
-		var data = [{
-			itemId : index,
-			itemName : '',
-			url : '',
-			orderCode : parseInt(Math.random() * 100),
-			createdUser : '10001',
-			createdDate : getFormatDateByLong(null, "yyyy-MM-dd"),
-			updateLastUser : '10001',
-			updateLastDate : getFormatDateByLong(null, "yyyy-MM-dd")
-		}];
-		/*
-		 * var obj = data[0]; var nav = { itemId : obj.itemId, itemName :
-		 * obj.itemName, parentId : obj._parentId, url : obj.url, orderCode :
-		 * obj.orderCode };
-		 */
-		$('#tg').treegrid('append', {
-			parent : node.itemId,
-			data : data
-		});
-		editingId = index;
-		$('#tg').treegrid('beginEdit', index);
+		NavigationService.getItemId(addSequence);
 		// NavigationService.createNavigation(nav);
 
 		/*
@@ -184,12 +176,41 @@ function onAddItem() {
 	}
 }
 
+function addSequence(sequence){
+	createFlag = true;
+	var node = $('#tg').treegrid('getSelected');
+	var index = sequence;
+	var data = [{
+		itemId : index,
+		itemName : '',
+		url : '',resourceType : 0,
+		orderCode : parseInt(Math.random() * 100),
+		createdUser : '10001',
+		createdDate : getFormatDateByLong(null, "yyyy-MM-dd"),
+		updateLastUser : '10001',
+		updateLastDate : getFormatDateByLong(null, "yyyy-MM-dd")
+	}];
+	
+	$('#tg').treegrid('append', {
+		parent : node.itemId,
+		data : data
+	});
+	editingId = index;
+	$('#tg').treegrid('beginEdit', index);
+}
+
 function onRemoveItem() {
 	var node = $('#tg').treegrid('getSelected');
-	if (node) {
-		$('#tg').treegrid('remove', node.itemId);
-		NavigationService.deleteNavigationById(node.itemId);
+	if (!node) {
+		//$(this).tooltip('show');
+		jQuery.messager.alert('提示:', '请选择资源再进行删除操作!', 'info');
+	}else{
+		$.messager.confirm("提示信息", "确定要删除资源吗？", function(r){
+			$('#tg').treegrid('remove', node.itemId);
+			NavigationService.deleteNavigationById(node.itemId);
+		});
 	}
+	
 }
 
 function onSaveItem() {
@@ -198,36 +219,23 @@ function onSaveItem() {
 		var row = t.treegrid('find', editingId);
 		//console.warn('更新数据', row);
 		t.treegrid('endEdit', editingId);
-		editingId = undefined;
-		var names = 0;
-		var rows = t.treegrid('getChildren');
-		for (var i = 0; i < rows.length; i++) {
-			var p = parseInt(rows[i].itemName);
-			if (!isNaN(p)) {
-				names += p;
-			}
-		}
-		var footerRows = t.treegrid('getFooterRows');
-		var frow = {};
-		if (footerRows != undefined) {
-			frow = footerRows[0];
-		}
-
-		frow.itemName = names;
-		t.treegrid('reloadFooter');
+		
 		var nav = {
 			itemId : row.itemId,
 			itemName : row.itemName,
 			parentId : row._parentId,
 			url : row.url,
+			resourceType : row.resourceType,
 			icon : row.icon,
 			orderCode : row.orderCode
 		};
-		if (row.itemId == 0) {
+		
+		if (createFlag) {
 			NavigationService.createNavigation(nav);
 		} else {
 			NavigationService.updateNavigation(nav);
 		}
+		editingId = undefined;
 
 		$(".formbtn").addClass("l-btn-disabled");
 		$(".actionbtn").removeClass("l-btn-disabled");

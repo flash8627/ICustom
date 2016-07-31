@@ -1,4 +1,4 @@
-package com.gwtjs.core.servlet;
+package com.gwtjs.common.servlet;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

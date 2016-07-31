@@ -10,9 +10,9 @@
 </head>
 <body>
 <link rel="stylesheet" type="text/css" href="../resources/jquery/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/icon.css">
-	<script src="../resources/jquery/jquery.min.js"></script>
-	<script src="../resources/jquery/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/icon.css">
+
+<script src="../resources/jquery/jquery.easyui.min.js"></script>
 <script src="../resources/utils/formatDate.js"></script>
 	
 	<style type="text/css">
@@ -39,5 +39,14 @@
 	<div style="margin:8px;">
 	<a href="#" class="easyui-linkbutton formbtn" iconCls="icon-save" onclick="onSaveItem()">保存</a>
 	<a href="#" class="easyui-linkbutton formbtn" iconCls="icon-cancel" onclick="onEditCancel()">撤销</a>
+	</div>
+	
+	<div>
+		<ul>
+			<li>bug</li>
+			<li>1.添加子节点时，父节点应该展开；</li>
+			<li>2.添加子节点时，未把数据库ID返回到回写到视图;</li>
+			<li>3.批量删除;</li>
+		</ul>
 	</div>
 	
