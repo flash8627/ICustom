@@ -38,18 +38,6 @@
 			<artifactId>ICustom.common.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
@@ -60,6 +48,18 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.core.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
@@ -96,6 +96,30 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.email.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.register.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.register.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.iexcel.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.iexcel.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -144,6 +168,18 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.bbs.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.friendly.link.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.friendly.link.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		

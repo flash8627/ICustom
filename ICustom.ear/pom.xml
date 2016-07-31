@@ -44,18 +44,6 @@
 			<artifactId>ICustom.common.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
@@ -66,6 +54,18 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.core.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
@@ -107,6 +107,18 @@
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.register.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.register.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.iexcel.api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
@@ -143,6 +155,18 @@
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.data.dictionary.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.data.dictionary.impl</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.bbs.api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
@@ -155,13 +179,13 @@
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.data.dictionary.api</artifactId>
+			<artifactId>ICustom.friendly.link.api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.data.dictionary.impl</artifactId>
+			<artifactId>ICustom.friendly.link.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		
@@ -199,22 +223,22 @@
 					
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.angularjs</artifactId>x
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.fckeditor</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.common.api</artifactId>
 						</jarModule>
 
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.common.impl</artifactId>
-						</jarModule>
-
-						<jarModule>
-							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.api</artifactId>
-						</jarModule>
-
-						<jarModule>
-							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.impl</artifactId>
 						</jarModule>
 						
 						<jarModule>
@@ -225,6 +249,16 @@
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.core.impl</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.impl</artifactId>
 						</jarModule>
 
 						<jarModule>
@@ -259,6 +293,26 @@
 						
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.register.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.register.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.iexcel.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.iexcel.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.international.api</artifactId>
 						</jarModule>
 
@@ -281,7 +335,12 @@
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.data.dictionary.api</artifactId>
 						</jarModule>
-		
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.data.dictionary.impl</artifactId>
+						</jarModule>
+						
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.bbs.api</artifactId>
@@ -291,20 +350,25 @@
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.bbs.impl</artifactId>
 						</jarModule>
-
+						
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.angularjs</artifactId>
+							<artifactId>ICustom.friendly.link.api</artifactId>
 						</jarModule>
 
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.fckeditor</artifactId>
+							<artifactId>ICustom.friendly.link.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.workflow.api</artifactId>
 						</jarModule>
 
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.data.dictionary.impl</artifactId>
+							<artifactId>ICustom.workflow.impl</artifactId>
 						</jarModule>
 						
 						<webModule>

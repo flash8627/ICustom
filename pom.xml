@@ -183,10 +183,14 @@
 		<module>ICustom.attachments.impl</module>
 		<module>ICustom.email.api</module>
 		<module>ICustom.email.impl</module>
+		<module>ICustom.register.api</module>
+		<module>ICustom.register.impl</module>
 		<module>ICustom.iexcel.api</module>
 		<module>ICustom.iexcel.impl</module>
 		<module>ICustom.data.dictionary.api</module>
 		<module>ICustom.data.dictionary.impl</module>
+		<module>ICustom.friendly.link.api</module>
+		<module>ICustom.friendly.link.impl</module>
 		<module>ICustom.bbs.api</module>
 		<module>ICustom.bbs.impl</module>
 		<module>ICustom.workflow.api</module>
