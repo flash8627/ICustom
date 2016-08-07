@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="ICustom.common.api.java"/>
-	<classpathentry kind="src" path="ICustom.api.java"/>
-	<classpathentry kind="src" path="ICustom.core.imp.resources"/>
-	<classpathentry kind="src" path="ICustom.core.imp.java"/>
-	<classpathentry kind="src" path="ICustom.core.api.java"/>
+	<classpathentry kind="src" path="lookup.impl.resources"/>
+	<classpathentry kind="src" path="lookup.impl"/>
+	<classpathentry kind="src" path="lookup.api"/>
+	<classpathentry kind="src" path="register.api"/>
+	<classpathentry kind="src" path="register.impl"/>
+	<classpathentry kind="src" path="register.impl.resources"/>
+	<classpathentry kind="src" path="international.api"/>
+	<classpathentry kind="src" path="international.impl"/>
+	<classpathentry kind="src" path="international.impl.resources"/>
+	<classpathentry kind="src" path="common.api"/>
+	<classpathentry kind="src" path="common.impl"/>
+	<classpathentry kind="src" path="common.impl.resources"/>
+	<classpathentry kind="src" path="core.api"/>
+	<classpathentry kind="src" path="core.impl"/>
+	<classpathentry kind="src" path="core.impl.resources"/>
+	<classpathentry kind="src" path="ICustom.api"/>
+	<classpathentry kind="src" path="ICustom.impl"/>
 	<classpathentry kind="src" path="ICustom.impl.resources"/>
-	<classpathentry kind="src" path="ICustom.impl.java"/>
-	<classpathentry kind="src" path="ICustom.common.impl.resources"/>
-	<classpathentry kind="src" path="ICustom.common.impl.java"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">

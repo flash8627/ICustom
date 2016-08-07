@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.international.dao.InternationalDAO">
+
+	<insert id="insert" parameterType="com.gwtjs.international.entity.LanguageVO">
+		insert into SYS_NAVIGATION_T
+		(ITEM_ID, ITEM_NAME, PARENT_ID,
+		ICON, URL, ORDER_CODE,
+		CREATED_USER,
+		CREATED_DATE, UPDATE_LAST_USER,
+		UPDATE_LAST_DATE, VALID_FLAG,
+		RESOURCE_TYPE
+		)
+		values (#{itemId,jdbcType=DECIMAL},
+		#{itemName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=DECIMAL},
+		#{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+		#{orderCode,jdbcType=DECIMAL},
+		#{createdUser,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=DATE},
+		#{updateLastUser,jdbcType=DECIMAL},
+		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL},
+		#{resourceType,jdbcType=DECIMAL}
+		)
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.gwtjs.international.entity.LanguageVO">
+		insert into SYS_NAVIGATION_T
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="itemId != null">
+				ITEM_ID,
+			</if>
+			<if test="itemName != null">
+				ITEM_NAME,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="icon != null">
+				ICON,
+			</if>
+			<if test="url != null">
+				URL,
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE,
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER,
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE,
+			</if>
+			<if test="validFlag != null">
+				VALID_FLAG,
+			</if>
+			<if test="resourceType != null">
+				RESOURCE_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="itemId != null">
+				#{itemId,jdbcType=DECIMAL},
+			</if>
+			<if test="itemName != null">
+				#{itemName,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=DECIMAL},
+			</if>
+			<if test="createdUser != null">
+				#{createdUser,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				#{updateLastUser,jdbcType=DECIMAL},
+			</if>
+			<if test="updateLastDate != null">
+				#{updateLastDate,jdbcType=DATE},
+			</if>
+			<if test="validFlag != null">
+				#{validFlag,jdbcType=DECIMAL},
+			</if>
+			<if test="resourceType != null">
+				#{resourceType,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+</mapper>

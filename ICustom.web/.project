@@ -41,42 +41,12 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>ICustom.api.java</name>
+			<name>ICustom.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.api/src/main/java</location>
 		</link>
 		<link>
-			<name>ICustom.common.api.java</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.api/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.common.impl.java</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.common.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>ICustom.core.api.java</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.api/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.core.imp.java</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.core.imp.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>ICustom.impl.java</name>
+			<name>ICustom.impl</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.impl/src/main/java</location>
 		</link>
@@ -84,6 +54,81 @@
 			<name>ICustom.impl.resources</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.impl/src/main/resources</location>
+		</link>
+		<link>
+			<name>common.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.common.api/src/main/java</location>
+		</link>
+		<link>
+			<name>common.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>common.impl.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/resources</location>
+		</link>
+		<link>
+			<name>core.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.core.api/src/main/java</location>
+		</link>
+		<link>
+			<name>core.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>core.impl.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/resources</location>
+		</link>
+		<link>
+			<name>international.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.international.api/src/main/java</location>
+		</link>
+		<link>
+			<name>international.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.international.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>international.impl.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.international.impl/src/main/resources</location>
+		</link>
+		<link>
+			<name>lookup.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.api/src/main/java</location>
+		</link>
+		<link>
+			<name>lookup.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>lookup.impl.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.impl/src/main/resources</location>
+		</link>
+		<link>
+			<name>register.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.register.api/src/main/java</location>
+		</link>
+		<link>
+			<name>register.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.register.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>register.impl.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.register.impl/src/main/resources</location>
 		</link>
 	</linkedResources>
 </projectDescription>

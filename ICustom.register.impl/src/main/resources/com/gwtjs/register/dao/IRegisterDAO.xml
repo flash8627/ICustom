@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.register.dao.IRegisterDAO">
+
+	<sql id="Base_Column_List">
+		REG_ID, REG_NAME, REG_CODE, REG_DESC, PARENT_ID,
+		ORDER_CODE, CREATED_USER,
+		CREATED_DATE,
+		UPDATE_LAST_USER,
+		UPDATE_LAST_DATE, VALID_FLAG
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
+		resultType="com.gwtjs.register.entity.RegisterVO">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_REGISTER_T
+		where REG_ID = #{regId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		SYS_REGISTER_T
+		where REG_ID = #{regId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="com.gwtjs.register.entity.RegisterVO">
+		insert into SYS_REGISTER_T
+		(REG_ID, REG_NAME, REG_CODE,
+		REG_DESC, PARENT_ID, ORDER_CODE,
+		CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+		UPDATE_LAST_DATE,
+		VALID_FLAG)
+		values (#{regId,jdbcType=DECIMAL},
+		#{regName,jdbcType=VARCHAR},
+		#{regCode,jdbcType=VARCHAR},
+		#{regDesc,jdbcType=VARCHAR}, #{parentId,jdbcType=DECIMAL},
+		#{orderCode,jdbcType=DECIMAL},
+		#{createdUser,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=DATE},
+		#{updateLastUser,jdbcType=DECIMAL},
+		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.gwtjs.register.entity.RegisterVO">
+		insert into SYS_REGISTER_T
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="regId != null">
+				REG_ID,
+			</if>
+			<if test="regName != null">
+				REG_NAME,
+			</if>
+			<if test="regCode != null">
+				REG_CODE,
+			</if>
+			<if test="regDesc != null">
+				REG_DESC,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE,
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER,
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE,
+			</if>
+			<if test="validFlag != null">
+				VALID_FLAG,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="regId != null">
+				#{regId,jdbcType=DECIMAL},
+			</if>
+			<if test="regName != null">
+				#{regName,jdbcType=VARCHAR},
+			</if>
+			<if test="regCode != null">
+				#{regCode,jdbcType=VARCHAR},
+			</if>
+			<if test="regDesc != null">
+				#{regDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=DECIMAL},
+			</if>
+			<if test="createdUser != null">
+				#{createdUser,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				#{updateLastUser,jdbcType=DECIMAL},
+			</if>
+			<if test="updateLastDate != null">
+				#{updateLastDate,jdbcType=DATE},
+			</if>
+			<if test="validFlag != null">
+				#{validFlag,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.register.entity.RegisterVO">
+		update SYS_REGISTER_T
+		<set>
+			<if test="regName != null">
+				REG_NAME = #{regName,jdbcType=VARCHAR},
+			</if>
+			<if test="regCode != null">
+				REG_CODE = #{regCode,jdbcType=VARCHAR},
+			</if>
+			<if test="regDesc != null">
+				REG_DESC = #{regDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=DECIMAL},
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+			</if>
+			<if test="validFlag != null">
+				VALID_FLAG = #{validFlag,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where REG_ID = #{regId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gwtjs.register.entity.RegisterVO">
+		update
+		SYS_REGISTER_T
+		set REG_NAME = #{regName,jdbcType=VARCHAR},
+		REG_CODE =
+		#{regCode,jdbcType=VARCHAR},
+		REG_DESC = #{regDesc,jdbcType=VARCHAR},
+		PARENT_ID = #{parentId,jdbcType=DECIMAL},
+		ORDER_CODE =
+		#{orderCode,jdbcType=DECIMAL},
+		CREATED_USER =
+		#{createdUser,jdbcType=DECIMAL},
+		CREATED_DATE =
+		#{createdDate,jdbcType=DATE},
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=DECIMAL},
+		UPDATE_LAST_DATE =
+		#{updateLastDate,jdbcType=DATE},
+		VALID_FLAG =
+		#{validFlag,jdbcType=DECIMAL}
+		where REG_ID = #{regId,jdbcType=DECIMAL}
+	</update>
+</mapper>

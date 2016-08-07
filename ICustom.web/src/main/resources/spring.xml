@@ -15,7 +15,7 @@
 	</bean>
 	
     <!-- 注解探测器 -->
-	<context:component-scan base-package="com.gwtjs.core" />
+	<context:component-scan base-package="com.gwtjs.*.services.impl" />
 	
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -39,11 +39,9 @@
 				<!-- DAO -->
 				<value>classpath:com/gwtjs/**/dao/**/*DAO.xml</value>
 				<value>classpath:com/gwtjs/**/dao/*DAO.xml</value>
-				<value>classpath:com/gwtjs/**/dao/**/*DAO.xml</value>
 				<!-- dao -->
 				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
 				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
-				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -71,7 +69,7 @@
 
 	<!-- 通过扫描的模式，扫描目录在com/gwtjs/mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.gwtjs.**.dao" />
+		<property name="basePackage" value="com.gwtjs.*.dao" />
 		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
 	</bean>
 

@@ -6,7 +6,8 @@ import javax.inject.Inject;
 
 import org.apache.shiro.authc.Account;
 
-import com.gwtjs.dao.SpringTestBase;
+import com.gwtjs.common.test.SpringTestBase;
+
 
 /**
  * <b>function:</b> AccountMapper JUnit测试类

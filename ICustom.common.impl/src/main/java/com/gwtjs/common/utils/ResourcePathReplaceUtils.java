@@ -54,7 +54,7 @@ public class ResourcePathReplaceUtils {
 		result = getResourcePath(url);
 		System.out.println(result);
 		
-		url = "/services/sysRestMGR?_wadl";
+		url = "/services/nav?_wadl";
 		result = getResourcePath(url);
 		System.out.println(result);
 		

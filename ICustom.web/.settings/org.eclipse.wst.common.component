@@ -4,15 +4,24 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.impl.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl.resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl.java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.impl.java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.imp.resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.imp.java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.core.api.java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.api.java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.common.api.java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/register.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/register.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/register.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.impl.resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.impl"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.api"/>
         <property name="java-output-path" value="/ICustom/target/classes"/>
         <property name="context-root" value="ICustom.web"/>
     </wb-module>

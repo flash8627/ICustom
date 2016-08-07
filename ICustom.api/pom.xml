@@ -7,9 +7,24 @@
 		<artifactId>com.gwtjs.ICustom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	
-	<groupId>com.gwtjs.ICustom</groupId>
+
 	<artifactId>ICustom.api</artifactId>
 	<packaging>jar</packaging>
-	
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.common.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.core.api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+	</dependencies>
+
 </project>

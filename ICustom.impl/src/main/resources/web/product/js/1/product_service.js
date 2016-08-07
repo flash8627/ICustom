@@ -1,5 +1,5 @@
 var ProductService = function() {
-    var BASE = '../services/rest/productMgs';
+    var BASE = '../services/product/productMgs';
     return {
         retrieveAllProducts: function(callback) {
             $.ajax({

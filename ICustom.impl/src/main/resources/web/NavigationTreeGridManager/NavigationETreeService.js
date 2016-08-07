@@ -1,5 +1,5 @@
 var NavigationService = function() {
-    var BASE = '../services/sysRestMGR';
+    var BASE = '../services/nav';
     return {
     	getItemId: function(callback) {
             AjaxUtil.sendGetRequest(BASE + '/findNavItemId', function(result) {

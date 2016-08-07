@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
+<mapper namespace="com.gwtjs.icustom.dao.SysUserDAO">
+
+	<resultMap id="BaseResultMap" type="com.gwtjs.icustom.entity.SysUserVO">
+		<id column="USER_ID" jdbcType="NUMERIC" property="userId" />
+		<result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="USER_DESC" jdbcType="VARCHAR" property="userDesc" />
+		<result column="VALIDITY_START_DATE" jdbcType="DATE"
+			property="validityStartDate" />
+		<result column="VALIDITY_END_DATE" jdbcType="DATE" property="validityEndDate" />
+		<result column="CREATED_USER" jdbcType="NUMERIC" property="createdUser" />
+		<result column="CREATED_DATE" jdbcType="DATE" property="createdDate" />
+		<result column="UPDATE_LAST_USER" jdbcType="NUMERIC" property="updateLastUser" />
+		<result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, USER_ACCOUNT, USER_NAME, USER_PASSWORD, USER_DESC,
+		VALIDITY_START_DATE,
+		VALIDITY_END_DATE, CREATED_USER, CREATED_DATE,
+		UPDATE_LAST_USER, UPDATE_LAST_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_USERS_T
+		where USER_ID = #{userId,jdbcType=NUMERIC}
+	</select>
+	<delete id="deleteByPrimaryKey">
+		delete from SYS_USERS_T
+		where
+		USER_ID =
+		#{userId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		insert into SYS_USERS_T
+		(USER_ID, USER_ACCOUNT, USER_NAME,
+		USER_PASSWORD, USER_DESC,
+		VALIDITY_START_DATE,
+		VALIDITY_END_DATE, CREATED_USER, CREATED_DATE,
+		UPDATE_LAST_USER, UPDATE_LAST_DATE)
+		values (#{userId,jdbcType=NUMERIC},
+		#{userAccount,jdbcType=VARCHAR},
+		#{userName,jdbcType=VARCHAR},
+		#{userPassword,jdbcType=VARCHAR}, #{userDesc,jdbcType=VARCHAR},
+		#{validityStartDate,jdbcType=DATE},
+		#{validityEndDate,jdbcType=DATE},
+		#{createdUser,jdbcType=NUMERIC},
+		#{createdDate,jdbcType=DATE},
+		#{updateLastUser,jdbcType=NUMERIC}, #{updateLastDate,jdbcType=DATE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		insert into SYS_USERS_T
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userAccount != null">
+				USER_ACCOUNT,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD,
+			</if>
+			<if test="userDesc != null">
+				USER_DESC,
+			</if>
+			<if test="validityStartDate != null">
+				VALIDITY_START_DATE,
+			</if>
+			<if test="validityEndDate != null">
+				VALIDITY_END_DATE,
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER,
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="userAccount != null">
+				#{userAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userDesc != null">
+				#{userDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="validityStartDate != null">
+				#{validityStartDate,jdbcType=DATE},
+			</if>
+			<if test="validityEndDate != null">
+				#{validityEndDate,jdbcType=DATE},
+			</if>
+			<if test="createdUser != null">
+				#{createdUser,jdbcType=NUMERIC},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				#{updateLastUser,jdbcType=NUMERIC},
+			</if>
+			<if test="updateLastDate != null">
+				#{updateLastDate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		update SYS_USERS_T
+		<set>
+			<if test="userAccount != null">
+				USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userDesc != null">
+				USER_DESC = #{userDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="validityStartDate != null">
+				VALIDITY_START_DATE = #{validityStartDate,jdbcType=DATE},
+			</if>
+			<if test="validityEndDate != null">
+				VALIDITY_END_DATE = #{validityEndDate,jdbcType=DATE},
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER = #{createdUser,jdbcType=NUMERIC},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMERIC},
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		update SYS_USERS_T
+		set USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+		USER_NAME =
+		#{userName,jdbcType=VARCHAR},
+		USER_PASSWORD =
+		#{userPassword,jdbcType=VARCHAR},
+		USER_DESC =
+		#{userDesc,jdbcType=VARCHAR},
+		VALIDITY_START_DATE =
+		#{validityStartDate,jdbcType=DATE},
+		VALIDITY_END_DATE =
+		#{validityEndDate,jdbcType=DATE},
+		CREATED_USER =
+		#{createdUser,jdbcType=NUMERIC},
+		CREATED_DATE =
+		#{createdDate,jdbcType=DATE},
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=NUMERIC},
+		UPDATE_LAST_DATE =
+		#{updateLastDate,jdbcType=DATE}
+		where USER_ID =
+		#{userId,jdbcType=NUMERIC}
+	</update>
+	<resultMap id="BaseResultMap" type="com.gwtjs.icustom.entity.SysUserVO">
+		<id column="USER_ID" jdbcType="NUMERIC" property="userId" />
+		<result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
+		<result column="USER_NAME" jdbcType="NUMERIC" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="USER_DESC" jdbcType="VARCHAR" property="userDesc" />
+		<result column="VALIDITY_START_DATE" jdbcType="DATE"
+			property="validityStartDate" />
+		<result column="VALIDITY_END_DATE" jdbcType="DATE" property="validityEndDate" />
+		<result column="CREATED_USER" jdbcType="NUMERIC" property="createdUser" />
+		<result column="CREATED_DATE" jdbcType="DATE" property="createdDate" />
+		<result column="UPDATE_LAST_USER" jdbcType="NUMERIC" property="updateLastUser" />
+		<result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, USER_ACCOUNT, USER_NAME, USER_PASSWORD, USER_DESC,
+		VALIDITY_START_DATE,
+		VALIDITY_END_DATE, CREATED_USER, CREATED_DATE,
+		UPDATE_LAST_USER, UPDATE_LAST_DATE
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_USERS_T
+		where USER_ID = #{userId,jdbcType=NUMERIC}
+	</select>
+	<delete id="deleteByPrimaryKey">
+		delete from SYS_USERS_T
+		where
+		USER_ID =
+		#{userId,jdbcType=NUMERIC}
+	</delete>
+	<insert id="insert" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		insert into SYS_USERS_T
+		(
+		USER_ID,
+		USER_ACCOUNT,
+		USER_NAME,
+		USER_PASSWORD,
+		USER_DESC,
+		VALIDITY_START_DATE,
+		VALIDITY_END_DATE,
+		CREATED_USER,
+		CREATED_DATE,
+		UPDATE_LAST_USER,
+		UPDATE_LAST_DATE
+		)
+		values (
+		SYS_USERS_S.NEXTVAL,
+		#{userAccount,jdbcType=VARCHAR},
+		#{userName,jdbcType=NUMERIC},
+		#{userPassword,jdbcType=VARCHAR},
+		#{userDesc,jdbcType=VARCHAR},
+		#{validityStartDate,jdbcType=DATE},
+		#{validityEndDate,jdbcType=DATE},
+		#{createdUser,jdbcType=NUMERIC},
+		SYSDATE,
+		#{updateLastUser,jdbcType=NUMERIC},
+		SYSDATE
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		insert into SYS_USERS_T
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="userAccount != null">
+				USER_ACCOUNT,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD,
+			</if>
+			<if test="userDesc != null">
+				USER_DESC,
+			</if>
+			<if test="validityStartDate != null">
+				VALIDITY_START_DATE,
+			</if>
+			<if test="validityEndDate != null">
+				VALIDITY_END_DATE,
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER,
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=NUMERIC},
+			</if>
+			<if test="userAccount != null">
+				#{userAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=NUMERIC},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userDesc != null">
+				#{userDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="validityStartDate != null">
+				#{validityStartDate,jdbcType=DATE},
+			</if>
+			<if test="validityEndDate != null">
+				#{validityEndDate,jdbcType=DATE},
+			</if>
+			<if test="createdUser != null">
+				#{createdUser,jdbcType=NUMERIC},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				#{updateLastUser,jdbcType=NUMERIC},
+			</if>
+			<if test="updateLastDate != null">
+				#{updateLastDate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		update SYS_USERS_T
+		<set>
+			<if test="userAccount != null">
+				USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=NUMERIC},
+			</if>
+			<if test="userPassword != null">
+				USER_PASSWORD = #{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userDesc != null">
+				USER_DESC = #{userDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="validityStartDate != null">
+				VALIDITY_START_DATE = #{validityStartDate,jdbcType=DATE},
+			</if>
+			<if test="validityEndDate != null">
+				VALIDITY_END_DATE = #{validityEndDate,jdbcType=DATE},
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER = #{createdUser,jdbcType=NUMERIC},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMERIC},
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=NUMERIC}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.SysUserVO">
+		update SYS_USERS_T
+		set USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
+		USER_NAME =
+		#{userName,jdbcType=NUMERIC},
+		USER_PASSWORD =
+		#{userPassword,jdbcType=VARCHAR},
+		USER_DESC =
+		#{userDesc,jdbcType=VARCHAR},
+		VALIDITY_START_DATE =
+		#{validityStartDate,jdbcType=DATE},
+		VALIDITY_END_DATE =
+		#{validityEndDate,jdbcType=DATE},
+		CREATED_USER =
+		#{createdUser,jdbcType=NUMERIC},
+		CREATED_DATE =
+		#{createdDate,jdbcType=DATE},
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=NUMERIC},
+		UPDATE_LAST_DATE =
+		#{updateLastDate,jdbcType=DATE}
+		where USER_ID =
+		#{userId,jdbcType=NUMERIC}
+	</update>
+	<!-- by select -->
+	<!-- mul select -->
+	<!-- select -->
+	<!-- update -->
+	<!-- delete -->
+	<!-- add -->
+</mapper>

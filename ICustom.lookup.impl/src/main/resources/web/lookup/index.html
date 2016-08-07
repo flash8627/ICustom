@@ -1,0 +1,45 @@
+
+<h3>ICustom/Lookup</h3>
+
+<div id="tab-tools">
+	<a href="javascript:void(0)" class="easyui-linkbutton"
+		data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a>
+	<a href="javascript:void(0)" class="easyui-linkbutton"
+		data-options="plain:true,iconCls:'icon-remove'"
+		onclick="removePanel()"></a>
+</div>
+
+<div id="tt" class="easyui-tabs" style="width: 700px; height: 250px">
+	<div title="About" style="padding: 10px">
+		<p style="font-size: 14px">jQuery EasyUI framework helps you build
+			your web pages easily.</p>
+		<ul>
+			<li>easyui is very easy but powerful.</li>
+		</ul>
+	</div>
+	<div title="My Documents" style="padding: 10px">
+		<ul class="easyui-tree"
+			data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+	</div>
+	<div title="Help" data-options="iconCls:'icon-help',closable:true"
+		style="padding: 10px">This is the help content.</div>
+</div>
+
+<script type="text/javascript">
+	var index = 0;
+	function addPanel() {
+		index++;
+		$('#tt').tabs('add', {
+			title : 'Tab' + index,
+			content : '<div style="padding:10px">Content' + index + '</div>',
+			closable : true
+		});
+	}
+	function removePanel() {
+		var tab = $('#tt').tabs('getSelected');
+		if (tab) {
+			var index = $('#tt').tabs('getTabIndex', tab);
+			$('#tt').tabs('close', index);
+		}
+	}
+</script>

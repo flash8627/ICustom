@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
+	
+	
+	
+	<sql id="Base_Column_List">
+		CLASS_ID, CLASS_NAME, ORDER_CODE, CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+		UPDATE_LAST_DATE,
+		VALID_FLAG
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.gwtjs.lookup.entity.LookupVO">
+		select
+		<include refid="Base_Column_List" />
+		from SYS_LOOKUP_CLASSIFY_T
+		where CLASS_ID = #{classId,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from SYS_LOOKUP_CLASSIFY_T
+		where CLASS_ID = #{classId,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.gwtjs.lookup.entity.LookupVO">
+		insert into SYS_LOOKUP_CLASSIFY_T (CLASS_ID, CLASS_NAME, ORDER_CODE,
+		CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+		UPDATE_LAST_DATE, VALID_FLAG)
+		values (#{classId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR},
+		#{orderCode,jdbcType=DECIMAL},
+		#{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE}, #{updateLastUser,jdbcType=DECIMAL},
+		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.gwtjs.lookup.entity.LookupVO">
+		insert into SYS_LOOKUP_CLASSIFY_T
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="classId != null">
+				CLASS_ID,
+			</if>
+			<if test="className != null">
+				CLASS_NAME,
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE,
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER,
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE,
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER,
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE,
+			</if>
+			<if test="validFlag != null">
+				VALID_FLAG,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="classId != null">
+				#{classId,jdbcType=VARCHAR},
+			</if>
+			<if test="className != null">
+				#{className,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=DECIMAL},
+			</if>
+			<if test="createdUser != null">
+				#{createdUser,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				#{updateLastUser,jdbcType=DECIMAL},
+			</if>
+			<if test="updateLastDate != null">
+				#{updateLastDate,jdbcType=DATE},
+			</if>
+			<if test="validFlag != null">
+				#{validFlag,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.lookup.entity.LookupVO">
+		update SYS_LOOKUP_CLASSIFY_T
+		<set>
+			<if test="className != null">
+				CLASS_NAME = #{className,jdbcType=VARCHAR},
+			</if>
+			<if test="orderCode != null">
+				ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+			</if>
+			<if test="createdUser != null">
+				CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+			</if>
+			<if test="createdDate != null">
+				CREATED_DATE = #{createdDate,jdbcType=DATE},
+			</if>
+			<if test="updateLastUser != null">
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+			</if>
+			<if test="updateLastDate != null">
+				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+			</if>
+			<if test="validFlag != null">
+				VALID_FLAG = #{validFlag,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where CLASS_ID = #{classId,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.gwtjs.lookup.entity.LookupVO">
+		update SYS_LOOKUP_CLASSIFY_T
+		set CLASS_NAME = #{className,jdbcType=VARCHAR},
+		ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
+		CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+		CREATED_DATE = #{createdDate,jdbcType=DATE},
+		UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+		UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+		VALID_FLAG = #{validFlag,jdbcType=DECIMAL}
+		where CLASS_ID = #{classId,jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	
+</mapper>
