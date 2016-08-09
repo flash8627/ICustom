@@ -1,3 +1,6 @@
 1.icustom.common属于公用插件性质；如公共资源基础类公共资源等；
-2.icustom.core属于基本的核心的代码核心配置文件模块；
+2.icustom.core属于基本的核心的代码
 3.icustom.属于对外的web功能，管理功能，如系统主页面；
+4.lookup 另类数据字典
+5.international 国际化
+6.register  数据字典,树型结构
