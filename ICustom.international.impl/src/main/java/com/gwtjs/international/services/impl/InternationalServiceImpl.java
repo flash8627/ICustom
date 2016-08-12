@@ -1,6 +1,7 @@
 package com.gwtjs.international.services.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -11,18 +12,19 @@ import com.gwtjs.international.services.IInternationalService;
 
 /**
  * 国际化
+ * 
  * @author aGuang
  *
  */
 @Named("internationalService")
-public class InternationalServiceImpl implements IInternationalService{
-	
+public class InternationalServiceImpl implements IInternationalService {
+
 	@Inject
 	private InternationalDAO internationalDao;
-	
+
 	@Override
 	public int deleteByPrimaryKey(BigDecimal regId) {
-		return 0;//internationalDao.deleteByPrimaryKey(regId);
+		return 0;// internationalDao.deleteByPrimaryKey(regId);
 	}
 
 	@Override
@@ -54,7 +56,35 @@ public class InternationalServiceImpl implements IInternationalService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
-	
+
+	@Override
+	public List<LanguageVO> selectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectListCount(LanguageVO record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchRemovePks(List<LanguageVO> records) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchUpdate(List<LanguageVO> records) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchInsert(List<LanguageVO> records) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

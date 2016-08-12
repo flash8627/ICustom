@@ -1,8 +1,10 @@
 package com.gwtjs.lookup.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -40,5 +42,20 @@ public interface ILookupClassifyService {
 	
 	@POST @Path("updateByPrimaryKey")
     int updateByPrimaryKey(LookupVO record);
+	
+	@GET @Path("selectList")
+	List<LookupVO> selectList();
+
+	@GET @Path("selectListCount")
+	int selectListCount(LookupVO record);
+
+	@DELETE @Path("batchRemovePks")
+	int batchRemovePks(List<LookupVO> records);
+
+	@POST @Path("batchUpdate")
+	int batchUpdate(List<LookupVO> records);
+
+	@POST @Path("batchInsert")
+	int batchInsert(List<LookupVO> records);
     
 }

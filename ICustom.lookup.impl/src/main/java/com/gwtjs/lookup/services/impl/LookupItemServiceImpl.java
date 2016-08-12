@@ -1,6 +1,7 @@
 package com.gwtjs.lookup.services.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,6 +54,36 @@ public class LookupItemServiceImpl implements ILookupItemService {
 
 	@Override
 	public int updateByPrimaryKey(LookupItemVO record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<LookupItemVO> selectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectListCount(LookupItemVO record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchRemovePks(List<LookupItemVO> records) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchUpdate(List<LookupItemVO> records) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int batchInsert(List<LookupItemVO> records) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

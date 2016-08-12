@@ -1,8 +1,10 @@
 package com.gwtjs.register.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -46,5 +48,25 @@ public interface IRegisterService {
 	@POST
 	@Path("updateByPrimaryKey")
 	int updateByPrimaryKey(RegisterVO record);
+
+	@GET
+	@Path("selectList")
+	List<RegisterVO> selectList();
+
+	@GET
+	@Path("selectListCount")
+	int selectListCount(RegisterVO record);
+
+	@DELETE
+	@Path("batchRemovePks")
+	int batchRemovePks(List<RegisterVO> records);
+
+	@POST
+	@Path("batchUpdate")
+	int batchUpdate(List<RegisterVO> records);
+
+	@POST
+	@Path("batchInsert")
+	int batchInsert(List<RegisterVO> records);
 
 }

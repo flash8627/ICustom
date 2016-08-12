@@ -20,4 +20,14 @@ public interface BaseSqlMapper<T> extends SqlMapper {
     public T get(T entity) throws DataAccessException;
 
     public List<T> getList(T entity) throws DataAccessException;
+    
+    List<T> selectList();
+
+	int selectListCount(T record);
+
+	int batchRemovePks(List<T> records);
+
+	int batchUpdate(List<T> records);
+
+	int batchInsert(List<T> records);
 }

@@ -1,8 +1,10 @@
 package com.gwtjs.international.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -39,5 +41,15 @@ public interface IInternationalService {
 	
 	@POST @Path("updateByPrimaryKey")
     int updateByPrimaryKey(LanguageVO record);
-    
+	@GET @Path("selectList")
+	List<LanguageVO> selectList();
+	@GET @Path("selectListCount")
+	int selectListCount(LanguageVO record);
+	@DELETE @Path("batchRemovePks")
+	int batchRemovePks(List<LanguageVO> records);
+	@POST @Path("batchUpdate")
+	int batchUpdate(List<LanguageVO> records);
+	@POST @Path("batchInsert")
+	int batchInsert(List<LanguageVO> records);
+	
 }
