@@ -262,6 +262,7 @@
               (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
          FROM SYS_NAVIGATION_T T1 
 	</sql>
+	
 	<select id="findNavigationList" resultType="com.gwtjs.icustom.entity.NavigationVO">
 		<include refid="nav_base_column" />
 		 WHERE 1 = 1

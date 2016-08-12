@@ -11,63 +11,34 @@ public class LanguageVO extends BaseResource {
 	 */
 	private static final long serialVersionUID = 36316418868787090L;
 
-	private BigDecimal itemId;
+	private long lanId;
 
-	private String itemName;
+	private String lanCode;
 
-	private BigDecimal parentId;
+	private BigDecimal lanType;
 
-	private String icon;
-
-	private String url;
-
-	private Short resourceType;
-
-	public BigDecimal getItemId() {
-		return itemId;
+	public long getLanId() {
+		return lanId;
 	}
 
-	public void setItemId(BigDecimal itemId) {
-		this.itemId = itemId;
+	public void setLanId(long lanId) {
+		this.lanId = lanId;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getLanCode() {
+		return lanCode;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName == null ? null : itemName.trim();
+	public void setLanCode(String lanCode) {
+		this.lanCode = lanCode;
 	}
 
-	public BigDecimal getParentId() {
-		return parentId;
+	public BigDecimal getLanType() {
+		return lanType;
 	}
 
-	public void setParentId(BigDecimal parentId) {
-		this.parentId = parentId;
+	public void setLanType(BigDecimal lanType) {
+		this.lanType = lanType;
 	}
 
-	public String getIcon() {
-		return icon;
-	}
-
-	public void setIcon(String icon) {
-		this.icon = icon == null ? null : icon.trim();
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url == null ? null : url.trim();
-	}
-
-	public Short getResourceType() {
-		return resourceType;
-	}
-
-	public void setResourceType(Short resourceType) {
-		this.resourceType = resourceType;
-	}
 }

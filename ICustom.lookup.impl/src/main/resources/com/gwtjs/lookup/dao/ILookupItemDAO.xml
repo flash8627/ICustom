@@ -3,10 +3,12 @@
 <mapper namespace="com.gwtjs.lookup.dao.ILookupItemDAO">
 
 	<sql id="Base_Column_List">
-		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER, CREATED_DATE,
+		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER,
+		CREATED_DATE,
 		UPDATE_LAST_USER,
 		UPDATE_LAST_DATE, VALID_FLAG
 	</sql>
+
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
 		resultType="com.gwtjs.lookup.entity.LookupItemVO">
 		select
@@ -14,22 +16,29 @@
 		from SYS_LOOKUP_ITEM_T
 		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
 	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from SYS_LOOKUP_ITEM_T
+		delete from
+		SYS_LOOKUP_ITEM_T
 		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
 	</delete>
+
 	<insert id="insert" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		insert into SYS_LOOKUP_ITEM_T (ITEM_ID, ITEM_NAME, CLASS_ID,
+		insert into SYS_LOOKUP_ITEM_T
+		(ITEM_ID, ITEM_NAME, CLASS_ID,
 		ORDER_CODE, CREATED_USER, CREATED_DATE,
 		UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG
 		)
-		values (#{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR},
+		values
+		(#{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR},
 		#{classId,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=DECIMAL}, #{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE},
+		#{orderCode,jdbcType=DECIMAL},
+		#{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE},
 		#{updateLastUser,jdbcType=DECIMAL}, #{updateLastDate,jdbcType=DATE},
 		#{validFlag,jdbcType=DECIMAL}
 		)
 	</insert>
+
 	<insert id="insertSelective" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
 		insert into SYS_LOOKUP_ITEM_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -91,6 +100,7 @@
 			</if>
 		</trim>
 	</insert>
+
 	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
 		update SYS_LOOKUP_ITEM_T
 		<set>
@@ -121,16 +131,132 @@
 		</set>
 		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
 	</update>
+
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		update SYS_LOOKUP_ITEM_T
+		update
+		SYS_LOOKUP_ITEM_T
 		set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
 		CLASS_ID = #{classId,jdbcType=VARCHAR},
-		ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
-		CREATED_USER = #{createdUser,jdbcType=DECIMAL},
-		CREATED_DATE = #{createdDate,jdbcType=DATE},
-		UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
-		UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
-		VALID_FLAG = #{validFlag,jdbcType=DECIMAL}
-		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+		ORDER_CODE =
+		#{orderCode,jdbcType=DECIMAL},
+		CREATED_USER =
+		#{createdUser,jdbcType=DECIMAL},
+		CREATED_DATE =
+		#{createdDate,jdbcType=DATE},
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=DECIMAL},
+		UPDATE_LAST_DATE =
+		#{updateLastDate,jdbcType=DATE},
+		VALID_FLAG =
+		#{validFlag,jdbcType=DECIMAL}
+		where ITEM_ID =
+		#{itemId,jdbcType=VARCHAR}
 	</update>
+
+	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
+		resultType="com.gwtjs.lookup.entity.LookupItemVO">
+		SELECT
+		COUNT(1)
+		FROM SYS_LOOKUP_ITEM_T
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<select id="selectListCount" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
+		resultType="INTEGER">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_ITEM_T T1
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<sql id="select_cond">
+
+		<if test="regCode != null">
+			AND T1.ITEM_ID = #{regId,jdbcType=DECIMAL}
+		</if>
+
+		<if test="parentId != null">
+			AND T1.PARENT_ID = #{parentId,jdbcType=INTEGER}
+		</if>
+
+		<if test="regCode != null">
+			AND T1.REG_CODE = #{regCode,jdbcType=VARCHAR}
+		</if>
+
+		<if test="regCode != null">
+			AND T1.REG_NAME = #{regName,jdbcType=VARCHAR}
+		</if>
+
+		<if test="regDesc != null">
+			AND T1.REG_DESC LIKE '%'+ #{regDesc,jdbcType=VARCHAR} +'%'
+		</if>
+
+	</sql>
+
+	<!-- batch action -->
+
+	<delete id="batchRemovePks" parameterType="java.util.List">
+		DELETE FROM SYS_LOOKUP_ITEM_T WHERE ITEM_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- batchUpdate -->
+	<update id="batchUpdate">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				UPDATE
+				SYS_LOOKUP_ITEM_T
+				set ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
+				CLASS_ID = #{item.classId,jdbcType=VARCHAR},
+				ORDER_CODE =
+				#{item.orderCode,jdbcType=DECIMAL},
+				UPDATE_LAST_USER =
+				#{item.updateLastUser,jdbcType=DECIMAL},
+				UPDATE_LAST_DATE =
+				#{item.updateLastDate,jdbcType=DATE},
+				VALID_FLAG =
+				#{item.validFlag,jdbcType=DECIMAL}
+				where ITEM_ID =
+				#{item.itemId,jdbcType=VARCHAR};
+			</foreach>
+		</if>
+		end;
+	</update>
+
+	<insert id="batchInsert">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				INSERT into SYS_LOOKUP_ITEM_T
+				(
+				ITEM_ID, ITEM_NAME, CLASS_ID,
+				ORDER_CODE, CREATED_USER, CREATED_DATE,
+				UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG
+				)
+				values
+				(
+				#{item.itemId,jdbcType=VARCHAR},
+				#{item.itemName,jdbcType=VARCHAR},
+				#{item.classId,jdbcType=VARCHAR},
+				#{item.orderCode,jdbcType=DECIMAL},
+				#{item.createdUser,jdbcType=DECIMAL},
+				#{item.createdDate,jdbcType=DATE},
+				#{item.updateLastUser,jdbcType=DECIMAL},
+				#{item.updateLastDate,jdbcType=DATE},
+				#{item.validFlag,jdbcType=DECIMAL}
+				);
+			</foreach>
+		</if>
+		end;
+	</insert>
+
+
 </mapper>

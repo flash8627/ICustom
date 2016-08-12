@@ -12,7 +12,7 @@
   <artifactId>ICustom.lookup.test</artifactId>
   <packaging>jar</packaging>
 
-  <name>ICustom.international.api</name>
+  <name>ICustom.lookup.api</name>
   <url>http://maven.apache.org</url>
 
   <properties>

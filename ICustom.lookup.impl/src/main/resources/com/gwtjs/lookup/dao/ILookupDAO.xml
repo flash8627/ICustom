@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
-	
-	
-	
+
 	<sql id="Base_Column_List">
-		CLASS_ID, CLASS_NAME, ORDER_CODE, CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+		CLASS_ID, CLASS_NAME, ORDER_CODE, CREATED_USER,
+		CREATED_DATE, UPDATE_LAST_USER,
 		UPDATE_LAST_DATE,
 		VALID_FLAG
 	</sql>
-	
+
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
 		resultType="com.gwtjs.lookup.entity.LookupVO">
 		select
@@ -17,22 +16,27 @@
 		from SYS_LOOKUP_CLASSIFY_T
 		where CLASS_ID = #{classId,jdbcType=VARCHAR}
 	</select>
-	
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from SYS_LOOKUP_CLASSIFY_T
+		delete from
+		SYS_LOOKUP_CLASSIFY_T
 		where CLASS_ID = #{classId,jdbcType=VARCHAR}
 	</delete>
-	
+
 	<insert id="insert" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		insert into SYS_LOOKUP_CLASSIFY_T (CLASS_ID, CLASS_NAME, ORDER_CODE,
-		CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+		insert into
+		SYS_LOOKUP_CLASSIFY_T (CLASS_ID, CLASS_NAME, ORDER_CODE,
+		CREATED_USER,
+		CREATED_DATE, UPDATE_LAST_USER,
 		UPDATE_LAST_DATE, VALID_FLAG)
-		values (#{classId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR},
+		values
+		(#{classId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR},
 		#{orderCode,jdbcType=DECIMAL},
-		#{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE}, #{updateLastUser,jdbcType=DECIMAL},
+		#{createdUser,jdbcType=DECIMAL},
+		#{createdDate,jdbcType=DATE}, #{updateLastUser,jdbcType=DECIMAL},
 		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL})
 	</insert>
-	
+
 	<insert id="insertSelective" parameterType="com.gwtjs.lookup.entity.LookupVO">
 		insert into SYS_LOOKUP_CLASSIFY_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -115,20 +119,102 @@
 		</set>
 		where CLASS_ID = #{classId,jdbcType=VARCHAR}
 	</update>
-	
+
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		update SYS_LOOKUP_CLASSIFY_T
+		update
+		SYS_LOOKUP_CLASSIFY_T
 		set CLASS_NAME = #{className,jdbcType=VARCHAR},
 		ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
-		CREATED_USER = #{createdUser,jdbcType=DECIMAL},
-		CREATED_DATE = #{createdDate,jdbcType=DATE},
-		UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
-		UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
-		VALID_FLAG = #{validFlag,jdbcType=DECIMAL}
-		where CLASS_ID = #{classId,jdbcType=VARCHAR}
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=DECIMAL},
+		UPDATE_LAST_DATE =
+		#{updateLastDate,jdbcType=DATE},
+		VALID_FLAG =
+		#{validFlag,jdbcType=DECIMAL}
+		where CLASS_ID =
+		#{classId,jdbcType=VARCHAR}
 	</update>
-	
-	
-	
-	
+
+	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupVO"
+		resultType="com.gwtjs.lookup.entity.LookupVO">
+		SELECT 
+		COUNT(1)
+		FROM SYS_LOOKUP_CLASSIFY_T
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<select id="selectListCount" parameterType="com.gwtjs.lookup.entity.LookupVO"
+		resultType="INTEGER">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_CLASSIFY_T T1
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<sql id="select_cond">
+
+		<if test="regCode != null">
+			AND T1.CLASS_ID = #{regId,jdbcType=DECIMAL}
+		</if>
+
+	</sql>
+
+	<!-- batch action -->
+
+	<delete id="batchRemovePks" parameterType="java.util.List">
+		DELETE FROM SYS_LOOKUP_CLASSIFY_T WHERE CLASS_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- batchUpdate -->
+	<update id="batchUpdate">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				UPDATE
+				SYS_LOOKUP_CLASSIFY_T
+				SET  CLASS_NAME = #{item.className,jdbcType=VARCHAR},
+				ORDER_CODE = #{item.orderCode,jdbcType=DECIMAL},
+				UPDATE_LAST_USER =
+				#{item.updateLastUser,jdbcType=DECIMAL},
+				UPDATE_LAST_DATE =
+				#{item.updateLastDate,jdbcType=DATE},
+				VALID_FLAG =
+				#{item.validFlag,jdbcType=DECIMAL}
+				where CLASS_ID =
+				#{item.classId,jdbcType=VARCHAR};
+			</foreach>
+		</if>
+		end;
+	</update>
+
+	<insert id="batchInsert">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				INSERT into SYS_LOOKUP_CLASSIFY_T (CLASS_ID, CLASS_NAME, ORDER_CODE,
+					CREATED_USER,
+					CREATED_DATE, UPDATE_LAST_USER,
+					UPDATE_LAST_DATE, VALID_FLAG)
+				values
+					(
+					#{item.classId,jdbcType=VARCHAR}, #{item.className,jdbcType=VARCHAR},
+					#{item.orderCode,jdbcType=DECIMAL},
+					#{item.createdUser,jdbcType=DECIMAL},
+					#{item.createdDate,jdbcType=DATE}, #{item.updateLastUser,jdbcType=DECIMAL},
+					#{item.updateLastDate,jdbcType=DATE}, #{item.validFlag,jdbcType=DECIMAL});
+			</foreach>
+		</if>
+		end;
+	</insert>
+
+
+
 </mapper>

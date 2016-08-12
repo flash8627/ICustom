@@ -18,6 +18,7 @@
 		<result column="UPDATE_LAST_USER" jdbcType="NUMERIC" property="updateLastUser" />
 		<result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		USER_ID, USER_ACCOUNT, USER_NAME, USER_PASSWORD, USER_DESC,
 		VALIDITY_START_DATE,
@@ -30,12 +31,14 @@
 		from SYS_USERS_T
 		where USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
+	
 	<delete id="deleteByPrimaryKey">
 		delete from SYS_USERS_T
 		where
 		USER_ID =
 		#{userId,jdbcType=NUMERIC}
 	</delete>
+	
 	<insert id="insert" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		insert into SYS_USERS_T
 		(USER_ID, USER_ACCOUNT, USER_NAME,
@@ -53,6 +56,7 @@
 		#{createdDate,jdbcType=DATE},
 		#{updateLastUser,jdbcType=NUMERIC}, #{updateLastDate,jdbcType=DATE})
 	</insert>
+	
 	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		insert into SYS_USERS_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -126,6 +130,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		update SYS_USERS_T
 		<set>
@@ -162,6 +167,7 @@
 		</set>
 		where USER_ID = #{userId,jdbcType=NUMERIC}
 	</update>
+	
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		update SYS_USERS_T
 		set USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
@@ -186,6 +192,7 @@
 		where USER_ID =
 		#{userId,jdbcType=NUMERIC}
 	</update>
+	
 	<resultMap id="BaseResultMap" type="com.gwtjs.icustom.entity.SysUserVO">
 		<id column="USER_ID" jdbcType="NUMERIC" property="userId" />
 		<result column="USER_ACCOUNT" jdbcType="VARCHAR" property="userAccount" />
@@ -200,24 +207,28 @@
 		<result column="UPDATE_LAST_USER" jdbcType="NUMERIC" property="updateLastUser" />
 		<result column="UPDATE_LAST_DATE" jdbcType="DATE" property="updateLastDate" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		USER_ID, USER_ACCOUNT, USER_NAME, USER_PASSWORD, USER_DESC,
 		VALIDITY_START_DATE,
 		VALIDITY_END_DATE, CREATED_USER, CREATED_DATE,
 		UPDATE_LAST_USER, UPDATE_LAST_DATE
 	</sql>
+	
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from SYS_USERS_T
 		where USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
+	
 	<delete id="deleteByPrimaryKey">
 		delete from SYS_USERS_T
 		where
 		USER_ID =
 		#{userId,jdbcType=NUMERIC}
 	</delete>
+	
 	<insert id="insert" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		insert into SYS_USERS_T
 		(
@@ -247,6 +258,7 @@
 		SYSDATE
 		)
 	</insert>
+	
 	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		insert into SYS_USERS_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -320,6 +332,7 @@
 			</if>
 		</trim>
 	</insert>
+	
 	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		update SYS_USERS_T
 		<set>
@@ -356,6 +369,7 @@
 		</set>
 		where USER_ID = #{userId,jdbcType=NUMERIC}
 	</update>
+	
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.SysUserVO">
 		update SYS_USERS_T
 		set USER_ACCOUNT = #{userAccount,jdbcType=VARCHAR},
@@ -380,6 +394,7 @@
 		where USER_ID =
 		#{userId,jdbcType=NUMERIC}
 	</update>
+	
 	<!-- by select -->
 	<!-- mul select -->
 	<!-- select -->

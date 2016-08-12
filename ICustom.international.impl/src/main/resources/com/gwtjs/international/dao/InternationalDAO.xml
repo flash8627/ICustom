@@ -3,104 +3,261 @@
 <mapper namespace="com.gwtjs.international.dao.InternationalDAO">
 
 	<insert id="insert" parameterType="com.gwtjs.international.entity.LanguageVO">
-		insert into SYS_NAVIGATION_T
-		(ITEM_ID, ITEM_NAME, PARENT_ID,
-		ICON, URL, ORDER_CODE,
-		CREATED_USER,
-		CREATED_DATE, UPDATE_LAST_USER,
-		UPDATE_LAST_DATE, VALID_FLAG,
-		RESOURCE_TYPE
+		INSERT INTO SYS_LANGUAGE_T
+		(LAN_ID, LAN_CODE, LAN_TYPE,
+		ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3,
+		ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6,
+		ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9,
+		ATTRIBUTE10, ORDER_CODE, CREATE_USER,
+		CREATE_DATE, UPDATE_USER,
+		UPDATE_DATE
 		)
-		values (#{itemId,jdbcType=DECIMAL},
-		#{itemName,jdbcType=VARCHAR},
-		#{parentId,jdbcType=DECIMAL},
-		#{icon,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+		values (#{lanId,jdbcType=DECIMAL},
+		#{lanCode,jdbcType=VARCHAR},
+		#{lanType,jdbcType=DECIMAL},
+		#{attribute1,jdbcType=VARCHAR}, #{attribute2,jdbcType=VARCHAR},
+		#{attribute3,jdbcType=VARCHAR},
+		#{attribute4,jdbcType=VARCHAR},
+		#{attribute5,jdbcType=VARCHAR},
+		#{attribute6,jdbcType=VARCHAR},
+		#{attribute7,jdbcType=VARCHAR}, #{attribute8,jdbcType=VARCHAR},
+		#{attribute9,jdbcType=VARCHAR},
+		#{attribute10,jdbcType=VARCHAR},
 		#{orderCode,jdbcType=DECIMAL},
-		#{createdUser,jdbcType=DECIMAL},
-		#{createdDate,jdbcType=DATE},
-		#{updateLastUser,jdbcType=DECIMAL},
-		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL},
-		#{resourceType,jdbcType=DECIMAL}
+		#{createUser,jdbcType=DECIMAL},
+		#{createDate,jdbcType=DATE}, #{updateUser,jdbcType=DECIMAL},
+		#{updateDate,jdbcType=DATE}
 		)
 	</insert>
-
 	<insert id="insertSelective" parameterType="com.gwtjs.international.entity.LanguageVO">
-		insert into SYS_NAVIGATION_T
+		INSERT INTO SYS_LANGUAGE_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="itemId != null">
-				ITEM_ID,
+			<if test="lanId != null">
+				LAN_ID,
 			</if>
-			<if test="itemName != null">
-				ITEM_NAME,
+			<if test="lanCode != null">
+				LAN_CODE,
 			</if>
-			<if test="parentId != null">
-				PARENT_ID,
+			<if test="lanType != null">
+				LAN_TYPE,
 			</if>
-			<if test="icon != null">
-				ICON,
+			<if test="attribute1 != null">
+				ATTRIBUTE1,
 			</if>
-			<if test="url != null">
-				URL,
+			<if test="attribute2 != null">
+				ATTRIBUTE2,
+			</if>
+			<if test="attribute3 != null">
+				ATTRIBUTE3,
+			</if>
+			<if test="attribute4 != null">
+				ATTRIBUTE4,
+			</if>
+			<if test="attribute5 != null">
+				ATTRIBUTE5,
+			</if>
+			<if test="attribute6 != null">
+				ATTRIBUTE6,
+			</if>
+			<if test="attribute7 != null">
+				ATTRIBUTE7,
+			</if>
+			<if test="attribute8 != null">
+				ATTRIBUTE8,
+			</if>
+			<if test="attribute9 != null">
+				ATTRIBUTE9,
+			</if>
+			<if test="attribute10 != null">
+				ATTRIBUTE10,
 			</if>
 			<if test="orderCode != null">
 				ORDER_CODE,
 			</if>
-			<if test="createdUser != null">
-				CREATED_USER,
+			<if test="updateUser != null">
+				UPDATE_USER,
 			</if>
-			<if test="createdDate != null">
-				CREATED_DATE,
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER,
-			</if>
-			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE,
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG,
-			</if>
-			<if test="resourceType != null">
-				RESOURCE_TYPE,
+			<if test="updateDate != null">
+				UPDATE_DATE,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="itemId != null">
-				#{itemId,jdbcType=DECIMAL},
+			<if test="lanId != null">
+				#{lanId,jdbcType=DECIMAL},
 			</if>
-			<if test="itemName != null">
-				#{itemName,jdbcType=VARCHAR},
+			<if test="lanCode != null">
+				#{lanCode,jdbcType=VARCHAR},
 			</if>
-			<if test="parentId != null">
-				#{parentId,jdbcType=DECIMAL},
+			<if test="lanType != null">
+				#{lanType,jdbcType=DECIMAL},
 			</if>
-			<if test="icon != null">
-				#{icon,jdbcType=VARCHAR},
+			<if test="attribute1 != null">
+				#{attribute1,jdbcType=VARCHAR},
 			</if>
-			<if test="url != null">
-				#{url,jdbcType=VARCHAR},
+			<if test="attribute2 != null">
+				#{attribute2,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute3 != null">
+				#{attribute3,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute4 != null">
+				#{attribute4,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute5 != null">
+				#{attribute5,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute6 != null">
+				#{attribute6,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute7 != null">
+				#{attribute7,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute8 != null">
+				#{attribute8,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute9 != null">
+				#{attribute9,jdbcType=VARCHAR},
+			</if>
+			<if test="attribute10 != null">
+				#{attribute10,jdbcType=VARCHAR},
 			</if>
 			<if test="orderCode != null">
 				#{orderCode,jdbcType=DECIMAL},
 			</if>
-			<if test="createdUser != null">
-				#{createdUser,jdbcType=DECIMAL},
+			<if test="updateUser != null">
+				#{updateUser,jdbcType=DECIMAL},
 			</if>
-			<if test="createdDate != null">
-				#{createdDate,jdbcType=DATE},
-			</if>
-			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=DECIMAL},
-			</if>
-			<if test="updateLastDate != null">
-				#{updateLastDate,jdbcType=DATE},
-			</if>
-			<if test="validFlag != null">
-				#{validFlag,jdbcType=DECIMAL},
-			</if>
-			<if test="resourceType != null">
-				#{resourceType,jdbcType=DECIMAL},
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=DATE},
 			</if>
 		</trim>
 	</insert>
+
+	<select id="selectList" parameterType="com.gwtjs.international.entity.LanguageVO"
+		resultType="INTEGER">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LANGUAGE_T T1
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<select id="selectListCount" parameterType="com.gwtjs.international.entity.LanguageVO"
+		resultType="com.gwtjs.international.entity.LanguageVO">
+		SELECT
+		COUNT(1)
+		FROM SYS_LANGUAGE_T
+		where 1=1
+		<include refid="select_cond" />
+	</select>
+
+	<sql id="Base_Column_List">
+		LAN_ID lanId, LAN_CODE lanCode, LAN_TYPE lanType,
+		ATTRIBUTE1 attribute1, ATTRIBUTE2 attribute2, ATTRIBUTE3 attribute3,
+		ATTRIBUTE4 attribute4, ATTRIBUTE5 attribute5, ATTRIBUTE6 attribute6,
+		ATTRIBUTE7 attribute7, ATTRIBUTE8 attribute8, ATTRIBUTE9 attribute9,
+		ATTRIBUTE10 attribute10, ORDER_CODE orderCode, CREATE_USER createUser,
+		CREATE_DATE createDate, UPDATE_USER updateUser,
+		UPDATE_DATE updateDate
+	</sql>
+
+	<sql id="select_cond">
+
+		<if test="regCode != null">
+			AND T1.LAN_ID = #{regId,jdbcType=DECIMAL}
+		</if>
+
+		<if test="lanCode != null">
+			AND T1.lanCode = #{LAN_CODE,jdbcType=VARCHAR}
+		</if>
+
+		<if test="LAN_TYPE != null">
+			AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+		</if>
+
+	</sql>
+
+	<!-- batch action -->
+
+	<delete id="batchRemovePks" parameterType="java.util.List">
+		DELETE FROM SYS_LANGUAGE_T WHERE LAN_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- batchUpdate -->
+	<update id="batchUpdate">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				UPDATE
+				SYS_LANGUAGE_T
+				SET
+				REG_NAME = #{item.regName,jdbcType=VARCHAR},
+				REG_CODE =
+				#{item.regCode,jdbcType=VARCHAR},
+				REG_DESC =
+				#{item.regDesc,jdbcType=VARCHAR},
+				PARENT_ID =
+				#{item.parentId,jdbcType=INTEGER},
+				ORDER_CODE =
+				#{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER =
+				#{item.updateLastUser,jdbcType=DECIMAL},
+				UPDATE_LAST_DATE =
+				#{item.updateLastDate,jdbcType=DATE},
+				VALID_FLAG =
+				#{item.validFlag,jdbcType=INTEGER}
+				where LAN_ID =
+				#{item.regId,jdbcType=DECIMAL};
+			</foreach>
+		</if>
+		end;
+	</update>
+
+	<insert id="batchInsert">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				INSERT INTO SYS_LANGUAGE_T
+				(LAN_ID, LAN_CODE, LAN_TYPE,
+				ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3,
+				ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6,
+				ATTRIBUTE7, ATTRIBUTE8,
+				ATTRIBUTE9,
+				ATTRIBUTE10, ORDER_CODE, CREATE_USER,
+				CREATE_DATE,
+				UPDATE_USER,
+				UPDATE_DATE
+				)
+				values (
+				SYS_LANGUAGE_S.NEXTVAL,
+				#{item.lanCode,jdbcType=VARCHAR},
+				#{item.lanType,jdbcType=DECIMAL},
+				#{item.attribute1,jdbcType=VARCHAR},
+				#{item.attribute2,jdbcType=VARCHAR},
+				#{item.attribute3,jdbcType=VARCHAR},
+				#{item.attribute4,jdbcType=VARCHAR},
+				#{item.attribute5,jdbcType=VARCHAR},
+				#{item.attribute6,jdbcType=VARCHAR},
+				#{item.attribute7,jdbcType=VARCHAR},
+				#{item.attribute8,jdbcType=VARCHAR},
+				#{item.attribute9,jdbcType=VARCHAR},
+				#{item.attribute10,jdbcType=VARCHAR},
+				#{item.orderCode,jdbcType=DECIMAL},
+				#{item.createUser,jdbcType=DECIMAL},
+				#{item.createDate,jdbcType=DATE},
+				#{item.updateUser,jdbcType=DECIMAL},
+				#{item.updateDate,jdbcType=DATE}
+				);
+			</foreach>
+		</if>
+		end;
+	</insert>
+
+
 </mapper>
