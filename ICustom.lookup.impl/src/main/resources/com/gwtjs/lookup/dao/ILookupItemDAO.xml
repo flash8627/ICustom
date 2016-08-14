@@ -6,139 +6,8 @@
 		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER,
 		CREATED_DATE,
 		UPDATE_LAST_USER,
-		UPDATE_LAST_DATE, VALID_FLAG
+		UPDATE_LAST_DATE
 	</sql>
-
-	<select id="selectByPrimaryKey" parameterType="java.lang.String"
-		resultType="com.gwtjs.lookup.entity.LookupItemVO">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_LOOKUP_ITEM_T
-		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
-	</select>
-
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from
-		SYS_LOOKUP_ITEM_T
-		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
-	</delete>
-
-	<insert id="insert" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		insert into SYS_LOOKUP_ITEM_T
-		(ITEM_ID, ITEM_NAME, CLASS_ID,
-		ORDER_CODE, CREATED_USER, CREATED_DATE,
-		UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG
-		)
-		values
-		(#{itemId,jdbcType=VARCHAR}, 
-		#{itemName,jdbcType=VARCHAR},
-		#{classId,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=INTEGER},
-		#{createdUser,jdbcType=NUMBER}, 
-		SYSDATE,
-		#{updateLastUser,jdbcType=NUMBER}, 
-		SYSDATE,
-		1
-		)
-	</insert>
-
-	<insert id="insertSelective" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		insert into SYS_LOOKUP_ITEM_T
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="itemId != null">
-				ITEM_ID,
-			</if>
-			<if test="itemName != null">
-				ITEM_NAME,
-			</if>
-			<if test="classId != null">
-				CLASS_ID,
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE,
-			</if>
-			<if test="createdUser != null">
-				CREATED_USER,
-			</if>
-			<if test="createdDate != null">
-				CREATED_DATE,
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER,
-			</if>
-			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE,
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="itemId != null">
-				#{itemId,jdbcType=VARCHAR},
-			</if>
-			<if test="itemName != null">
-				#{itemName,jdbcType=VARCHAR},
-			</if>
-			<if test="classId != null">
-				#{classId,jdbcType=VARCHAR},
-			</if>
-			<if test="orderCode != null">
-				#{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="createdUser != null">
-				#{createdUser,jdbcType=NUMBER},
-			</if>
-			<if test="createdDate != null">
-				SYSDATE,
-			</if>
-			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				SYSDATE,
-			</if>
-			<if test="validFlag != null">
-				1,
-			</if>
-		</trim>
-	</insert>
-
-	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		update SYS_LOOKUP_ITEM_T
-		<set>
-			<if test="itemName != null">
-				ITEM_NAME = #{itemName,jdbcType=VARCHAR},
-			</if>
-			<if test="classId != null">
-				CLASS_ID = #{classId,jdbcType=VARCHAR},
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE = #{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE = SYSDATE
-			</if>
-		</set>
-		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
-	</update>
-
-	<update id="updateByPrimaryKey" parameterType="com.gwtjs.lookup.entity.LookupItemVO">
-		update
-		SYS_LOOKUP_ITEM_T
-		set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
-		CLASS_ID = #{classId,jdbcType=VARCHAR},
-		ORDER_CODE = #{orderCode,jdbcType=INTEGER},
-		CREATED_USER = #{createdUser,jdbcType=NUMBER},
-		CREATED_DATE = SYSDATE,
-		UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
-		UPDATE_LAST_DATE = SYSDATE
-		where ITEM_ID = 
-		#{itemId,jdbcType=VARCHAR}
-	</update>
 
 	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
 		resultType="com.gwtjs.lookup.entity.LookupItemVO">
@@ -192,19 +61,19 @@
 			<foreach collection="list" item="item">
 				UPDATE
 				SYS_LOOKUP_ITEM_T
-				set ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
-				CLASS_ID = #{item.classId,jdbcType=VARCHAR},
+				set
+				ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
+				CLASS_ID =
+				#{item.classId,jdbcType=VARCHAR},
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
 				#{item.updateLastUser,jdbcType=NUMBER},
-				UPDATE_LAST_DATE =
-				#{item.updateLastDate,jdbcType=DATE}
-				where ITEM_ID =
-				#{item.itemId,jdbcType=VARCHAR};
+				UPDATE_LAST_DATE = SYSDATE
+				where ITEM_ID = #{item.itemId,jdbcType=NUMBER};
 			</foreach>
+			end;
 		</if>
-		end;
 	</update>
 
 	<insert id="batchInsert">
@@ -215,8 +84,12 @@
 				INSERT into SYS_LOOKUP_ITEM_T
 				(
 				ITEM_ID, ITEM_NAME, CLASS_ID,
-				ORDER_CODE, CREATED_USER, CREATED_DATE,
-				UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG
+				ORDER_CODE,
+				CREATED_USER,
+				CREATED_DATE,
+				UPDATE_LAST_USER,
+				UPDATE_LAST_DATE,
+				VALID_FLAG
 				)
 				values
 				(
@@ -231,8 +104,8 @@
 				1
 				);
 			</foreach>
+			end;
 		</if>
-		end;
 	</insert>
 
 

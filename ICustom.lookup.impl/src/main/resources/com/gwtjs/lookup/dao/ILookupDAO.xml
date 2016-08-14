@@ -5,165 +5,36 @@
 	<sql id="Base_Column_List">
 		CLASS_ID, CLASS_NAME, CLASS_CODE, ORDER_CODE, CREATED_USER,
 		CREATED_DATE, UPDATE_LAST_USER,
-		UPDATE_LAST_DATE,
-		VALID_FLAG 
+		UPDATE_LAST_DATE
 	</sql>
 
-	<select id="selectByPrimaryKey" parameterType="java.lang.String"
-		resultType="com.gwtjs.lookup.entity.LookupVO">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_LOOKUP_CLASSIFY_T
-		where CLASS_ID = #{classId,jdbcType=VARCHAR}
-	</select>
-
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from
-		SYS_LOOKUP_CLASSIFY_T
-		where CLASS_ID = #{classId,jdbcType=VARCHAR}
-	</delete>
-
-	<insert id="insert" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		insert into 
-		SYS_LOOKUP_CLASSIFY_T (CLASS_ID, CLASS_NAME, ORDER_CODE,
-		CREATED_USER,
-		CREATED_DATE, UPDATE_LAST_USER,
-		UPDATE_LAST_DATE, VALID_FLAG)
-		values 
-		(
-		#{classId,jdbcType=VARCHAR}, 
-		#{className,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=INTEGER},
-		#{createdUser,jdbcType=NUMBER},
-		SYSDATE, 
-		#{updateLastUser,jdbcType=NUMBER},
-		SYSDATE, 
-		1
-		)
-	</insert>
-
-	<insert id="insertSelective" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		insert into SYS_LOOKUP_CLASSIFY_T
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="classId != null">
-				CLASS_ID,
-			</if>
-			<if test="classId != null">
-				CLASS_CODE,
-			</if>
-			<if test="className != null">
-				CLASS_NAME,
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE,
-			</if>
-			<if test="createdUser != null">
-				CREATED_USER,
-			</if>
-			<if test="createdDate != null">
-				SYSDATE,
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER,
-			</if>
-			<if test="updateLastDate != null">
-				SYSDATE 
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="classId != null">
-				#{classId,jdbcType=VARCHAR},
-			</if>
-			<if test="classId != null">
-				#{classCode,jdbcType=VARCHAR},
-			</if>
-			<if test="className != null">
-				#{className,jdbcType=VARCHAR},
-			</if>
-			<if test="orderCode != null">
-				#{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="createdUser != null">
-				#{createdUser,jdbcType=NUMBER},
-			</if>
-			<if test="createdDate != null">
-				SYSDATE,
-			</if>
-			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				SYSDATE 
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		update SYS_LOOKUP_CLASSIFY_T
-		<set>
-			<if test="className != null">
-				CLASS_NAME = #{className,jdbcType=VARCHAR},
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE = #{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG = #{validFlag,jdbcType=INTEGER}
-			</if>
-		</set>
-		where CLASS_ID = #{classId,jdbcType=VARCHAR}
-	</update>
-
-	<update id="updateByPrimaryKey" parameterType="com.gwtjs.lookup.entity.LookupVO">
-		update
-		SYS_LOOKUP_CLASSIFY_T
-		set 
-		CLASS_CODE = #{classCode,jdbcType=VARCHAR},
-		CLASS_NAME = #{className,jdbcType=VARCHAR},
-		ORDER_CODE = #{orderCode,jdbcType=INTEGER},
-		UPDATE_LAST_USER =
-		#{updateLastUser,jdbcType=NUMBER},
-		UPDATE_LAST_DATE = SYSDATE 
-		where CLASS_ID =
-		#{classId,jdbcType=VARCHAR}
-	</update>
-	
 	<sql id="page_st">
-		  SELECT * FROM (
-         SELECT tp.* , ROWNUM RN FROM (
+		SELECT * FROM (
+		SELECT tp.* , ROWNUM RN FROM (
 	</sql>
 	<sql id="page_et">
-		  ) tp  where rownum &lt;= #{curRecord}
-		  ) where rn &gt;= #{pageSize}
+		) tp where rownum &lt;= #{curRecord}
+		) where rn &gt;= #{pageSize}
 	</sql>
-	<!-- 
-	 where rownum <![CDATA[ <= #{1.curRecord}) ]]>
-		 where rn <![CDATA[ >= #{1.pageSize} ]]>
-	 -->
-	<select id="selectList" parameterType="hashmap" resultType="com.gwtjs.lookup.entity.LookupVO">
+	<!-- where rownum <![CDATA[ <= #{1.curRecord}) ]]> where rn <![CDATA[ >= 
+		#{1.pageSize} ]]> -->
+	<select id="selectList" parameterType="hashmap"
+		resultType="com.gwtjs.lookup.entity.LookupVO">
 		<include refid="page_st" />
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_CLASSIFY_T 
-		where 1=1 
+		FROM SYS_LOOKUP_CLASSIFY_T
+		where 1=1
 		<include refid="select_cond" />
-		<!-- <if test="#{1.order != null}">
-			order by #{1.order} asc
-		</if> -->
+		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" parameterType="hashmap"
-		resultType="INTEGER">
-		SELECT 
-		COUNT(1) 
-		FROM SYS_LOOKUP_CLASSIFY_T T1 
-		where 1=1 
+	<select id="selectListCount" parameterType="hashmap" resultType="INTEGER">
+		SELECT
+		COUNT(1)
+		FROM SYS_LOOKUP_CLASSIFY_T T1
+		where 1=1
 		<include refid="select_cond" />
 	</select>
 
@@ -176,7 +47,8 @@
 			AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR}
 		</if>
 		<if test="regCode != null">
-			AND T1.CLASS_CODE LIKE '%'||#{classCode,jdbcType=VARCHAR}||'%'
+			AND T1.CLASS_CODE LIKE
+			'%'||#{classCode,jdbcType=VARCHAR}||'%'
 		</if>
 
 	</sql>
@@ -199,18 +71,19 @@
 			<foreach collection="list" item="item">
 				UPDATE
 				SYS_LOOKUP_CLASSIFY_T
-				SET  
+				SET
 				CLASS_CODE = #{item.classCode,jdbcType=VARCHAR},
-				CLASS_NAME = #{item.className,jdbcType=VARCHAR},
-				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				CLASS_NAME =
+				#{item.className,jdbcType=VARCHAR},
+				ORDER_CODE =
+				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
 				#{item.updateLastUser,jdbcType=NUMBER},
 				UPDATE_LAST_DATE = SYSDATE
-				where CLASS_ID =
-				#{item.classId,jdbcType=NUMBER};
+				where CLASS_ID = #{item.classId,jdbcType=NUMBER};
 			</foreach>
+			end;
 		</if>
-		end;
 	</update>
 
 	<insert id="batchInsert">
@@ -218,30 +91,32 @@
 		<if test="list!=null and !list.isEmpty()">
 			begin
 			<foreach collection="list" item="item">
-				INSERT into SYS_LOOKUP_CLASSIFY_T 
+				INSERT into
+				SYS_LOOKUP_CLASSIFY_T
 				(
-					CLASS_ID, CLASS_CODE, CLASS_NAME, ORDER_CODE,
-					CREATED_USER,
-					CREATED_DATE, UPDATE_LAST_USER,
-					UPDATE_LAST_DATE, VALID_FLAG
-					)
+				CLASS_ID, CLASS_CODE, CLASS_NAME,
+				ORDER_CODE,
+				CREATED_USER,
+				CREATED_DATE,
+				UPDATE_LAST_USER,
+				UPDATE_LAST_DATE,
+				VALID_FLAG
+				)
 				values
-					(
-					SYS_LOOKUP_CLASSIFY_S.NEXTVAL, 
-					#{item.classCode,jdbcType=VARCHAR}, 
-					#{item.className,jdbcType=VARCHAR},
-					#{item.orderCode,jdbcType=INTEGER},
-					#{item.createdUser,jdbcType=NUMBER},
-					SYSDATE, 
-					#{item.updateLastUser,jdbcType=NUMBER},
-					SYSDATE, 
-					1
-					);
+				(
+				SYS_LOOKUP_CLASSIFY_S.NEXTVAL,
+				#{item.classCode,jdbcType=VARCHAR},
+				#{item.className,jdbcType=VARCHAR},
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createdUser,jdbcType=NUMBER},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMBER},
+				SYSDATE,
+				1
+				);
 			</foreach>
+			end;
 		</if>
-		end;
 	</insert>
-
-
 
 </mapper>

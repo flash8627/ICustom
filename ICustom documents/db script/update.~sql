@@ -15,6 +15,178 @@ start with 101
 increment by 1
 cache 20;
 
+-- 20160814
+-- Create sequence 
+create sequence SYS_LOOKUP_CLASSIFY_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 101
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SYS_LOOKUP_ITEM_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 101
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SYS_REGISTER_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 101
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SYS_LANGUAGE_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 101
+increment by 1
+cache 20;
+
+-- Create table
+create table SYS_REGISTER_T
+(
+  reg_id           NUMBER(30) not null,
+  reg_name         VARCHAR2(60) not null,
+  reg_code         VARCHAR2(60),
+  reg_desc         VARCHAR2(200),
+  parent_id        NUMBER(30),
+  comments		VARCHAR2(308),
+  order_code  INTEGER default 1,
+  create_user NUMBER,
+  create_date DATE default SYSDATE,
+  update_user NUMBER,
+  update_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+-- Add comments to the table 
+comment on table SYS_REGISTER_T
+  is '数据字典';
+-- Add comments to the columns 
+comment on column SYS_REGISTER_T.reg_name
+  is '名称或label';
+comment on column SYS_REGISTER_T.reg_code
+  is '编码';
+comment on column SYS_REGISTER_T.reg_desc
+  is ' 说明';
+comment on column SYS_REGISTER_T.parent_id
+  is '上一级，这个也是树型结构';
+comment on column SYS_REGISTER_T.created_user
+  is '创建用户';
+comment on column SYS_REGISTER_T.created_date
+  is '创建日期';
+comment on column SYS_REGISTER_T.update_last_user
+  is '更新用户';
+comment on column SYS_REGISTER_T.update_last_date
+  is '更新日期';
+comment on column SYS_REGISTER_T.valid_flag
+  is '启用停用，删除状态';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SYS_REGISTER_T
+  add primary key (REG_ID)
+  using index;
+
+
+-- Create table
+create table SYS_LOOKUP_ITEM_T
+(
+  item_id          VARCHAR2(32) not null,
+  item_name        VARCHAR2(40),
+  class_id         VARCHAR2(32),
+  comments    VARCHAR2(308),
+  order_code  INTEGER default 1,
+  create_user NUMBER,
+  create_date DATE default SYSDATE,
+  update_user NUMBER,
+  update_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+-- Add comments to the table 
+comment on table SYS_LOOKUP_ITEM_T
+  is 'lookup条目类,一个分类对应多条　';
+-- Add comments to the columns 
+comment on column SYS_LOOKUP_ITEM_T.item_id
+  is '主键';
+comment on column SYS_LOOKUP_ITEM_T.item_name
+  is '名称';
+comment on column SYS_LOOKUP_ITEM_T.class_id
+  is '分类标识';
+comment on column SYS_LOOKUP_ITEM_T.order_code
+  is '排序';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SYS_LOOKUP_ITEM_T
+  add primary key (ITEM_ID)
+  using index;
+
+
+-- Create table
+create table SYS_LOOKUP_CLASSIFY_T
+(
+  class_id         VARCHAR2(32) not null,
+  class_name       VARCHAR2(40),
+  class_code       VARCHAR2(100),
+  class_desc       VARCHAR2(300),
+  order_code  INTEGER default 1,
+  create_user NUMBER,
+  create_date DATE default SYSDATE,
+  update_user NUMBER,
+  update_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+-- Add comments to the table 
+comment on table SYS_LOOKUP_CLASSIFY_T
+  is 'lookup分类信息';
+-- Add comments to the columns 
+comment on column SYS_LOOKUP_CLASSIFY_T.class_id
+  is '主键';
+comment on column SYS_LOOKUP_CLASSIFY_T.class_name
+  is '分类名称';
+comment on column SYS_LOOKUP_CLASSIFY_T.order_code
+  is '排序码';
+comment on column SYS_LOOKUP_CLASSIFY_T.class_code
+  is '编码,icustom.xxx.xxx';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SYS_LOOKUP_CLASSIFY_T
+  add primary key (CLASS_ID);
+
+-- Create table
+create table SYS_LANGUAGE_T
+(
+  lan_id      NUMBER not null PRIMARY KEY,
+  lan_code    VARCHAR2(68) not null,
+  lan_type    INTEGER default 1,
+  comments    VARCHAR2(308),
+  attribute1  VARCHAR2(100),
+  attribute2  VARCHAR2(100),
+  attribute3  VARCHAR2(100),
+  attribute4  VARCHAR2(100),
+  attribute5  VARCHAR2(100),
+  attribute6  VARCHAR2(100),
+  attribute7  VARCHAR2(100),
+  attribute8  VARCHAR2(100),
+  attribute9  VARCHAR2(100),
+  attribute10 VARCHAR2(100),
+  order_code  INTEGER default 1,
+  create_user NUMBER,
+  create_date DATE default SYSDATE,
+  update_user NUMBER,
+  update_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+-- Add comments to the columns 
+comment on column SYS_LANGUAGE_T.lan_id
+  is '主键,序列自增';
+comment on column SYS_LANGUAGE_T.lan_code
+  is '语言编码,带包的风格 icustom.menu.home,也可以做组的作用，一个code可以包括中英法';
+comment on column SYS_LANGUAGE_T.lan_type
+  is '语言类型,中英法';
+
+
 -- Create table
 create table SYS_USERS_T
 (
@@ -64,10 +236,11 @@ create table SYS_NAVIGATION_T
   icon             VARCHAR2(30),
   url              VARCHAR2(200),
   order_code       NUMBER(20),
+  resource_type    NUMBER(1),
   created_user     NUMBER(30),
-  created_date     DATE,
+  created_date     DATE default SYSDATE,
   update_last_user NUMBER(30),
-  update_last_date DATE,
+  update_last_date DATE default SYSDATE,
   valid_flag       NUMBER(1)
 );
 

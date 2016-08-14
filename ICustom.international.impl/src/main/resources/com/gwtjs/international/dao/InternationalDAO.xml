@@ -2,139 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.international.dao.InternationalDAO">
 
-	<insert id="insert" parameterType="com.gwtjs.international.entity.LanguageVO">
-		INSERT INTO SYS_LANGUAGE_T
-		(LAN_ID, LAN_CODE, LAN_TYPE,
-		ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3,
-		ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6,
-		ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9,
-		ATTRIBUTE10, ORDER_CODE, CREATE_USER,
-		CREATE_DATE, UPDATE_USER,
-		UPDATE_DATE,VALID_FLAG
-		)
-		values (#{lanId,jdbcType=NUMBER},
-		#{lanCode,jdbcType=VARCHAR},
-		#{lanType,jdbcType=INTEGER},
-		#{attribute1,jdbcType=VARCHAR}, 
-		#{attribute2,jdbcType=VARCHAR},
-		#{attribute3,jdbcType=VARCHAR},
-		#{attribute4,jdbcType=VARCHAR},
-		#{attribute5,jdbcType=VARCHAR},
-		#{attribute6,jdbcType=VARCHAR},
-		#{attribute7,jdbcType=VARCHAR}, 
-		#{attribute8,jdbcType=VARCHAR},
-		#{attribute9,jdbcType=VARCHAR},
-		#{attribute10,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=INTEGER},
-		#{createUser,jdbcType=NUMBER},
-		SYSDATE, 
-		#{updateUser,jdbcType=NUMBER},
-		SYSDATE,1
-		)
-	</insert>
-	<insert id="insertSelective" parameterType="com.gwtjs.international.entity.LanguageVO">
-		INSERT INTO SYS_LANGUAGE_T
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="lanId != null">
-				LAN_ID,
-			</if>
-			<if test="lanCode != null">
-				LAN_CODE,
-			</if>
-			<if test="lanType != null">
-				LAN_TYPE,
-			</if>
-			<if test="attribute1 != null">
-				ATTRIBUTE1,
-			</if>
-			<if test="attribute2 != null">
-				ATTRIBUTE2,
-			</if>
-			<if test="attribute3 != null">
-				ATTRIBUTE3,
-			</if>
-			<if test="attribute4 != null">
-				ATTRIBUTE4,
-			</if>
-			<if test="attribute5 != null">
-				ATTRIBUTE5,
-			</if>
-			<if test="attribute6 != null">
-				ATTRIBUTE6,
-			</if>
-			<if test="attribute7 != null">
-				ATTRIBUTE7,
-			</if>
-			<if test="attribute8 != null">
-				ATTRIBUTE8,
-			</if>
-			<if test="attribute9 != null">
-				ATTRIBUTE9,
-			</if>
-			<if test="attribute10 != null">
-				ATTRIBUTE10,
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE,
-			</if>
-			<if test="updateUser != null">
-				UPDATE_USER,
-			</if>
-			<if test="updateDate != null">
-				UPDATE_DATE,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="lanId != null">
-				#{lanId,jdbcType=NUMBER},
-			</if>
-			<if test="lanCode != null">
-				#{lanCode,jdbcType=VARCHAR},
-			</if>
-			<if test="lanType != null">
-				#{lanType,jdbcType=INTEGER},
-			</if>
-			<if test="attribute1 != null">
-				#{attribute1,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute2 != null">
-				#{attribute2,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute3 != null">
-				#{attribute3,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute4 != null">
-				#{attribute4,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute5 != null">
-				#{attribute5,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute6 != null">
-				#{attribute6,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute7 != null">
-				#{attribute7,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute8 != null">
-				#{attribute8,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute9 != null">
-				#{attribute9,jdbcType=VARCHAR},
-			</if>
-			<if test="attribute10 != null">
-				#{attribute10,jdbcType=VARCHAR},
-			</if>
-			<if test="orderCode != null">
-				#{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="updateUser != null">
-				#{updateUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateDate != null">
-				#{updateDate,jdbcType=DATE},
-			</if>
-		</trim>
-	</insert>
 
 	<select id="selectList" parameterType="com.gwtjs.international.entity.LanguageVO"
 		resultType="INTEGER">
@@ -159,9 +26,10 @@
 		ATTRIBUTE1 attribute1, ATTRIBUTE2 attribute2, ATTRIBUTE3 attribute3,
 		ATTRIBUTE4 attribute4, ATTRIBUTE5 attribute5, ATTRIBUTE6 attribute6,
 		ATTRIBUTE7 attribute7, ATTRIBUTE8 attribute8, ATTRIBUTE9 attribute9,
-		ATTRIBUTE10 attribute10, ORDER_CODE orderCode, CREATE_USER createUser,
-		CREATE_DATE createDate, UPDATE_USER updateUser,
-		UPDATE_DATE updateDate
+		ATTRIBUTE10 attribute10, ORDER_CODE orderCode, CREATED_USER
+		createUser,
+		CREATED_DATE createDate, UPDATE_LAST_USER updateUser,
+		UPDATE_LAST_DATE updateDate
 	</sql>
 
 	<sql id="select_cond">
@@ -211,13 +79,13 @@
 				UPDATE_LAST_USER =
 				#{item.updateLastUser,jdbcType=NUMBER},
 				UPDATE_LAST_DATE = SYSDATE,
-				VALID_FLAG = 
+				VALID_FLAG =
 				#{item.validFlag,jdbcType=INTEGER}
 				where LAN_ID =
 				#{item.regId,jdbcType=NUMBER};
 			</foreach>
+			end;
 		</if>
-		end;
 	</update>
 
 	<insert id="batchInsert">
@@ -231,10 +99,12 @@
 				ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6,
 				ATTRIBUTE7, ATTRIBUTE8,
 				ATTRIBUTE9,
-				ATTRIBUTE10, ORDER_CODE, CREATE_USER,
-				CREATE_DATE,
-				UPDATE_USER,
-				UPDATE_DATE,
+				ATTRIBUTE10,
+				ORDER_CODE,
+				CREATED_USER,
+				CREATED_DATE,
+				UPDATE_LAST_USER,
+				UPDATE_LAST_DATE,
 				VALID_FLAG
 				)
 				values (
@@ -259,8 +129,8 @@
 				1
 				);
 			</foreach>
+			end;
 		</if>
-		end;
 	</insert>
 
 

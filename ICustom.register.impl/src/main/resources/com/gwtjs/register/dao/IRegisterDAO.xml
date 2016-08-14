@@ -5,9 +5,9 @@
 	<select id="selectList" parameterType="com.gwtjs.register.entity.RegisterVO"
 		resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
-		COUNT(1) 
+		COUNT(1)
 		FROM SYS_REGISTER_T
-		where 1=1 
+		where 1=1
 		<include refid="select_cond" />
 	</select>
 
@@ -49,175 +49,13 @@
 		ORDER_CODE, CREATED_USER,
 		CREATED_DATE,
 		UPDATE_LAST_USER,
-		UPDATE_LAST_DATE, VALID_FLAG
+		UPDATE_LAST_DATE
 	</sql>
 
-	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
-		resultType="com.gwtjs.register.entity.RegisterVO">
-		select
-		<include refid="Base_Column_List" />
-		from SYS_REGISTER_T
-		where REG_ID = #{regId,jdbcType=INTEGER}
-	</select>
-
-	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-		delete from
-		SYS_REGISTER_T
-		where REG_ID = #{regId,jdbcType=INTEGER}
-	</delete>
-
-	<insert id="insert" parameterType="com.gwtjs.register.entity.RegisterVO">
-		insert into SYS_REGISTER_T
-		(REG_ID, REG_NAME, REG_CODE,
-		REG_DESC, PARENT_ID, ORDER_CODE,
-		CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
-		UPDATE_LAST_DATE,
-		VALID_FLAG)
-		values (
-		SYS_REGISTER_S.NEXTVAL,
-		#{regName,jdbcType=VARCHAR},
-		#{regCode,jdbcType=VARCHAR},
-		#{regDesc,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
-		#{orderCode,jdbcType=INTEGER},
-		#{createdUser,jdbcType=NUMBER},
-		SYSDATE,
-		#{updateLastUser,jdbcType=NUMBER},
-		SYSDATE, 1)
-	</insert>
-
-	<insert id="insertSelective" parameterType="com.gwtjs.register.entity.RegisterVO">
-		insert into SYS_REGISTER_T
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="regId != null">
-				REG_ID,
-			</if>
-			<if test="regName != null">
-				REG_NAME,
-			</if>
-			<if test="regCode != null">
-				REG_CODE,
-			</if>
-			<if test="regDesc != null">
-				REG_DESC,
-			</if>
-			<if test="parentId != null">
-				PARENT_ID,
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE,
-			</if>
-			<if test="createdUser != null">
-				CREATED_USER,
-			</if>
-			<if test="createdDate != null">
-				CREATED_DATE,
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER,
-			</if>
-			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE,
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="regId != null">
-				#{regId,jdbcType=INTEGER},
-			</if>
-			<if test="regName != null">
-				#{regName,jdbcType=VARCHAR},
-			</if>
-			<if test="regCode != null">
-				#{regCode,jdbcType=VARCHAR},
-			</if>
-			<if test="regDesc != null">
-				#{regDesc,jdbcType=VARCHAR},
-			</if>
-			<if test="parentId != null">
-				#{parentId,jdbcType=INTEGER},
-			</if>
-			<if test="orderCode != null">
-				#{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="createdUser != null">
-				#{createdUser,jdbcType=NUMBER},
-			</if>
-			<if test="createdDate != null">
-				SYSDATE,
-			</if>
-			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				SYSDATE,
-			</if>
-			<if test="validFlag != null">
-				1
-			</if>
-		</trim>
-	</insert>
-
-	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.register.entity.RegisterVO">
-		update SYS_REGISTER_T
-		<set>
-			<if test="regName != null">
-				REG_NAME = #{regName,jdbcType=VARCHAR},
-			</if>
-			<if test="regCode != null">
-				REG_CODE = #{regCode,jdbcType=VARCHAR},
-			</if>
-			<if test="regDesc != null">
-				REG_DESC = #{regDesc,jdbcType=VARCHAR},
-			</if>
-			<if test="parentId != null">
-				PARENT_ID = #{parentId,jdbcType=INTEGER},
-			</if>
-			<if test="orderCode != null">
-				ORDER_CODE = #{orderCode,jdbcType=INTEGER},
-			</if>
-			<if test="createdUser != null">
-				CREATED_USER = #{createdUser,jdbcType=NUMBER},
-			</if>
-			<if test="createdDate != null">
-				SYSDATE,
-			</if>
-			<if test="updateLastUser != null">
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
-			</if>
-			<if test="updateLastDate != null">
-				SYSDATE,
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG = #{validFlag,jdbcType=INTEGER}
-			</if>
-		</set>
-		where REG_ID = #{regId,jdbcType=INTEGER}
-	</update>
-
-	<update id="updateByPrimaryKey" parameterType="com.gwtjs.register.entity.RegisterVO">
-		UPDATE
-		SYS_REGISTER_T
-		set REG_NAME = #{regName,jdbcType=VARCHAR},
-		REG_CODE =
-		#{regCode,jdbcType=VARCHAR},
-		REG_DESC = #{regDesc,jdbcType=VARCHAR},
-		PARENT_ID = #{parentId,jdbcType=INTEGER},
-		ORDER_CODE =
-		#{orderCode,jdbcType=INTEGER},
-		CREATED_USER =
-		#{createdUser,jdbcType=NUMBER},
-		CREATED_DATE = SYSDATE,
-		UPDATE_LAST_USER =
-		#{updateLastUser,jdbcType=NUMBER},
-		UPDATE_LAST_DATE = SYSDATE,
-		VALID_FLAG = #{validFlag,jdbcType=INTEGER}
-		where REG_ID = #{regId,jdbcType=INTEGER}
-	</update>
 	
+
 	<!-- batch action -->
-	
+
 	<delete id="batchRemovePks" parameterType="java.util.List">
 		DELETE FROM SYS_REGISTER_T WHERE REG_ID in
 		<foreach item="item" index="index" collection="list" open="("
@@ -234,20 +72,20 @@
 			<foreach collection="list" item="item">
 				UPDATE
 				SYS_REGISTER_T
-				set REG_NAME = #{item.regName,jdbcType=VARCHAR},
+				set
+				REG_NAME = #{item.regName,jdbcType=VARCHAR},
 				REG_CODE =
 				#{item.regCode,jdbcType=VARCHAR},
-				REG_DESC = #{item.regDesc,jdbcType=VARCHAR},
-				PARENT_ID = #{item.parentId,jdbcType=INTEGER},
+				REG_DESC =
+				#{item.regDesc,jdbcType=VARCHAR},
+				PARENT_ID =
+				#{item.parentId,jdbcType=INTEGER},
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
 				#{item.updateLastUser,jdbcType=NUMBER},
-				UPDATE_LAST_DATE = SYSDATE,
-				VALID_FLAG =
-				#{item.validFlag,jdbcType=INTEGER}
-				where REG_ID =
-				#{regId,jdbcType=INTEGER};
+				UPDATE_LAST_DATE = SYSDATE
+				where REG_ID = #{regId,jdbcType=INTEGER};
 			</foreach>
 		</if>
 		end;
@@ -259,26 +97,33 @@
 			begin
 			<foreach collection="list" item="item">
 				INSERT into SYS_REGISTER_T
-				(REG_ID, REG_NAME, REG_CODE,
-				REG_DESC, PARENT_ID, ORDER_CODE,
-				CREATED_USER, CREATED_DATE, UPDATE_LAST_USER,
+				(
+				REG_ID, REG_NAME, REG_CODE,
+				REG_DESC,
+				PARENT_ID,
+				ORDER_CODE,
+				CREATED_USER,
+				CREATED_DATE,
+				UPDATE_LAST_USER,
 				UPDATE_LAST_DATE,
-				VALID_FLAG)
+				VALID_FLAG
+				)
 				values (
 				SYS_REGISTER_S.NEXTVAL,
 				#{item.regName,jdbcType=VARCHAR},
 				#{item.regCode,jdbcType=VARCHAR},
-				#{item.regDesc,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
+				#{item.regDesc,jdbcType=VARCHAR},
+				#{parentId,jdbcType=INTEGER},
 				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMBER},
 				SYSDATE,
 				#{item.updateLastUser,jdbcType=NUMBER},
-				SYSDATE, 
+				SYSDATE,
 				1
 				);
 			</foreach>
+			end;
 		</if>
-		end;
 	</insert>
 
 </mapper>

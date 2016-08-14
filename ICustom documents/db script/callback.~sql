@@ -1,4 +1,9 @@
 
+DROP table SYS_REGISTER_T;
+DROP table SYS_LOOKUP_ITEM_T;
+DROP table SYS_LOOKUP_CLASSIFY_T;
+DROP table SYS_LANGUAGE_T;
+
 -- drop sequence 
 drop sequence SYS_USERS_S;
 

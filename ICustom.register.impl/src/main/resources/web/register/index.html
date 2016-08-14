@@ -1,45 +1,211 @@
 
-<h3>ICustom/Lookup</h3>
-
-<div id="tab-tools">
-	<a href="javascript:void(0)" class="easyui-linkbutton"
-		data-options="plain:true,iconCls:'icon-add'" onclick="addPanel()"></a>
-	<a href="javascript:void(0)" class="easyui-linkbutton"
-		data-options="plain:true,iconCls:'icon-remove'"
-		onclick="removePanel()"></a>
-</div>
-
-<div id="tt" class="easyui-tabs" style="width: 700px; height: 250px">
-	<div title="About" style="padding: 10px">
-		<p style="font-size: 14px">jQuery EasyUI framework helps you build
-			your web pages easily.</p>
-		<ul>
-			<li>easyui is very easy but powerful.</li>
-		</ul>
+	<div class="container">
+		<div class="page-header">
+			<h1>Lookup Manager</h1>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form class="form-inline" method="post" id="lookup_search_form">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="lookup code"
+							id="lookupCode">
+						<input type="text" class="form-control" placeholder="lookup name"
+							id="lookupName">
+					</div>
+					<button type="submit" class="btn btn-default">
+						<i class="fa fa-search"></i> Search
+					</button>
+					<button type="submit" class="btn btn-default">
+						<i class="fa fa-reset"></i> Reset
+					</button>
+				</form>
+			</div>
+		</div>
+		<div id="Lookup_tt" class="easyui-tabs" style="height:360px">
+			<div title="Lookup Classify">
+				<div id="lookup_list"></div>
+			</div>
+			<div title="Help" data-options="iconCls:'icon-help',closable:true"
+				style="padding: 10px">This is the help content.</div>
+		</div>
 	</div>
-	<div title="My Documents" style="padding: 10px">
-		<ul class="easyui-tree"
-			data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
-	</div>
-	<div title="Help" data-options="iconCls:'icon-help',closable:true"
-		style="padding: 10px">This is the help content.</div>
-</div>
 
-<script type="text/javascript">
-	var index = 0;
-	function addPanel() {
-		index++;
-		$('#tt').tabs('add', {
-			title : 'Tab' + index,
-			content : '<div style="padding:10px">Content' + index + '</div>',
-			closable : true
-		});
-	}
-	function removePanel() {
-		var tab = $('#tt').tabs('getSelected');
-		if (tab) {
-			var index = $('#tt').tabs('getTabIndex', tab);
-			$('#tt').tabs('close', index);
-		}
-	}
+	<div class="modal" id="lookup_modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary"
+						id="lookup_modal_submit">
+						<i class="fa fa-save"></i> Save
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/x-handlebars-template"
+		id="lookup_table_template">
+    {{#if data}}
+        <table class="table table-hover" id="lookup_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>地址</th>
+                    <th>图标</th>
+                    <th>叶子</th>
+                    <th>排序码</th>
+					<th>有效开始时间</th>
+					<th>有效结束时间</th>
+                    <th>创建用户</th>
+                    <th>创建时间</th>
+                    <th>最后更新用户</th>
+                    <th>最后更新时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#data}}
+                    {{> tr}}
+                {{/data}}
+            </tbody>
+        </table>
+    {{else}}
+        <div class="alert alert-warning">Can not find any data!</div>
+    {{/if}}
 </script>
+
+	<script type="text/x-handlebars-template-partial"
+		id="lookup_table_tr_template">
+    <tr data-id="{{itemId}}" data-name="{{itemName}}">
+        <td>{{itemId}}</td>
+        <td>{{itemName}}</td>
+        <td>{{url}}</td>
+        <td>{{icon}}</td>
+        <td>{{leaf}}</td>
+        <td>{{orderCode}}</td>
+        <td>{{createdUser}}</td>
+        <td>{{createdDate}}</td>
+        <td>{{updateLastUser}}</td>
+        <td>{{updateLastDate}}</td>
+        <td>
+            <button class="btn btn-xs btn-primary navigation_edit" title="Edit"><i class="fa fa-fw fa-edit"></i></button>
+            <button class="btn btn-xs btn-default navigation_delete" title="Delete"><i class="fa fa-fw fa-trash-o"></i></button>
+        </td>
+    </tr>
+</script>
+
+	<script type="text/x-handlebars-template"
+		id="lookup_modal_form_template">
+    <form>
+        <input type="hidden" id="itemId" value="{{itemId}}">
+		<input type="hidden" id="parentId" value="{{parentId}}">
+        <div class="form-group">
+            <label for="itemName">名称:</label>
+            <input type="text" value="{{itemName}}" class="form-control" id="itemName">
+        </div>
+        <div class="form-group">
+            <label for="url">地址:</label>
+            <input type="text" value="{{url}}" class="form-control" id="url">
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+            	<label for="orderCode">排序码:</label>
+            	<input type="text" value="{{orderCode}}" class="form-control" id="orderCode">
+        	</div>
+            <div class="form-group">
+            	<label for="icon">小图标:</label>
+            	<input type="text" value="{{icon}}" class="form-control" id="icon">
+        	</div>
+        </div>
+    </form>
+</script>
+
+	<script src="js/LookupView.js"></script>
+	<script src="js/LookupService.js"></script>
+
+
+	<script>
+		$(function() {
+			// 显示所有产品
+			//$('body').hide(); // 隐藏界面
+			LookupService.findLookups(function() {
+				$('body').show(); // 显示界面
+			});
+
+			// 根据关键字查询产品
+			$('#lookup_search_form').on('submit', function() {
+				var keyword = $('#keyword').val().trim();
+				LookupService.findLookupsByName(keyword);
+				return false;
+			});
+
+			// 点击 Edit 按钮，弹出编辑产品对话框
+			$(document).on('click', '#lookup_table .navigation_edit',
+					function() {
+						var $tr = $(this).closest('tr');
+						var itemId = $tr.data('id');
+						LookupService.findLookupById(itemId);
+						$('#lookup_modal').modal('show');
+						return false;
+					});
+
+			// 点击 Delete 按钮，删除产品
+			$(document).on(
+					'click',
+					'#lookup_table .navigation_delete',
+					function() {
+						var $tr = $(this).closest('tr');
+						var itemId = $tr.data('id');
+						var name = $tr.data('name');
+						console.warn(itemId, name);
+						if (confirm('Do you want to delete this navigation? ['
+								+ name + ']')) {
+							LookupService.deleteLookupById(itemId);
+						}
+						return false;
+					});
+
+			// 点击 Create 按钮，弹出创建产品对话框
+			$('#lookup_create').on('click', function() {
+				var title = 'Create Lookup';
+				var navigation = {
+					itemId : 0,
+					itemName : '',
+					orderCode : '',
+					icon : '',
+					url : ''
+				};
+				LookupView.renderLookupModal(title, navigation);
+				$('#lookup_modal').modal('show');
+			});
+
+			// 点击对话框中的 Save 按钮，创建或更新产品
+			$('#lookup_modal_submit').on('click', function() {
+				var id = $('#itemId').val();
+				var navigation = {
+					itemId : id,
+					parentId : $('#parentId').val().trim(),
+					itemName : $('#itemName').val().trim(),
+					orderCode : $('#orderCode').val().trim(),
+					icon : $('#icon').val().trim(),
+					url : $('#url').val().trim()
+				};
+				console.warn(id, navigation);
+				if (id == 0) {
+					LookupService.createLookup(navigation);
+				} else {
+					LookupService.updateLookup(navigation);
+				}
+				$('#lookup_modal').modal('hide');
+			});
+			//
+		});
+	</script>
+
+
