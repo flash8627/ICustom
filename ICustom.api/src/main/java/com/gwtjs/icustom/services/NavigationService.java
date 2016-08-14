@@ -14,6 +14,12 @@ import javax.ws.rs.core.MediaType;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.icustom.entity.NavigationVO;
 
+/**
+ * 系统导航
+ * 
+ * @author aGuang
+ *
+ */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface NavigationService {

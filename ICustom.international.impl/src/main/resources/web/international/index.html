@@ -1,16 +1,16 @@
 
 	<div class="container">
 		<div class="page-header">
-			<h1>Lookup Manager</h1>
+			<h1>Language Manager</h1>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form class="form-inline" method="post" id="lookup_search_form">
+				<form class="form-inline" method="post" id="language_search_form">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="lookup code"
-							id="lookupCode">
-						<input type="text" class="form-control" placeholder="lookup name"
-							id="lookupName">
+						<input type="text" class="form-control" placeholder="language code"
+							id="languageCode">
+						<input type="text" class="form-control" placeholder="language name"
+							id="languageName">
 					</div>
 					<button type="submit" class="btn btn-default">
 						<i class="fa fa-search"></i> Search
@@ -21,16 +21,60 @@
 				</form>
 			</div>
 		</div>
-		<div id="Lookup_tt" class="easyui-tabs" style="height:360px">
-			<div title="Lookup Classify">
-				<div id="lookup_list"></div>
+		<div id="Language_tt" class="easyui-tabs" data-options="tabWidth:118" style="height:360px">
+			<div title="国际化">
+				<div id="language_list">
+				<table class="table table-hover" id="language_table">
+	            	<thead class="list_head">
+		                <tr>
+						    <td>Item Index</td>
+						    <td>Item Code</td>
+						    <td>Value</td>
+						    <td>Language</td>
+						    <td>Create User</td>
+						    <td>Create Date</td>
+						    <td>Update User</td>
+						    <td>Update Date</td>
+						  </tr>
+					</thead>
+					<tbody>
+		                <tr>
+						    <td rowspan="2" valign="middle">1</td>
+						    <td rowspan="2" valign="middle">app.international.code</td>
+						    <td valign="middle">编码</td>
+						    <td valign="middle">EN</td>
+						    <td rowspan="2" valign="middle">dzg</td>
+						    <td rowspan="2" valign="middle">2016/08/15</td>
+						    <td rowspan="2" valign="middle">dzg</td>
+						    <td rowspan="2" valign="middle">2016/08/15</td>
+						  </tr>
+						  <tr>
+						    <td valign="middle">Code</td>
+						    <td valign="middle">CN</td>
+						  </tr>
+						  
+						  <tr>
+						    <td rowspan="2" valign="middle">2</td>
+						    <td rowspan="2" valign="middle">app.international.code</td>
+						    <td valign="middle">编码</td>
+						    <td valign="middle">EN</td>
+						    <td rowspan="2" valign="middle">dzg</td>
+						    <td rowspan="2" valign="middle">2016/08/15</td>
+						    <td rowspan="2" valign="middle">dzg</td>
+						    <td rowspan="2" valign="middle">2016/08/15</td>
+						  </tr>
+						  <tr>
+						    <td valign="middle">Code</td>
+						    <td valign="middle">CN</td>
+						  </tr>
+				    </tbody>
+					</table>
+				</div>
 			</div>
-			<div title="Help" data-options="iconCls:'icon-help',closable:true"
-				style="padding: 10px">This is the help content.</div>
 		</div>
 	</div>
 
-	<div class="modal" id="lookup_modal">
+	<div class="modal" id="language_modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -40,7 +84,7 @@
 				<div class="modal-body"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary"
-						id="lookup_modal_submit">
+						id="language_modal_submit">
 						<i class="fa fa-save"></i> Save
 					</button>
 				</div>
@@ -48,40 +92,31 @@
 		</div>
 	</div>
 
-	<script type="text/x-handlebars-template"
-		id="lookup_table_template">
-    {{#if data}}
-        <table class="table table-hover" id="lookup_table">
+<script type="text/x-handlebars-template"
+		id="language_table_template">
+    <table class="table table-hover" id="language_table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>名称</th>
-                    <th>地址</th>
-                    <th>图标</th>
-                    <th>叶子</th>
-                    <th>排序码</th>
-					<th>有效开始时间</th>
-					<th>有效结束时间</th>
-                    <th>创建用户</th>
-                    <th>创建时间</th>
-                    <th>最后更新用户</th>
-                    <th>最后更新时间</th>
-                    <th>操作</th>
-                </tr>
+    <td>Item Index</td>
+    <td>Item Code</td>
+    <td>Value</td>
+    <td>Language</td>
+    <td>Create User</td>
+    <td>Create Date</td>
+    <td>Update User</td>
+    <td>Update Date</td>
+  </tr>
             </thead>
             <tbody>
                 {{#data}}
                     {{> tr}}
                 {{/data}}
             </tbody>
-        </table>
-    {{else}}
-        <div class="alert alert-warning">Can not find any data!</div>
-    {{/if}}
+	</table>
 </script>
 
 	<script type="text/x-handlebars-template-partial"
-		id="lookup_table_tr_template">
+		id="language_table_tr_template">
     <tr data-id="{{itemId}}" data-name="{{itemName}}">
         <td>{{itemId}}</td>
         <td>{{itemName}}</td>
@@ -101,7 +136,7 @@
 </script>
 
 	<script type="text/x-handlebars-template"
-		id="lookup_modal_form_template">
+		id="language_modal_form_template">
     <form>
         <input type="hidden" id="itemId" value="{{itemId}}">
 		<input type="hidden" id="parentId" value="{{parentId}}">
@@ -126,39 +161,44 @@
     </form>
 </script>
 
-	<script src="js/LookupView.js"></script>
-	<script src="js/LookupService.js"></script>
+	<script src="js/LanguageView.js"></script>
+	<script src="js/LanguageService.js"></script>
 
 
 	<script>
 		$(function() {
+			
+			$('#Language_tt').tabs({
+				plain: true
+			})
+			
 			// 显示所有产品
 			//$('body').hide(); // 隐藏界面
-			LookupService.findLookups(function() {
+			LanguageService.findLanguages(function() {
 				$('body').show(); // 显示界面
 			});
 
 			// 根据关键字查询产品
-			$('#lookup_search_form').on('submit', function() {
+			$('#language_search_form').on('submit', function() {
 				var keyword = $('#keyword').val().trim();
-				LookupService.findLookupsByName(keyword);
+				LanguageService.findLanguagesByName(keyword);
 				return false;
 			});
 
 			// 点击 Edit 按钮，弹出编辑产品对话框
-			$(document).on('click', '#lookup_table .navigation_edit',
+			$(document).on('click', '#language_table .navigation_edit',
 					function() {
 						var $tr = $(this).closest('tr');
 						var itemId = $tr.data('id');
-						LookupService.findLookupById(itemId);
-						$('#lookup_modal').modal('show');
+						LanguageService.findLanguageById(itemId);
+						$('#language_modal').modal('show');
 						return false;
 					});
 
 			// 点击 Delete 按钮，删除产品
 			$(document).on(
 					'click',
-					'#lookup_table .navigation_delete',
+					'#language_table .navigation_delete',
 					function() {
 						var $tr = $(this).closest('tr');
 						var itemId = $tr.data('id');
@@ -166,14 +206,14 @@
 						console.warn(itemId, name);
 						if (confirm('Do you want to delete this navigation? ['
 								+ name + ']')) {
-							LookupService.deleteLookupById(itemId);
+							LanguageService.deleteLanguageById(itemId);
 						}
 						return false;
 					});
 
 			// 点击 Create 按钮，弹出创建产品对话框
-			$('#lookup_create').on('click', function() {
-				var title = 'Create Lookup';
+			$('#language_create').on('click', function() {
+				var title = 'Create Language';
 				var navigation = {
 					itemId : 0,
 					itemName : '',
@@ -181,12 +221,12 @@
 					icon : '',
 					url : ''
 				};
-				LookupView.renderLookupModal(title, navigation);
-				$('#lookup_modal').modal('show');
+				LanguageView.renderLanguageModal(title, navigation);
+				$('#language_modal').modal('show');
 			});
 
 			// 点击对话框中的 Save 按钮，创建或更新产品
-			$('#lookup_modal_submit').on('click', function() {
+			$('#language_modal_submit').on('click', function() {
 				var id = $('#itemId').val();
 				var navigation = {
 					itemId : id,
@@ -198,14 +238,17 @@
 				};
 				console.warn(id, navigation);
 				if (id == 0) {
-					LookupService.createLookup(navigation);
+					LanguageService.createLanguage(navigation);
 				} else {
-					LookupService.updateLookup(navigation);
+					LanguageService.updateLanguage(navigation);
 				}
-				$('#lookup_modal').modal('hide');
+				$('#language_modal').modal('hide');
 			});
 			//
 		});
 	</script>
 
+<style type="text/css">
+	.tabs-title{width:138px;}
+</style>
 

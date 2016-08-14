@@ -1,9 +1,18 @@
 
 /*改写默认的ui样式*/
+
+/* layout */
 .page-header {
     border-bottom: 1px solid #DDD;
     margin: 20px 0 10px;
     padding-bottom: 2px;
+}
+
+.panel-title {
+    color: inherit;
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .panel-body {
@@ -11,3 +20,33 @@
 }
 
 .tabs-panels .panel .panel-body{padding:0;}
+
+/*  form */
+.textbox{width:100%; height:28px;}
+
+.textbox {
+    background-color: #fff;
+    border: 1px solid #95b8e7;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;width:100%; height:28px;
+}
+
+/* my style */
+
+.form table td{padding:3px 0;}
+
+.myFormTable {}
+.myFormTable tr td:first-child{height:32px;width:26%;text-align: right;font-weight:bold;padding-right:8px;}
+.myFormTable input{text-align:left;}
+.myFormTable label{}
+
+legend{text-align: left;}
+
+.table thead,
+.list_head{font-weight:bold;background:#FF0F2F8;}

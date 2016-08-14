@@ -8,11 +8,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.lookup.entity.LookupItemVO;
 import com.gwtjs.register.entity.RegisterVO;
 
 /**
@@ -23,7 +23,6 @@ import com.gwtjs.register.entity.RegisterVO;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/registerService")
 public interface IRegisterService {
 
 	@PUT
@@ -52,11 +51,7 @@ public interface IRegisterService {
 
 	@GET
 	@Path("selectList")
-	List<RegisterVO> selectList(RegisterVO record,PagerVO page);
-
-	@GET
-	@Path("selectListCount")
-	int selectListCount(RegisterVO record);
+	List<RegisterVO> selectList(@PathParam("")RegisterVO record,@PathParam("")PagerVO page);
 
 	@DELETE
 	@Path("batchRemovePks")

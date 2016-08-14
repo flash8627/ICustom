@@ -6,6 +6,11 @@ import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.register.entity.RegisterVO;
 
+/**
+ * Êý¾Ý×Öµä
+ * @author aGuang
+ *
+ */
 public interface IRegisterDAO extends BaseSqlMapper<RegisterVO> {
 
 	int deleteByPrimaryKey(Long regId);

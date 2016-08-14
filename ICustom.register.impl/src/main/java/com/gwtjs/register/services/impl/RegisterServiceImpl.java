@@ -59,11 +59,6 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 
 	@Override
-	public int selectListCount(RegisterVO record) {
-		return registerDAO.selectListCount(record);
-	}
-
-	@Override
 	public int batchRemovePks(List<RegisterVO> records) {
 		return registerDAO.batchRemovePks(records);
 	}

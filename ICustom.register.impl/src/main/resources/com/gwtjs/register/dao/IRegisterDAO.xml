@@ -15,26 +15,26 @@
 		resultType="INTEGER">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_REGISTER_T T1
+		FROM SYS_REGISTER_T T1 
 		where 1=1
 		<include refid="select_cond" />
 	</select>
 
 	<sql id="select_cond">
 
-		<if test="regCode != null">
+		<if test="0.regId != null">
 			AND T1.REG_ID = #{regId,jdbcType=INTEGER}
 		</if>
 
-		<if test="parentId != null">
+		<if test="#{0.parentId != null}">
 			AND T1.PARENT_ID = #{parentId,jdbcType=INTEGER}
 		</if>
 
-		<if test="regCode != null">
+		<if test="#{0.regCode != null}">
 			AND T1.REG_CODE = #{regCode,jdbcType=VARCHAR}
 		</if>
 
-		<if test="regName != null">
+		<if test="#{0.regName != null}">
 			AND T1.REG_NAME = #{regName,jdbcType=VARCHAR}
 		</if>
 

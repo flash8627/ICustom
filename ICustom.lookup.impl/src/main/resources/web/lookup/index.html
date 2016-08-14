@@ -21,12 +21,68 @@
 				</form>
 			</div>
 		</div>
-		<div id="Lookup_tt" class="easyui-tabs" style="height:360px">
+		<div id="Lookup_tt" class="easyui-tabs" data-options="tabWidth:118" style="height:360px">
 			<div title="Lookup Classify">
-				<div id="lookup_list"></div>
+				<div id="lookup_list">
+					<table class="table table-hover" id="lookup_table">
+			            <thead>
+			                <tr>
+			                    <th>序引</th>
+			                    <th>编码</th>
+			                    <th>名称</th>
+			                    <th>排序码</th>
+			                    <th>创建用户</th>
+			                    <th>创建时间</th>
+			                    <th>最后更新用户</th>
+			                    <th>最后更新时间</th>
+			                    <th colspan="2">操作</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			                <tr>
+			                    <th>
+			                    	<input type="checkbox">
+			                    </th>
+			                    <th>
+			                    	<a href="javascript:void(0);" onclick="addTabPanel(this)" >EMAIL_TYPE</a>
+			                    </th>
+			                    <th>邮件类型</th>
+			                    <th>1</th>
+			                    <th>d3g</th>
+			                    <th>2016/08/18</th>
+			                    <th>d3g</th>
+			                    <th>2016/08/18</th>
+			                    <th>
+			                    	操作
+			                    </th>
+			                    <th>
+			                    	操作
+			                    </th>
+			                </tr>
+			                <tr>
+			                    <th>
+			                    	<input type="checkbox">
+			                    </th>
+			                    <th>
+			                    	<a href="javascript:void(0);" onclick="addTabPanel(this)" >Group_EMAIL_TYPE</a>
+			                    </th>
+			                    <th>组邮件类型</th>
+			                    <th>1</th>
+			                    <th>d3g</th>
+			                    <th>2016/08/18</th>
+			                    <th>d3g</th>
+			                    <th>2016/08/18</th>
+			                    <th>
+			                    	操作
+			                    </th>
+			                    <th>
+			                    	操作
+			                    </th>
+			                </tr>
+			            </tbody>
+			        </table>
+				</div>
 			</div>
-			<div title="Help" data-options="iconCls:'icon-help',closable:true"
-				style="padding: 10px">This is the help content.</div>
 		</div>
 	</div>
 
@@ -50,8 +106,7 @@
 
 	<script type="text/x-handlebars-template"
 		id="lookup_table_template">
-    {{#if data}}
-        <table class="table table-hover" id="lookup_table">
+    <table class="table table-hover" id="lookup_table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -75,9 +130,6 @@
                 {{/data}}
             </tbody>
         </table>
-    {{else}}
-        <div class="alert alert-warning">Can not find any data!</div>
-    {{/if}}
 </script>
 
 	<script type="text/x-handlebars-template-partial"
@@ -128,10 +180,31 @@
 
 	<script src="js/LookupView.js"></script>
 	<script src="js/LookupService.js"></script>
-
+	
+	<script type="text/javascript">
+		var index = 0;
+		function addTabPanel(node){
+			var text = $(node).text();
+			var tabId = 'Tab_'+text;
+			console.info($('#'+tabId));
+			if($('#'+tabId).length<1){
+				$('#Lookup_tt').tabs('add',{
+					title: text,
+					id:tabId,
+					tabWidth:text.length*10+30,
+					fit:true,
+					content: '<div style="padding:10px">Content'+index+'</div>',
+					closable: true
+				});
+			}else{
+				$('#Lookup_tt').tabs('select', text);
+			}
+		}
+	</script>
 
 	<script>
 		$(function() {
+			
 			// 显示所有产品
 			//$('body').hide(); // 隐藏界面
 			LookupService.findLookups(function() {
