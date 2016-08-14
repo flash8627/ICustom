@@ -29,7 +29,7 @@ var anode = function(item){
 		url = "/"+item.url;
 	}
 	var node = '';
-	node += '<a class="dropdown-toggle" aria-expanded="false" target="_blank" aria-haspopup="true" role="button" data-toggle="dropdown" href="';
+	node += '<a href="';
 	node += url;
 	node += '">'+name+'</a>';
 	return node;
@@ -38,8 +38,8 @@ var anode = function(item){
 var newRed = '<span class="label label-danger text-center hidden-xs">New <i class="fa fa-caret-right"></i></span>';
 var newGre = '<span class="label label-info text-center hidden-xs">New <i class="fa fa-caret-right"></i></span>';
 
-var homeHtml = '<li class="active">'+
-'<a class="dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" href="#">Home</a>'+
+var homeHtml = '<li>'+
+'<a  href="#">Home</a>'+
 '</li>'; 
 
 var menuCallback = function(response){
@@ -59,7 +59,7 @@ var menuCallback = function(response){
 				menuHtml += newGre;
 			}
 			if(rows.children&&rows.children.length>0){
-				menuHtml += '<ul class="dropdown dropdown-menu">';
+				menuHtml += '<ul>';
 				var rc = rows.children;
 				for(var x=0;x<rc.length;x++){
 					var rowss = rc[x];
@@ -67,7 +67,7 @@ var menuCallback = function(response){
 					menuHtml += anode(rowss);
 					var rcc = rowss.children;
 					if(rcc!=null){
-						menuHtml += '<ul class="dropdown dropdown-menu">';
+						menuHtml += '<ul>';
 						for(var xx=0;xx<rcc.length;xx++){
 							var rccNode = rcc[xx];
 							menuHtml += '<li>';
@@ -83,6 +83,6 @@ var menuCallback = function(response){
 			menuHtml += '</li>';
 		}
 	}
-	$('#navbar-nav').html(menuHtml);
+	$('#nav').html(menuHtml);
 }
 
