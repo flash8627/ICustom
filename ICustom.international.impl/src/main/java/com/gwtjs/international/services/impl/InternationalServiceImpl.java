@@ -1,11 +1,11 @@
 package com.gwtjs.international.services.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.international.dao.InternationalDAO;
 import com.gwtjs.international.entity.LanguageVO;
 import com.gwtjs.international.services.IInternationalService;
@@ -23,68 +23,61 @@ public class InternationalServiceImpl implements IInternationalService {
 	private InternationalDAO internationalDao;
 
 	@Override
-	public int deleteByPrimaryKey(BigDecimal regId) {
-		return 0;// internationalDao.deleteByPrimaryKey(regId);
+	public int deleteByPrimaryKey(Long regId) {
+		return internationalDao.deleteByPrimaryKey(regId);// internationalDao.deleteByPrimaryKey(regId);
 	}
 
 	@Override
 	public int insert(LanguageVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.insert(record);
 	}
 
 	@Override
 	public int insertSelective(LanguageVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.insertSelective(record);
 	}
 
 	@Override
-	public LanguageVO selectByPrimaryKey(BigDecimal regId) {
+	public LanguageVO selectByPrimaryKey(Long regId) {
 		// TODO Auto-generated method stub
-		return null;
+		return internationalDao.selectByPrimaryKey(regId);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(LanguageVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.updateByPrimaryKeySelective(record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(LanguageVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.updateByPrimaryKey(record);
 	}
 
 	@Override
-	public List<LanguageVO> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LanguageVO> selectList(LanguageVO record,PagerVO page) {
+		return internationalDao.selectList(record, page);
 	}
 
 	@Override
 	public int selectListCount(LanguageVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.selectListCount(record);
 	}
 
 	@Override
 	public int batchRemovePks(List<LanguageVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.batchRemovePks(records);
 	}
 
 	@Override
 	public int batchUpdate(List<LanguageVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.batchUpdate(records);
 	}
 
 	@Override
 	public int batchInsert(List<LanguageVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return internationalDao.batchInsert(records);
 	}
 
 }

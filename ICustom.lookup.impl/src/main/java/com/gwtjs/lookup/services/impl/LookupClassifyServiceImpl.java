@@ -1,11 +1,11 @@
 package com.gwtjs.lookup.services.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.dao.ILookupDAO;
 import com.gwtjs.lookup.entity.LookupVO;
 import com.gwtjs.lookup.services.ILookupClassifyService;
@@ -23,69 +23,67 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	private ILookupDAO lookupDao;
 
 	@Override
-	public int deleteByPrimaryKey(BigDecimal regId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteByPrimaryKey(Long regId) {
+		return lookupDao.deleteByPrimaryKey(regId);
 	}
 
 	@Override
 	public int insert(LookupVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.insert(record);
 	}
 
 	@Override
 	public int insertSelective(LookupVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.insertSelective(record);
 	}
 
 	@Override
-	public LookupVO selectByPrimaryKey(BigDecimal regId) {
+	public LookupVO selectByPrimaryKey(Long regId) {
 		// TODO Auto-generated method stub
-		return null;
+		return lookupDao.selectByPrimaryKey(regId);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(LookupVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.updateByPrimaryKeySelective(record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(LookupVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.updateByPrimaryKey(record);
 	}
 
 	@Override
-	public List<LookupVO> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LookupVO> findLookupList(LookupVO record,PagerVO page) {
+		return lookupDao.selectList(record, page);
 	}
 
 	@Override
-	public int selectListCount(LookupVO record) {
+	public int findLookupListCount(LookupVO record) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.selectListCount(record);
 	}
 
 	@Override
 	public int batchRemovePks(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.batchRemovePks(records);
 	}
 
 	@Override
 	public int batchUpdate(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.batchUpdate(records);
 	}
 
 	@Override
 	public int batchInsert(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return 0;
+		return lookupDao.batchInsert(records);
 	}
 
 }

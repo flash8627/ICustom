@@ -30,12 +30,15 @@
 		UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG
 		)
 		values
-		(#{itemId,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR},
+		(#{itemId,jdbcType=VARCHAR}, 
+		#{itemName,jdbcType=VARCHAR},
 		#{classId,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=DECIMAL},
-		#{createdUser,jdbcType=DECIMAL}, #{createdDate,jdbcType=DATE},
-		#{updateLastUser,jdbcType=DECIMAL}, #{updateLastDate,jdbcType=DATE},
-		#{validFlag,jdbcType=DECIMAL}
+		#{orderCode,jdbcType=INTEGER},
+		#{createdUser,jdbcType=NUMBER}, 
+		SYSDATE,
+		#{updateLastUser,jdbcType=NUMBER}, 
+		SYSDATE,
+		1
 		)
 	</insert>
 
@@ -81,22 +84,22 @@
 				#{classId,jdbcType=VARCHAR},
 			</if>
 			<if test="orderCode != null">
-				#{orderCode,jdbcType=DECIMAL},
+				#{orderCode,jdbcType=INTEGER},
 			</if>
 			<if test="createdUser != null">
-				#{createdUser,jdbcType=DECIMAL},
+				#{createdUser,jdbcType=NUMBER},
 			</if>
 			<if test="createdDate != null">
-				#{createdDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=DECIMAL},
+				#{updateLastUser,jdbcType=NUMBER},
 			</if>
 			<if test="updateLastDate != null">
-				#{updateLastDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="validFlag != null">
-				#{validFlag,jdbcType=DECIMAL},
+				1,
 			</if>
 		</trim>
 	</insert>
@@ -111,22 +114,13 @@
 				CLASS_ID = #{classId,jdbcType=VARCHAR},
 			</if>
 			<if test="orderCode != null">
-				ORDER_CODE = #{orderCode,jdbcType=DECIMAL},
-			</if>
-			<if test="createdUser != null">
-				CREATED_USER = #{createdUser,jdbcType=DECIMAL},
-			</if>
-			<if test="createdDate != null">
-				CREATED_DATE = #{createdDate,jdbcType=DATE},
+				ORDER_CODE = #{orderCode,jdbcType=INTEGER},
 			</if>
 			<if test="updateLastUser != null">
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
 			</if>
 			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
-			</if>
-			<if test="validFlag != null">
-				VALID_FLAG = #{validFlag,jdbcType=DECIMAL},
+				UPDATE_LAST_DATE = SYSDATE
 			</if>
 		</set>
 		where ITEM_ID = #{itemId,jdbcType=VARCHAR}
@@ -137,19 +131,12 @@
 		SYS_LOOKUP_ITEM_T
 		set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
 		CLASS_ID = #{classId,jdbcType=VARCHAR},
-		ORDER_CODE =
-		#{orderCode,jdbcType=DECIMAL},
-		CREATED_USER =
-		#{createdUser,jdbcType=DECIMAL},
-		CREATED_DATE =
-		#{createdDate,jdbcType=DATE},
-		UPDATE_LAST_USER =
-		#{updateLastUser,jdbcType=DECIMAL},
-		UPDATE_LAST_DATE =
-		#{updateLastDate,jdbcType=DATE},
-		VALID_FLAG =
-		#{validFlag,jdbcType=DECIMAL}
-		where ITEM_ID =
+		ORDER_CODE = #{orderCode,jdbcType=INTEGER},
+		CREATED_USER = #{createdUser,jdbcType=NUMBER},
+		CREATED_DATE = SYSDATE,
+		UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
+		UPDATE_LAST_DATE = SYSDATE
+		where ITEM_ID = 
 		#{itemId,jdbcType=VARCHAR}
 	</update>
 
@@ -173,24 +160,16 @@
 
 	<sql id="select_cond">
 
-		<if test="regCode != null">
-			AND T1.ITEM_ID = #{regId,jdbcType=DECIMAL}
-		</if>
-
-		<if test="parentId != null">
-			AND T1.PARENT_ID = #{parentId,jdbcType=INTEGER}
+		<if test="classId != null">
+			AND T1.ITEM_ID = #{itemId,jdbcType=NUMBER}
 		</if>
 
 		<if test="regCode != null">
-			AND T1.REG_CODE = #{regCode,jdbcType=VARCHAR}
+			AND T1.ITEM_NAME = #{itemName,jdbcType=VARCHAR}
 		</if>
 
 		<if test="regCode != null">
-			AND T1.REG_NAME = #{regName,jdbcType=VARCHAR}
-		</if>
-
-		<if test="regDesc != null">
-			AND T1.REG_DESC LIKE '%'+ #{regDesc,jdbcType=VARCHAR} +'%'
+			AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR}
 		</if>
 
 	</sql>
@@ -216,13 +195,11 @@
 				set ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
 				CLASS_ID = #{item.classId,jdbcType=VARCHAR},
 				ORDER_CODE =
-				#{item.orderCode,jdbcType=DECIMAL},
+				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=DECIMAL},
+				#{item.updateLastUser,jdbcType=NUMBER},
 				UPDATE_LAST_DATE =
-				#{item.updateLastDate,jdbcType=DATE},
-				VALID_FLAG =
-				#{item.validFlag,jdbcType=DECIMAL}
+				#{item.updateLastDate,jdbcType=DATE}
 				where ITEM_ID =
 				#{item.itemId,jdbcType=VARCHAR};
 			</foreach>
@@ -243,15 +220,15 @@
 				)
 				values
 				(
-				#{item.itemId,jdbcType=VARCHAR},
+				SYS_LOOKUP_ITEM_S.NEXTVAL,
 				#{item.itemName,jdbcType=VARCHAR},
 				#{item.classId,jdbcType=VARCHAR},
-				#{item.orderCode,jdbcType=DECIMAL},
-				#{item.createdUser,jdbcType=DECIMAL},
-				#{item.createdDate,jdbcType=DATE},
-				#{item.updateLastUser,jdbcType=DECIMAL},
-				#{item.updateLastDate,jdbcType=DATE},
-				#{item.validFlag,jdbcType=DECIMAL}
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createdUser,jdbcType=NUMBER},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMBER},
+				SYSDATE,
+				1
 				);
 			</foreach>
 		</if>

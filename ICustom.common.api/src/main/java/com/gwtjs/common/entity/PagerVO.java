@@ -1,7 +1,10 @@
 package com.gwtjs.common.entity;
 
+import java.util.Collections;
+
 /**
  * 分页组件
+ * 
  * @author aGuang
  *
  */
@@ -11,11 +14,13 @@ public class PagerVO {
 	private int totalRows;
 	private int curPage;
 	private int pageSize;
+	private int startRecord;
+	private int endRecord;
 	private int totalPage;
 	private String order;
 
 	public Object getEntityList() {
-		return entityList;
+		return entityList == null ? Collections.<Object> emptyList() : entityList;
 	}
 
 	public void setEntityList(Object entityList) {
@@ -62,4 +67,20 @@ public class PagerVO {
 		this.order = order;
 	}
 
+	public int getStartRecord() {
+		return curPage*pageSize-1;
+	}
+
+	public void setStartRecord(int startRecord) {
+		this.startRecord = startRecord;
+	}
+
+	public int getEndRecord() {
+		return curPage*pageSize+pageSize;
+	}
+
+	public void setEndRecord(int endRecord) {
+		this.endRecord = endRecord;
+	}
+	
 }

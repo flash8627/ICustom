@@ -1,32 +1,33 @@
 package com.gwtjs.register.entity;
 
-import java.math.BigDecimal;
-
 import com.gwtjs.common.entity.BaseResource;
 
+/**
+ * 数据字典
+ * @author aGuang
+ *
+ */
 public class RegisterVO  extends BaseResource{
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private BigDecimal regId;
+	private Long regId; //
 
-    private String regName;
+    private String regName;//名称或label
 
-    private String regCode;
+    private String regCode;//编码,路径形式
 
-    private String regDesc;
+    private String regDesc; //说明
 
-    private BigDecimal parentId;
+    private Long parentId; //上级标识 -->等于　regId
 
-    private Short validFlag;
-
-    public BigDecimal getRegId() {
+    public Long getRegId() {
         return regId;
     }
 
-    public void setRegId(BigDecimal regId) {
+    public void setRegId(Long regId) {
         this.regId = regId;
     }
 
@@ -54,19 +55,11 @@ public class RegisterVO  extends BaseResource{
         this.regDesc = regDesc == null ? null : regDesc.trim();
     }
 
-    public BigDecimal getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(BigDecimal parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
-    }
-
-    public Short getValidFlag() {
-        return validFlag;
-    }
-
-    public void setValidFlag(Short validFlag) {
-        this.validFlag = validFlag;
     }
 }

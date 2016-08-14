@@ -2,24 +2,25 @@ package com.gwtjs.lookup.dao;
 
 import java.util.List;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.lookup.entity.LookupVO;
 
 public interface ILookupDAO extends BaseSqlMapper<LookupVO> {
 
-	int deleteByPrimaryKey(String classId);
+	int deleteByPrimaryKey(Long classId);
 
 	int insert(LookupVO record);
 
 	int insertSelective(LookupVO record);
 
-	LookupVO selectByPrimaryKey(String classId);
+	LookupVO selectByPrimaryKey(Long classId);
 
 	int updateByPrimaryKeySelective(LookupVO record);
 
 	int updateByPrimaryKey(LookupVO record);
 
-	List<LookupVO> selectList();
+	List<LookupVO> selectList(LookupVO record,PagerVO page);
 
 	int selectListCount(LookupVO record);
 

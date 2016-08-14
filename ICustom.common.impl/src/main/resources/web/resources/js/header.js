@@ -2,7 +2,6 @@
  * 头部功能
  */
 $(function() {
-	console.warn('头部功能  success...',AjaxUtil);
 	var url = "/services/nav/findNavigationSiteMenu";
 	AjaxUtil.sendGetRequest(url, menuCallback);	
 })
@@ -85,7 +84,5 @@ var menuCallback = function(response){
 		}
 	}
 	$('#navbar-nav').html(menuHtml);
-
-	console.warn('menuHtml',menuHtml);
 }
 

@@ -1,0 +1,6 @@
+
+select table_name from user_tables;
+
+select * from SYS_REGISTER_T;
+
+select * from SYS_LOOKUP_ITEM_T;

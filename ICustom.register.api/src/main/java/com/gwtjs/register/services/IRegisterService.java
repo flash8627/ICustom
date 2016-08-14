@@ -1,6 +1,5 @@
 package com.gwtjs.register.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +11,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.lookup.entity.LookupItemVO;
 import com.gwtjs.register.entity.RegisterVO;
 
 /**
@@ -27,7 +28,7 @@ public interface IRegisterService {
 
 	@PUT
 	@Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(BigDecimal regId);
+	int deleteByPrimaryKey(Long regId);
 
 	@POST
 	@Path("insert")
@@ -39,7 +40,7 @@ public interface IRegisterService {
 
 	@GET
 	@Path("selectByPrimaryKey")
-	RegisterVO selectByPrimaryKey(BigDecimal regId);
+	RegisterVO selectByPrimaryKey(Long regId);
 
 	@POST
 	@Path("updateByPrimaryKeySelective")
@@ -51,7 +52,7 @@ public interface IRegisterService {
 
 	@GET
 	@Path("selectList")
-	List<RegisterVO> selectList();
+	List<RegisterVO> selectList(RegisterVO record,PagerVO page);
 
 	@GET
 	@Path("selectListCount")

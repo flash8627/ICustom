@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.gwtjs.common.entity.PagerVO;
+
 /**
  * <b>function:</b> 
  * BaseSqlMapper继承SqlMapper，对Mapper进行接口封装，提供常用的增删改查组件；
@@ -21,7 +23,7 @@ public interface BaseSqlMapper<T> extends SqlMapper {
 
     public List<T> getList(T entity) throws DataAccessException;
     
-    List<T> selectList();
+    List<T> selectList(T record,PagerVO page);
 
 	int selectListCount(T record);
 

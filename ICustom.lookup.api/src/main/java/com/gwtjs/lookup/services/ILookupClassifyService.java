@@ -1,6 +1,5 @@
 package com.gwtjs.lookup.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.entity.LookupVO;
 
 
@@ -26,7 +26,7 @@ import com.gwtjs.lookup.entity.LookupVO;
 public interface ILookupClassifyService {
 	
 	@PUT @Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(BigDecimal regId);
+	int deleteByPrimaryKey(Long regId);
 	
 	@POST @Path("insert")
     int insert(LookupVO record);
@@ -35,7 +35,7 @@ public interface ILookupClassifyService {
     int insertSelective(LookupVO record);
 	
 	@GET @Path("selectByPrimaryKey")
-	LookupVO selectByPrimaryKey(BigDecimal regId);
+	LookupVO selectByPrimaryKey(Long regId);
 	
 	@POST @Path("updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(LookupVO record);
@@ -43,11 +43,11 @@ public interface ILookupClassifyService {
 	@POST @Path("updateByPrimaryKey")
     int updateByPrimaryKey(LookupVO record);
 	
-	@GET @Path("selectList")
-	List<LookupVO> selectList();
+	@GET @Path("findLookupList")
+	List<LookupVO> findLookupList(LookupVO record,PagerVO page);
 
-	@GET @Path("selectListCount")
-	int selectListCount(LookupVO record);
+	@GET @Path("findLookupListCount")
+	int findLookupListCount(LookupVO record);
 
 	@DELETE @Path("batchRemovePks")
 	int batchRemovePks(List<LookupVO> records);

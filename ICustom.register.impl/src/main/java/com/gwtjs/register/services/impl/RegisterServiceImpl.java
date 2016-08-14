@@ -1,11 +1,11 @@
 package com.gwtjs.register.services.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.register.dao.IRegisterDAO;
 import com.gwtjs.register.entity.RegisterVO;
 import com.gwtjs.register.services.IRegisterService;
@@ -23,68 +23,59 @@ public class RegisterServiceImpl implements IRegisterService {
 	private IRegisterDAO registerDAO;
 
 	@Override
-	public int deleteByPrimaryKey(BigDecimal regId) {
+	public int deleteByPrimaryKey(Long regId) {
 		return registerDAO.deleteByPrimaryKey(regId);
 	}
 
 	@Override
 	public int insert(RegisterVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.insert(record);
 	}
 
 	@Override
 	public int insertSelective(RegisterVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.insertSelective(record);
 	}
 
 	@Override
-	public RegisterVO selectByPrimaryKey(BigDecimal regId) {
+	public RegisterVO selectByPrimaryKey(Long regId) {
 		// TODO Auto-generated method stub
-		return null;
+		return registerDAO.selectByPrimaryKey(regId);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(RegisterVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.updateByPrimaryKeySelective(record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(RegisterVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.updateByPrimaryKey(record);
 	}
 
 	@Override
-	public List<RegisterVO> selectList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RegisterVO> selectList(RegisterVO record,PagerVO page) {
+		return registerDAO.selectList(record, page);
 	}
 
 	@Override
 	public int selectListCount(RegisterVO record) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.selectListCount(record);
 	}
 
 	@Override
 	public int batchRemovePks(List<RegisterVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.batchRemovePks(records);
 	}
 
 	@Override
 	public int batchUpdate(List<RegisterVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.batchUpdate(records);
 	}
 
 	@Override
 	public int batchInsert(List<RegisterVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return registerDAO.batchInsert(records);
 	}
 
 }

@@ -1,7 +1,5 @@
 package com.gwtjs.international.entity;
 
-import java.math.BigDecimal;
-
 import com.gwtjs.common.entity.BaseResource;
 
 public class LanguageVO extends BaseResource {
@@ -15,7 +13,7 @@ public class LanguageVO extends BaseResource {
 
 	private String lanCode;
 
-	private BigDecimal lanType;
+	private int lanType;
 
 	public long getLanId() {
 		return lanId;
@@ -33,11 +31,11 @@ public class LanguageVO extends BaseResource {
 		this.lanCode = lanCode;
 	}
 
-	public BigDecimal getLanType() {
+	public int getLanType() {
 		return lanType;
 	}
 
-	public void setLanType(BigDecimal lanType) {
+	public void setLanType(int lanType) {
 		this.lanType = lanType;
 	}
 

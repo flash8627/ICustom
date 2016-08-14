@@ -1,6 +1,5 @@
 package com.gwtjs.lookup.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.entity.LookupItemVO;
 
 /**
@@ -25,7 +25,7 @@ import com.gwtjs.lookup.entity.LookupItemVO;
 public interface ILookupItemService {
 	
 	@PUT @Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(BigDecimal regId);
+	int deleteByPrimaryKey(Long regId);
 	
 	@POST @Path("insert")
     int insert(LookupItemVO record);
@@ -34,7 +34,7 @@ public interface ILookupItemService {
     int insertSelective(LookupItemVO record);
 	
 	@GET @Path("selectByPrimaryKey")
-    LookupItemVO selectByPrimaryKey(BigDecimal regId);
+    LookupItemVO selectByPrimaryKey(Long regId);
 	
 	@POST @Path("updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(LookupItemVO record);
@@ -43,7 +43,7 @@ public interface ILookupItemService {
     int updateByPrimaryKey(LookupItemVO record);
 
 	@GET @Path("selectList")
-	List<LookupItemVO> selectList();
+	List<LookupItemVO> selectList(LookupItemVO record,PagerVO page);
 
 	@GET @Path("selectListCount")
 	int selectListCount(LookupItemVO record);

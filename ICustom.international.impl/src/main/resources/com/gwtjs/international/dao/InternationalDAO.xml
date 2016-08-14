@@ -10,23 +10,26 @@
 		ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9,
 		ATTRIBUTE10, ORDER_CODE, CREATE_USER,
 		CREATE_DATE, UPDATE_USER,
-		UPDATE_DATE
+		UPDATE_DATE,VALID_FLAG
 		)
-		values (#{lanId,jdbcType=DECIMAL},
+		values (#{lanId,jdbcType=NUMBER},
 		#{lanCode,jdbcType=VARCHAR},
-		#{lanType,jdbcType=DECIMAL},
-		#{attribute1,jdbcType=VARCHAR}, #{attribute2,jdbcType=VARCHAR},
+		#{lanType,jdbcType=INTEGER},
+		#{attribute1,jdbcType=VARCHAR}, 
+		#{attribute2,jdbcType=VARCHAR},
 		#{attribute3,jdbcType=VARCHAR},
 		#{attribute4,jdbcType=VARCHAR},
 		#{attribute5,jdbcType=VARCHAR},
 		#{attribute6,jdbcType=VARCHAR},
-		#{attribute7,jdbcType=VARCHAR}, #{attribute8,jdbcType=VARCHAR},
+		#{attribute7,jdbcType=VARCHAR}, 
+		#{attribute8,jdbcType=VARCHAR},
 		#{attribute9,jdbcType=VARCHAR},
 		#{attribute10,jdbcType=VARCHAR},
-		#{orderCode,jdbcType=DECIMAL},
-		#{createUser,jdbcType=DECIMAL},
-		#{createDate,jdbcType=DATE}, #{updateUser,jdbcType=DECIMAL},
-		#{updateDate,jdbcType=DATE}
+		#{orderCode,jdbcType=INTEGER},
+		#{createUser,jdbcType=NUMBER},
+		SYSDATE, 
+		#{updateUser,jdbcType=NUMBER},
+		SYSDATE,1
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.gwtjs.international.entity.LanguageVO">
@@ -83,13 +86,13 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="lanId != null">
-				#{lanId,jdbcType=DECIMAL},
+				#{lanId,jdbcType=NUMBER},
 			</if>
 			<if test="lanCode != null">
 				#{lanCode,jdbcType=VARCHAR},
 			</if>
 			<if test="lanType != null">
-				#{lanType,jdbcType=DECIMAL},
+				#{lanType,jdbcType=INTEGER},
 			</if>
 			<if test="attribute1 != null">
 				#{attribute1,jdbcType=VARCHAR},
@@ -122,10 +125,10 @@
 				#{attribute10,jdbcType=VARCHAR},
 			</if>
 			<if test="orderCode != null">
-				#{orderCode,jdbcType=DECIMAL},
+				#{orderCode,jdbcType=INTEGER},
 			</if>
 			<if test="updateUser != null">
-				#{updateUser,jdbcType=DECIMAL},
+				#{updateUser,jdbcType=NUMBER},
 			</if>
 			<if test="updateDate != null">
 				#{updateDate,jdbcType=DATE},
@@ -138,7 +141,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LANGUAGE_T T1
-		where 1=1
+		where VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
@@ -147,7 +150,7 @@
 		SELECT
 		COUNT(1)
 		FROM SYS_LANGUAGE_T
-		where 1=1
+		where VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
@@ -164,11 +167,11 @@
 	<sql id="select_cond">
 
 		<if test="regCode != null">
-			AND T1.LAN_ID = #{regId,jdbcType=DECIMAL}
+			AND T1.LAN_ID = #{regId,jdbcType=NUMBER}
 		</if>
 
 		<if test="lanCode != null">
-			AND T1.lanCode = #{LAN_CODE,jdbcType=VARCHAR}
+			AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR}
 		</if>
 
 		<if test="LAN_TYPE != null">
@@ -206,13 +209,12 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=DECIMAL},
-				UPDATE_LAST_DATE =
-				#{item.updateLastDate,jdbcType=DATE},
-				VALID_FLAG =
+				#{item.updateLastUser,jdbcType=NUMBER},
+				UPDATE_LAST_DATE = SYSDATE,
+				VALID_FLAG = 
 				#{item.validFlag,jdbcType=INTEGER}
 				where LAN_ID =
-				#{item.regId,jdbcType=DECIMAL};
+				#{item.regId,jdbcType=NUMBER};
 			</foreach>
 		</if>
 		end;
@@ -232,12 +234,13 @@
 				ATTRIBUTE10, ORDER_CODE, CREATE_USER,
 				CREATE_DATE,
 				UPDATE_USER,
-				UPDATE_DATE
+				UPDATE_DATE,
+				VALID_FLAG
 				)
 				values (
 				SYS_LANGUAGE_S.NEXTVAL,
 				#{item.lanCode,jdbcType=VARCHAR},
-				#{item.lanType,jdbcType=DECIMAL},
+				#{item.lanType,jdbcType=INTEGER},
 				#{item.attribute1,jdbcType=VARCHAR},
 				#{item.attribute2,jdbcType=VARCHAR},
 				#{item.attribute3,jdbcType=VARCHAR},
@@ -248,11 +251,12 @@
 				#{item.attribute8,jdbcType=VARCHAR},
 				#{item.attribute9,jdbcType=VARCHAR},
 				#{item.attribute10,jdbcType=VARCHAR},
-				#{item.orderCode,jdbcType=DECIMAL},
-				#{item.createUser,jdbcType=DECIMAL},
-				#{item.createDate,jdbcType=DATE},
-				#{item.updateUser,jdbcType=DECIMAL},
-				#{item.updateDate,jdbcType=DATE}
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createUser,jdbcType=NUMBER},
+				SYSDATE,
+				#{item.updateUser,jdbcType=NUMBER},
+				SYSDATE,
+				1
 				);
 			</foreach>
 		</if>

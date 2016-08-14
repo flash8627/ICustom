@@ -1,6 +1,5 @@
 package com.gwtjs.international.services;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.international.entity.LanguageVO;
 
 /**
@@ -25,7 +25,7 @@ import com.gwtjs.international.entity.LanguageVO;
 public interface IInternationalService {
 	
 	@PUT @Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(BigDecimal regId);
+	int deleteByPrimaryKey(Long regId);
 	
 	@POST @Path("insert")
     int insert(LanguageVO record);
@@ -34,21 +34,26 @@ public interface IInternationalService {
     int insertSelective(LanguageVO record);
 	
 	@GET @Path("selectByPrimaryKey")
-    LanguageVO selectByPrimaryKey(BigDecimal regId);
+    LanguageVO selectByPrimaryKey(Long regId);
 	
 	@POST @Path("updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(LanguageVO record);
 	
 	@POST @Path("updateByPrimaryKey")
     int updateByPrimaryKey(LanguageVO record);
+	
 	@GET @Path("selectList")
-	List<LanguageVO> selectList();
+	List<LanguageVO> selectList(LanguageVO record,PagerVO page);
+	
 	@GET @Path("selectListCount")
 	int selectListCount(LanguageVO record);
+	
 	@DELETE @Path("batchRemovePks")
 	int batchRemovePks(List<LanguageVO> records);
+	
 	@POST @Path("batchUpdate")
 	int batchUpdate(List<LanguageVO> records);
+	
 	@POST @Path("batchInsert")
 	int batchInsert(List<LanguageVO> records);
 	

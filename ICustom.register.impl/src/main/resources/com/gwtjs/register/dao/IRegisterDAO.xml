@@ -7,7 +7,7 @@
 		SELECT
 		COUNT(1) 
 		FROM SYS_REGISTER_T
-		where 1=1
+		where 1=1 
 		<include refid="select_cond" />
 	</select>
 
@@ -23,7 +23,7 @@
 	<sql id="select_cond">
 
 		<if test="regCode != null">
-			AND T1.REG_ID = #{regId,jdbcType=DECIMAL}
+			AND T1.REG_ID = #{regId,jdbcType=INTEGER}
 		</if>
 
 		<if test="parentId != null">
@@ -57,13 +57,13 @@
 		select
 		<include refid="Base_Column_List" />
 		from SYS_REGISTER_T
-		where REG_ID = #{regId,jdbcType=DECIMAL}
+		where REG_ID = #{regId,jdbcType=INTEGER}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
 		delete from
 		SYS_REGISTER_T
-		where REG_ID = #{regId,jdbcType=DECIMAL}
+		where REG_ID = #{regId,jdbcType=INTEGER}
 	</delete>
 
 	<insert id="insert" parameterType="com.gwtjs.register.entity.RegisterVO">
@@ -79,10 +79,10 @@
 		#{regCode,jdbcType=VARCHAR},
 		#{regDesc,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
 		#{orderCode,jdbcType=INTEGER},
-		#{createdUser,jdbcType=DECIMAL},
-		#{createdDate,jdbcType=DATE},
-		#{updateLastUser,jdbcType=DECIMAL},
-		#{updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=DECIMAL})
+		#{createdUser,jdbcType=NUMBER},
+		SYSDATE,
+		#{updateLastUser,jdbcType=NUMBER},
+		SYSDATE, 1)
 	</insert>
 
 	<insert id="insertSelective" parameterType="com.gwtjs.register.entity.RegisterVO">
@@ -124,7 +124,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="regId != null">
-				#{regId,jdbcType=DECIMAL},
+				#{regId,jdbcType=INTEGER},
 			</if>
 			<if test="regName != null">
 				#{regName,jdbcType=VARCHAR},
@@ -142,19 +142,19 @@
 				#{orderCode,jdbcType=INTEGER},
 			</if>
 			<if test="createdUser != null">
-				#{createdUser,jdbcType=DECIMAL},
+				#{createdUser,jdbcType=NUMBER},
 			</if>
 			<if test="createdDate != null">
-				#{createdDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="updateLastUser != null">
-				#{updateLastUser,jdbcType=DECIMAL},
+				#{updateLastUser,jdbcType=NUMBER},
 			</if>
 			<if test="updateLastDate != null">
-				#{updateLastDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="validFlag != null">
-				#{validFlag,jdbcType=INTEGER},
+				1
 			</if>
 		</trim>
 	</insert>
@@ -178,22 +178,22 @@
 				ORDER_CODE = #{orderCode,jdbcType=INTEGER},
 			</if>
 			<if test="createdUser != null">
-				CREATED_USER = #{createdUser,jdbcType=DECIMAL},
+				CREATED_USER = #{createdUser,jdbcType=NUMBER},
 			</if>
 			<if test="createdDate != null">
-				CREATED_DATE = #{createdDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="updateLastUser != null">
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=DECIMAL},
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMBER},
 			</if>
 			<if test="updateLastDate != null">
-				UPDATE_LAST_DATE = #{updateLastDate,jdbcType=DATE},
+				SYSDATE,
 			</if>
 			<if test="validFlag != null">
-				VALID_FLAG = #{validFlag,jdbcType=INTEGER},
+				VALID_FLAG = #{validFlag,jdbcType=INTEGER}
 			</if>
 		</set>
-		where REG_ID = #{regId,jdbcType=DECIMAL}
+		where REG_ID = #{regId,jdbcType=INTEGER}
 	</update>
 
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.register.entity.RegisterVO">
@@ -207,16 +207,13 @@
 		ORDER_CODE =
 		#{orderCode,jdbcType=INTEGER},
 		CREATED_USER =
-		#{createdUser,jdbcType=DECIMAL},
-		CREATED_DATE =
-		#{createdDate,jdbcType=DATE},
+		#{createdUser,jdbcType=NUMBER},
+		CREATED_DATE = SYSDATE,
 		UPDATE_LAST_USER =
-		#{updateLastUser,jdbcType=DECIMAL},
-		UPDATE_LAST_DATE =
-		#{updateLastDate,jdbcType=DATE},
-		VALID_FLAG =
-		#{validFlag,jdbcType=INTEGER}
-		where REG_ID = #{regId,jdbcType=DECIMAL}
+		#{updateLastUser,jdbcType=NUMBER},
+		UPDATE_LAST_DATE = SYSDATE,
+		VALID_FLAG = #{validFlag,jdbcType=INTEGER}
+		where REG_ID = #{regId,jdbcType=INTEGER}
 	</update>
 	
 	<!-- batch action -->
@@ -245,13 +242,12 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=DECIMAL},
-				UPDATE_LAST_DATE =
-				#{item.updateLastDate,jdbcType=DATE},
+				#{item.updateLastUser,jdbcType=NUMBER},
+				UPDATE_LAST_DATE = SYSDATE,
 				VALID_FLAG =
 				#{item.validFlag,jdbcType=INTEGER}
 				where REG_ID =
-				#{regId,jdbcType=DECIMAL};
+				#{regId,jdbcType=INTEGER};
 			</foreach>
 		</if>
 		end;
@@ -274,10 +270,12 @@
 				#{item.regCode,jdbcType=VARCHAR},
 				#{item.regDesc,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createdUser,jdbcType=DECIMAL},
-				#{item.createdDate,jdbcType=DATE},
-				#{item.updateLastUser,jdbcType=DECIMAL},
-				#{item.updateLastDate,jdbcType=DATE}, #{validFlag,jdbcType=INTEGER});
+				#{item.createdUser,jdbcType=NUMBER},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMBER},
+				SYSDATE, 
+				1
+				);
 			</foreach>
 		</if>
 		end;

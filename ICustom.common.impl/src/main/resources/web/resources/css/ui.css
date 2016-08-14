@@ -1,0 +1,13 @@
+
+/*改写默认的ui样式*/
+.page-header {
+    border-bottom: 1px solid #DDD;
+    margin: 20px 0 10px;
+    padding-bottom: 2px;
+}
+
+.panel-body {
+    /*padding: 0px;*/
+}
+
+.tabs-panels .panel .panel-body{padding:0;}
