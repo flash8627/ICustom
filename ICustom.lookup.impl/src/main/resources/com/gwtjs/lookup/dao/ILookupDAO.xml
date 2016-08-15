@@ -10,11 +10,13 @@
 
 	<sql id="page_st">
 		SELECT * FROM (
-		SELECT tp.* , ROWNUM RN FROM (
+		SELECT tt.* , ROWNUM RN FROM (
 	</sql>
 	<sql id="page_et">
-		) tp where rownum &lt;= #{curRecord}
-		) where rn &gt;= #{pageSize}
+		) tt
+		<![CDATA[
+		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
+		]]>
 	</sql>
 	<!-- where rownum <![CDATA[ <= #{1.curRecord}) ]]> where rn <![CDATA[ >= 
 		#{1.pageSize} ]]> -->
@@ -24,8 +26,9 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LOOKUP_CLASSIFY_T
-		where 1=1
+		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
+		ORDER BY CLASS_ID DESC 
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
 		<include refid="page_et" />
 	</select>
@@ -34,21 +37,20 @@
 		SELECT
 		COUNT(1)
 		FROM SYS_LOOKUP_CLASSIFY_T T1
-		where 1=1
+		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
 	<sql id="select_cond">
 
-		<if test="regCode != null">
-			AND T1.CLASS_ID = #{regId,jdbcType=NUMBER}
+		<if test='_parameter.get("0").regCode != null'>
+			AND T1.CLASS_ID = #{0.regId,jdbcType=NUMBER}
 		</if>
-		<if test="regCode != null">
-			AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR}
+		<if test='_parameter.get("0").className != null'>
+			AND T1.CLASS_NAME = #{0.className,jdbcType=VARCHAR}
 		</if>
-		<if test="regCode != null">
-			AND T1.CLASS_CODE LIKE
-			'%'||#{classCode,jdbcType=VARCHAR}||'%'
+		<if test='_parameter.get("0").classCode != null'>
+			AND T1.CLASS_CODE LIKE ('%'||#{0.classCode,jdbcType=VARCHAR}||'%')
 		</if>
 
 	</sql>

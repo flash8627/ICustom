@@ -8,36 +8,47 @@
 		UPDATE_LAST_USER,
 		UPDATE_LAST_DATE
 	</sql>
-
+	
+	<sql id="page_st">
+		SELECT * FROM (
+		SELECT tt.* , ROWNUM RN FROM (
+	</sql>
+	<sql id="page_et">
+		) tt
+		<![CDATA[
+		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
+		]]>
+	</sql>
+	
 	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
 		resultType="com.gwtjs.lookup.entity.LookupItemVO">
 		SELECT
-		COUNT(1)
-		FROM SYS_LOOKUP_ITEM_T
-		where 1=1
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_ITEM_T T1
+		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
 	<select id="selectListCount" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
 		resultType="INTEGER">
 		SELECT
-		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_ITEM_T T1
-		where 1=1
+		COUNT(1)
+		FROM SYS_LOOKUP_ITEM_T
+		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
 	<sql id="select_cond">
 
-		<if test="classId != null">
+		<if test='_parameter.get("0").classId != null'>
 			AND T1.ITEM_ID = #{itemId,jdbcType=NUMBER}
 		</if>
 
-		<if test="regCode != null">
+		<if test='_parameter.get("0").itemName != null'>
 			AND T1.ITEM_NAME = #{itemName,jdbcType=VARCHAR}
 		</if>
 
-		<if test="regCode != null">
+		<if test='_parameter.get("0").className != null'>
 			AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR}
 		</if>
 
