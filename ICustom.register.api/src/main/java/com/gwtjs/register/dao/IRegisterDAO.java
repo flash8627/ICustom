@@ -2,6 +2,8 @@ package com.gwtjs.register.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.register.entity.RegisterVO;
@@ -20,6 +22,8 @@ public interface IRegisterDAO extends BaseSqlMapper<RegisterVO> {
 	int insertSelective(RegisterVO record);
 
 	RegisterVO selectByPrimaryKey(Long regId);
+	
+	RegisterVO findItem(@Param("regId")Long regId);
 
 	int updateByPrimaryKeySelective(RegisterVO record);
 

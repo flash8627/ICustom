@@ -2,6 +2,8 @@ package com.gwtjs.lookup.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.lookup.entity.LookupVO;
@@ -15,6 +17,8 @@ public interface ILookupDAO extends BaseSqlMapper<LookupVO> {
 	int insertSelective(LookupVO record);
 
 	LookupVO selectByPrimaryKey(Long classId);
+	
+	LookupVO findItem(@Param("classId")Long classId);
 
 	int updateByPrimaryKeySelective(LookupVO record);
 

@@ -54,7 +54,7 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 
 	@Override
-	public List<RegisterVO> selectList(RegisterVO record,PagerVO page) {
+	public List<RegisterVO> findRegisterList(RegisterVO record,PagerVO page) {
 		return registerDAO.selectList(record, page);
 	}
 

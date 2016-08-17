@@ -1,5 +1,5 @@
 var RegisterService = function() {
-    var BASE = '../services/register/registerClassifyService';
+    var BASE = '../services/register/registerService';
     return {
     	findRegisters: function(callback) {
             AjaxUtil.sendGetRequest(BASE + '/findRegisterList', function(list) {

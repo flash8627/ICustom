@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.international.dao.InternationalDAO">
 
-
+	<select id="findItem" resultType="com.gwtjs.international.entity.LanguageVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LANGUAGE_T T1
+		where VALID_FLAG=1 AND T1.LAN_ID = #{lanId,jdbcType=NUMERIC}
+	</select>
+	
 	<select id="selectList" parameterType="com.gwtjs.international.entity.LanguageVO"
 		resultType="INTEGER">
 		SELECT
@@ -34,16 +40,16 @@
 
 	<sql id="select_cond">
 
-		<if test="regCode != null">
-			AND T1.LAN_ID = #{regId,jdbcType=NUMBER}
+		<if test='_parameter.get("0").lanId != null'>
+			AND T1.LAN_ID = #{0.lanId,jdbcType=NUMERIC}
 		</if>
 
-		<if test="lanCode != null">
-			AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR}
+		<if test='_parameter.get("0").lanCode != null'>
+			AND T1.LAN_CODE = #{0.lanCode,jdbcType=VARCHAR}
 		</if>
 
-		<if test="LAN_TYPE != null">
-			AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+		<if test='_parameter.get("0").lanType != null'>
+			AND T1.LAN_TYPE = #{0.lanType,jdbcType=INTEGER}
 		</if>
 
 	</sql>
@@ -77,12 +83,12 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE,
 				VALID_FLAG =
 				#{item.validFlag,jdbcType=INTEGER}
 				where LAN_ID =
-				#{item.regId,jdbcType=NUMBER};
+				#{item.regId,jdbcType=NUMERIC};
 			</foreach>
 			end;
 		</if>
@@ -122,9 +128,9 @@
 				#{item.attribute9,jdbcType=VARCHAR},
 				#{item.attribute10,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createUser,jdbcType=NUMBER},
+				#{item.createUser,jdbcType=NUMERIC},
 				SYSDATE,
-				#{item.updateUser,jdbcType=NUMBER},
+				#{item.updateUser,jdbcType=NUMERIC},
 				SYSDATE,
 				1
 				);

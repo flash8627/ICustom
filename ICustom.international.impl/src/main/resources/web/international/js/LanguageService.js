@@ -1,5 +1,5 @@
 var LanguageService = function() {
-    var BASE = '../services/language/languageClassifyService';
+    var BASE = '../services/international/internationalService';
     return {
     	findLanguages: function(callback) {
             AjaxUtil.sendGetRequest(BASE + '/findLanguageList', function(list) {

@@ -21,6 +21,7 @@ import com.gwtjs.register.entity.RegisterVO;
  * @author aGuang
  *
  */
+@Path("registerService")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface IRegisterService {
@@ -50,8 +51,8 @@ public interface IRegisterService {
 	int updateByPrimaryKey(RegisterVO record);
 
 	@GET
-	@Path("selectList")
-	List<RegisterVO> selectList(@PathParam("")RegisterVO record,@PathParam("")PagerVO page);
+	@Path("findRegisterList")
+	List<RegisterVO> findRegisterList(@PathParam("")RegisterVO record,@PathParam("")PagerVO page);
 
 	@DELETE
 	@Path("batchRemovePks")

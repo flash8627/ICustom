@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.register.dao.IRegisterDAO">
-
+	
+	<select id="findItem" resultType="com.gwtjs.register.entity.RegisterVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_REGISTER_T T1
+		where VALID_FLAG=1 AND T1.REG_ID = #{regId,jdbcType=NUMERIC}
+	</select>
+	
 	<select id="selectList" parameterType="com.gwtjs.register.entity.RegisterVO"
 		resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		COUNT(1)
 		FROM SYS_REGISTER_T
-		where 1=1
+		where 1=1 
 		<include refid="select_cond" />
 	</select>
 
@@ -22,24 +29,24 @@
 
 	<sql id="select_cond">
 
-		<if test="0.regId != null">
-			AND T1.REG_ID = #{regId,jdbcType=INTEGER}
+		<if test='_parameter.get("0").regId != null'>
+			AND T1.REG_ID = #{0.regId,jdbcType=INTEGER}
 		</if>
 
-		<if test="#{0.parentId != null}">
-			AND T1.PARENT_ID = #{parentId,jdbcType=INTEGER}
+		<if test='_parameter.get("0").parentId != null'>
+			AND T1.PARENT_ID = #{0.parentId,jdbcType=INTEGER}
 		</if>
 
-		<if test="#{0.regCode != null}">
-			AND T1.REG_CODE = #{regCode,jdbcType=VARCHAR}
+		<if test='_parameter.get("0").regCode != null'>
+			AND T1.REG_CODE = #{0.regCode,jdbcType=VARCHAR}
 		</if>
 
-		<if test="#{0.regName != null}">
-			AND T1.REG_NAME = #{regName,jdbcType=VARCHAR}
+		<if test='_parameter.get("0").regName != null'>
+			AND T1.REG_NAME = #{0.regName,jdbcType=VARCHAR}
 		</if>
 
-		<if test="regDesc != null">
-			AND T1.REG_DESC LIKE '%'+ #{regDesc,jdbcType=VARCHAR} +'%'
+		<if test='_parameter.get("0").regDesc != null'>
+			AND T1.REG_DESC LIKE '%'+ #{0.regDesc,jdbcType=VARCHAR} +'%'
 		</if>
 
 	</sql>
@@ -83,7 +90,7 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
 				where REG_ID = #{regId,jdbcType=INTEGER};
 			</foreach>
@@ -115,9 +122,9 @@
 				#{item.regDesc,jdbcType=VARCHAR},
 				#{parentId,jdbcType=INTEGER},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createdUser,jdbcType=NUMBER},
+				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				SYSDATE,
 				1
 				);

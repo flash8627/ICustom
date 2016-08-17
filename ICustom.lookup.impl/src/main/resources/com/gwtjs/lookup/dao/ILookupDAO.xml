@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
-
+	
+	<select id="findItem" resultType="com.gwtjs.international.entity.LanguageVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_CLASSIFY_T T1
+		where T1.VALID_FLAG=1 AND T1.CLASS_ID = #{classId,jdbcType=NUMERIC}
+	</select>
+	
 	<sql id="Base_Column_List">
 		CLASS_ID, CLASS_NAME, CLASS_CODE, ORDER_CODE, CREATED_USER,
 		CREATED_DATE, UPDATE_LAST_USER,
@@ -10,10 +17,10 @@
 
 	<sql id="page_st">
 		SELECT * FROM (
-		SELECT tt.* , ROWNUM RN FROM (
+		SELECT TT.* , ROWNUM RN FROM (
 	</sql>
 	<sql id="page_et">
-		) tt
+		) TT
 		<![CDATA[
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
@@ -25,7 +32,7 @@
 		<include refid="page_st" />
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_CLASSIFY_T
+		FROM SYS_LOOKUP_CLASSIFY_T T1
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 		ORDER BY CLASS_ID DESC 
@@ -33,7 +40,7 @@
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" parameterType="hashmap" resultType="INTEGER">
+	<select id="selectListCount" resultType="INTEGER">
 		SELECT
 		COUNT(1)
 		FROM SYS_LOOKUP_CLASSIFY_T T1
@@ -43,8 +50,8 @@
 
 	<sql id="select_cond">
 
-		<if test='_parameter.get("0").regCode != null'>
-			AND T1.CLASS_ID = #{0.regId,jdbcType=NUMBER}
+		<if test='_parameter.get("0").classId != null'>
+			AND T1.CLASS_ID = #{0.classId,jdbcType=NUMERIC}
 		</if>
 		<if test='_parameter.get("0").className != null'>
 			AND T1.CLASS_NAME = #{0.className,jdbcType=VARCHAR}
@@ -80,9 +87,9 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
-				where CLASS_ID = #{item.classId,jdbcType=NUMBER};
+				where CLASS_ID = #{item.classId,jdbcType=NUMERIC};
 			</foreach>
 			end;
 		</if>
@@ -110,9 +117,9 @@
 				#{item.classCode,jdbcType=VARCHAR},
 				#{item.className,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createdUser,jdbcType=NUMBER},
+				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				SYSDATE,
 				1
 				);

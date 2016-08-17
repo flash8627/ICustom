@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -42,11 +43,11 @@ public interface IInternationalService {
 	@POST @Path("updateByPrimaryKey")
     int updateByPrimaryKey(LanguageVO record);
 	
-	@GET @Path("selectList")
-	List<LanguageVO> selectList(LanguageVO record,PagerVO page);
+	@GET @Path("findLanguageList")
+	List<LanguageVO> findLanguageList(@PathParam("")LanguageVO record,@PathParam("")PagerVO page);
 	
-	@GET @Path("selectListCount")
-	int selectListCount(LanguageVO record);
+	@GET @Path("findLanguageListCount")
+	int findLanguageListCount(LanguageVO record);
 	
 	@DELETE @Path("batchRemovePks")
 	int batchRemovePks(List<LanguageVO> records);

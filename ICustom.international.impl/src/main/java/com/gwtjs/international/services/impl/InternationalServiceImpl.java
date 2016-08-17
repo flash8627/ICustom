@@ -56,12 +56,12 @@ public class InternationalServiceImpl implements IInternationalService {
 	}
 
 	@Override
-	public List<LanguageVO> selectList(LanguageVO record,PagerVO page) {
+	public List<LanguageVO> findLanguageList(LanguageVO record,PagerVO page) {
 		return internationalDao.selectList(record, page);
 	}
 
 	@Override
-	public int selectListCount(LanguageVO record) {
+	public int findLanguageListCount(LanguageVO record) {
 		return internationalDao.selectListCount(record);
 	}
 

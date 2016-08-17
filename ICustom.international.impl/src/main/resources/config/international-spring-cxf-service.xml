@@ -8,7 +8,7 @@
        http://cxf.apache.org/schemas/jaxrs.xsd">
 	
 	
-    <jaxrs:server address="/international/">
+    <jaxrs:server address="/international">
         <jaxrs:serviceBeans>
             <ref bean="internationalService"/>
         </jaxrs:serviceBeans>

@@ -2,6 +2,8 @@ package com.gwtjs.international.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.international.entity.LanguageVO;
@@ -15,6 +17,8 @@ public interface InternationalDAO extends BaseSqlMapper<LanguageVO> {
 	int insertSelective(LanguageVO record);
 
 	LanguageVO selectByPrimaryKey(Long regId);
+	
+	LanguageVO findItem(@Param("regId")Long regId);
 
 	int updateByPrimaryKeySelective(LanguageVO record);
 

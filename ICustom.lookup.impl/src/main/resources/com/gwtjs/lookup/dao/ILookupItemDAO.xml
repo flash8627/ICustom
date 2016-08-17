@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupItemDAO">
-
-	<sql id="Base_Column_List">
-		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER,
-		CREATED_DATE,
-		UPDATE_LAST_USER,
-		UPDATE_LAST_DATE
-	</sql>
 	
-	<sql id="page_st">
-		SELECT * FROM (
-		SELECT tt.* , ROWNUM RN FROM (
-	</sql>
-	<sql id="page_et">
-		) tt
-		<![CDATA[
-		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
-		]]>
-	</sql>
+	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupItemVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_ITEM_T T1
+		where VALID_FLAG=1 AND T1.ITEM_ID = #{itemId,jdbcType=NUMERIC}
+	</select>
 	
 	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
 		resultType="com.gwtjs.lookup.entity.LookupItemVO">
@@ -37,11 +26,29 @@
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
-
+	
+	<sql id="Base_Column_List">
+		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER,
+		CREATED_DATE,
+		UPDATE_LAST_USER,
+		UPDATE_LAST_DATE
+	</sql>
+	
+	<sql id="page_st">
+		SELECT * FROM (
+		SELECT tt.* , ROWNUM RN FROM (
+	</sql>
+	<sql id="page_et">
+		) tt
+		<![CDATA[
+		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
+		]]>
+	</sql>
+	
 	<sql id="select_cond">
 
 		<if test='_parameter.get("0").classId != null'>
-			AND T1.ITEM_ID = #{itemId,jdbcType=NUMBER}
+			AND T1.ITEM_ID = #{itemId,jdbcType=NUMERIC}
 		</if>
 
 		<if test='_parameter.get("0").itemName != null'>
@@ -79,9 +86,9 @@
 				ORDER_CODE =
 				#{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
-				where ITEM_ID = #{item.itemId,jdbcType=NUMBER};
+				where ITEM_ID = #{item.itemId,jdbcType=NUMERIC};
 			</foreach>
 			end;
 		</if>
@@ -108,9 +115,9 @@
 				#{item.itemName,jdbcType=VARCHAR},
 				#{item.classId,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createdUser,jdbcType=NUMBER},
+				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
-				#{item.updateLastUser,jdbcType=NUMBER},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				SYSDATE,
 				1
 				);
