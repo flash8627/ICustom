@@ -7,7 +7,7 @@ import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.register.entity.RegisterVO;
 
 /**
- * Êı¾İ×Öµä
+ * æ•°æ®å­—å…¸
  * @author aGuang
  *
  */

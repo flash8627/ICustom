@@ -33,7 +33,11 @@ public class PagerVO {
 		if(endIndex-startIndex>pageSize){
 			return startIndex+pageSize;
 		}
-		return endIndex == 0? curPage*pageSize:(endIndex-1>totalRows?totalRows:endIndex-1);
+		return endIndex == 0? curPage*pageSize:(endIndex-1>totalRows?totalRows:endIndex);
+	}
+
+	public int getTotalPage() {
+		return totalPage%pageSize==0?totalRows/pageSize:totalRows/pageSize+1;
 	}
 
 	public void setEndIndex(int endIndex) {
@@ -69,6 +73,9 @@ public class PagerVO {
 	}
 
 	public void setPageSize(int pageSize) {
+		if(pageSize<=0 || pageSize>20){
+			return ;
+		}
 		this.pageSize = pageSize;
 	}
 
@@ -78,10 +85,6 @@ public class PagerVO {
 
 	public void setResultMode(int resultMode) {
 		this.resultMode = resultMode;
-	}
-
-	public int getTotalPage() {
-		return totalPage;
 	}
 
 	public void setTotalPage(int totalPage) {
