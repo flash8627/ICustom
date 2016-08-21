@@ -1,4 +1,6 @@
 
+
+
 	<div class="container">
 		<div class="page-header">
 			<h1>Language Manager</h1>
@@ -6,25 +8,78 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<form class="form-inline" method="post" id="language_search_form">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="language code"
-							id="languageCode">
-						<input type="text" class="form-control" placeholder="language name"
-							id="languageName">
+					<div class="form-group my-form-row">
+						<div class="form-group my-form-group" style="width:48%;">
+							<label for="lookupCode" style="">键值:</label>
+							<input type="text" class="form-control" style="width:78%;" placeholder="lookup code"
+								id="languageCode"> 
+						</div>
+						
+						<div class="form-group my-form-group" style="width:48%;">
+							<label for="languageName" style="width:18%;text-align:right;">内容:</label>
+								<input type="text" class="form-control" style="width:78%;"
+								placeholder="lookup name" id="lookupName">
+						</div>
 					</div>
-					<button type="submit" class="btn btn-default">
-						<i class="fa fa-search"></i> Search
-					</button>
-					<button type="submit" class="btn btn-default">
-						<i class="fa fa-reset"></i> Reset
-					</button>
+					
+					<div class="form-group my-form-row">
+						<div class="form-group my-form-group" style="width:48%;">
+							<label for="lookupCode" style="">备注:</label>
+							<input type="text" class="form-control" style="width:78%;" placeholder="lookup code"
+								id="languageCode"> 
+						</div>
+						
+						<div class="form-group my-form-group" style="width:48%;">
+							<label for="languageName" style="width:18%;text-align:right;">语言:</label>
+								<input type="text" class="form-control" style="width:78%;"
+								placeholder="lookup name" id="lookupName">
+						</div>
+					</div>
+					
+					<div class="form-group my-form-row">
+						<label for="startdate" style="width:108px;text-align:right;">创建时间:</label>
+						<input type="text" style="width:38%;" class="easyui-datebox" id="startdate" name="startdate"
+							data-options="prompt:'请选择开始日期',editable:false,required:'true',onSelect:onSelect"> 
+						<span style="width:58px;text-align:center;">&nbsp;
+							<i class="fa fa-chevron-right" aria-hidden="true"></i>
+							<span class="sr-only">TO</span>
+						</span>
+						<input type="text"style="width:38%;" class="easyui-datebox" id="enddate" name="enddate"
+							data-options="prompt:'请选择结束日期',editable:false,required:'true',disabled:true,validType:'equaldDate[\'#startdate\']'">
+					</div>
+					
+					<script>
+						function onSelect(date){  //开始日期选择时触发
+							$('#enddate').datebox('enable');	//启用结束日期控件
+							$('#enddate').datebox('reset')		//重置结束日期的值
+						};
+						$.extend($.fn.validatebox.defaults.rules, {
+							equaldDate: {
+								validator: function(value, param){
+									var d1 = $(param[0]).datetimebox('getValue');  //获取开始时间
+									return value >=d1;  //有效范围为大于开始时间的日期
+								},
+							message: '结束日期不能早于开始日期!'
+						}
+						})
+					</script>
+
+					<div class="form-group my-form-group form-search-btn-group my-form-row" style="text-align: center;">
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-search"></i> Search 
+						</button>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-undo"></i> Reset 
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>
 		<div id="Language_tt" class="easyui-tabs" data-options="tabWidth:118" style="height:360px">
 			<div title="国际化">
 				<div id="language_list">
-					<table class="easyui-datagrid" 
+					<table width="100%" border="0" cellspacing="1" cellpadding="0" 
+						style="border-collapse: collapse;border-spacing: 1;" class="row-table" 
 						data-options="
 							rownumbers: true,
 							url: 'datagrid_data1.json',
@@ -32,69 +87,44 @@
 							onLoadSuccess: onLoadSuccess
 						">
 					<thead>
-						<tr>
-							<th data-options="field:'productid',width:120">Item Index</th>
-							<th data-options="field:'itemid',width:180">Item Code</th>
-							<th data-options="field:'listprice',width:110,align:'right'">Value</th>
-							<th data-options="field:'unitcost',width:110,align:'right'">Language</th>
-							<th data-options="field:'attr1',width:120">Create User</th>
-							<th data-options="field:'status',width:120,align:'center'">Create Date</th>
-							<th data-options="field:'attr1',width:120">Update User</th>
-							<th data-options="field:'status',width:120,align:'center'">Update Date</th>
-						</tr>
-					</thead>
-					<tbody>
-		                <tr>
-						    <td rowspan="2" valign="middle">1</td>
-						    <td rowspan="2" valign="middle">app.international.code</td>
-						    <td valign="middle">编码</td>
-						    <td valign="middle">EN</td>
-						    <td rowspan="2" valign="middle">dzg</td>
-						    <td rowspan="2" valign="middle">2016/08/15</td>
-						    <td rowspan="2" valign="middle">dzg</td>
-						    <td rowspan="2" valign="middle">2016/08/15</td>
-						  </tr>
-						  <tr>
-						    <td valign="middle">Code</td>
-						    <td valign="middle">CN</td>
-						  </tr>
-						  
-						  <tr>
-						    <td rowspan="2" valign="middle">2</td>
-						    <td rowspan="2" valign="middle">app.international.code</td>
-						    <td valign="middle">编码</td>
-						    <td valign="middle">EN</td>
-						    <td rowspan="2" valign="middle">dzg</td>
-						    <td rowspan="2" valign="middle">2016/08/15</td>
-						    <td rowspan="2" valign="middle">dzg</td>
-						    <td rowspan="2" valign="middle">2016/08/15</td>
-						  </tr>
-						  <tr>
-						    <td valign="middle">Code</td>
-						    <td valign="middle">CN</td>
-						  </tr>
-				    </tbody>
+					  	<tr>
+					        <th data-options="field:'productid',width:120">Item Index</th>
+					        <th data-options="field:'itemid',width:180">Item Code <span class="required">*</span></th>
+					        <th data-options="field:'listprice',width:110">Value <span class="required">*</span></th>
+					        <th data-options="field:'unitcost',width:110">Language <span class="required">*</span></th>
+					        <th data-options="field:'attr1',width:120">备注</th>
+					        <th data-options="field:'status',width:120">Create User</th>
+					        <th data-options="field:'attr1',width:120">Create Date</th>
+					        <th data-options="field:'attr2',width:120">Update User</th>
+					        <th data-options="field:'attr3',width:120">Update Date</th>
+					      </tr>
+					  </thead>
+					  <tbody>
+					  	<tr>
+					        <td>1</td>
+					        <td rowspan="2" id="rowspan#index">test.com.label</td>
+					        <td>1</td>
+					        <td>E</td>
+					        <td>DE</td>
+					        <td>D</td>
+					        <td>1</td>
+					        <td>D</td>
+					        <td>2</td>
+					      </tr>
+					      <tr>
+					        <td>2</td>
+					        <td>2</td>
+					        <td>C</td>
+					        <td>DE</td>
+					        <td>D</td>
+					        <td>1</td>
+					        <td>D</td>
+					        <td>2</td>
+					      </tr>
+					  </tbody>
 				</table>
 				<script type="text/javascript">
-					function onLoadSuccess(data){
-						var merges = [{
-							index: 2,
-							rowspan: 2
-						},{
-							index: 5,
-							rowspan: 2
-						},{
-							index: 7,
-							rowspan: 2
-						}];
-						for(var i=0; i<merges.length; i++){
-							$(this).datagrid('mergeCells',{
-								index: merges[i].index,
-								field: 'productid',
-								rowspan: merges[i].rowspan
-							});
-						}
-					}
+					
 				</script>
 				</div>
 			</div>
@@ -191,7 +221,6 @@
 	<script src="js/LanguageView.js"></script>
 	<script src="js/LanguageService.js"></script>
 
-
 	<script>
 		$(function() {
 			
@@ -274,8 +303,41 @@
 			//
 		});
 	</script>
-
+	
 <style type="text/css">
+.row-table{background:#666;}
+.row-table tr th {background:#F1F2F8;height:36px;color:#666;font-weight: bold;text-indent: 6px;}
+.row-table tbody tr td {background:#FFF;text-indent: 6px;}
+.required{color:#F00;}
+.row-table table, .row-table td {
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+	text-align:left;
+}
+.row-table tbody{
+	border-top: 1px solid #BBB;
+	border-left: 1px solid #BBB;
+}
+.row-table tbody td {
+	background-color: #DFC;
+	border-bottom: 1px solid #BBB;
+	border-right: 1px solid #BBB;
+	padding: 9px;
+}
+.row-table td {
+	font-weight: bold;
+	padding: 4px 8px 6px 9px;
+	text-align:center;
+}
+.row-table thead th {
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 19px;
+	padding: 0 8px 2px;
+	text-align:center;
+}
+
 	.tabs-title{width:138px;}
 </style>
 

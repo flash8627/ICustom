@@ -11,21 +11,21 @@
 		style="height: 580px">
 		<div title="Lookup Classify">
 			
-			<form class="form-inline" method="post" id="lookup_search_form">
-				<div style="" class="my-form-group-row">
-					<div class="form-group my-form-group">
-						<label for="lookupCode" style="">编码:</label>
-						<input type="text" class="form-control" style="width:78%;" placeholder="lookup code"
-							id="lookupCode"> 
-						<span>&nbsp;</span>
-					</div>
-					<div class="form-group my-form-group" style="width:48%;">
-						<label for="lookupName" style="width:18%;text-align:right;">名称:</label>
-							<input type="text" class="form-control" style="width:78%;"
-							placeholder="lookup name" id="lookupName">
-					</div>
+			<form class="form-inline" method="post" id="lookup_search_form" style="padding:8px;">
+			
+				<div class="form-group my-form-group" style="width:36%;">
+					<label for="lookupCode" style="">编码:</label>
+					<input type="text" class="form-control" style="width:78%;" placeholder="lookup code"
+						id="lookupCode"> 
 				</div>
-				<div class="form-search-btn-group" style="width:100%;text-align: center;padding:6px 0px;">
+				
+				<div class="form-group my-form-group" style="width:36%;">
+					<label for="lookupName" style="width:18%;text-align:right;">名称:</label>
+						<input type="text" class="form-control" style="width:78%;"
+						placeholder="lookup name" id="lookupName">
+				</div>
+				
+				<div class="form-group my-form-group form-search-btn-group" style="width:20%;text-align: center;">
 					<button type="submit" class="btn btn-success">
 						<i class="fa fa-search"></i> Search 
 					</button>
@@ -33,26 +33,33 @@
 						<i class="fa fa-undo"></i> Reset 
 					</button>
 				</div>
+				
 			</form>
 	
-			<div style="padding:8px 3px;margin:6px;">
+			<div style="padding:8px 3px;margin:6px;height:36px;display: inline">
 				<button class="btn btn-success actionbtn" type="button">
 					<i class="fa fa-plus"></i> 新增
 				</button>
 				<button class="btn btn-success actionbtn l-btn-disabled" type="button">
 					<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 				</button>
-				<div class="pull-right"></div>
-				<button class="btn btn-success actionbtn" type="button">
-					<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel 导入导出
-				</button>
+				
+				<div class="btn-group actionbtn">
+                    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-file-excel-o fa-fw"></i> 导入导出</a>
+                    <a href="javascript:;" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+                        <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:;"><i class="i"></i> Import Excel</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;"><i class="i"></i> Export Excel</a></li>
+                    </ul>
+                </div>
 			</div>
 			<div id="lookup_list" style="margin:6px;border:1px solid #EEEEEE;">
 				<table class="table table-hover" id="lookup_table">
 					<thead>
 						<tr>
 							<th>序引</th>
-							<th>编辑</th>
 							<th>编码</th>
 							<th>名称</th>
 							<th>排序码</th>
@@ -66,11 +73,7 @@
 					<tbody>
 						<tr>
 							<th><input type="checkbox" class="fa fa-check-square-o" aria-hidden="true"></th>
-							<th>
-								<a href="######">
-								<i class="fa fa-edit fa-2x" aria-hidden="true"></i> 
-								</a>
-							</th>
+							
 							<th>
 								<a href="javascript:void(0);"
 									onclick="addTabPanel(this)">EMAIL_TYPE</a>
@@ -81,16 +84,14 @@
 							<th>2016/08/18</th>
 							<th>d3g</th>
 							<th>2016/08/18</th>
-							<th>操作</th>
-							<th>操作</th>
-						</tr>
-						<tr>
-							<th><input type="checkbox"></th>
 							<th>
 								<a href="######">
 								<i class="fa fa-edit fa-2x" aria-hidden="true"></i> 
 								</a>
 							</th>
+						</tr>
+						<tr>
+							<th><input type="checkbox"></th>
 							<th><a href="javascript:void(0);"
 								onclick="addTabPanel(this)">Group_EMAIL_TYPE</a></th>
 							<th>组邮件类型</th>
@@ -99,14 +100,17 @@
 							<th>2016/08/18</th>
 							<th>d3g</th>
 							<th>2016/08/18</th>
-							<th>操作</th>
-							<th>操作</th>
+							<th>
+								<a href="######">
+								<i class="fa fa-edit fa-2x" aria-hidden="true"></i> 
+								</a>
+							</th>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div title="Lookup Item Test">
+		<div title="Lookup Item">
 			
 			<div style="margin:8px;">
 		        <div class="page-header">
@@ -249,36 +253,58 @@
 			singleSelect : true,
 			pagination : true,
 			pageSize : 20,
-			columns : [ [ {
-				field : 'id',
-				title : '',
-				checkbox : true
-			}, {
-				field : 'itemid',
-				title : 'Item ID',
-				width : 80
-			}, {
-				field : 'productid',
-				title : 'Product ID',
-				width : 120
-			}, {
+			frozenColumns:[[    
+               {
+   				field : 'id',
+   				title : '',
+   				checkbox : true
+   			},{
+            	field : 'itemId',
+   				title : '',
+   			 	hidden:"true"
+   			},  {
+   				field : 'itemid',
+   				title : '项编码*',
+   				width : 160
+   			}, {
+   				field : 'productid',
+   				title : '项显示名称*',
+   				width : 160
+   			}, {
+   				field : 'attr1',
+   				title : '语言*',
+   				width : 100
+   			}   
+            ]], 
+			columns : [ [{
 				field : 'listprice',
-				title : 'List Price',
-				width : 80,
+				title : '项描述',
+				width : 180,
 				align : 'right'
 			}, {
 				field : 'unitcost',
-				title : 'Unit Cost',
-				width : 80,
+				title : '启用',
+				width : 60,
 				align : 'right'
 			}, {
-				field : 'attr1',
-				title : 'Attribute',
-				width : 250
-			}, {
 				field : 'status',
-				title : 'Status',
+				title : '排序',
 				width : 60,
+				align : 'center'
+			}, {
+				field : 'attr1',
+				title : '扩展属性1',
+				width : 160,
+				align : 'center'
+			}, {
+				field : 'attr2',
+				title : '扩展属性2',
+				width : 160,
+				align : 'center'
+			}, {
+				field : 'attr3',
+				title : '扩展属性3',
+				width : 160,
 				align : 'center'
 			} ] ],
 			onHeaderContextMenu : function(e, field) {
