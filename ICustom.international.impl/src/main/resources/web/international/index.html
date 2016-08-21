@@ -24,18 +24,24 @@
 		<div id="Language_tt" class="easyui-tabs" data-options="tabWidth:118" style="height:360px">
 			<div title="国际化">
 				<div id="language_list">
-				<table class="table table-hover" id="language_table">
-	            	<thead class="list_head">
-		                <tr>
-						    <td>Item Index</td>
-						    <td>Item Code</td>
-						    <td>Value</td>
-						    <td>Language</td>
-						    <td>Create User</td>
-						    <td>Create Date</td>
-						    <td>Update User</td>
-						    <td>Update Date</td>
-						  </tr>
+					<table class="easyui-datagrid" 
+						data-options="
+							rownumbers: true,
+							url: 'datagrid_data1.json',
+							method: 'get',
+							onLoadSuccess: onLoadSuccess
+						">
+					<thead>
+						<tr>
+							<th data-options="field:'productid',width:120">Item Index</th>
+							<th data-options="field:'itemid',width:180">Item Code</th>
+							<th data-options="field:'listprice',width:110,align:'right'">Value</th>
+							<th data-options="field:'unitcost',width:110,align:'right'">Language</th>
+							<th data-options="field:'attr1',width:120">Create User</th>
+							<th data-options="field:'status',width:120,align:'center'">Create Date</th>
+							<th data-options="field:'attr1',width:120">Update User</th>
+							<th data-options="field:'status',width:120,align:'center'">Update Date</th>
+						</tr>
 					</thead>
 					<tbody>
 		                <tr>
@@ -68,7 +74,28 @@
 						    <td valign="middle">CN</td>
 						  </tr>
 				    </tbody>
-					</table>
+				</table>
+				<script type="text/javascript">
+					function onLoadSuccess(data){
+						var merges = [{
+							index: 2,
+							rowspan: 2
+						},{
+							index: 5,
+							rowspan: 2
+						},{
+							index: 7,
+							rowspan: 2
+						}];
+						for(var i=0; i<merges.length; i++){
+							$(this).datagrid('mergeCells',{
+								index: merges[i].index,
+								field: 'productid',
+								rowspan: merges[i].rowspan
+							});
+						}
+					}
+				</script>
 				</div>
 			</div>
 		</div>

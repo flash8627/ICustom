@@ -37,6 +37,24 @@
     white-space: nowrap;width:100%; height:28px;
 }
 
+.btn {
+	-moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 3px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+	
+}
+
 /* my style */
 
 .form table td{padding:3px 0;}
@@ -50,3 +68,31 @@ legend{text-align: left;}
 
 .table thead,
 .list_head{font-weight:bold;background:#FF0F2F8;}
+
+/*form class="form-inline"*/
+.form-inline{}
+
+.my-form-group{width:48%;}
+
+.my-form-group label{width:18%;text-align:right;text-indent:1em;}
+
+.my-form-group input{width:78%;}
+
+.my-form-group-row{padding:6px 0px;}
+
+.table > caption + thead > tr:first-child > td, .table > caption + thead > tr:first-child > th, .table > colgroup + thead > tr:first-child > td, .table > colgroup + thead > tr:first-child > th, .table > thead:first-child > tr:first-child > td, .table > thead:first-child > tr:first-child > th {
+    border-top: 0 none;
+}
+.table > thead > tr > th {
+    border-bottom: 2px solid #ddd; background:#F0F2F8;
+    vertical-align: bottom;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    border-top: 1px solid #ddd;
+    line-height: 1.42857;
+    padding: 8px;
+    vertical-align: top;
+}
+
+
+

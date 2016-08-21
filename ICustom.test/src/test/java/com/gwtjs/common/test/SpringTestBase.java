@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ZhengGuang Dong
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring*.xml","classpath:spring-*.xml"})
+@ContextConfiguration(locations = {"classpath:spring.xml","classpath:spring-*.xml","classpath:config/*-spring-cxf-service.xml"})
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public class SpringTestBase extends AbstractJUnit4SpringContextTests {

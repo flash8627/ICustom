@@ -23,6 +23,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.impl.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/lookup.api"/>
+        <dependent-module archiveName="ICustom.common.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.common.api/ICustom.common.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.core.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.core.api/ICustom.core.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ICustom/target/classes"/>
         <property name="context-root" value="ICustom.web"/>
         <property name="component.inclusion.patterns"/>

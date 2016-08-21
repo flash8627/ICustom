@@ -110,10 +110,15 @@ itemNameFormatter = function(value, rowData) {
 	if (!value) {
 		return "";
 	}
+	//
 	if(rowData.leaf == true&&rowData.parentId!=null){
 		rowData.iconCls = 'icon-reload';
 		rowData.state = 'closed';
 	}
+	/*if(rowData.leaf == true&&rowData.parentId==null){
+		rowData.iconCls = 'fa-folder-o';
+		rowData.state = 'closed';
+	}*/
 	var names = value.split(",");
 	var lan = names[0];
 	var lans = lan.split('=');
