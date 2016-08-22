@@ -41,6 +41,10 @@
 			AND T1.REG_CODE = #{0.regCode,jdbcType=VARCHAR}
 		</if>
 
+		<if test='_parameter.get("0").regValue != null'>
+			AND T1.REG_VALUE = #{0.regValue,jdbcType=VARCHAR}
+		</if>
+
 		<if test='_parameter.get("0").regName != null'>
 			AND T1.REG_NAME = #{0.regName,jdbcType=VARCHAR}
 		</if>
@@ -52,8 +56,15 @@
 	</sql>
 
 	<sql id="Base_Column_List">
-		REG_ID, REG_NAME, REG_CODE, REG_DESC, PARENT_ID,
-		ORDER_CODE, CREATED_USER,
+		REG_ID regId,
+		REG_NAME regName,
+		REG_CODE regCode,
+		REG_DESC regDesc,
+		REG_VALUE regValue,
+		PARENT_PATH,
+		PARENT_ID,
+		ORDER_CODE,
+		CREATED_USER,
 		CREATED_DATE,
 		UPDATE_LAST_USER,
 		UPDATE_LAST_DATE
@@ -81,16 +92,13 @@
 				SYS_REGISTER_T
 				set
 				REG_NAME = #{item.regName,jdbcType=VARCHAR},
-				REG_CODE =
-				#{item.regCode,jdbcType=VARCHAR},
-				REG_DESC =
-				#{item.regDesc,jdbcType=VARCHAR},
-				PARENT_ID =
-				#{item.parentId,jdbcType=INTEGER},
-				ORDER_CODE =
-				#{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMERIC},
+				REG_CODE = #{item.regCode,jdbcType=VARCHAR},
+				REG_DESC = #{item.regDesc,jdbcType=VARCHAR},
+				REG_VALUE = #{item.regValue,jdbcType=VARCHAR},
+				PARENT_PATH = #{item.parentPath,jdbcType=VARCHAR},
+				PARENT_ID = #{item.parentId,jdbcType=INTEGER},
+				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
 				where REG_ID = #{regId,jdbcType=INTEGER};
 			</foreach>
@@ -105,8 +113,11 @@
 			<foreach collection="list" item="item">
 				INSERT into SYS_REGISTER_T
 				(
-				REG_ID, REG_NAME, REG_CODE,
+				REG_ID, 
+				REG_NAME, 
+				REG_CODE,
 				REG_DESC,
+				PARENT_PATH,
 				PARENT_ID,
 				ORDER_CODE,
 				CREATED_USER,
@@ -120,6 +131,7 @@
 				#{item.regName,jdbcType=VARCHAR},
 				#{item.regCode,jdbcType=VARCHAR},
 				#{item.regDesc,jdbcType=VARCHAR},
+				#{item.parentPath,jdbcType=VARCHAR},
 				#{parentId,jdbcType=INTEGER},
 				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMERIC},

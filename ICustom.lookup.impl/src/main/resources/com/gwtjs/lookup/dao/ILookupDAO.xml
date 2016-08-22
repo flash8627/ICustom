@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
 	
-	<select id="findItem" resultType="com.gwtjs.international.entity.LanguageVO">
+	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LOOKUP_CLASSIFY_T T1
@@ -10,9 +10,15 @@
 	</select>
 	
 	<sql id="Base_Column_List">
-		CLASS_ID, CLASS_NAME, CLASS_CODE, ORDER_CODE, CREATED_USER,
-		CREATED_DATE, UPDATE_LAST_USER,
-		UPDATE_LAST_DATE
+		CLASS_ID classId,
+		CLASS_NAME className,
+		CLASS_CODE classCode,
+		CLASS_DESC regDesc,
+		ORDER_CODE orderCode,
+		CREATED_USER createdUser,
+		CREATED_DATE createdDate,
+		UPDATE_LAST_USER updateLastUser,
+		UPDATE_LAST_DATE updateLastDate
 	</sql>
 
 	<sql id="page_st">
@@ -81,14 +87,12 @@
 				UPDATE
 				SYS_LOOKUP_CLASSIFY_T
 				SET
+				CLASS_NAME = #{item.className,jdbcType=VARCHAR},
 				CLASS_CODE = #{item.classCode,jdbcType=VARCHAR},
-				CLASS_NAME =
-				#{item.className,jdbcType=VARCHAR},
-				ORDER_CODE =
-				#{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMERIC},
-				UPDATE_LAST_DATE = SYSDATE
+				CLASS_DESC = #{item.classDesc,jdbcType=VARCHAR},
+				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
+				UPDATE_LAST_DATE = SYSDATE 
 				where CLASS_ID = #{item.classId,jdbcType=NUMERIC};
 			</foreach>
 			end;
@@ -103,7 +107,10 @@
 				INSERT into
 				SYS_LOOKUP_CLASSIFY_T
 				(
-				CLASS_ID, CLASS_CODE, CLASS_NAME,
+				CLASS_ID, 
+				CLASS_NAME,
+				CLASS_CODE, 
+				CLASS_DESC,
 				ORDER_CODE,
 				CREATED_USER,
 				CREATED_DATE,
@@ -114,8 +121,9 @@
 				values
 				(
 				SYS_LOOKUP_CLASSIFY_S.NEXTVAL,
-				#{item.classCode,jdbcType=VARCHAR},
 				#{item.className,jdbcType=VARCHAR},
+				#{item.classCode,jdbcType=VARCHAR},
+				#{item.classDesc,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,

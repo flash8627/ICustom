@@ -10,10 +10,11 @@ public class LookupVO extends BaseResource {
 
 	private String classId;
 
+	private String className;
+
 	private String classCode; // icustom.xxx.xxx
 
-	private String className;
-	private String regDesc;
+	private String classDesc;
 
 	public String getClassId() {
 		return classId;
@@ -39,12 +40,12 @@ public class LookupVO extends BaseResource {
 		this.classCode = classCode;
 	}
 
-	public String getRegDesc() {
-		return regDesc;
+	public String getClassDesc() {
+		return classDesc;
 	}
 
-	public void setRegDesc(String regDesc) {
-		this.regDesc = regDesc;
+	public void setClassDesc(String classDesc) {
+		this.classDesc = classDesc;
 	}
 
 }

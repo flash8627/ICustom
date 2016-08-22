@@ -186,7 +186,7 @@ create table SYS_LANGUAGE_T
   lan_code         VARCHAR2(68) not null,
   lan_value        VARCHAR2(68) not null,
   lan_type         INTEGER default 1,
-  comments         VARCHAR2(308),
+  remarks          VARCHAR2(308),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
   attribute3       VARCHAR2(100),
@@ -202,8 +202,7 @@ create table SYS_LANGUAGE_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1,
-  CONSTRAINT SYS_LANGUAGE_UNIQUE UNIQUE (lan_value, lan_type)
+  valid_flag       NUMBER(1) default 1
 );
 -- Add comments to the columns 
 comment on column SYS_LANGUAGE_T.lan_id
@@ -214,6 +213,8 @@ comment on column SYS_LANGUAGE_T.lan_value
   is '语言对应值：如：菜单对应英文menu';
 comment on column SYS_LANGUAGE_T.lan_type
   is '语言类型,中英法';
+comment on column SYS_LANGUAGE_T.remarks
+  is '备注';
 comment on column SYS_LANGUAGE_T.attribute1
   is '扩展属性1';
 comment on column SYS_LANGUAGE_T.attribute2
@@ -229,7 +230,11 @@ comment on column SYS_LANGUAGE_T.update_last_date
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table SYS_LANGUAGE_T
   add primary key (LAN_ID)
-  using index; 
+  using index;
+alter table SYS_LANGUAGE_T
+  add constraint SYS_LANGUAGE_UNIQUE unique (LAN_VALUE, LAN_TYPE)
+  using index;
+
 
 -- Create table
 create table SYS_USERS_T

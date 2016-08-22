@@ -10,7 +10,15 @@ public class LookupItemVO extends BaseResource {
 
 	private String itemId;
 
+	private String itemCode;
+
 	private String itemName;
+
+	private String itemLan;
+
+	private String itemStatus;
+
+	private String remarks;
 
 	private String classId;
 
@@ -36,6 +44,38 @@ public class LookupItemVO extends BaseResource {
 
 	public void setClassId(String classId) {
 		this.classId = classId == null ? null : classId.trim();
+	}
+
+	public String getItemCode() {
+		return itemCode;
+	}
+
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+
+	public String getItemLan() {
+		return itemLan;
+	}
+
+	public void setItemLan(String itemLan) {
+		this.itemLan = itemLan;
+	}
+
+	public String getItemStatus() {
+		return itemStatus;
+	}
+
+	public void setItemStatus(String itemStatus) {
+		this.itemStatus = itemStatus;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }

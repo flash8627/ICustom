@@ -5,7 +5,7 @@
 	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupItemVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_ITEM_T T1
+		FROM SYS_LOOKUP_ITEM_T T1 
 		where VALID_FLAG=1 AND T1.ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</select>
 	
@@ -14,7 +14,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LOOKUP_ITEM_T T1
-		where T1.VALID_FLAG=1
+		where T1.VALID_FLAG=1 
 		<include refid="select_cond" />
 	</select>
 
@@ -28,10 +28,18 @@
 	</select>
 	
 	<sql id="Base_Column_List">
-		ITEM_ID, ITEM_NAME, CLASS_ID, ORDER_CODE, CREATED_USER,
-		CREATED_DATE,
-		UPDATE_LAST_USER,
-		UPDATE_LAST_DATE
+		ITEM_ID itemId,
+		ITEM_CODE itemCode,
+		ITEM_NAME itemName,
+		ITEM_LAN itemLan,
+		CLASS_ID classId,
+		ITEM_STATUS itemStatus,
+		REMARKS remarks,
+		ORDER_CODE orderCode,
+		CREATED_USER createdUser,
+		CREATED_DATE createdDate,
+		UPDATE_LAST_USER updateLastUser,
+		UPDATE_LAST_DATE updateLastDate
 	</sql>
 	
 	<sql id="page_st">
@@ -52,11 +60,23 @@
 		</if>
 
 		<if test='_parameter.get("0").itemName != null'>
+			AND T1.ITEM_CODE = #{itemCode,jdbcType=VARCHAR}
+		</if>
+
+		<if test='_parameter.get("0").itemName != null'>
 			AND T1.ITEM_NAME = #{itemName,jdbcType=VARCHAR}
 		</if>
 
-		<if test='_parameter.get("0").className != null'>
-			AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR}
+		<if test='_parameter.get("0").itemLan != null'>
+			AND T1.ITEM_LAN = #{itemLan,jdbcType=VARCHAR}
+		</if>
+
+		<if test='_parameter.get("0").itemStatus != null'>
+			AND T1.ITEM_STATUS = #{itemStatus,jdbcType=VARCHAR}
+		</if>
+
+		<if test='_parameter.get("0").classId != null'>
+			AND T1.CLASS_ID = #{classId,jdbcType=VARCHAR}
 		</if>
 
 	</sql>
@@ -81,12 +101,13 @@
 				SYS_LOOKUP_ITEM_T
 				set
 				ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
-				CLASS_ID =
-				#{item.classId,jdbcType=VARCHAR},
-				ORDER_CODE =
-				#{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMERIC},
+				ITEM_CODE = #{item.classId,jdbcType=VARCHAR},
+				ITEM_LAN = #{item.itemLan,jdbcType=INTEGER},
+				ITEM_STATUS = #{item.itemStatus,jdbcType=INTEGER},
+				REMARKS = #{item.remarks,jdbcType=VARCHAR},
+				CLASS_ID = #{item.classId,jdbcType=VARCHAR},
+				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
 				where ITEM_ID = #{item.itemId,jdbcType=NUMERIC};
 			</foreach>
@@ -101,7 +122,13 @@
 			<foreach collection="list" item="item">
 				INSERT into SYS_LOOKUP_ITEM_T
 				(
-				ITEM_ID, ITEM_NAME, CLASS_ID,
+				ITEM_ID,
+				ITEM_CODE,
+				ITEM_NAME,
+				ITEM_LAN,
+				CLASS_ID,
+				ITEM_STATUS,
+				REMARKS,
 				ORDER_CODE,
 				CREATED_USER,
 				CREATED_DATE,
@@ -112,8 +139,12 @@
 				values
 				(
 				SYS_LOOKUP_ITEM_S.NEXTVAL,
+				#{item.itemCode,jdbcType=VARCHAR},
 				#{item.itemName,jdbcType=VARCHAR},
+				#{item.itemLan,jdbcType=INTEGER},
 				#{item.classId,jdbcType=VARCHAR},
+				#{item.itemStatus,jdbcType=INTEGER},
+				#{item.remarks,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
