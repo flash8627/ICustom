@@ -6,11 +6,12 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.entity.LookupItemVO;
 
@@ -24,24 +25,12 @@ import com.gwtjs.lookup.entity.LookupItemVO;
 @Produces(MediaType.APPLICATION_JSON)
 public interface ILookupItemService {
 	
-	@PUT @Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(Long regId);
+	@GET @Path("findItem/{recordId}")
+	LookupItemVO findItem(@PathParam("")LookupItemVO record);
 	
-	@POST @Path("insert")
-    int insert(LookupItemVO record);
+	@GET @Path("selectList")
+	PagedResult<LookupItemVO> findListRecords(LookupItemVO record,PagerVO page);
 	
-	@POST @Path("insertSelective")
-    int insertSelective(LookupItemVO record);
-	
-	@GET @Path("selectByPrimaryKey")
-    LookupItemVO selectByPrimaryKey(Long regId);
-	
-	@POST @Path("updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(LookupItemVO record);
-	
-	@POST @Path("updateByPrimaryKey")
-    int updateByPrimaryKey(LookupItemVO record);
-
 	@GET @Path("selectList")
 	List<LookupItemVO> selectList(LookupItemVO record,PagerVO page);
 

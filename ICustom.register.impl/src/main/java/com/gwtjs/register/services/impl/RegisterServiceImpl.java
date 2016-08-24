@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.register.dao.IRegisterDAO;
 import com.gwtjs.register.entity.RegisterVO;
@@ -21,41 +22,29 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	@Inject
 	private IRegisterDAO registerDAO;
-
+	
+	/**
+	 * 分页的lookup 条目
+	 */
 	@Override
-	public int deleteByPrimaryKey(Long regId) {
-		return registerDAO.deleteByPrimaryKey(regId);
+	public PagedResult<RegisterVO> findListRecords(RegisterVO record, PagerVO page) {
+		PagedResult<RegisterVO> paged = new PagedResult<RegisterVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(registerDAO.selectListCount(record));
+		if(pageVO.getTotalRows()>0){
+			paged.setPageVO(pageVO);
+		}
+		return paged;
+	}
+	
+	@Override
+	public RegisterVO findItem(Long regId) {
+		return registerDAO.findItem(regId);
 	}
 
 	@Override
-	public int insert(RegisterVO record) {
-		return registerDAO.insert(record);
-	}
-
-	@Override
-	public int insertSelective(RegisterVO record) {
-		return registerDAO.insertSelective(record);
-	}
-
-	@Override
-	public RegisterVO selectByPrimaryKey(Long regId) {
-		// TODO Auto-generated method stub
-		return registerDAO.selectByPrimaryKey(regId);
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(RegisterVO record) {
-		return registerDAO.updateByPrimaryKeySelective(record);
-	}
-
-	@Override
-	public int updateByPrimaryKey(RegisterVO record) {
-		return registerDAO.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public List<RegisterVO> findRegisterList(RegisterVO record,PagerVO page) {
-		return registerDAO.selectList(record, page);
+	public PagedResult<RegisterVO> findRegisterList(RegisterVO record, PagerVO page) {
+		return findListRecords(record, page);
 	}
 
 	@Override

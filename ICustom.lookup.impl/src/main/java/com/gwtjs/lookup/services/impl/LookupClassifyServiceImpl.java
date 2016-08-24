@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.dao.ILookupDAO;
 import com.gwtjs.lookup.entity.LookupVO;
@@ -21,44 +22,29 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 
 	@Inject
 	private ILookupDAO lookupDao;
-
+	
+	/**
+	 * 分页的lookup 条目
+	 */
 	@Override
-	public int deleteByPrimaryKey(Long regId) {
-		return lookupDao.deleteByPrimaryKey(regId);
+	public PagedResult<LookupVO> findListRecords(LookupVO record, PagerVO page) {
+		PagedResult<LookupVO> paged = new PagedResult<LookupVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(lookupDao.selectListCount(record));
+		if(pageVO.getTotalRows()>0){
+			paged.setPageVO(pageVO);
+		}
+		return paged;
 	}
-
+	
 	@Override
-	public int insert(LookupVO record) {
+	public LookupVO findItem(String classId) {
 		// TODO Auto-generated method stub
-		return lookupDao.insert(record);
+		return lookupDao.findItem(new Long(classId));
 	}
 
 	@Override
-	public int insertSelective(LookupVO record) {
-		// TODO Auto-generated method stub
-		return lookupDao.insertSelective(record);
-	}
-
-	@Override
-	public LookupVO selectByPrimaryKey(Long regId) {
-		// TODO Auto-generated method stub
-		return lookupDao.selectByPrimaryKey(regId);
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(LookupVO record) {
-		// TODO Auto-generated method stub
-		return lookupDao.updateByPrimaryKeySelective(record);
-	}
-
-	@Override
-	public int updateByPrimaryKey(LookupVO record) {
-		// TODO Auto-generated method stub
-		return lookupDao.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public List<LookupVO> findLookupList(LookupVO record,PagerVO page) {
+	public List<LookupVO> findLookupList(LookupVO record, PagerVO page) {
 		return lookupDao.selectList(record, page);
 	}
 

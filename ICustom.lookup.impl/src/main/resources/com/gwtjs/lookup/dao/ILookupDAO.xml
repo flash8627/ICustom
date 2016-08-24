@@ -5,7 +5,7 @@
 	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_CLASSIFY_T T1
+		FROM SYS_LOOKUP_CLASSIFY_T T1 
 		where T1.VALID_FLAG=1 AND T1.CLASS_ID = #{classId,jdbcType=NUMERIC}
 	</select>
 	
@@ -31,8 +31,7 @@
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
 	</sql>
-	<!-- where rownum <![CDATA[ <= #{1.curRecord}) ]]> where rn <![CDATA[ >= 
-		#{1.pageSize} ]]> -->
+	
 	<select id="selectList" parameterType="hashmap"
 		resultType="com.gwtjs.lookup.entity.LookupVO">
 		<include refid="page_st" />

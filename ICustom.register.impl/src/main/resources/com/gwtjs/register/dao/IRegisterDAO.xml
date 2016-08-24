@@ -12,18 +12,18 @@
 	<select id="selectList" parameterType="com.gwtjs.register.entity.RegisterVO"
 		resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
-		COUNT(1)
-		FROM SYS_REGISTER_T
-		where 1=1 
+		<include refid="Base_Column_List" />
+		FROM SYS_REGISTER_T T1 
+		where 1=1
 		<include refid="select_cond" />
 	</select>
 
 	<select id="selectListCount" parameterType="com.gwtjs.register.entity.RegisterVO"
 		resultType="INTEGER">
 		SELECT
-		<include refid="Base_Column_List" />
-		FROM SYS_REGISTER_T T1 
-		where 1=1
+		COUNT(1)
+		FROM SYS_REGISTER_T
+		where 1=1 
 		<include refid="select_cond" />
 	</select>
 

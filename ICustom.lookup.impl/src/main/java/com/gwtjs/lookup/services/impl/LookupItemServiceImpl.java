@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.lookup.dao.ILookupItemDAO;
 import com.gwtjs.lookup.entity.LookupItemVO;
@@ -21,71 +22,49 @@ public class LookupItemServiceImpl implements ILookupItemService {
 
 	@Inject
 	private ILookupItemDAO lookupItemDao;
-
+	
+	/**
+	 * 分页的lookup 条目
+	 */
 	@Override
-	public int deleteByPrimaryKey(Long regId) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.deleteByPrimaryKey(regId);
+	public PagedResult<LookupItemVO> findListRecords(LookupItemVO record, PagerVO page) {
+		PagedResult<LookupItemVO> paged = new PagedResult<LookupItemVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(lookupItemDao.selectListCount(record));
+		if(pageVO.getTotalRows()>0){
+			paged.setPageVO(pageVO);
+		}
+		return paged;
 	}
 
 	@Override
-	public int insert(LookupItemVO record) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.insert(record);
+	public LookupItemVO findItem(LookupItemVO record) {
+		return lookupItemDao.findItem(new Long(record.getItemId()));
 	}
 
 	@Override
-	public int insertSelective(LookupItemVO record) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.insertSelective(record);
-	}
-
-	@Override
-	public LookupItemVO selectByPrimaryKey(Long regId) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.selectByPrimaryKey(regId);
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(LookupItemVO record) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public int updateByPrimaryKey(LookupItemVO record) {
-		// TODO Auto-generated method stub
-		return lookupItemDao.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public List<LookupItemVO> selectList(LookupItemVO record,PagerVO page) {
-		// TODO Auto-generated method stub
+	public List<LookupItemVO> selectList(LookupItemVO record, PagerVO page) {
 		return lookupItemDao.selectList(record, page);
 	}
 
 	@Override
 	public int selectListCount(LookupItemVO record) {
-		// TODO Auto-generated method stub
 		return lookupItemDao.selectListCount(record);
 	}
 
 	@Override
 	public int batchRemovePks(List<LookupItemVO> records) {
-		// TODO Auto-generated method stub
 		return lookupItemDao.batchRemovePks(records);
 	}
 
 	@Override
 	public int batchUpdate(List<LookupItemVO> records) {
-		// TODO Auto-generated method stub
 		return lookupItemDao.batchUpdate(records);
 	}
 
 	@Override
 	public int batchInsert(List<LookupItemVO> records) {
-		// TODO Auto-generated method stub
-		return 0;
+		return lookupItemDao.batchInsert(records);
 	}
 
 }

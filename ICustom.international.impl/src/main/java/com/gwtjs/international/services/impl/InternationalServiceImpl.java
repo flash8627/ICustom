@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.international.dao.InternationalDAO;
 import com.gwtjs.international.entity.LanguageVO;
@@ -21,42 +22,29 @@ public class InternationalServiceImpl implements IInternationalService {
 
 	@Inject
 	private InternationalDAO internationalDao;
-
+	
+	/**
+	 * 分页的lookup 条目
+	 */
 	@Override
-	public int deleteByPrimaryKey(Long regId) {
-		return internationalDao.deleteByPrimaryKey(regId);// internationalDao.deleteByPrimaryKey(regId);
+	public PagedResult<LanguageVO> findListRecords(LanguageVO record, PagerVO page) {
+		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(internationalDao.selectListCount(record));
+		if(pageVO.getTotalRows()>0){
+			paged.setPageVO(pageVO);
+		}
+		return paged;
 	}
-
+	
 	@Override
-	public int insert(LanguageVO record) {
+	public LanguageVO findItem(Long regId) {
 		// TODO Auto-generated method stub
-		return internationalDao.insert(record);
+		return internationalDao.findItem(regId);
 	}
 
 	@Override
-	public int insertSelective(LanguageVO record) {
-		// TODO Auto-generated method stub
-		return internationalDao.insertSelective(record);
-	}
-
-	@Override
-	public LanguageVO selectByPrimaryKey(Long regId) {
-		// TODO Auto-generated method stub
-		return internationalDao.selectByPrimaryKey(regId);
-	}
-
-	@Override
-	public int updateByPrimaryKeySelective(LanguageVO record) {
-		return internationalDao.updateByPrimaryKeySelective(record);
-	}
-
-	@Override
-	public int updateByPrimaryKey(LanguageVO record) {
-		return internationalDao.updateByPrimaryKey(record);
-	}
-
-	@Override
-	public List<LanguageVO> findLanguageList(LanguageVO record,PagerVO page) {
+	public List<LanguageVO> findLanguageList(LanguageVO record, PagerVO page) {
 		return internationalDao.selectList(record, page);
 	}
 

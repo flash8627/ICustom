@@ -6,12 +6,12 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.register.entity.RegisterVO;
 
@@ -25,34 +25,18 @@ import com.gwtjs.register.entity.RegisterVO;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface IRegisterService {
-
-	@PUT
-	@Path("deleteByPrimaryKey")
-	int deleteByPrimaryKey(Long regId);
-
-	@POST
-	@Path("insert")
-	int insert(RegisterVO record);
-
-	@POST
-	@Path("insertSelective")
-	int insertSelective(RegisterVO record);
-
+	
 	@GET
-	@Path("selectByPrimaryKey")
-	RegisterVO selectByPrimaryKey(Long regId);
-
-	@POST
-	@Path("updateByPrimaryKeySelective")
-	int updateByPrimaryKeySelective(RegisterVO record);
-
-	@POST
-	@Path("updateByPrimaryKey")
-	int updateByPrimaryKey(RegisterVO record);
-
+	@Path("findListRecords/{pageSize}/curPage")
+	public PagedResult<RegisterVO> findListRecords(@PathParam("")RegisterVO record, @PathParam("")PagerVO page);
+	
 	@GET
 	@Path("findRegisterList")
-	List<RegisterVO> findRegisterList(@PathParam("")RegisterVO record,@PathParam("")PagerVO page);
+	RegisterVO findItem(@PathParam("")Long regId);
+	
+	@GET
+	@Path("findRegisterList/{pageSize}/curPage")
+	PagedResult<RegisterVO> findRegisterList(@PathParam("")RegisterVO record,@PathParam("")PagerVO page);
 
 	@DELETE
 	@Path("batchRemovePks")
