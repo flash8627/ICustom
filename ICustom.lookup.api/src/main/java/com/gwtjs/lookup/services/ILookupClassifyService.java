@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagedResult;
@@ -28,13 +29,13 @@ public interface ILookupClassifyService {
 	
 	@GET
 	@Path("findListRecords/{pageSize}/curPage")
-	public PagedResult<LookupVO> findListRecords(LookupVO record, PagerVO page);
+	public PagedResult<LookupVO> findListRecords(@QueryParam("")LookupVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/{classId}")
 	LookupVO findItem(@PathParam("")String classId);
 	
 	@GET @Path("findLookupList")
-	List<LookupVO> findLookupList(@PathParam("")LookupVO record,@PathParam("")PagerVO page);
+	List<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
 
 	@GET @Path("findLookupListCount")
 	int findLookupListCount(@PathParam("")LookupVO record);

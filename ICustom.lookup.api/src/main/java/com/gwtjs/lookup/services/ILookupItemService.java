@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagedResult;
@@ -29,10 +30,10 @@ public interface ILookupItemService {
 	LookupItemVO findItem(@PathParam("")LookupItemVO record);
 	
 	@GET @Path("selectList")
-	PagedResult<LookupItemVO> findListRecords(LookupItemVO record,PagerVO page);
+	PagedResult<LookupItemVO> findListRecords(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("selectList")
-	List<LookupItemVO> selectList(LookupItemVO record,PagerVO page);
+	List<LookupItemVO> selectList(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 
 	@GET @Path("selectListCount")
 	int selectListCount(LookupItemVO record);

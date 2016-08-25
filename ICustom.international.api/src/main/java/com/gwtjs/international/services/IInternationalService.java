@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagedResult;
@@ -27,13 +28,13 @@ public interface IInternationalService {
 	
 	@GET
 	@Path("findListRecords/{pageSize}/curPage")
-	public PagedResult<LanguageVO> findListRecords(LanguageVO record, PagerVO page);
+	public PagedResult<LanguageVO> findListRecords(@QueryParam("")LanguageVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/regId")
 	LanguageVO findItem(@PathParam("")Long regId);
 	
 	@GET @Path("findLanguageList")
-	List<LanguageVO> findLanguageList(@PathParam("")LanguageVO record,@PathParam("")PagerVO page);
+	List<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("findLanguageListCount")
 	int findLanguageListCount(LanguageVO record);
