@@ -14,7 +14,7 @@ public class RegisterVO extends BaseResource {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long regId; //
+	private Integer regId; //
 
 	private String regName;// 名称或label
 
@@ -24,13 +24,13 @@ public class RegisterVO extends BaseResource {
 
 	private String regDesc; // 说明
 
-	private Long parentId; // 上级标识 -->等于　regId
+	private Integer parentId; // 上级标识 -->等于　regId
 
-	public Long getRegId() {
+	public Integer getRegId() {
 		return regId;
 	}
 
-	public void setRegId(Long regId) {
+	public void setRegId(Integer regId) {
 		this.regId = regId;
 	}
 
@@ -58,11 +58,11 @@ public class RegisterVO extends BaseResource {
 		this.regDesc = regDesc == null ? null : regDesc.trim();
 	}
 
-	public Long getParentId() {
+	public Integer getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(Long parentId) {
+	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
 	

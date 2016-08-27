@@ -28,13 +28,13 @@ import com.gwtjs.lookup.entity.LookupVO;
 public interface ILookupClassifyService {
 	
 	@GET
-	@Path("findListRecords/{pageSize}/curPage")
+	@Path("findListRecords/{pageSize}/{curPage}")
 	public PagedResult<LookupVO> findListRecords(@QueryParam("")LookupVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/{classId}")
 	LookupVO findItem(@PathParam("")String classId);
 	
-	@GET @Path("findLookupList")
+	@GET @Path("findLookupList/{pageSize}/{curPage}")
 	List<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
 
 	@GET @Path("findLookupListCount")

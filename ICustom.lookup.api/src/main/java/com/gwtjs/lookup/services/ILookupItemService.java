@@ -29,10 +29,10 @@ public interface ILookupItemService {
 	@GET @Path("findItem/{recordId}")
 	LookupItemVO findItem(@PathParam("")LookupItemVO record);
 	
-	@GET @Path("selectList")
+	@GET @Path("findListRecords/{pageSize}/{curPage}")
 	PagedResult<LookupItemVO> findListRecords(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 	
-	@GET @Path("selectList")
+	@GET @Path("findLookupItemList/{pageSize}/{curPage}")
 	List<LookupItemVO> selectList(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 
 	@GET @Path("selectListCount")

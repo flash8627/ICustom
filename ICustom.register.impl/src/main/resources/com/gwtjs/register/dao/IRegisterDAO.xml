@@ -9,32 +9,27 @@
 		where VALID_FLAG=1 AND T1.REG_ID = #{regId,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="selectList" parameterType="com.gwtjs.register.entity.RegisterVO"
-		resultType="com.gwtjs.register.entity.RegisterVO">
+	<select id="selectList" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_REGISTER_T T1 
-		where 1=1
+		where VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
 
-	<select id="selectListCount" parameterType="com.gwtjs.register.entity.RegisterVO"
+	<select id="selectListCount"
 		resultType="INTEGER">
 		SELECT
 		COUNT(1)
-		FROM SYS_REGISTER_T
-		where 1=1 
+		FROM SYS_REGISTER_T T1 
+		where VALID_FLAG=1 
 		<include refid="select_cond" />
 	</select>
 
 	<sql id="select_cond">
-
-		<if test='_parameter.get("0").regId != null'>
-			AND T1.REG_ID = #{0.regId,jdbcType=INTEGER}
-		</if>
-
-		<if test='_parameter.get("0").parentId != null'>
-			AND T1.PARENT_ID = #{0.parentId,jdbcType=INTEGER}
+		
+		<!-- <if test='_parameter.get("0").parentId != null'>
+			AND T1.PARENT_ID = #{0.parentId,jdbcType=NUMERIC}
 		</if>
 
 		<if test='_parameter.get("0").regCode != null'>
@@ -50,8 +45,8 @@
 		</if>
 
 		<if test='_parameter.get("0").regDesc != null'>
-			AND T1.REG_DESC LIKE '%'+ #{0.regDesc,jdbcType=VARCHAR} +'%'
-		</if>
+			AND T1.REG_DESC LIKE '%'|| #{0.regDesc,jdbcType=VARCHAR} ||'%'
+		</if> -->
 
 	</sql>
 
@@ -96,11 +91,11 @@
 				REG_DESC = #{item.regDesc,jdbcType=VARCHAR},
 				REG_VALUE = #{item.regValue,jdbcType=VARCHAR},
 				PARENT_PATH = #{item.parentPath,jdbcType=VARCHAR},
-				PARENT_ID = #{item.parentId,jdbcType=INTEGER},
+				PARENT_ID = #{item.parentId,jdbcType=NUMERIC},
 				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
-				where REG_ID = #{regId,jdbcType=INTEGER};
+				where REG_ID = #{regId,jdbcType=NUMERIC};
 			</foreach>
 		</if>
 		end;

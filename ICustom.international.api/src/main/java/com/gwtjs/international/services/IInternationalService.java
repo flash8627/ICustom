@@ -27,13 +27,13 @@ import com.gwtjs.international.entity.LanguageVO;
 public interface IInternationalService {
 	
 	@GET
-	@Path("findListRecords/{pageSize}/curPage")
+	@Path("findListRecords/{pageSize}/{curPage}")
 	public PagedResult<LanguageVO> findListRecords(@QueryParam("")LanguageVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/regId")
 	LanguageVO findItem(@PathParam("")Long regId);
 	
-	@GET @Path("findLanguageList")
+	@GET @Path("findLanguageList/{pageSize}/{curPage}")
 	List<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("findLanguageListCount")

@@ -1,5 +1,7 @@
 package com.gwtjs.common.entity;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  * 分页组件
@@ -24,7 +26,8 @@ public class PagerVO {
 	public int getStartIndex() {
 		return startIndex == 0?(curPage-1)*pageSize+1:startIndex;
 	}
-
+	
+	@XmlTransient
 	public void setStartIndex(int startIndex) {
 		this.startIndex = startIndex;
 	}

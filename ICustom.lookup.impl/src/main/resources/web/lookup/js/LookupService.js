@@ -2,7 +2,7 @@ var LookupService = function() {
     var BASE = '../services/lookup/lookupClassifyService';
     return {
     	findLookups: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookupList', function(list) {
+            AjaxUtil.sendGetRequest(BASE + '/findLookupList/10/1', function(list) {
                 LookupView.renderLookupTable(list);
                 callback();
             });

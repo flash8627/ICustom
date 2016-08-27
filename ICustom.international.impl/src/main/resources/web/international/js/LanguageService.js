@@ -2,7 +2,7 @@ var LanguageService = function() {
     var BASE = '../services/international/internationalService';
     return {
     	findLanguages: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLanguageList', function(list) {
+            AjaxUtil.sendGetRequest(BASE + '/findLanguageList/10/1', function(list) {
                 LanguageView.renderLanguageTable(list);
                 callback();
             });

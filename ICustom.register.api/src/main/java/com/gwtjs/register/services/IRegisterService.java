@@ -28,7 +28,7 @@ import com.gwtjs.register.entity.RegisterVO;
 public interface IRegisterService {
 	
 	@GET
-	@Path("/findListRecords/{pageSize}/curPage")
+	@Path("/findListRecords/{pageSize}/{curPage}")
 	public PagedResult<RegisterVO> findListRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
 	
 	@GET
@@ -36,7 +36,7 @@ public interface IRegisterService {
 	RegisterVO findItem(@PathParam("")Long regId);
 	
 	@GET
-	@Path("/findRegisterList/{pageSize}/curPage")
+	@Path("/findRegisterList/{pageSize}/{curPage}")
 	PagedResult<RegisterVO> findRegisterList(@QueryParam("") RegisterVO record,@PathParam("")PagerVO page);
 
 	@DELETE
