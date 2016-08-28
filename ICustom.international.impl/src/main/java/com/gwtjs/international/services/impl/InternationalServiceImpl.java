@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.international.dao.InternationalDAO;
 import com.gwtjs.international.entity.LanguageVO;
 import com.gwtjs.international.services.IInternationalService;
@@ -39,9 +40,9 @@ public class InternationalServiceImpl implements IInternationalService {
 	}
 	
 	@Override
-	public LanguageVO findItem(Long regId) {
+	public ResultWrapper findItem(Long regId) {
 		// TODO Auto-generated method stub
-		return internationalDao.findItem(regId);
+		return ResultWrapper.successResult(internationalDao.findItem(regId));
 	}
 
 	@Override
@@ -50,23 +51,23 @@ public class InternationalServiceImpl implements IInternationalService {
 	}
 
 	@Override
-	public int findLanguageListCount(LanguageVO record) {
-		return internationalDao.selectListCount(record);
+	public ResultWrapper findLanguageListCount(LanguageVO record) {
+		return ResultWrapper.successResult(internationalDao.selectListCount(record));
 	}
 
 	@Override
-	public int batchRemovePks(List<LanguageVO> records) {
-		return internationalDao.batchRemovePks(records);
+	public ResultWrapper batchRemovePks(List<LanguageVO> records) {
+		return ResultWrapper.successResult(internationalDao.batchRemovePks(records));
 	}
 
 	@Override
-	public int batchUpdate(List<LanguageVO> records) {
-		return internationalDao.batchUpdate(records);
+	public ResultWrapper batchUpdate(List<LanguageVO> records) {
+		return ResultWrapper.successResult(internationalDao.batchUpdate(records));
 	}
 
 	@Override
-	public int batchInsert(List<LanguageVO> records) {
-		return internationalDao.batchInsert(records);
+	public ResultWrapper batchInsert(List<LanguageVO> records) {
+		return ResultWrapper.successResult(internationalDao.batchInsert(records));
 	}
 
 }

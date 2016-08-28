@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.register.dao.IRegisterDAO;
 import com.gwtjs.register.entity.RegisterVO;
 import com.gwtjs.register.services.IRegisterService;
@@ -39,8 +40,8 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 	
 	@Override
-	public RegisterVO findItem(Integer regId) {
-		return registerDAO.findItem(regId);
+	public ResultWrapper findItem(Integer regId) {
+		return ResultWrapper.successResult(registerDAO.findItem(regId));
 	}
 
 	@Override
@@ -49,18 +50,18 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 
 	@Override
-	public int batchRemovePks(List<RegisterVO> records) {
-		return registerDAO.batchRemovePks(records);
+	public ResultWrapper batchRemovePks(List<RegisterVO> records) {
+		return ResultWrapper.successResult(registerDAO.batchRemovePks(records));
 	}
 
 	@Override
-	public int batchUpdate(List<RegisterVO> records) {
-		return registerDAO.batchUpdate(records);
+	public ResultWrapper batchUpdate(List<RegisterVO> records) {
+		return ResultWrapper.successResult(registerDAO.batchUpdate(records));
 	}
 
 	@Override
-	public int batchInsert(List<RegisterVO> records) {
-		return registerDAO.batchInsert(records);
+	public ResultWrapper batchInsert(List<RegisterVO> records) {
+		return ResultWrapper.successResult(registerDAO.batchInsert(records));
 	}
 
 }

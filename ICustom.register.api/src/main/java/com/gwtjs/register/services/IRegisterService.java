@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.register.entity.RegisterVO;
 
 /**
@@ -34,7 +35,7 @@ public interface IRegisterService {
 	
 	@GET
 	@Path("/findItem/{regId}")
-	RegisterVO findItem(@PathParam("")Integer regId);
+	ResultWrapper findItem(@PathParam("")Integer regId);
 	
 	@GET
 	@Path("/findRegisterList/{pageSize}/{curPage}")
@@ -42,14 +43,14 @@ public interface IRegisterService {
 
 	@DELETE
 	@Path("batchRemovePks")
-	int batchRemovePks(List<RegisterVO> records);
+	ResultWrapper batchRemovePks(List<RegisterVO> records);
 
 	@PUT
 	@Path("batchUpdate")
-	int batchUpdate(List<RegisterVO> records);
+	ResultWrapper batchUpdate(List<RegisterVO> records);
 
 	@POST
 	@Path("batchInsert")
-	int batchInsert(List<RegisterVO> records);
+	ResultWrapper batchInsert(List<RegisterVO> records);
 
 }

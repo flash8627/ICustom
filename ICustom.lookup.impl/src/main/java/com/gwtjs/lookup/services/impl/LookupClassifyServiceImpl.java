@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.lookup.dao.ILookupDAO;
 import com.gwtjs.lookup.entity.LookupVO;
 import com.gwtjs.lookup.services.ILookupClassifyService;
@@ -39,9 +40,9 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	}
 	
 	@Override
-	public LookupVO findItem(Integer classId) {
+	public ResultWrapper findItem(Integer classId) {
 		// TODO Auto-generated method stub
-		return lookupDao.findItem(classId);
+		return ResultWrapper.successResult(lookupDao.findItem(classId));
 	}
 
 	@Override
@@ -50,27 +51,27 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	}
 
 	@Override
-	public int findLookupListCount(LookupVO record) {
+	public ResultWrapper findLookupListCount(LookupVO record) {
 		// TODO Auto-generated method stub
-		return lookupDao.selectListCount(record,null);
+		return ResultWrapper.successResult(lookupDao.selectListCount(record,null));
 	}
 
 	@Override
-	public int batchRemovePks(List<LookupVO> records) {
+	public ResultWrapper batchRemovePks(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return lookupDao.batchRemovePks(records);
+		return ResultWrapper.successResult(lookupDao.batchRemovePks(records));
 	}
 
 	@Override
-	public int batchUpdate(List<LookupVO> records) {
+	public ResultWrapper batchUpdate(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return lookupDao.batchUpdate(records);
+		return ResultWrapper.successResult(lookupDao.batchUpdate(records));
 	}
 
 	@Override
-	public int batchInsert(List<LookupVO> records) {
+	public ResultWrapper batchInsert(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return lookupDao.batchInsert(records);
+		return ResultWrapper.successResult(lookupDao.batchInsert(records));
 	}
 
 }

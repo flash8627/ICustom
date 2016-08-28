@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.international.entity.LanguageVO;
 
 /**
@@ -32,21 +33,21 @@ public interface IInternationalService {
 	public PagedResult<LanguageVO> findListRecords(@QueryParam("")LanguageVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/regId")
-	LanguageVO findItem(@PathParam("")Long regId);
+	ResultWrapper findItem(@PathParam("")Long regId);
 	
 	@GET @Path("findLanguageList/{pageSize}/{curPage}")
 	List<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("findLanguageListCount")
-	int findLanguageListCount(LanguageVO record);
+	ResultWrapper findLanguageListCount(LanguageVO record);
 	
 	@DELETE @Path("batchRemovePks")
-	int batchRemovePks(List<LanguageVO> records);
+	ResultWrapper batchRemovePks(List<LanguageVO> records);
 	
 	@PUT @Path("batchUpdate")
-	int batchUpdate(List<LanguageVO> records);
+	ResultWrapper batchUpdate(List<LanguageVO> records);
 	
 	@POST @Path("batchInsert")
-	int batchInsert(List<LanguageVO> records);
+	ResultWrapper batchInsert(List<LanguageVO> records);
 	
 }
