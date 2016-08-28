@@ -35,7 +35,7 @@ public interface ILookupItemService {
 	PagedResult<LookupItemVO> findRecords(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("findLookupItems/{classId}")
-	ResultWrapper findLookupItems(@PathParam("")String classId);
+	ResultWrapper findLookupItems(@PathParam("classId")String classId);
 
 	@GET @Path("selectListCount")
 	ResultWrapper selectListCount(LookupItemVO record);

@@ -1,5 +1,6 @@
 package com.gwtjs.lookup.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -61,12 +62,31 @@ public class LookupItemServiceImpl implements ILookupItemService {
 
 	@Override
 	public ResultWrapper batchUpdate(List<LookupItemVO> records) {
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(lookupItemDao.batchUpdate(records));
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LookupItemVO> records) {
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(lookupItemDao.batchInsert(records));
 	}
-
+	
+	/**
+	 * 设置当前操作用户 
+	 * @param records
+	 * @return
+	 */
+	private List<LookupItemVO> setRecordsUser(List<LookupItemVO> records){
+		List<LookupItemVO> result = new ArrayList<LookupItemVO>();
+		long createdUser = new Long(1);
+		
+		for (LookupItemVO vo : records) {
+			vo.setCreatedUser(createdUser);
+			vo.setUpdateLastUser(createdUser);
+			result.add(vo);
+		}
+		return result;
+	}
+	
 }

@@ -1,5 +1,6 @@
 package com.gwtjs.register.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ public class RegisterServiceImpl implements IRegisterService {
 	 * 分页的lookup 条目
 	 */
 	@Override
-	public PagedResult<RegisterVO> findListRecords(RegisterVO record, PagerVO page) {
+	public PagedResult<RegisterVO> findRecords(RegisterVO record, PagerVO page) {
 		PagedResult<RegisterVO> paged = new PagedResult<RegisterVO>();
 		PagerVO pageVO = new PagerVO();
 		pageVO.setTotalRows(registerDAO.selectListCount(record,page));
@@ -46,7 +47,7 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	@Override
 	public PagedResult<RegisterVO> findRegisterList(RegisterVO record, PagerVO page) {
-		return findListRecords(record, page);
+		return findRecords(record, page);
 	}
 
 	@Override
@@ -56,12 +57,31 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	@Override
 	public ResultWrapper batchUpdate(List<RegisterVO> records) {
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(registerDAO.batchUpdate(records));
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<RegisterVO> records) {
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(registerDAO.batchInsert(records));
+	}
+	
+	/**
+	 * 设置当前操作用户 
+	 * @param records
+	 * @return
+	 */
+	private List<RegisterVO> setRecordsUser(List<RegisterVO> records){
+		List<RegisterVO> result = new ArrayList<RegisterVO>();
+		long createdUser = new Long(1);
+		
+		for (RegisterVO vo : records) {
+			vo.setCreatedUser(createdUser);
+			vo.setUpdateLastUser(createdUser);
+			result.add(vo);
+		}
+		return result;
 	}
 
 }

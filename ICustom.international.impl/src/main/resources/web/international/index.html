@@ -77,6 +77,24 @@
 		</div>
 		<div id="Language_tt" class="easyui-tabs" data-options="tabWidth:118" style="height:360px">
 			<div title="国际化">
+				<div style="margin: 6px;">
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary actionbtn l-btn-disabled" data-options="" onclick="loadLocal()"><i class="fa fa-plus"></i> Add Item</a> 
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary actionbtn l-btn-disabled" data-options="" onclick="loadRemote()"><i class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary actionbtn l-btn-disabled" data-options="" onclick="loadRemote()"><i class="fa fa-remove fa-trash-o fa-lg"></i> Remove</a> 
+					
+					<div class="btn-group actionbtn">
+	                    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Export and Import</a>
+	                    <a href="javascript:;" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+	                        <span class="fa fa-caret-down"></span></a>
+	                    <ul class="dropdown-menu">
+	                        <li><a href="javascript:;"><i class="i"></i> 导出Excel</a></li>
+	                        <li><a href="javascript:;"><i class="i"></i> 下载Excel模板</a></li>
+	                        <li class="divider"></li>
+	                        <li><a href="javascript:;"><i class="i"></i> 导入Excel</a></li>
+	                    </ul>
+	                </div>
+				</div>
+			
 				<div id="language_list">
 					<table width="100%" border="0" cellspacing="1" cellpadding="0" 
 						style="border-collapse: collapse;border-spacing: 1;" class="row-table" 

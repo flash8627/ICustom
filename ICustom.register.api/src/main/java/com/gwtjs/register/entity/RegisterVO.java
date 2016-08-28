@@ -26,6 +26,8 @@ public class RegisterVO extends BaseResource {
 
 	private Integer parentId; // 上级标识 -->等于　regId
 
+	private String parentPath; //icustom.app.xxx
+
 	public Integer getRegId() {
 		return regId;
 	}
@@ -65,13 +67,21 @@ public class RegisterVO extends BaseResource {
 	public void setParentId(Integer parentId) {
 		this.parentId = parentId;
 	}
-	
+
 	public String getRegValue() {
 		return regValue;
 	}
 
 	public void setRegValue(String regValue) {
 		this.regValue = regValue;
+	}
+
+	public String getParentPath() {
+		return parentPath;
+	}
+
+	public void setParentPath(String parentPath) {
+		this.parentPath = parentPath;
 	}
 
 }

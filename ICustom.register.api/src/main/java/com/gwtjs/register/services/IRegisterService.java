@@ -30,12 +30,12 @@ import com.gwtjs.register.entity.RegisterVO;
 public interface IRegisterService {
 	
 	@GET
-	@Path("/findListRecords/{pageSize}/{curPage}")
-	public PagedResult<RegisterVO> findListRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
+	@Path("/findRecords/{pageSize}/{curPage}")
+	public PagedResult<RegisterVO> findRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
 	
 	@GET
 	@Path("/findItem/{regId}")
-	ResultWrapper findItem(@PathParam("")Integer regId);
+	ResultWrapper findItem(@PathParam("regId")Integer regId);
 	
 	@GET
 	@Path("/findRegisterList/{pageSize}/{curPage}")

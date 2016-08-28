@@ -12,6 +12,8 @@ public class LanguageVO extends BaseResource {
 	private long lanId;
 
 	private String lanCode;
+	private String lanValue;
+	private String remarks;
 
 	private int lanType;
 
@@ -37,6 +39,22 @@ public class LanguageVO extends BaseResource {
 
 	public void setLanType(int lanType) {
 		this.lanType = lanType;
+	}
+
+	public String getLanValue() {
+		return lanValue;
+	}
+
+	public void setLanValue(String lanValue) {
+		this.lanValue = lanValue;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 }

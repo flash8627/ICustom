@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.international.dao.InternationalDAO">
-
+	
+	<select id="i18n" resultType="com.gwtjs.international.entity.LanguageVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LANGUAGE_T T1
+		where VALID_FLAG=1 AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR} AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+	</select>
+	
 	<select id="findItem" resultType="com.gwtjs.international.entity.LanguageVO">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -30,7 +37,9 @@
 	<sql id="Base_Column_List">
 		LAN_ID lanId, 
 		LAN_CODE lanCode, 
+		lan_value lanValue,
 		LAN_TYPE lanType,
+		remarks remarks,
 		ATTRIBUTE1 attribute1, 
 		ATTRIBUTE2 attribute2, 
 		ATTRIBUTE3 attribute3,
@@ -42,10 +51,10 @@
 		ATTRIBUTE9 attribute9,
 		ATTRIBUTE10 attribute10, 
 		ORDER_CODE orderCode, 
-		CREATED_USER createUser,
-		CREATED_DATE createDate, 
-		UPDATE_LAST_USER updateUser,
-		UPDATE_LAST_DATE updateDate
+		CREATED_USER createdUser,
+		CREATED_DATE createdDate, 
+		UPDATE_LAST_USER updateLastUser,
+		UPDATE_LAST_DATE updateLastDate
 	</sql>
 
 	<sql id="select_cond">
@@ -58,8 +67,16 @@
 			AND T1.LAN_CODE = #{0.lanCode,jdbcType=VARCHAR}
 		</if>
 
+		<if test='_parameter.get("0").lanValue != null'>
+			AND T1.lan_value = #{0.lanValue,jdbcType=VARCHAR}
+		</if>
+
 		<if test='_parameter.get("0").lanType != null'>
 			AND T1.LAN_TYPE = #{0.lanType,jdbcType=INTEGER}
+		</if>
+		
+		<if test='_parameter.get("0").remarks != null'>
+			AND T1.remarks LIKE '%'||#{0.remarks,jdbcType=VARCHAR}||'%'
 		</if>
 
 	</sql>
@@ -83,22 +100,14 @@
 				UPDATE
 				SYS_LANGUAGE_T
 				SET
-				REG_NAME = #{item.regName,jdbcType=VARCHAR},
-				REG_CODE =
-				#{item.regCode,jdbcType=VARCHAR},
-				REG_DESC =
-				#{item.regDesc,jdbcType=VARCHAR},
-				PARENT_ID =
-				#{item.parentId,jdbcType=INTEGER},
-				ORDER_CODE =
-				#{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER =
-				#{item.updateLastUser,jdbcType=NUMERIC},
-				UPDATE_LAST_DATE = SYSDATE,
-				VALID_FLAG =
-				#{item.validFlag,jdbcType=INTEGER}
-				where LAN_ID =
-				#{item.regId,jdbcType=NUMERIC};
+				LAN_CODE = #{item.lanCode,jdbcType=VARCHAR},
+				LAN_VALUE = #{item.lanValue,jdbcType=VARCHAR},
+				LAN_TYPE = #{item.lanType,jdbcType=INTEGER},
+				REMARKS = #{item.remarks,jdbcType=VARCHAR},
+				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
+				UPDATE_LAST_DATE = SYSDATE
+				where LAN_ID = #{item.lanId,jdbcType=NUMERIC};
 			</foreach>
 			end;
 		</if>
@@ -110,10 +119,20 @@
 			begin
 			<foreach collection="list" item="item">
 				INSERT INTO SYS_LANGUAGE_T
-				(LAN_ID, LAN_CODE, LAN_TYPE,
-				ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3,
-				ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6,
-				ATTRIBUTE7, ATTRIBUTE8,
+				(
+				LAN_ID, 
+				LAN_CODE,
+				LAN_VALUE, 
+				LAN_TYPE,
+				REMARKS,
+				ATTRIBUTE1, 
+				ATTRIBUTE2, 
+				ATTRIBUTE3,
+				ATTRIBUTE4, 
+				ATTRIBUTE5, 
+				ATTRIBUTE6,
+				ATTRIBUTE7, 
+				ATTRIBUTE8,
 				ATTRIBUTE9,
 				ATTRIBUTE10,
 				ORDER_CODE,
@@ -126,7 +145,9 @@
 				values (
 				SYS_LANGUAGE_S.NEXTVAL,
 				#{item.lanCode,jdbcType=VARCHAR},
+				#{item.lanValue,jdbcType=VARCHAR},
 				#{item.lanType,jdbcType=INTEGER},
+				#{item.remarks,jdbcType=VARCHAR},
 				#{item.attribute1,jdbcType=VARCHAR},
 				#{item.attribute2,jdbcType=VARCHAR},
 				#{item.attribute3,jdbcType=VARCHAR},
@@ -138,9 +159,9 @@
 				#{item.attribute9,jdbcType=VARCHAR},
 				#{item.attribute10,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
-				#{item.createUser,jdbcType=NUMERIC},
+				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
-				#{item.updateUser,jdbcType=NUMERIC},
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				SYSDATE,
 				1
 				);

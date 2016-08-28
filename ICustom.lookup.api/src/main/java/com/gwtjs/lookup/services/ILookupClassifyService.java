@@ -34,7 +34,7 @@ public interface ILookupClassifyService {
 	public PagedResult<LookupVO> findListRecords(@QueryParam("")LookupVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/{classId}")
-	ResultWrapper findItem(@PathParam("")Integer classId);
+	ResultWrapper findItem(@PathParam("classId")Integer classId);
 	
 	@GET @Path("findLookupList/{pageSize}/{curPage}")
 	List<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);

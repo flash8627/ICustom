@@ -35,7 +35,8 @@ public class BaseResource implements Serializable {
 	private String attribute9;
 	private String attribute10;
 
-	private int orderCode;
+	private Integer orderCode;
+	
 	private Short validFlag;
 
 	public BaseResource() {
@@ -44,7 +45,7 @@ public class BaseResource implements Serializable {
 
 	public BaseResource(long createdUser, Date createdDate,
 			long updateLastUser, Date updateLastDate, String language,
-			int orderCode) {
+			Integer orderCode) {
 		super();
 		this.createdUser = createdUser;
 		this.createdDate = createdDate;
@@ -94,11 +95,11 @@ public class BaseResource implements Serializable {
 		this.language = language;
 	}
 
-	public int getOrderCode() {
+	public Integer getOrderCode() {
 		return orderCode;
 	}
 
-	public void setOrderCode(int orderCode) {
+	public void setOrderCode(Integer orderCode) {
 		this.orderCode = orderCode;
 	}
 

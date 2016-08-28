@@ -1,5 +1,6 @@
 package com.gwtjs.international.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,26 +24,33 @@ public class InternationalServiceImpl implements IInternationalService {
 
 	@Inject
 	private InternationalDAO internationalDao;
-	
+
 	/**
 	 * 分页的lookup 条目
 	 */
 	@Override
-	public PagedResult<LanguageVO> findListRecords(LanguageVO record, PagerVO page) {
+	public PagedResult<LanguageVO> findListRecords(LanguageVO record,
+			PagerVO page) {
 		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(internationalDao.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
+		pageVO.setTotalRows(internationalDao.selectListCount(record, page));
+		if (pageVO.getTotalRows() > 0) {
 			paged.setPageVO(pageVO);
 			paged.setResult(internationalDao.selectList(record, page));
 		}
 		return paged;
 	}
-	
+
 	@Override
-	public ResultWrapper findItem(Long regId) {
+	public ResultWrapper findItem(Long lanId) {
 		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(internationalDao.findItem(regId));
+		return ResultWrapper.successResult(internationalDao.findItem(lanId));
+	}
+
+	@Override
+	public LanguageVO i18n(LanguageVO record) {
+		// TODO Auto-generated method stub
+		return internationalDao.i18n(record);
 	}
 
 	@Override
@@ -52,22 +60,46 @@ public class InternationalServiceImpl implements IInternationalService {
 
 	@Override
 	public ResultWrapper findLanguageListCount(LanguageVO record) {
-		return ResultWrapper.successResult(internationalDao.selectListCount(record));
+		return ResultWrapper.successResult(internationalDao
+				.selectListCount(record));
 	}
 
 	@Override
 	public ResultWrapper batchRemovePks(List<LanguageVO> records) {
-		return ResultWrapper.successResult(internationalDao.batchRemovePks(records));
+		return ResultWrapper.successResult(internationalDao
+				.batchRemovePks(records));
 	}
 
 	@Override
 	public ResultWrapper batchUpdate(List<LanguageVO> records) {
-		return ResultWrapper.successResult(internationalDao.batchUpdate(records));
+		records = setRecordsUser(records);
+		return ResultWrapper.successResult(internationalDao
+				.batchUpdate(records));
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LanguageVO> records) {
-		return ResultWrapper.successResult(internationalDao.batchInsert(records));
+		records = setRecordsUser(records);
+		return ResultWrapper.successResult(internationalDao
+				.batchInsert(records));
+	}
+
+	/**
+	 * 设置当前操作用户
+	 * 
+	 * @param records
+	 * @return
+	 */
+	private List<LanguageVO> setRecordsUser(List<LanguageVO> records) {
+		List<LanguageVO> result = new ArrayList<LanguageVO>();
+		long createdUser = new Long(1);
+
+		for (LanguageVO vo : records) {
+			vo.setCreatedUser(createdUser);
+			vo.setUpdateLastUser(createdUser);
+			result.add(vo);
+		}
+		return result;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.gwtjs.lookup.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -64,14 +65,31 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 
 	@Override
 	public ResultWrapper batchUpdate(List<LookupVO> records) {
-		// TODO Auto-generated method stub
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(lookupDao.batchUpdate(records));
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LookupVO> records) {
-		// TODO Auto-generated method stub
+		records = setRecordsUser(records);
 		return ResultWrapper.successResult(lookupDao.batchInsert(records));
 	}
-
+	
+	/**
+	 * 设置当前操作用户 
+	 * @param records
+	 * @return
+	 */
+	private List<LookupVO> setRecordsUser(List<LookupVO> records){
+		List<LookupVO> result = new ArrayList<LookupVO>();
+		long createdUser = new Long(1);
+		
+		for (LookupVO vo : records) {
+			vo.setCreatedUser(createdUser);
+			vo.setUpdateLastUser(createdUser);
+			result.add(vo);
+		}
+		return result;
+	}
+	
 }

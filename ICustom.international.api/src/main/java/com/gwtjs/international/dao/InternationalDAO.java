@@ -12,6 +12,9 @@ public interface InternationalDAO extends BaseSqlMapper<LanguageVO> {
 
 	//
 	LanguageVO findItem(@Param("lanId")Long lanId);
+	
+	//
+	LanguageVO i18n(LanguageVO record);
 
 	//
 	List<LanguageVO> selectList(LanguageVO record,PagerVO page);
