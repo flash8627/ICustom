@@ -11,13 +11,16 @@ import com.gwtjs.lookup.entity.LookupItemVO;
 public interface ILookupItemDAO extends BaseSqlMapper<LookupItemVO> {
 	
 	//
-	LookupItemVO findItem(@Param("itemId")Long itemId);
+	LookupItemVO findItem(@Param("itemId")String itemId);
 
+	//
+	List<LookupItemVO> findLookupItems(@Param("classId")String classId);
+	
 	//
 	List<LookupItemVO> selectList(LookupItemVO record,PagerVO page);
 
 	//
-	int selectListCount(LookupItemVO record);
+	int selectListCount(LookupItemVO record,PagerVO page);
 	
 	//
 	int batchRemovePks(List<LookupItemVO> records);

@@ -30,15 +30,16 @@ public class RegisterServiceImpl implements IRegisterService {
 	public PagedResult<RegisterVO> findListRecords(RegisterVO record, PagerVO page) {
 		PagedResult<RegisterVO> paged = new PagedResult<RegisterVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(registerDAO.selectListCount(record));
+		pageVO.setTotalRows(registerDAO.selectListCount(record,page));
 		if(pageVO.getTotalRows()>0){
 			paged.setPageVO(pageVO);
+			paged.setResult(registerDAO.selectList(record, page));
 		}
 		return paged;
 	}
 	
 	@Override
-	public RegisterVO findItem(Long regId) {
+	public RegisterVO findItem(Integer regId) {
 		return registerDAO.findItem(regId);
 	}
 

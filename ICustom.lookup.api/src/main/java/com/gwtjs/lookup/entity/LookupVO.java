@@ -8,7 +8,7 @@ public class LookupVO extends BaseResource {
 	 */
 	private static final long serialVersionUID = -4553951836037253023L;
 
-	private String classId;
+	private Integer classId;
 
 	private String className;
 
@@ -16,12 +16,12 @@ public class LookupVO extends BaseResource {
 
 	private String classDesc;
 
-	public String getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(String classId) {
-		this.classId = classId == null ? null : classId.trim();
+	public void setClassId(Integer classId) {
+		this.classId = classId == null ? null : classId;
 	}
 
 	public String getClassName() {

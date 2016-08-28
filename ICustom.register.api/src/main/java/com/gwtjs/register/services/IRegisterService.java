@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,8 +33,8 @@ public interface IRegisterService {
 	public PagedResult<RegisterVO> findListRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
 	
 	@GET
-	@Path("/findItem")
-	RegisterVO findItem(@PathParam("")Long regId);
+	@Path("/findItem/{regId}")
+	RegisterVO findItem(@PathParam("")Integer regId);
 	
 	@GET
 	@Path("/findRegisterList/{pageSize}/{curPage}")
@@ -43,7 +44,7 @@ public interface IRegisterService {
 	@Path("batchRemovePks")
 	int batchRemovePks(List<RegisterVO> records);
 
-	@POST
+	@PUT
 	@Path("batchUpdate")
 	int batchUpdate(List<RegisterVO> records);
 

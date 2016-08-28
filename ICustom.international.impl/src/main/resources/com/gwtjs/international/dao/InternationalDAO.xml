@@ -28,13 +28,23 @@
 	</select>
 
 	<sql id="Base_Column_List">
-		LAN_ID lanId, LAN_CODE lanCode, LAN_TYPE lanType,
-		ATTRIBUTE1 attribute1, ATTRIBUTE2 attribute2, ATTRIBUTE3 attribute3,
-		ATTRIBUTE4 attribute4, ATTRIBUTE5 attribute5, ATTRIBUTE6 attribute6,
-		ATTRIBUTE7 attribute7, ATTRIBUTE8 attribute8, ATTRIBUTE9 attribute9,
-		ATTRIBUTE10 attribute10, ORDER_CODE orderCode, CREATED_USER
-		createUser,
-		CREATED_DATE createDate, UPDATE_LAST_USER updateUser,
+		LAN_ID lanId, 
+		LAN_CODE lanCode, 
+		LAN_TYPE lanType,
+		ATTRIBUTE1 attribute1, 
+		ATTRIBUTE2 attribute2, 
+		ATTRIBUTE3 attribute3,
+		ATTRIBUTE4 attribute4, 
+		ATTRIBUTE5 attribute5, 
+		ATTRIBUTE6 attribute6,
+		ATTRIBUTE7 attribute7, 
+		ATTRIBUTE8 attribute8, 
+		ATTRIBUTE9 attribute9,
+		ATTRIBUTE10 attribute10, 
+		ORDER_CODE orderCode, 
+		CREATED_USER createUser,
+		CREATED_DATE createDate, 
+		UPDATE_LAST_USER updateUser,
 		UPDATE_LAST_DATE updateDate
 	</sql>
 

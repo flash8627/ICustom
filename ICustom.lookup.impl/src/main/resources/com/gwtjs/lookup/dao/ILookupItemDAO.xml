@@ -6,7 +6,14 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LOOKUP_ITEM_T T1 
-		where VALID_FLAG=1 AND T1.ITEM_ID = #{itemId,jdbcType=NUMERIC}
+		where VALID_FLAG=1 AND T1.ITEM_ID = #{itemId,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="findLookupItems" resultType="com.gwtjs.lookup.entity.LookupItemVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_ITEM_T T1
+		where T1.VALID_FLAG=1 AND T1.CLASS_ID = #{classId,jdbcType=INTEGER} 
 	</select>
 	
 	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
@@ -56,7 +63,7 @@
 	<sql id="select_cond">
 
 		<if test='_parameter.get("0").classId != null'>
-			AND T1.ITEM_ID = #{itemId,jdbcType=NUMERIC}
+			AND T1.ITEM_ID = #{itemId,jdbcType=INTEGER}
 		</if>
 
 		<if test='_parameter.get("0").itemName != null'>
@@ -72,11 +79,11 @@
 		</if>
 
 		<if test='_parameter.get("0").itemStatus != null'>
-			AND T1.ITEM_STATUS = #{itemStatus,jdbcType=VARCHAR}
+			AND T1.ITEM_STATUS = #{itemStatus,jdbcType=INTEGER}
 		</if>
 
 		<if test='_parameter.get("0").classId != null'>
-			AND T1.CLASS_ID = #{classId,jdbcType=VARCHAR}
+			AND T1.CLASS_ID = #{classId,jdbcType=INTEGER}
 		</if>
 
 	</sql>
@@ -105,7 +112,7 @@
 				ITEM_LAN = #{item.itemLan,jdbcType=INTEGER},
 				ITEM_STATUS = #{item.itemStatus,jdbcType=INTEGER},
 				REMARKS = #{item.remarks,jdbcType=VARCHAR},
-				CLASS_ID = #{item.classId,jdbcType=VARCHAR},
+				CLASS_ID = #{item.classId,jdbcType=INTEGER},
 				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
@@ -142,7 +149,7 @@
 				#{item.itemCode,jdbcType=VARCHAR},
 				#{item.itemName,jdbcType=VARCHAR},
 				#{item.itemLan,jdbcType=INTEGER},
-				#{item.classId,jdbcType=VARCHAR},
+				#{item.classId,jdbcType=INTEGER},
 				#{item.itemStatus,jdbcType=INTEGER},
 				#{item.remarks,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},

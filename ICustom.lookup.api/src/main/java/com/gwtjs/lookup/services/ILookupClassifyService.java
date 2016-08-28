@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -32,7 +33,7 @@ public interface ILookupClassifyService {
 	public PagedResult<LookupVO> findListRecords(@QueryParam("")LookupVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/{classId}")
-	LookupVO findItem(@PathParam("")String classId);
+	LookupVO findItem(@PathParam("")Integer classId);
 	
 	@GET @Path("findLookupList/{pageSize}/{curPage}")
 	List<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
@@ -43,7 +44,7 @@ public interface ILookupClassifyService {
 	@DELETE @Path("batchRemovePks")
 	int batchRemovePks(List<LookupVO> records);
 
-	@POST @Path("batchUpdate")
+	@PUT @Path("batchUpdate")
 	int batchUpdate(List<LookupVO> records);
 
 	@POST @Path("batchInsert")

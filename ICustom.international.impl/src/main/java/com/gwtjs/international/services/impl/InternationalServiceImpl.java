@@ -30,9 +30,10 @@ public class InternationalServiceImpl implements IInternationalService {
 	public PagedResult<LanguageVO> findListRecords(LanguageVO record, PagerVO page) {
 		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(internationalDao.selectListCount(record));
+		pageVO.setTotalRows(internationalDao.selectListCount(record,page));
 		if(pageVO.getTotalRows()>0){
 			paged.setPageVO(pageVO);
+			paged.setResult(internationalDao.selectList(record, page));
 		}
 		return paged;
 	}

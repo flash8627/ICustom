@@ -97,13 +97,13 @@ alter table SYS_REGISTER_T
 -- Create table
 create table SYS_LOOKUP_ITEM_T
 (
-  item_id          VARCHAR2(32) not null,
+  item_id          NUMBER not null,
   item_code        INTEGER,
   item_name        VARCHAR2(40),
   item_lan         VARCHAR2(40),
-  class_id         VARCHAR2(32),
+  class_id         NUMBER,
   item_status      INTEGER default 1,
-  comments    VARCHAR2(308),
+  REMARKS    VARCHAR2(308),
   order_code  INTEGER default 1,
   created_user NUMBER,
   created_date DATE default SYSDATE,
@@ -142,7 +142,7 @@ alter table SYS_LOOKUP_ITEM_T
 -- Create table
 create table SYS_LOOKUP_CLASSIFY_T
 (
-  class_id         VARCHAR2(32) not null,
+  class_id         NUMBER not null,
   class_name       VARCHAR2(40),
   class_code       VARCHAR2(100),
   class_desc       VARCHAR2(300),

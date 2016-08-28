@@ -27,24 +27,25 @@ public class LookupItemServiceImpl implements ILookupItemService {
 	 * 分页的lookup 条目
 	 */
 	@Override
-	public PagedResult<LookupItemVO> findListRecords(LookupItemVO record, PagerVO page) {
+	public PagedResult<LookupItemVO> findRecords(LookupItemVO record, PagerVO page) {
 		PagedResult<LookupItemVO> paged = new PagedResult<LookupItemVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(lookupItemDao.selectListCount(record));
+		pageVO.setTotalRows(lookupItemDao.selectListCount(record,page));
 		if(pageVO.getTotalRows()>0){
 			paged.setPageVO(pageVO);
+			paged.setResult(lookupItemDao.selectList(record, page));
 		}
 		return paged;
 	}
 
 	@Override
-	public LookupItemVO findItem(LookupItemVO record) {
-		return lookupItemDao.findItem(new Long(record.getItemId()));
+	public List<LookupItemVO> findLookupItems(String classId) {
+		return lookupItemDao.findLookupItems(classId);
 	}
 
 	@Override
-	public List<LookupItemVO> selectList(LookupItemVO record, PagerVO page) {
-		return lookupItemDao.selectList(record, page);
+	public LookupItemVO findItem(String record) {
+		return lookupItemDao.findItem(record);
 	}
 
 	@Override

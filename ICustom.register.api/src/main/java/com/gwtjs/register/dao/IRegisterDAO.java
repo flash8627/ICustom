@@ -16,14 +16,14 @@ import com.gwtjs.register.entity.RegisterVO;
 public interface IRegisterDAO extends BaseSqlMapper<RegisterVO> {
 
 	//
-	RegisterVO findItem(@Param("regId")Long regId);
+	RegisterVO findItem(@Param("regId")Integer regId);
 
 	//
 	List<RegisterVO> selectList(RegisterVO record,PagerVO page);
 
 	//
-	int selectListCount(RegisterVO record);
-
+	int selectListCount(RegisterVO record,PagerVO page);
+	
 	//
 	int batchRemovePks(List<RegisterVO> records);
 

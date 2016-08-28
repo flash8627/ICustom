@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,14 +27,14 @@ import com.gwtjs.lookup.entity.LookupItemVO;
 @Produces(MediaType.APPLICATION_JSON)
 public interface ILookupItemService {
 	
-	@GET @Path("findItem/{recordId}")
-	LookupItemVO findItem(@PathParam("")LookupItemVO record);
+	@GET @Path("findItem/{itemId}")
+	LookupItemVO findItem(@PathParam("")String itemId);
 	
-	@GET @Path("findListRecords/{pageSize}/{curPage}")
-	PagedResult<LookupItemVO> findListRecords(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
+	@GET @Path("findRecords/{pageSize}/{curPage}")
+	PagedResult<LookupItemVO> findRecords(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
 	
-	@GET @Path("findLookupItemList/{pageSize}/{curPage}")
-	List<LookupItemVO> selectList(@QueryParam("")LookupItemVO record,@PathParam("")PagerVO page);
+	@GET @Path("findLookupItems/{classId}")
+	List<LookupItemVO> findLookupItems(@PathParam("")String classId);
 
 	@GET @Path("selectListCount")
 	int selectListCount(LookupItemVO record);
@@ -41,7 +42,7 @@ public interface ILookupItemService {
 	@DELETE @Path("batchRemovePks")
 	int batchRemovePks(List<LookupItemVO> records);
 	
-	@POST @Path("batchUpdate")
+	@PUT @Path("batchUpdate")
 	int batchUpdate(List<LookupItemVO> records);
 
 	@POST @Path("batchInsert")

@@ -8,7 +8,7 @@ public class LookupItemVO extends BaseResource {
 	 */
 	private static final long serialVersionUID = -2735567571111256970L;
 
-	private String itemId;
+	private Integer itemId;
 
 	private String itemCode;
 
@@ -20,14 +20,14 @@ public class LookupItemVO extends BaseResource {
 
 	private String remarks;
 
-	private String classId;
+	private Integer classId;
 
-	public String getItemId() {
+	public Integer getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(String itemId) {
-		this.itemId = itemId == null ? null : itemId.trim();
+	public void setItemId(Integer itemId) {
+		this.itemId = itemId == null ? null : itemId ;
 	}
 
 	public String getItemName() {
@@ -38,12 +38,12 @@ public class LookupItemVO extends BaseResource {
 		this.itemName = itemName == null ? null : itemName.trim();
 	}
 
-	public String getClassId() {
+	public Integer getClassId() {
 		return classId;
 	}
 
-	public void setClassId(String classId) {
-		this.classId = classId == null ? null : classId.trim();
+	public void setClassId(Integer classId) {
+		this.classId = classId == null ? null : classId ;
 	}
 
 	public String getItemCode() {

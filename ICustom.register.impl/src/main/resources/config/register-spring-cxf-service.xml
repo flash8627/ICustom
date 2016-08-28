@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
-    
-    <jaxrs:server address="/register">
-        <jaxrs:serviceBeans>
-            <ref bean="registerService"/>
-        </jaxrs:serviceBeans>
-        <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
-        </jaxrs:providers>
-    </jaxrs:server>
-    
+	
+	<!-- <import resource="classpath:META-INF/cxf/cxf.xml"/>
+	
+	<bean id="registerServicess" class="com.gwtjs.register.services.impl.RegisterServiceImpl" />
+	<jaxrs:server id="restServiceContainer" address="/api">
+		<jaxrs:serviceBeans>
+			<ref bean="registerServicess" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server> -->
+	
+	<jaxrs:server address="/register">
+		<jaxrs:serviceBeans>
+			<ref bean="registerService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
 </beans>

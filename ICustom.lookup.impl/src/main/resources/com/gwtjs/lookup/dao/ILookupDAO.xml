@@ -13,7 +13,7 @@
 		CLASS_ID classId,
 		CLASS_NAME className,
 		CLASS_CODE classCode,
-		CLASS_DESC regDesc,
+		CLASS_DESC classDesc,
 		ORDER_CODE orderCode,
 		CREATED_USER createdUser,
 		CREATED_DATE createdDate,

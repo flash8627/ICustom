@@ -30,17 +30,18 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	public PagedResult<LookupVO> findListRecords(LookupVO record, PagerVO page) {
 		PagedResult<LookupVO> paged = new PagedResult<LookupVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(lookupDao.selectListCount(record));
+		pageVO.setTotalRows(lookupDao.selectListCount(record,page));
 		if(pageVO.getTotalRows()>0){
 			paged.setPageVO(pageVO);
+			paged.setResult(lookupDao.selectList(record, page));
 		}
 		return paged;
 	}
 	
 	@Override
-	public LookupVO findItem(String classId) {
+	public LookupVO findItem(Integer classId) {
 		// TODO Auto-generated method stub
-		return lookupDao.findItem(new Long(classId));
+		return lookupDao.findItem(classId);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	@Override
 	public int findLookupListCount(LookupVO record) {
 		// TODO Auto-generated method stub
-		return lookupDao.selectListCount(record);
+		return lookupDao.selectListCount(record,null);
 	}
 
 	@Override

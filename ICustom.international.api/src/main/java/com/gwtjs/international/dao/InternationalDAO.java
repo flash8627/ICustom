@@ -11,13 +11,13 @@ import com.gwtjs.international.entity.LanguageVO;
 public interface InternationalDAO extends BaseSqlMapper<LanguageVO> {
 
 	//
-	LanguageVO findItem(@Param("regId")Long regId);
+	LanguageVO findItem(@Param("lanId")Long lanId);
 
 	//
 	List<LanguageVO> selectList(LanguageVO record,PagerVO page);
 	
 	//
-	int selectListCount(LanguageVO record);
+	int selectListCount(LanguageVO record,PagerVO page);
 	
 	//
 	int batchRemovePks(List<LanguageVO> records);
