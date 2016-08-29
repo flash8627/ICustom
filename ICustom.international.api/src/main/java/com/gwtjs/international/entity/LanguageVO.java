@@ -11,11 +11,11 @@ public class LanguageVO extends BaseResource {
 
 	private long lanId;
 
-	private String lanCode;
-	private String lanValue;
-	private String remarks;
-
-	private int lanType;
+	private String lanCode; //
+	private String lanValue; //
+	private String remarks; //
+ 
+	private int lanType; //
 
 	public long getLanId() {
 		return lanId;

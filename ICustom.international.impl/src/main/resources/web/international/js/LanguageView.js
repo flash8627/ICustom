@@ -1,36 +1,36 @@
-var LanguageView = function() {
-    var generateLanguageTableTrHtml = function(item) {
-        return TemplateUtil.renderHtml('language_table_tr_template', item);
+var NavigationView = function() {
+    var generateNavigationTableTrHtml = function(navigation) {
+        return TemplateUtil.renderHtml('navigation_table_tr_template', navigation);
     };
     return {
-        renderLanguageTable: function(items) {
-            TemplateUtil.registerPartical('tr', 'language_table_tr_template');
-            var html = TemplateUtil.renderHtml('language_table_template', {
-                data: items
+        renderNavigationTable: function(navigationList) {
+            TemplateUtil.registerPartical('tr', 'navigation_table_tr_template');
+            var html = TemplateUtil.renderHtml('navigation_table_template', {
+                data: navigationList
             });
-            $('#language_list').html(html);
+            $('#navigation_list').html(html);
         },
-        renderLanguageModal: function(title, item) {
-            var $modal = $('#language_modal');
+        renderNavigationModal: function(title, navigation) {
+            var $modal = $('#navigation_modal');
             $modal.find('.modal-title').text(title);
-            var html = TemplateUtil.renderHtml('language_modal_form_template', item);
+            var html = TemplateUtil.renderHtml('navigation_modal_form_template', navigation);
             $modal.find('.modal-body').html(html);
         },
-        insertLanguageRow: function(item) {
-            var html = generateLanguageTableTrHtml(item);
-            $('#language_table').find('tbody').prepend(html);
+        insertNavigationRow: function(navigation) {
+            var html = generateNavigationTableTrHtml(navigation);
+            $('#navigation_table').find('tbody').prepend(html);
         },
-        updateLanguageRow: function(item) {
-        	console.warn(item);
-            var html = generateLanguageTableTrHtml(item);
-            $('#language_table').find('tbody').find('tr[data-id="' + item.itemId + '"]').replaceWith(html);
+        updateNavigationRow: function(navigation) {
+        	console.warn(navigation);
+            var html = generateNavigationTableTrHtml(navigation);
+            $('#navigation_table').find('tbody').find('tr[data-id="' + navigation.itemId + '"]').replaceWith(html);
         },
-        deleteLanguageRow: function(itemId) {
-            $('#language_table').find('tbody').find('tr[data-id="' + itemId + '"]').remove();
+        deleteNavigationRow: function(itemId) {
+            $('#navigation_table').find('tbody').find('tr[data-id="' + itemId + '"]').remove();
         },
-        deleteLanguageRows: function(items) {
+        deleteNavigationRows: function(items) {
             for(var nav in items){
-            	$('#language_table').find('tbody').find('tr[data-id="' + nav.itemId + '"]').remove();
+            	$('#navigation_table').find('tbody').find('tr[data-id="' + nav.itemId + '"]').remove();
             }
         }
     };
