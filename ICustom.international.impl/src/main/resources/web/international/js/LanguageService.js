@@ -1,54 +1,54 @@
-var NavigationService = function() {
-    var BASE = '../services/nav';
+var LanguageService = function() {
+    var BASE = '../services/international/internationalService';
     return {
-    	findNavigations: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findNavigationList', function(navigationList) {
-                NavigationView.renderNavigationTable(navigationList);
+    	findLanguages: function(callback) {
+            AjaxUtil.sendGetRequest(BASE + '/findLanguageList/10/1', function(list) {
+                LanguageView.renderLanguageTable(list);
                 callback();
             });
         },
         findChildren: function(callback,itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findNavigationList/'+itemId, function(navigationList) {
-                NavigationView.renderNavigationTable(navigationList);
+            AjaxUtil.sendGetRequest(BASE + '/findLanguageList/'+itemId, function(list) {
+                LanguageView.renderLanguageTable(list);
                 callback();
             });
         },
-        findNavigationById: function(itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findNavigation/' + itemId, function(navigation) {
-                var title = 'Edit Navigation';
-                NavigationView.renderNavigationModal(title, navigation);
+        findLanguageById: function(itemId) {
+            AjaxUtil.sendGetRequest(BASE + '/findLanguage/' + itemId, function(language) {
+                var title = 'Edit Language';
+                LanguageView.renderLanguageModal(title, language);
             });
         },/*
-        findNavigationsByName: function(name) {
-            AjaxUtil.sendFormData(BASE + '/navigations', {
+        findLanguagesByName: function(name) {
+            AjaxUtil.sendFormData(BASE + '/languages', {
                 itemName: name
-            }, function(navigationList) {
-                NavigationView.renderNavigationTable(navigationList);
+            }, function(languageList) {
+                LanguageView.renderLanguageTable(languageList);
             });
         },*/
-        createNavigation: function(navigation) {
-            AjaxUtil.sendPostData(BASE + '/insert', navigation, function(navigation) {
-                NavigationView.insertNavigationRow(navigation.obj);
+        createLanguage: function(language) {
+            AjaxUtil.sendPostData(BASE + '/insert', language, function(language) {
+                LanguageView.insertLanguageRow(language.obj);
             });
         },
-        batchInsertNavigation: function(items) {
+        batchInsertLanguage: function(items) {
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
-                NavigationView.insertNavigationRows(items);
+                LanguageView.insertLanguageRows(items);
             });
         },
-        updateNavigation: function(navigation) {
-            AjaxUtil.sendPostData(BASE + '/updateByKey', navigation, function(navigation) {
-                NavigationView.updateNavigationRow(navigation.obj);
+        updateLanguage: function(language) {
+            AjaxUtil.sendPostData(BASE + '/updateByKey', language, function(language) {
+                LanguageView.updateLanguageRow(language.obj);
             });
         },
-        deleteNavigationById: function(id) {
+        deleteLanguageById: function(id) {
             AjaxUtil.sendDeleteRequest(BASE + '/deleteBy/' + id, function() {
-                NavigationView.deleteNavigationRow(id);
+                LanguageView.deleteLanguageRow(id);
             });
         },
-        deleteNavigationRows: function(items) {
+        deleteLanguageRows: function(items) {
             AjaxUtil.sendBatchRemove(BASE + '/batchRemove',items, function() {
-                NavigationView.deleteNavigationRows(items);
+                LanguageView.deleteLanguageRows(items);
             });
         }
     }
