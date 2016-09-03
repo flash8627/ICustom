@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Navigation Manager</title>
-    <link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="../resources/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -127,15 +124,9 @@
     </form>
 </script>
 
-
-<script src="../resources/jquery/jquery.min.js"></script>
-<script src="../resources/bootstrap/js/bootstrap.min.js"></script>
-<script src="../resources/handlebars/handlebars.min.js"></script>
-
 <script src="js/global.js"></script>
 <script src="js/NavigationView.js"></script>
 <script src="js/NavigationService.js"></script>
-
 
 <script>
     $(function() {
@@ -198,7 +189,7 @@
             	icon: $('#icon').val().trim(),
             	url: $('#url').val().trim()
             };
-            console.warn(id,navigation);
+            //console.warn(id,navigation);
             if (id == 0) {
                 NavigationService.createNavigation(navigation);
             } else {
@@ -209,6 +200,3 @@
 		//
     });
 </script>
-
-</body>
-</html>
