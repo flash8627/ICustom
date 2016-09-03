@@ -39,12 +39,12 @@ public interface IInternationalService {
 	LanguageVO i18n(@PathParam("")LanguageVO record);
 	
 	@GET @Path("findLanguageList/{pageSize}/{curPage}")
-	List<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
+	PagedResult<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
 	
 	@GET @Path("findLanguageListCount")
 	ResultWrapper findLanguageListCount(LanguageVO record);
 	
-	@DELETE @Path("batchRemovePks")
+	/*@DELETE*/@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<LanguageVO> records);
 	
 	@PUT @Path("batchUpdate")

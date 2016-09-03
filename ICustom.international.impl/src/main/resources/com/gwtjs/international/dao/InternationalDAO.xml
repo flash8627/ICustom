@@ -6,7 +6,10 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LANGUAGE_T T1
-		where VALID_FLAG=1 AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR} AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+		where VALID_FLAG=1 
+		AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR} 
+		AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+			AND ROWNUM = 1
 	</select>
 	
 	<select id="findItem" resultType="com.gwtjs.international.entity.LanguageVO">
@@ -16,29 +19,54 @@
 		where VALID_FLAG=1 AND T1.LAN_ID = #{lanId,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="selectList" parameterType="com.gwtjs.international.entity.LanguageVO"
-		resultType="INTEGER">
+	<select id="findByItem" resultType="com.gwtjs.international.entity.LanguageVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LANGUAGE_T T1
+		where VALID_FLAG=1 
+			AND T1.LAN_CODE = #{lanCode,jdbcType=VARCHAR} 
+			AND T1.LAN_VALUE = #{lanValue,jdbcType=VARCHAR}
+			AND T1.LAN_TYPE = #{lanType,jdbcType=INTEGER}
+			AND ROWNUM = 1
+	</select>
+	
+	<select id="selectList" resultType="com.gwtjs.international.entity.LanguageVO">
+		<include refid="page_st" />
+		SELECT
+		<include refid="Base_Column_List" />
+		,row_number() over(partition by LAN_CODE order by CREATED_DATE DESC) groupIndex 
+		FROM SYS_LANGUAGE_T T1
 		where VALID_FLAG=1
 		<include refid="select_cond" />
+		
+		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" parameterType="com.gwtjs.international.entity.LanguageVO"
-		resultType="com.gwtjs.international.entity.LanguageVO">
+	<select id="selectListCount" resultType="int">
 		SELECT
 		COUNT(1)
-		FROM SYS_LANGUAGE_T
+		FROM SYS_LANGUAGE_T T1 
 		where VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
-
+	
+	<sql id="page_st">
+		SELECT * FROM (
+		SELECT TT.* , ROWNUM RN FROM (
+	</sql>
+	<sql id="page_et">
+		) TT
+		<![CDATA[
+		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
+		]]>
+	</sql>
+	
 	<sql id="Base_Column_List">
 		LAN_ID lanId, 
 		LAN_CODE lanCode, 
 		lan_value lanValue,
 		LAN_TYPE lanType,
+		(decode((LAN_TYPE),1,'Chinese','English')) lanTypeLab,
 		remarks remarks,
 		ATTRIBUTE1 attribute1, 
 		ATTRIBUTE2 attribute2, 
@@ -50,11 +78,13 @@
 		ATTRIBUTE8 attribute8, 
 		ATTRIBUTE9 attribute9,
 		ATTRIBUTE10 attribute10, 
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
 		ORDER_CODE orderCode, 
 		CREATED_USER createdUser,
-		CREATED_DATE createdDate, 
+		TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') createdDate,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn,
 		UPDATE_LAST_USER updateLastUser,
-		UPDATE_LAST_DATE updateLastDate
+		TO_CHAR(CREATED_DATE,'YYYY-MM-DD HH24:MI:SS') updateLastDate
 	</sql>
 
 	<sql id="select_cond">
@@ -83,11 +113,11 @@
 
 	<!-- batch action -->
 
-	<delete id="batchRemovePks" parameterType="java.util.List">
+	<delete id="batchRemovePks">
 		DELETE FROM SYS_LANGUAGE_T WHERE LAN_ID in
 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
-			#{item}
+			#{item.lanId}
 		</foreach>
 	</delete>
 

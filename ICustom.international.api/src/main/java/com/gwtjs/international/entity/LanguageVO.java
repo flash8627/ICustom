@@ -9,19 +9,20 @@ public class LanguageVO extends BaseResource {
 	 */
 	private static final long serialVersionUID = 36316418868787090L;
 
-	private long lanId;
+	private Long lanId;
 
 	private String lanCode; //
 	private String lanValue; //
 	private String remarks; //
- 
-	private int lanType; //
 
-	public long getLanId() {
+	private Integer lanType; //
+	private String lanTypeLab; //
+
+	public Long getLanId() {
 		return lanId;
 	}
 
-	public void setLanId(long lanId) {
+	public void setLanId(Long lanId) {
 		this.lanId = lanId;
 	}
 
@@ -33,11 +34,11 @@ public class LanguageVO extends BaseResource {
 		this.lanCode = lanCode;
 	}
 
-	public int getLanType() {
+	public Integer getLanType() {
 		return lanType;
 	}
 
-	public void setLanType(int lanType) {
+	public void setLanType(Integer lanType) {
 		this.lanType = lanType;
 	}
 
@@ -55,6 +56,21 @@ public class LanguageVO extends BaseResource {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getLanTypeLab() {
+		return lanTypeLab;
+	}
+
+	public void setLanTypeLab(String lanTypeLab) {
+		this.lanTypeLab = lanTypeLab;
+	}
+
+	@Override
+	public String toString() {
+		return "LanguageVO [lanId=" + lanId + ", lanCode=" + lanCode
+				+ ", lanValue=" + lanValue + ", remarks=" + remarks
+				+ ", lanType=" + lanType + ", lanTypeLab=" + lanTypeLab + "]";
 	}
 
 }

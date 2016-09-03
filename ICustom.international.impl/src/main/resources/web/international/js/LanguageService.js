@@ -2,8 +2,8 @@ var LanguageService = function() {
     var BASE = '../services/international/internationalService';
     return {
     	findLanguages: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLanguageList/10/1', function(list) {
-                LanguageView.renderLanguageTable(list);
+            AjaxUtil.sendGetRequest(BASE + '/findLanguageList/10/1', function(object) {
+                LanguageView.renderLanguageTable(object.result);
                 callback();
             });
         },
@@ -14,10 +14,20 @@ var LanguageService = function() {
             });
         },
         findLanguageById: function(itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findLanguage/' + itemId, function(language) {
+        	//查询后直接填充到页面
+            AjaxUtil.sendGetRequest(BASE + '/findItem/' + itemId, function(language) {
                 var title = 'Edit Language';
                 LanguageView.renderLanguageModal(title, language);
             });
+        },
+        findLanguageByItem: function(itemId) {
+        	var result = {};
+        	//返回查询值,需要发同步请求吗？
+            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(language) {
+            	result = language;
+            	return result;
+            });
+            return result;
         },/*
         findLanguagesByName: function(name) {
             AjaxUtil.sendFormData(BASE + '/languages', {
@@ -27,17 +37,16 @@ var LanguageService = function() {
             });
         },*/
         createLanguage: function(language) {
-            AjaxUtil.sendPostData(BASE + '/insert', language, function(language) {
-                LanguageView.insertLanguageRow(language.obj);
-            });
+        	var lans = [language];
+            batchInsertLanguage(lans);
         },
-        batchInsertLanguage: function(items) {
+        batchInsertLanguage: function(items,callback) {
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
-                LanguageView.insertLanguageRows(items);
+                LanguageView.insertLanguageRows(items.obj,callback);
             });
         },
-        updateLanguage: function(language) {
-            AjaxUtil.sendPostData(BASE + '/updateByKey', language, function(language) {
+        batchUpdateLanguage: function(items) {
+            AjaxUtil.sendPutData(BASE + '/batchUpdate', items, function(language) {
                 LanguageView.updateLanguageRow(language.obj);
             });
         },
@@ -47,7 +56,7 @@ var LanguageService = function() {
             });
         },
         deleteLanguageRows: function(items) {
-            AjaxUtil.sendBatchRemove(BASE + '/batchRemove',items, function() {
+            AjaxUtil.sendPutData(BASE + '/batchRemovePks',items, function() {
                 LanguageView.deleteLanguageRows(items);
             });
         }

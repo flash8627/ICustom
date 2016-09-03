@@ -9,7 +9,10 @@ import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.international.entity.LanguageVO;
 
 public interface InternationalDAO extends BaseSqlMapper<LanguageVO> {
-
+	
+	//
+	LanguageVO findByItem(LanguageVO lan);
+	
 	//
 	LanguageVO findItem(@Param("lanId")Long lanId);
 	

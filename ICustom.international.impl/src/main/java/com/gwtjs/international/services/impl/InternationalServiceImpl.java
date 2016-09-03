@@ -54,8 +54,15 @@ public class InternationalServiceImpl implements IInternationalService {
 	}
 
 	@Override
-	public List<LanguageVO> findLanguageList(LanguageVO record, PagerVO page) {
-		return internationalDao.selectList(record, page);
+	public PagedResult<LanguageVO> findLanguageList(LanguageVO record, PagerVO page) {
+		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(internationalDao.selectListCount(record, page));
+		if (pageVO.getTotalRows() > 0) {
+			paged.setPageVO(pageVO);
+			paged.setResult(internationalDao.selectList(record, page));
+		}
+		return paged;
 	}
 
 	@Override
@@ -73,15 +80,35 @@ public class InternationalServiceImpl implements IInternationalService {
 	@Override
 	public ResultWrapper batchUpdate(List<LanguageVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(internationalDao
-				.batchUpdate(records));
+		internationalDao.batchUpdate(records);
+		return generResult(records);
+	}
+	
+	/**
+	 * 构建返回的对象
+	 * @param records
+	 * @return
+	 */
+	private ResultWrapper generResult(List<LanguageVO> records)
+	{
+		List<LanguageVO> result = new ArrayList<>();
+		for (LanguageVO lan : records) {
+			System.out.println(lan);
+			LanguageVO temp = internationalDao.findByItem(lan);
+			if(temp!=null){
+				result.add(temp);
+			}
+			
+		}
+		return ResultWrapper.successResult(result);
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LanguageVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(internationalDao
-				.batchInsert(records));
+		/*int flag = */internationalDao.batchInsert(records);
+		
+		return generResult(records);
 	}
 
 	/**

@@ -6,6 +6,9 @@ var AjaxUtil = function() {
             },
             403: function() {
                 alert('403 - Forbidden');
+            },
+            403: function() {
+                alert('405 - Method Not Allowed,POST,DELETE,GET,PUT???');
             }
         }
     });
@@ -15,6 +18,17 @@ var AjaxUtil = function() {
                 type: 'get',
                 url: url,
                 dataType: 'json',
+                success: function(data) {
+                    callback(data);
+                }
+            });
+        },
+        sendGetAsyncRequest: function(url, callback) {
+            $.ajax({
+                type: 'get',
+                url: url,
+                dataType: 'json',
+                async: false,
                 success: function(data) {
                     callback(data);
                 }
@@ -68,7 +82,7 @@ var AjaxUtil = function() {
         },
         sendBatchRemove: function(url,json, callback) {
             $.ajax({
-                type: 'delete',
+                type: 'DELETE',
                 url: url,
                 data: JSON.stringify(json),
                 dataType: 'json',
