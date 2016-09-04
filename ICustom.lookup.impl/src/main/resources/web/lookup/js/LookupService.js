@@ -3,51 +3,31 @@ var LookupService = function() {
     return {
     	findLookups: function(callback) {
             AjaxUtil.sendGetRequest(BASE + '/findLookupList/10/1', function(list) {
-                LookupView.renderLookupTable(list);
-                callback();
-            });
-        },
-        findChildren: function(callback,itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookupList/'+itemId, function(list) {
-                LookupView.renderLookupTable(list);
+                LookupView.renderLookupTable(list.result);
+                LookupView.renderLookupTablePager(list.result);
                 callback();
             });
         },
         findLookupById: function(itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookup/' + itemId, function(lookup) {
-                var title = 'Edit Lookup';
-                LookupView.renderLookupModal(title, lookup);
+        	var result = {};
+            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(lookup) {
+            	result = lookup;
+            	return result;
             });
-        },/*
-        findLookupsByName: function(name) {
-            AjaxUtil.sendFormData(BASE + '/lookups', {
-                itemName: name
-            }, function(lookupList) {
-                LookupView.renderLookupTable(lookupList);
-            });
-        },*/
-        createLookup: function(lookup) {
-            AjaxUtil.sendPostData(BASE + '/insert', lookup, function(lookup) {
-                LookupView.insertLookupRow(lookup.obj);
-            });
+            return result;
         },
         batchInsertLookup: function(items) {
-            AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
-                LookupView.insertLookupRows(items);
+            AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(result) {
+                LookupView.insertLookupRows(result.obj);
             });
         },
-        updateLookup: function(lookup) {
-            AjaxUtil.sendPostData(BASE + '/updateByKey', lookup, function(lookup) {
-                LookupView.updateLookupRow(lookup.obj);
-            });
-        },
-        deleteLookupById: function(id) {
-            AjaxUtil.sendDeleteRequest(BASE + '/deleteBy/' + id, function() {
-                LookupView.deleteLookupRow(id);
+        batchUpdateLookup: function(items) {
+            AjaxUtil.sendPutData(BASE + '/batchUpdate', items, function(result) {
+                LookupView.insertLookupRows(result.obj);
             });
         },
         deleteLookupRows: function(items) {
-            AjaxUtil.sendBatchRemove(BASE + '/batchRemove',items, function() {
+            AjaxUtil.sendPutData(BASE + '/batchRemovePks',items, function() {
                 LookupView.deleteLookupRows(items);
             });
         }

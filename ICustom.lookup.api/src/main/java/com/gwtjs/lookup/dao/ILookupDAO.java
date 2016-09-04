@@ -9,7 +9,10 @@ import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.lookup.entity.LookupVO;
 
 public interface ILookupDAO extends BaseSqlMapper<LookupVO> {
-
+	
+	//
+	LookupVO findByItem(LookupVO record);
+	
 	//
 	LookupVO findItem(@Param("classId")Integer classId);
 

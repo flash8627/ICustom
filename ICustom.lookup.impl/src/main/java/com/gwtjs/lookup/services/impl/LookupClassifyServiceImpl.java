@@ -47,8 +47,8 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	}
 
 	@Override
-	public List<LookupVO> findLookupList(LookupVO record, PagerVO page) {
-		return lookupDao.selectList(record, page);
+	public PagedResult<LookupVO> findLookupList(LookupVO record, PagerVO page) {
+		return findListRecords(record, page);
 	}
 
 	@Override
@@ -60,19 +60,31 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	@Override
 	public ResultWrapper batchRemovePks(List<LookupVO> records) {
 		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(lookupDao.batchRemovePks(records));
+		lookupDao.batchRemovePks(records);
+		return ResultWrapper.successResult(records);
 	}
 
 	@Override
 	public ResultWrapper batchUpdate(List<LookupVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(lookupDao.batchUpdate(records));
+		lookupDao.batchUpdate(records);
+		return genericResult(records);
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LookupVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(lookupDao.batchInsert(records));
+		lookupDao.batchInsert(records);
+		return genericResult(records);
+	}
+	
+	private ResultWrapper genericResult(List<LookupVO> list)
+	{
+		List<LookupVO> records = new ArrayList<LookupVO>();
+		for (LookupVO look : list) {
+			records.add(lookupDao.findByItem(look));
+		}
+		return ResultWrapper.successResult(records);
 	}
 	
 	/**

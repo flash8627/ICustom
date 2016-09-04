@@ -13,41 +13,46 @@
 			<form class="form-inline" method="post" id="language_search_form">
 				<div class="form-group my-form-row">
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="lookupCode" style="">键值:</label> <input type="text"
+						<label for="lanCode" style="">键值:</label> <input type="text"
 							class="form-control" style="width: 78%;"
-							placeholder="lookup code" id="languageCode">
+							placeholder="language code" id="lanCode">
 					</div>
 
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="languageName" style="width: 18%; text-align: right;">内容:</label>
+						<label for="lanValue" style="width: 18%; text-align: right;">内容:</label>
 						<input type="text" class="form-control" style="width: 78%;"
-							placeholder="lookup name" id="lookupName">
+							placeholder="language Value" id="lanValue">
 					</div>
 				</div>
 
 				<div class="form-group my-form-row">
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="lookupCode" style="">备注:</label> <input type="text"
+						<label for="remarks" style="">备注:</label> <input type="text"
 							class="form-control" style="width: 78%;"
-							placeholder="lookup code" id="languageCode">
+							placeholder="remarks" id="remarks">
 					</div>
 
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="languageName" style="width: 18%; text-align: right;">语言:</label>
-						<input type="text" class="form-control" style="width: 78%;"
-							placeholder="lookup name" id="lookupName">
+						<label for="lanType" style="width: 18%; text-align: right;">语言:</label>
+					        <select class="form-control" style="width: 78%;" id="lanType" name="lanType">
+					            <option value="1">中文</option>
+					            <option value="2">英文</option>
+					            <option value="3">韩语</option>
+					            <option value="4">法语</option>
+					            <option value="5">俄语</option>
+					        </select>
 					</div>
 				</div>
 
-				<div class="form-group my-form-row">
+				<div class="form-group my-form-row" style="height: 38px;">
 					<label for="startdate" style="width: 108px; text-align: right;">创建时间:</label>
-					<input type="text" style="width: 38%;" class="easyui-datebox"
+					<input type="text" style="width: 38%;" class="easyui-datebox form-control"
 						id="startdate" name="startdate"
 						data-options="prompt:'请选择开始日期',editable:false,required:'true',onSelect:onSelect">
-					<span style="width: 58px; text-align: center;">&nbsp; <i
+					<span style="width: 58px; text-align: center;margin:0 28px;">&nbsp; <i
 						class="fa fa-chevron-right" aria-hidden="true"></i> <span
 						class="sr-only">TO</span>
-					</span> <input type="text" style="width: 38%;" class="easyui-datebox"
+					</span> <input type="text" style="width: 38%;margin-left:58px;" class="easyui-datebox form-control"
 						id="enddate" name="enddate"
 						data-options="prompt:'请选择结束日期',editable:false,required:'true',disabled:true,validType:'equaldDate[\'#startdate\']'">
 				</div>
@@ -123,7 +128,6 @@
 
 <script type="text/x-handlebars-template" id="language_table_template">
 	
-	{{#if data}}
     <table class="table table-hover row-table" id="language_table">
     	<thead>
         	<th>
@@ -139,6 +143,7 @@
 			</th>
 		</thead>
         <tbody>
+			{{#if data}}
 			{{#data}}
             {{> tr}}
             {{/data}}
@@ -171,7 +176,9 @@
 	id="language_table_tr_template">
 	<tr data-id="{{lanId}}" data-name="{{lanId}}" group="{{lanCode}}" class="h_grid_tr" index="{{@index}}">
 		<td>
-		<input type="checkbox" name="lanId" value="{{lanId}}" class="form-control" onclick="validateRemoveBtn()">
+		<label class="checkbox-inline">
+        	<input type="checkbox" id="lanId" name="lanId" value="{{lanId}}" onclick="validateRemoveBtn()">
+    	</label>
 		</td>
 		<td>
 			<button class="btn btn-xs btn-primary language_edit" title="Edit"><i class="fa fa-edit"></i></button>
@@ -356,6 +363,10 @@
 				var item = {lanId:$(this).val()}
 				chkValues.push(item);
 			});
+			if(chkValues.length<1){
+				//
+				return;
+			}
 			if (confirm('Do you want to delete this language?')) {
 				LanguageService.deleteLanguageRows(chkValues);
 				doExecuteRowspan();

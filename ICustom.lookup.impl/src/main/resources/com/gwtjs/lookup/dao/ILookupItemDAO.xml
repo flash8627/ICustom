@@ -94,7 +94,7 @@
 		DELETE FROM SYS_LOOKUP_ITEM_T WHERE ITEM_ID in
 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
-			#{item}
+			#{item.itemId}
 		</foreach>
 	</delete>
 

@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
 	
+	<select id="findByItem" resultType="com.gwtjs.lookup.entity.LookupVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_CLASSIFY_T T1 
+		where T1.VALID_FLAG=1 AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR} AND T1.CLASS_CODE = #{classCode,jdbcType=VARCHAR}
+	</select>
+	
 	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupVO">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -73,7 +80,7 @@
 		DELETE FROM SYS_LOOKUP_CLASSIFY_T WHERE CLASS_ID in
 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
-			#{item}
+			#{item.classId}
 		</foreach>
 	</delete>
 

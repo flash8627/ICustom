@@ -3,7 +3,6 @@ package com.gwtjs.lookup.services;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -37,12 +36,12 @@ public interface ILookupClassifyService {
 	ResultWrapper findItem(@PathParam("classId")Integer classId);
 	
 	@GET @Path("findLookupList/{pageSize}/{curPage}")
-	List<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
+	PagedResult<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
 
 	@GET @Path("findLookupListCount")
 	ResultWrapper findLookupListCount(@PathParam("")LookupVO record);
 
-	@DELETE @Path("batchRemovePks")
+	@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<LookupVO> records);
 
 	@PUT @Path("batchUpdate")
