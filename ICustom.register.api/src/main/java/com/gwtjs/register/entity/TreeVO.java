@@ -18,6 +18,8 @@ public class TreeVO extends BaseResource {
 
 	private String text;// 名称或label
 
+	private boolean checked = false; // 是否选中
+
 	private String regCode;// 编码,路径形式
 
 	private String regValue;// 字典值
@@ -68,6 +70,14 @@ public class TreeVO extends BaseResource {
 		this.parentId = parentId;
 	}
 
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 	public String getRegValue() {
 		return regValue;
 	}
@@ -83,17 +93,16 @@ public class TreeVO extends BaseResource {
 	public void setParentPath(String parentPath) {
 		this.parentPath = parentPath;
 	}
-	
-	public TreeVO regToTree(RegisterVO reg)
-	{
-		
+
+	public TreeVO regToTree(RegisterVO reg) {
+
 		TreeVO tree = new TreeVO();
 		tree.setId(reg.getRegId());
 		tree.setText(reg.getRegName());
 		tree.setRegCode(reg.getRegCode());
 		tree.setRegValue(reg.getRegValue());
 		tree.setRegDesc(reg.getRegDesc());
-		
+
 		return tree;
 	}
 

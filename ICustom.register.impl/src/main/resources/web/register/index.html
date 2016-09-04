@@ -138,15 +138,26 @@ var initRegTree = function(itemId) {
 	$('#regTree').tree({
 		url : url,
 		method : 'get',
-		fitColumns : true,
-		rownumbers : true,
+		fit : true,
+		lines:true,
+		checkbox:true,
 		idField : 'regId',
 		treeField : 'regName',
+		formatter:function(node){
+			return node.text+'<span style="width:12px;"></span><span>&nbsp;<i class="fa fa-plus"></i></span>';
+		},
+		onClick: function(node){
+			//alert(node.text);  // 在用户点击的时候提示
+		},
+		onBeforeLoad: function(node, param){
+			if (node) {
+				alert(node.text);
+				$('#regTree').treegrid('options').url = url+"/"+node.id;
+			}
+		},
 		onBeforeExpand : function(row) {
 			if (row) {
-				$('#regTree').treegrid('options').url = url+"/"+row.regId;
-			}else{
-				$('#regTree').treegrid('options').url = url;
+				$('#regTree').treegrid('options').url = url+"/"+row.id;
 			}
 		}
 	});
