@@ -68,28 +68,10 @@
 	</div>
 </div>
 
-<div class="modal" id="lookup_modal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title"></h4>
-			</div>
-			<div class="modal-body"></div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary"
-					id="lookup_modal_submit">
-					<i class="fa fa-save"></i> Save
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script type="text/x-handlebars-template-partial" id="lookup_item_info_template">
+<script type="text/x-handlebars-template-partial" id="lookup_item_table_template">
 <div style="margin: 8px;">
 	<div class="page-header">
-		<h3>类别信息</h3>
+		<h5>类别信息</h5>
 	</div>
 	<div style="border: none;" class="my-form-group-row">
 		<span class="form-group my-form-group" style="width: 38%;">
@@ -103,26 +85,104 @@
 </div>
 
 <div id="Lookup_Item_{{classCode}}" style="height: auto; margin: 6px;">
-	<button class="btn btn-success actionbtn" type="button">
+	<button class="btn btn-success actionbtn" type="button" onclick="lookupItemAdd()">
 		<i class="fa fa-plus"></i> 新增行
 	</button>
-	<button class="btn btn-success optionbtn l-btn-disabled"
-		type="button">
+	<button class="btn btn-success itemOptionbtn l-btn-disabled"
+		type="button" onclick="lookupItemRemove()">
 		<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 	</button>
 	<button class="btn btn-success actionbtn l-btn-disabled"
-		type="button">
+		type="button" onclick="lookupItemSave()">
 		<i class="fa fa-save" aria-hidden="true"></i> 保存
 	</button>
-	<button class="btn btn-success actionbtn" type="button">
+	<button class="btn btn-success actionbtn" type="button" onclick="lookupItemBack()">
 		<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
 	</button>
 </div>
-<div id="Lookup_Item_{{classCode}}_grid">
-<h2><div class="alert alert-warning">Can not find any data!</div></h2>
+<div id="Lookup_Item_{{classCode}}_grid" class="{{classCode}}">
+	<table class="table table-hover" id="lookup_item_{{classCode}}_table">
+		<thead>
+			<tr>
+				<th>选择</th>
+				<th>编码 <span class="required">*</span></th>
+				<th>名称 <span class="required">*</span></th>
+				<th>语言</th>
+				<th>状态</th>
+				<th>排序码</th>
+				<th>说明</th>
+				<th>创建用户</th>
+				<th>创建时间</th>
+				<th>最后更新用户</th>
+				<th>最后更新时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td colspan="12"><h5><div class="alert alert-warning">Can not find any data!</div></h5></td>
+			</tr>
+		</tbody>
+		<tfoot>
+		</tfoot>
+	</table>
 </div>
 </script>
-		
+
+<!-- lookup item 行编辑模板 -->
+<script type="text/x-handlebars-template" id="lookup_item_form_template">
+    <tr data-id="{{itemId}}" data-name="itemId" class="item_form_template">
+	<td><input type="hidden" name="itemId" id="itemId"
+		value="{{itemId}}">&nbsp;</td>
+	<td><input type="text" value="{{itemCode}}" id="itemCode"
+		class="form-control"></td>
+	<td><input type="text" value="{{itemName}}" id="itemName"
+		class="form-control"></td>
+	<td><input type="text" value="{{itemLan}}" id="itemLan"
+		class="form-control"></td>
+	<td><input type="text" value="{{itemStatus}}" id="itemStatus"
+		class="form-control"></td>
+	<td><input type="text" value="{{orderCode}}" id="orderCode"
+		class="form-control"></td>
+	<td><input type="text" value="{{remarks}}" id="remarks"
+		class="form-control"></td>
+	<td>{{createdUser}}</td>
+	<td>{{createdDate}}</td>
+	<td>{{updateLastUser}}</td>
+	<td>{{updateLastDate}}</td>
+	<td>&nbsp;</td>
+</tr>
+</script>
+<!-- lookup item 行模板 -->
+<script type="text/x-handlebars-template" id="lookup_item_info_template">
+    <tr data-id="{{itemId}}" data-name="itemId" class="item_form_template">
+	<td>
+		<form>
+			<label class="checkbox-inline"> 
+				<input type="checkbox"
+					id="classId" name="classId" value="{{classId}}"
+					onclick="validateItemRemoveBtn()">
+			</label>
+		</form>
+	</td>
+	<td>{{itemCode}}</td>
+	<td>{{itemName}}</td>
+	<td>{{itemLan}}</td>
+	<td>{{itemStatus}}</td>
+	<td>{{orderCode}}</td>
+	<td>{{remarks}}</td>
+	<td>{{createdUser}}</td>
+	<td>{{createdDate}}</td>
+	<td>{{updateLastUser}}</td>
+	<td>{{updateLastDate}}</td>
+	<td>
+		<button class="btn btn-xs btn-primary lookup_edit" title="Edit">
+			<i class="fa fa-fw fa-edit"></i>
+		</button>
+	</td>
+</tr>
+</script>
+
 <!-- 分页组件 -->
 <script type="text/x-handlebars-template-partial"
 	id="lookup_table_pager_template">
@@ -218,6 +278,12 @@
 <script src="js/items/LookupItemView.js"></script>
 <script src="js/items/LookupItemService.js"></script>
 
+<!-- 全局参数 -->
+<script type="text/javascript">
+	var lookupCode = '';
+</script>
+
+<!-- lookup classify script -->
 <script type="text/javascript">
 	
 	var validateRemoveBtn = function(){
@@ -312,6 +378,7 @@
 			var codeText = $tr.find('td[data-name="classCode"]').text().trim();
 			var nameText = $tr.find('td[data-name="className"]').text().trim();
 			var lookup = {classId:itemId,classCode:codeText,className:nameText};
+			lookupCode = codeText;
 			//var lookup = LookupService.findLookupById(itemId);
 			LookupItemView.addTabPanel(codeText,lookup);
 		});
@@ -319,4 +386,69 @@
 	});
 </script>
 
+<!-- lookup classify script -->
+<script type="text/javascript">
+	
+	validateItemRemoveBtn = function(){
+		var checkNum = $('input:checkbox[name=itemId]:checked').length;
+		if(checkNum>0){
+			$(".itemOptionbtn").removeClass("l-btn-disabled");
+		}else{
+			$(".itemOptionbtn").addClass("l-btn-disabled");
+		}
+	}
+	
+	$(function() {
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	lookupItemAdd = function() {
+		var lookupItem = {
+			classId : 0,
+			classCode : '',
+			orderCode : 1,
+			className : '',
+			classDesc : ''
+		};
+		
+		LookupItemView.insertLanguageItemRow(lookupCode,lookupItem);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	lookupItemRemove = function() {
+		var lookupItem = {
+			classId : 0,
+			classCode : '',
+			orderCode : 1,
+			className : '',
+			classDesc : ''
+		};
+		console.info('remove',lookupItem);
+		//LookupView.insertLookupEditorRow(lookup);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	lookupItemSave = function() {
+		var lookupItem = {
+			classId : 0,
+			classCode : '',
+			orderCode : 1,
+			className : '',
+			classDesc : ''
+		};
+		console.info('save',lookupItem);
+		//LookupItemView.insertLookupEditorRow(lookup);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	lookupItemBack = function() {
+		console.info('back',lookupCode);
+		$('#Lookup_tt').tabs('close', lookupCode);
+		//LookupView.insertLookupEditorRow(lookup);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+});
+</script>
 

@@ -10,17 +10,17 @@ public class LookupItemVO extends BaseResource {
 
 	private Integer itemId;
 
-	private String itemCode;
+	private String itemCode;//一般使用序号或英文简写
 
-	private String itemName;
+	private String itemName;//显示值
 
-	private String itemLan;
+	private String itemLan;//语言
 
 	private String itemStatus;
 
-	private String remarks;
+	private String remarks;//说明
 
-	private Integer classId;
+	private Integer classId; //分类,对应lookup classify id
 
 	public Integer getItemId() {
 		return itemId;

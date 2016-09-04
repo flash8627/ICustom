@@ -16,10 +16,9 @@
 						data-options="prompt:'Please Input Value',searcher:doSearch"></input>
 				</div>
 				<div data-options="region:'center'" style="border: 0;">
-					<ul class="easyui-tree"
-						data-options="url:'../services/register/registerService/findRegisterList/10/1',method:'get',animate:true"></ul>
-					<ul class="easyui-tree"
-					data-options="url:'../services/register/registerService/findListRecords/10/1',method:'get',animate:true"></ul>
+					<ul class="easyui-tree" id="regTree"></ul>
+					<!-- <ul class="easyui-tree"
+					data-options="url:'../services/register/registerService/findRecords/10/1',method:'get',animate:true"></ul> -->
 				</div>
 			</div>
 
@@ -127,6 +126,32 @@
 </div>
 
 <script>
+var BASE = '../services/register/registerService/';
+	
+var initRegTree = function(itemId) {
+	var url = BASE + 'findRegisterList';
+	if (itemId != undefined) {
+		url = url + '/' + regId;
+	}else{
+		url = url + '/0';
+	}
+	$('#regTree').tree({
+		url : url,
+		method : 'get',
+		fitColumns : true,
+		rownumbers : true,
+		idField : 'regId',
+		treeField : 'regName',
+		onBeforeExpand : function(row) {
+			if (row) {
+				$('#regTree').treegrid('options').url = url+"/"+row.regId;
+			}else{
+				$('#regTree').treegrid('options').url = url;
+			}
+		}
+	});
+}
+	
 	function doSearch(value) {
 		alert('You input: ' + value);
 	}
@@ -146,6 +171,21 @@
 	function clearForm() {
 		$('#ff').form('clear');
 	}
+    filter = function(){
+    	$('#regTree').tree({
+            //url: ...,
+            loadFilter: function(data){
+                if (data.d){
+                    return data.d;
+                } else {
+                    return data;
+                }
+            }
+        });
+    }
+    $(function() {
+		initRegTree();
+	})
 </script>
 
 

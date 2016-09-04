@@ -9,6 +9,13 @@
 		where T1.VALID_FLAG=1 AND T1.PARENT_PATH = #{parentPath,jdbcType=VARCHAR} || #{regCode,jdbcType=VARCHAR}
 	</select>
 	
+	<select id="findItems" resultType="com.gwtjs.register.entity.RegisterVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_REGISTER_T T1 
+		where T1.VALID_FLAG=1 AND T1.PARENT_ID = #{regId,jdbcType=INTEGER}
+	</select>
+	
 	<select id="findItem" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		<include refid="Base_Column_List" />

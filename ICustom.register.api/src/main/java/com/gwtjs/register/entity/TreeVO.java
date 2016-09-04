@@ -8,15 +8,15 @@ import com.gwtjs.common.entity.BaseResource;
  * @author aGuang
  *
  */
-public class RegisterVO extends BaseResource {
+public class TreeVO extends BaseResource {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private long regId; //
+	private long id; //
 
-	private String regName;// 名称或label
+	private String text;// 名称或label
 
 	private String regCode;// 编码,路径形式
 
@@ -26,22 +26,22 @@ public class RegisterVO extends BaseResource {
 
 	private long parentId; // 上级标识 -->等于　regId
 
-	private String parentPath; //icustom.app.xxx
+	private String parentPath; // icustom.app.xxx
 
-	public long getRegId() {
-		return regId;
+	public long getId() {
+		return id;
 	}
 
-	public void setRegId(long regId) {
-		this.regId = regId;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public String getRegName() {
-		return regName;
+	public String getText() {
+		return text;
 	}
 
-	public void setRegName(String regName) {
-		this.regName = regName == null ? null : regName.trim();
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public String getRegCode() {
@@ -82,6 +82,19 @@ public class RegisterVO extends BaseResource {
 
 	public void setParentPath(String parentPath) {
 		this.parentPath = parentPath;
+	}
+	
+	public TreeVO regToTree(RegisterVO reg)
+	{
+		
+		TreeVO tree = new TreeVO();
+		tree.setId(reg.getRegId());
+		tree.setText(reg.getRegName());
+		tree.setRegCode(reg.getRegCode());
+		tree.setRegValue(reg.getRegValue());
+		tree.setRegDesc(reg.getRegDesc());
+		
+		return tree;
 	}
 
 }

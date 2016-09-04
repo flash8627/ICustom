@@ -11,6 +11,7 @@ import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.register.dao.IRegisterDAO;
 import com.gwtjs.register.entity.RegisterVO;
+import com.gwtjs.register.entity.TreeVO;
 import com.gwtjs.register.services.IRegisterService;
 
 /**
@@ -46,8 +47,22 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 
 	@Override
-	public PagedResult<RegisterVO> findRegisterList(RegisterVO record, PagerVO page) {
-		return findRecords(record, page);
+	public List<TreeVO> findRegisterList(RegisterVO record) {
+		List<TreeVO> result = new ArrayList<TreeVO>();
+		
+		List<RegisterVO> records = registerDAO.findItems(record);
+		TreeVO tree = null;
+		for (RegisterVO reg : records) {
+			tree = new TreeVO();
+			tree.setId(reg.getRegId());
+			tree.setText(reg.getRegName());
+			tree.setRegCode(reg.getRegCode());
+			tree.setRegValue(reg.getRegValue());
+			tree.setRegDesc(reg.getRegDesc());
+			result.add(tree);
+		}
+		
+		return result;
 	}
 
 	@Override
