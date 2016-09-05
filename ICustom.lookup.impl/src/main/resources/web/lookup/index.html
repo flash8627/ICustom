@@ -73,7 +73,7 @@
 	<div class="page-header">
 		<h5>类别信息</h5>
 	</div>
-	<div style="border: none;" class="my-form-group-row">
+	<div style="" class="my-form-group-row">
 		<span class="form-group my-form-group" style="width: 38%;">
 			<label for="classCode" style="">类编码:</label>
 			<span>{{classCode}}</span>
@@ -85,14 +85,14 @@
 </div>
 
 <div id="Lookup_Item_{{classCode}}" style="height: auto; margin: 6px;">
-	<button class="btn btn-success actionbtn" type="button" onclick="lookupItemAdd()">
+	<button class="btn btn-success itemActionbtn" type="button" onclick="lookupItemAdd()">
 		<i class="fa fa-plus"></i> 新增行
 	</button>
 	<button class="btn btn-success itemOptionbtn l-btn-disabled"
 		type="button" onclick="lookupItemRemove()">
 		<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 	</button>
-	<button class="btn btn-success actionbtn l-btn-disabled"
+	<button class="btn btn-success itemFormActionbtn l-btn-disabled"
 		type="button" onclick="lookupItemSave()">
 		<i class="fa fa-save" aria-hidden="true"></i> 保存
 	</button>
@@ -119,9 +119,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td colspan="12"><h5><div class="alert alert-warning">Can not find any data!</div></h5></td>
-			</tr>
+			{{#if data}}
+			{{#data}}
+            {{> tr}}
+            {{/data}}
+			{{else}}
+        		<div class="alert alert-warning">Can not find any data!</div>
+    		{{/if}}
 		</tbody>
 		<tfoot>
 		</tfoot>
@@ -132,8 +136,12 @@
 <!-- lookup item 行编辑模板 -->
 <script type="text/x-handlebars-template" id="lookup_item_form_template">
     <tr data-id="{{itemId}}" data-name="itemId" class="item_form_template">
-	<td><input type="hidden" name="itemId" id="itemId"
-		value="{{itemId}}">&nbsp;</td>
+	<td>
+		<input type="hidden" name="itemId" id="itemId" value="{{itemId}}">
+		&nbsp;
+		<input type="hidden" name="classId" id="classId"
+		value="{{classId}}">
+	</td>
 	<td><input type="text" value="{{itemCode}}" id="itemCode"
 		class="form-control"></td>
 	<td><input type="text" value="{{itemName}}" id="itemName"
@@ -150,18 +158,23 @@
 	<td>{{createdDate}}</td>
 	<td>{{updateLastUser}}</td>
 	<td>{{updateLastDate}}</td>
-	<td>&nbsp;</td>
+	<td>
+		<button class="btn btn-xs btn-primary lookup_item_row_edit_cancel" title="cancel">
+			<i class="fa fa-remove"></i>
+		</button>
+	</td>
 </tr>
 </script>
 <!-- lookup item 行模板 -->
 <script type="text/x-handlebars-template" id="lookup_item_info_template">
-    <tr data-id="{{itemId}}" data-name="itemId" class="item_form_template">
+    <tr data-id="{{itemId}}" data-name="itemId">
 	<td>
 		<form>
 			<label class="checkbox-inline"> 
-				<input type="checkbox"
-					id="classId" name="classId" value="{{classId}}"
-					onclick="validateItemRemoveBtn()">
+				<input type="checkbox" onclick="validateItemRemoveBtn()"
+					id="itemId" name="itemId" value="{{itemId}}" >
+				&nbsp;
+				<input type="hidden" name="itemId" id="itemId" value="{{itemId}}">
 			</label>
 		</form>
 	</td>
@@ -176,7 +189,7 @@
 	<td>{{updateLastUser}}</td>
 	<td>{{updateLastDate}}</td>
 	<td>
-		<button class="btn btn-xs btn-primary lookup_edit" title="Edit">
+		<button class="btn btn-xs btn-primary lookup_item_row_edit" title="Edit">
 			<i class="fa fa-fw fa-edit"></i>
 		</button>
 	</td>
@@ -267,7 +280,9 @@
 		<td>{{updateLastUser}}</td>
 		<td>{{updateLastDate}}</td>
 		<td>
-			&nbsp;
+			<button class="btn btn-xs btn-primary lookup_edit_cancel" title="cancel Edit">
+				<i class="fa fa-fw fa-remove"></i>
+			</button>
 		</td>
 	</tr>
 </script>
@@ -280,7 +295,7 @@
 
 <!-- 全局参数 -->
 <script type="text/javascript">
-	var lookupCode = '';
+	var lookup={};
 </script>
 
 <!-- lookup classify script -->
@@ -298,7 +313,7 @@
 	$(function() {
 		
 		// 显示所有产品
-		$('body').hide(); // 隐藏界面
+		//$('body').hide(); // 隐藏界面
 		LookupService.findLookups(function() {
 			$('body').show(); // 显示界面
 		});
@@ -342,7 +357,7 @@
 			$("tr.template").detach();
 		});
 		
-		// 点击 Edit 按钮，弹出编辑产品对话框
+		// 点击 Edit 按钮，插入编辑行
 		$(document).on('click', '#lookup_table .lookup_edit', function() {
 			var $tr = $(this).closest('tr');
 			var itemId = $tr.data('id');
@@ -377,10 +392,18 @@
 			var itemId = $tr.data('id');
 			var codeText = $tr.find('td[data-name="classCode"]').text().trim();
 			var nameText = $tr.find('td[data-name="className"]').text().trim();
-			var lookup = {classId:itemId,classCode:codeText,className:nameText};
-			lookupCode = codeText;
+			lookup = {classId:itemId,classCode:codeText,className:nameText};
 			//var lookup = LookupService.findLookupById(itemId);
-			LookupItemView.addTabPanel(codeText,lookup);
+			LookupItemService.initLookupItems(lookup,function(){});
+			
+		});
+		// 点击 行cancel按钮，撤销编辑
+		$(document).on('click', '.lookup_edit_cancel', function() {
+			var $tr = $(this).closest('tr');
+			$tr.detach();
+			$("#lookup_create").removeClass("l-btn-disabled");
+			$("#lookup_modal_submit").addClass("l-btn-disabled");
+			
 		});
 
 	});
@@ -400,55 +423,114 @@
 	
 	$(function() {
 	
+		//$(".itemActionbtn").removeClass("l-btn-disabled");
+		$(".itemOptionbtn").removeClass("l-btn-disabled");
+		$(".itemFormActionbtn").removeClass("l-btn-disabled");
+		
 	// 点击 Create 按钮，弹出创建产品对话框
 	lookupItemAdd = function() {
 		var lookupItem = {
-			classId : 0,
-			classCode : '',
-			orderCode : 1,
-			className : '',
-			classDesc : ''
+			itemId : 0,
+			itemCode : '',
+			classId : lookup.classId,
+			classCode : lookup.classCode,
+			itemName : '',
+			itemLan : '',
+			itemStatus : '',
+			remarks : '',
+			orderCode : 1
 		};
-		
-		LookupItemView.insertLanguageItemRow(lookupCode,lookupItem);
+
+		LookupItemView.insertLookupItemEditorRow(lookup.classCode,lookupItem);
+		$(".lookup_item_row_edit").addClass("l-btn-disabled");
+		$(".itemActionbtn").addClass("l-btn-disabled");
+		//$(".itemOptionbtn").removeClass("l-btn-disabled");
+		$(".itemFormActionbtn").removeClass("l-btn-disabled");
 		//$(".actionbtn").toggleClass("l-btn-disabled");
 	}
 	
 	// 点击 Create 按钮，弹出创建产品对话框
 	lookupItemRemove = function() {
-		var lookupItem = {
-			classId : 0,
-			classCode : '',
-			orderCode : 1,
-			className : '',
-			classDesc : ''
-		};
-		console.info('remove',lookupItem);
-		//LookupView.insertLookupEditorRow(lookup);
-		//$(".actionbtn").toggleClass("l-btn-disabled");
+		var chkValues =[];
+		$('input[name="itemId"]:checked').each(function(){
+			var item = {itemId:$(this).val()}
+			chkValues.push(item);
+		});
+		if(chkValues.length<1){
+			//
+			return;
+		}
+		if (confirm('Do you want to delete this Lookup?')) {
+			LookupItemService.batchRemoveLookupItem(lookup.classCode,chkValues);
+		}
+		return false;
 	}
 	
 	// 点击 Create 按钮，弹出创建产品对话框
 	lookupItemSave = function() {
-		var lookupItem = {
-			classId : 0,
-			classCode : '',
-			orderCode : 1,
-			className : '',
-			classDesc : ''
-		};
-		console.info('save',lookupItem);
-		//LookupItemView.insertLookupEditorRow(lookup);
-		//$(".actionbtn").toggleClass("l-btn-disabled");
+		var id = $('#itemId').val();
+		var classId = $('#classId').val();
+		var lookupItem = [{
+			itemId : id,
+			itemCode : $('#itemCode').val().trim(),
+			classId : classId,
+			itemName : $('#itemName').val().trim(),
+			itemLan : $('#itemLan').val().trim(),
+			itemStatus : $('#itemStatus').val().trim(),
+			remarks : $('#remarks').val().trim(),
+			orderCode : $('#orderCode').val().trim(),
+		}];
+		if (id == 0) {
+			LookupItemService.batchInsertLookupItem(lookup.classCode,lookupItem);
+		} else {
+			LookupItemService.batchUpdateLookupItem(lookup.classCode,lookupItem);
+		}
+		//删除当前行
+		$("tr.item_form_template").detach();
+		$(".itemActionbtn").removeClass("l-btn-disabled");
+		$(".itemFormActionbtn").addClass("l-btn-disabled");
+		$(".lookup_item_row_edit").removeClass("l-btn-disabled");
+		
 	}
+	
+	// 点击 行cancel按钮，撤销编辑
+	$(document).on('click', '.lookup_item_row_edit_cancel', function() {
+		var $tr = $(this).closest('tr');
+		var itemId = $('#itemId').val();
+		var lookupItem = LookupItemService.findLookupItemById(itemId);
+		//删除当前行
+		$tr.detach();
+		//插入编辑行
+		LookupItemView.insertLookupItemRow(lookup.classCode,lookupItem.obj);
+		$(".itemActionbtn").removeClass("l-btn-disabled");
+		$(".itemFormActionbtn").addClass("l-btn-disabled");
+		$(".lookup_item_row_edit").removeClass("l-btn-disabled");
+	});
+	
+	// 点击 行cancel按钮，撤销编辑
+	$(document).on('click', '.lookup_item_row_edit', function() {
+		var $tr = $(this).closest('tr');
+		var itemId = $tr.data('id');
+		var lookupItem = LookupItemService.findLookupItemById(itemId);
+		//删除当前行
+		$tr.detach();
+		//插入编辑行
+		LookupItemView.insertLookupItemEditorRow(lookup.classCode,lookupItem.obj);
+		$(".itemActionbtn").addClass("l-btn-disabled");
+		$(".itemFormActionbtn").removeClass("l-btn-disabled");
+		$(".lookup_item_row_edit").addClass("l-btn-disabled");
+	});
 	
 	// 点击 Create 按钮，弹出创建产品对话框
 	lookupItemBack = function() {
-		console.info('back',lookupCode);
-		$('#Lookup_tt').tabs('close', lookupCode);
+		$('#Lookup_tt').tabs('close', lookup.className);
 		//LookupView.insertLookupEditorRow(lookup);
 		//$(".actionbtn").toggleClass("l-btn-disabled");
 	}
 });
 </script>
+
+<style>
+	.my-form-group-row{border-top:6px #F90 solid;border-bottom: 6px #74c557 solid;background:#F0F2F8}
+</style>
 

@@ -41,13 +41,13 @@ public class LookupItemServiceImpl implements ILookupItemService {
 	}
 
 	@Override
-	public ResultWrapper findLookupItems(String classId) {
+	public ResultWrapper findLookupItems(Integer classId) {
 		return ResultWrapper.successResult(lookupItemDao.findLookupItems(classId));
 	}
 
 	@Override
-	public ResultWrapper findItem(String record) {
-		return ResultWrapper.successResult(lookupItemDao.findItem(record));
+	public ResultWrapper findItem(Integer itemId) {
+		return ResultWrapper.successResult(lookupItemDao.findItem(itemId));
 	}
 
 	@Override
@@ -63,13 +63,24 @@ public class LookupItemServiceImpl implements ILookupItemService {
 	@Override
 	public ResultWrapper batchUpdate(List<LookupItemVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(lookupItemDao.batchUpdate(records));
+		lookupItemDao.batchUpdate(records);
+		return ResultWrapper.successResult(records);
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<LookupItemVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(lookupItemDao.batchInsert(records));
+		lookupItemDao.batchInsert(records);
+		return genericResult(records);
+	}
+	
+	private ResultWrapper genericResult(List<LookupItemVO> list)
+	{
+		List<LookupItemVO> records = new ArrayList<LookupItemVO>();
+		for (LookupItemVO item : list) {
+			records.add(lookupItemDao.findByItem(item));
+		}
+		return ResultWrapper.successResult(records);
 	}
 	
 	/**

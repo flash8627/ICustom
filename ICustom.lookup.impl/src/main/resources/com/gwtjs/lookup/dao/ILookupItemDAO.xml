@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupItemDAO">
 	
+	<select id="findByItem" resultType="com.gwtjs.lookup.entity.LookupItemVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_LOOKUP_ITEM_T T1 
+		where VALID_FLAG=1 
+		AND T1.CLASS_ID = #{classId,jdbcType=INTEGER} 
+		AND ITEM_CODE = #{itemCode,jdbcType=INTEGER} 
+		AND ITEM_NAME = #{itemName,jdbcType=VARCHAR} 
+		AND ROWNUM = 1
+	</select>
+	
 	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupItemVO">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -13,7 +24,7 @@
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_LOOKUP_ITEM_T T1
-		where T1.VALID_FLAG=1 AND T1.CLASS_ID = #{classId,jdbcType=INTEGER} 
+		where T1.VALID_FLAG=1  AND T1.CLASS_ID = #{classId,jdbcType=INTEGER} 
 	</select>
 	
 	<select id="selectList" parameterType="com.gwtjs.lookup.entity.LookupItemVO"
@@ -49,17 +60,6 @@
 		UPDATE_LAST_DATE updateLastDate
 	</sql>
 	
-	<sql id="page_st">
-		SELECT * FROM (
-		SELECT tt.* , ROWNUM RN FROM (
-	</sql>
-	<sql id="page_et">
-		) tt
-		<![CDATA[
-		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
-		]]>
-	</sql>
-	
 	<sql id="select_cond">
 
 		<if test='_parameter.get("0").classId != null'>
@@ -67,7 +67,7 @@
 		</if>
 
 		<if test='_parameter.get("0").itemName != null'>
-			AND T1.ITEM_CODE = #{itemCode,jdbcType=VARCHAR}
+			AND T1.ITEM_CODE = #{itemCode,jdbcType=INTEGER}
 		</if>
 
 		<if test='_parameter.get("0").itemName != null'>
@@ -75,7 +75,7 @@
 		</if>
 
 		<if test='_parameter.get("0").itemLan != null'>
-			AND T1.ITEM_LAN = #{itemLan,jdbcType=VARCHAR}
+			AND T1.ITEM_LAN = #{itemLan,jdbcType=INTEGER}
 		</if>
 
 		<if test='_parameter.get("0").itemStatus != null'>
@@ -97,7 +97,6 @@
 			#{item.itemId}
 		</foreach>
 	</delete>
-
 	<!-- batchUpdate -->
 	<update id="batchUpdate">
 		declare
@@ -106,16 +105,15 @@
 			<foreach collection="list" item="item">
 				UPDATE
 				SYS_LOOKUP_ITEM_T
-				set
+				SET
 				ITEM_NAME = #{item.itemName,jdbcType=VARCHAR},
-				ITEM_CODE = #{item.classId,jdbcType=VARCHAR},
+				ITEM_CODE = #{item.itemCode,jdbcType=INTEGER},
 				ITEM_LAN = #{item.itemLan,jdbcType=INTEGER},
 				ITEM_STATUS = #{item.itemStatus,jdbcType=INTEGER},
 				REMARKS = #{item.remarks,jdbcType=VARCHAR},
-				CLASS_ID = #{item.classId,jdbcType=INTEGER},
 				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
 				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
-				UPDATE_LAST_DATE = SYSDATE
+				UPDATE_LAST_DATE = SYSDATE 
 				where ITEM_ID = #{item.itemId,jdbcType=NUMERIC};
 			</foreach>
 			end;
@@ -146,7 +144,7 @@
 				values
 				(
 				SYS_LOOKUP_ITEM_S.NEXTVAL,
-				#{item.itemCode,jdbcType=VARCHAR},
+				#{item.itemCode,jdbcType=INTEGER},
 				#{item.itemName,jdbcType=VARCHAR},
 				#{item.itemLan,jdbcType=INTEGER},
 				#{item.classId,jdbcType=INTEGER},

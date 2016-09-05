@@ -81,7 +81,7 @@ public class InternationalServiceImpl implements IInternationalService {
 	public ResultWrapper batchUpdate(List<LanguageVO> records) {
 		records = setRecordsUser(records);
 		internationalDao.batchUpdate(records);
-		return generResult(records);
+		return ResultWrapper.successResult(records);
 	}
 	
 	/**

@@ -40,7 +40,7 @@ public interface IRegisterService {
 	
 	@GET
 	@Path("/findRegisterList/{parentId}")
-	List<TreeVO> findRegisterList(@PathParam("") RegisterVO record);
+	List<TreeVO> findRegisterList(@PathParam("") TreeVO record);
 
 	@DELETE
 	@Path("batchRemovePks")

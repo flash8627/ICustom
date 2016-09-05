@@ -32,6 +32,34 @@ var RegisterView = function() {
             for(var nav in items){
             	$('#register_table').find('tbody').find('tr[data-id="' + nav.itemId + '"]').remove();
             }
-        }
+        },
+        remove:function(){
+			var nodes = $('#regTree').tree('getChecked');
+			var ids = '';
+			for (var i = 0; i < nodes.length; i++) {
+				if (ids != '')
+					ids += ',';
+				ids += nodes[i].id;
+			}
+        },
+        update:function(){
+        	var node = $('#regTree').tree('getSelected');
+            if (node){
+                node.text = '修改';  //-->txt-->DB
+                node.iconCls = 'icon-save'; //-->sel-->DB
+                $('#regTree').tree('update', node);
+            }
+        },
+		append : function() {
+			var node = $('#regTree').tree('getSelected');
+			$('#regTree').tree('append', {
+				parent : (node ? node.target : null),
+				data : [{
+					text : 'new1',//  -->txt-->DB
+					id : '10001',
+					checked : false
+				} ]
+			});
+		}
     };
 }();

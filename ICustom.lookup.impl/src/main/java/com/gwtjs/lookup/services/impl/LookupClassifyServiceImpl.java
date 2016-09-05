@@ -68,7 +68,7 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	public ResultWrapper batchUpdate(List<LookupVO> records) {
 		records = setRecordsUser(records);
 		lookupDao.batchUpdate(records);
-		return genericResult(records);
+		return ResultWrapper.successResult(records);
 	}
 
 	@Override

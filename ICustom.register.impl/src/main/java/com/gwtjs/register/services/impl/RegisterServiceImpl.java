@@ -45,24 +45,26 @@ public class RegisterServiceImpl implements IRegisterService {
 	public ResultWrapper findItem(Integer regId) {
 		return ResultWrapper.successResult(registerDAO.findItem(regId));
 	}
-
-	@Override
-	public List<TreeVO> findRegisterList(RegisterVO record) {
-		List<TreeVO> result = new ArrayList<TreeVO>();
-		
-		List<RegisterVO> records = registerDAO.findItems(record);
-		TreeVO tree = null;
-		for (RegisterVO reg : records) {
-			tree = new TreeVO();
-			tree.setId(reg.getRegId());
-			tree.setText(reg.getRegName());
-			tree.setRegCode(reg.getRegCode());
-			tree.setRegValue(reg.getRegValue());
-			tree.setRegDesc(reg.getRegDesc());
-			result.add(tree);
+	
+	private List<TreeVO> getTree(TreeVO record) {
+		List<TreeVO> list = registerDAO.findItems(record);
+		for (TreeVO tree : list) {
+			if(tree.isLeaf()){
+				tree.setChildren(getTree(tree));
+			}
 		}
-		
-		return result;
+		return list;
+	}
+	
+	@Override
+	public List<TreeVO> findRegisterList(TreeVO record) {
+		List<TreeVO> records = registerDAO.findItems(record);
+		for (TreeVO tree : records) {
+			List<TreeVO> children = getTree(tree);
+			
+			tree.setChildren(children);
+		}
+		return records;
 	}
 
 	@Override

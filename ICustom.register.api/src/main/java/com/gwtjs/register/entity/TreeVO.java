@@ -1,5 +1,8 @@
 package com.gwtjs.register.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.gwtjs.common.entity.BaseResource;
 
 /**
@@ -29,6 +32,10 @@ public class TreeVO extends BaseResource {
 	private long parentId; // 上级标识 -->等于　regId
 
 	private String parentPath; // icustom.app.xxx
+
+	private String state;
+
+	private List<TreeVO> children = new ArrayList<TreeVO>();
 
 	public long getId() {
 		return id;
@@ -94,6 +101,33 @@ public class TreeVO extends BaseResource {
 		this.parentPath = parentPath;
 	}
 
+	public List<TreeVO> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<TreeVO> children) {
+		this.children = children;
+	}
+
+	// 叶子节点否?
+	private boolean leaf;
+
+	public boolean isLeaf() {
+		return leaf;
+	}
+
+	public void setLeaf(boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public TreeVO regToTree(RegisterVO reg) {
 
 		TreeVO tree = new TreeVO();
@@ -104,6 +138,14 @@ public class TreeVO extends BaseResource {
 		tree.setRegDesc(reg.getRegDesc());
 
 		return tree;
+	}
+
+	@Override
+	public String toString() {
+		return "TreeVO [id=" + id + ", text=" + text + ", checked=" + checked
+				+ ", regCode=" + regCode + ", regValue=" + regValue
+				+ ", regDesc=" + regDesc + ", parentId=" + parentId
+				+ ", parentPath=" + parentPath + ", children=" + children + "]";
 	}
 
 }

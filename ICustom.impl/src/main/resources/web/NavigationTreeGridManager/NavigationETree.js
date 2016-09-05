@@ -252,9 +252,9 @@ function onEditCancel() {
 		$('#tg').treegrid('cancelEdit', editingId);
 		editingId = undefined;
 	}
-	console.info('---', editingId);
+	
 	var row = $('#tg').treegrid('getSelected');
-	console.warn(row.itemId,row);
+	
 	if (row) {
 		$('#tg').treegrid('cancelEdit', editingId);
 		editingId = undefined;

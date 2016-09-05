@@ -93,25 +93,22 @@ alter table SYS_REGISTER_T
   add primary key (REG_ID)
   using index;
 
-
 -- Create table
 create table SYS_LOOKUP_ITEM_T
 (
-  item_id          NUMBER not null,
+  item_id          VARCHAR2(32) not null,
   item_code        INTEGER,
   item_name        VARCHAR2(40),
-  item_lan         VARCHAR2(40),
-  class_id         NUMBER,
+  item_lan         INTEGER,
+  class_id         VARCHAR2(32) not null,
   item_status      INTEGER default 1,
-  REMARKS    VARCHAR2(308),
-  order_code  INTEGER default 1,
-  created_user NUMBER,
-  created_date DATE default SYSDATE,
+  remarks          VARCHAR2(308),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1,
-  CONSTRAINT SYS_LOOKUP_ITEM_NAME_UNIQUE UNIQUE (item_name),
-  CONSTRAINT SYS_LOOKUP_ITEM_CODE_UNIQUE UNIQUE (item_code)
+  valid_flag       NUMBER(1) default 1
 );
 -- Add comments to the table 
 comment on table SYS_LOOKUP_ITEM_T
@@ -123,6 +120,8 @@ comment on column SYS_LOOKUP_ITEM_T.item_name
   is '名称';
 comment on column SYS_LOOKUP_ITEM_T.class_id
   is '分类标识';
+comment on column SYS_LOOKUP_ITEM_T.order_code
+  is '排序';
 comment on column SYS_LOOKUP_ITEM_T.created_user
   is '创建用户';
 comment on column SYS_LOOKUP_ITEM_T.created_date
@@ -131,13 +130,16 @@ comment on column SYS_LOOKUP_ITEM_T.update_last_user
   is '最后更新用户';
 comment on column SYS_LOOKUP_ITEM_T.update_last_date
   is '最后更新日期';
-comment on column SYS_LOOKUP_ITEM_T.order_code
-  is '排序';
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table SYS_LOOKUP_ITEM_T
   add primary key (ITEM_ID)
   using index;
-
+alter table SYS_LOOKUP_ITEM_T
+  add constraint SYS_LOOKUP_ITEM_CODE_UNIQUE unique (class_id,ITEM_CODE)
+  using index;
+alter table SYS_LOOKUP_ITEM_T
+  add constraint SYS_LOOKUP_ITEM_NAME_UNIQUE unique (class_id,ITEM_NAME)
+  using index;
 
 -- Create table
 create table SYS_LOOKUP_CLASSIFY_T

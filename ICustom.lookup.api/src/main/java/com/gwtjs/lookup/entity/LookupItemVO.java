@@ -10,24 +10,24 @@ public class LookupItemVO extends BaseResource {
 
 	private Integer itemId;
 
-	private String itemCode;//一般使用序号或英文简写
+	private Integer itemCode;// 一般使用序号或英文简写
 
-	private String itemName;//显示值
+	private String itemName;// 显示值
 
-	private String itemLan;//语言
+	private Integer itemLan;// 语言
 
 	private String itemStatus;
 
-	private String remarks;//说明
+	private String remarks;// 说明
 
-	private Integer classId; //分类,对应lookup classify id
+	private Integer classId; // 分类,对应lookup classify id
 
 	public Integer getItemId() {
 		return itemId;
 	}
 
 	public void setItemId(Integer itemId) {
-		this.itemId = itemId == null ? null : itemId ;
+		this.itemId = itemId == null ? null : itemId;
 	}
 
 	public String getItemName() {
@@ -43,22 +43,22 @@ public class LookupItemVO extends BaseResource {
 	}
 
 	public void setClassId(Integer classId) {
-		this.classId = classId == null ? null : classId ;
+		this.classId = classId == null ? null : classId;
 	}
 
-	public String getItemCode() {
+	public Integer getItemCode() {
 		return itemCode;
 	}
 
-	public void setItemCode(String itemCode) {
+	public void setItemCode(Integer itemCode) {
 		this.itemCode = itemCode;
 	}
 
-	public String getItemLan() {
+	public Integer getItemLan() {
 		return itemLan;
 	}
 
-	public void setItemLan(String itemLan) {
+	public void setItemLan(Integer itemLan) {
 		this.itemLan = itemLan;
 	}
 
@@ -76,6 +76,14 @@ public class LookupItemVO extends BaseResource {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	@Override
+	public String toString() {
+		return "LookupItemVO [itemId=" + itemId + ", itemCode=" + itemCode
+				+ ", itemName=" + itemName + ", itemLan=" + itemLan
+				+ ", itemStatus=" + itemStatus + ", remarks=" + remarks
+				+ ", classId=" + classId + "]";
 	}
 
 }
