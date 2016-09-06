@@ -3,15 +3,13 @@ package com.gwtjs.register.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gwtjs.common.entity.BaseResource;
-
 /**
  * 数据字典
  * 
  * @author aGuang
  *
  */
-public class TreeVO extends BaseResource {
+public class TreeVO extends RegisterVO {
 	/**
 	 * 
 	 */
@@ -23,17 +21,11 @@ public class TreeVO extends BaseResource {
 
 	private boolean checked = false; // 是否选中
 
-	private String regCode;// 编码,路径形式
+	private String state; // 打开关闭状态
 
-	private String regValue;// 字典值
-
-	private String regDesc; // 说明
-
-	private long parentId; // 上级标识 -->等于　regId
-
-	private String parentPath; // icustom.app.xxx
-
-	private String state;
+	private String iconCls;// 树的图标
+	// 叶子节点否?
+	private boolean leaf;
 
 	private List<TreeVO> children = new ArrayList<TreeVO>();
 
@@ -53,52 +45,12 @@ public class TreeVO extends BaseResource {
 		this.text = text;
 	}
 
-	public String getRegCode() {
-		return regCode;
-	}
-
-	public void setRegCode(String regCode) {
-		this.regCode = regCode == null ? null : regCode.trim();
-	}
-
-	public String getRegDesc() {
-		return regDesc;
-	}
-
-	public void setRegDesc(String regDesc) {
-		this.regDesc = regDesc == null ? null : regDesc.trim();
-	}
-
-	public long getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(long parentId) {
-		this.parentId = parentId;
-	}
-
 	public boolean isChecked() {
 		return checked;
 	}
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
-	}
-
-	public String getRegValue() {
-		return regValue;
-	}
-
-	public void setRegValue(String regValue) {
-		this.regValue = regValue;
-	}
-
-	public String getParentPath() {
-		return parentPath;
-	}
-
-	public void setParentPath(String parentPath) {
-		this.parentPath = parentPath;
 	}
 
 	public List<TreeVO> getChildren() {
@@ -108,9 +60,6 @@ public class TreeVO extends BaseResource {
 	public void setChildren(List<TreeVO> children) {
 		this.children = children;
 	}
-
-	// 叶子节点否?
-	private boolean leaf;
 
 	public boolean isLeaf() {
 		return leaf;
@@ -128,24 +77,19 @@ public class TreeVO extends BaseResource {
 		this.state = state;
 	}
 
-	public TreeVO regToTree(RegisterVO reg) {
+	public String getIconCls() {
+		return iconCls;
+	}
 
-		TreeVO tree = new TreeVO();
-		tree.setId(reg.getRegId());
-		tree.setText(reg.getRegName());
-		tree.setRegCode(reg.getRegCode());
-		tree.setRegValue(reg.getRegValue());
-		tree.setRegDesc(reg.getRegDesc());
-
-		return tree;
+	public void setIconCls(String iconCls) {
+		this.iconCls = iconCls;
 	}
 
 	@Override
 	public String toString() {
 		return "TreeVO [id=" + id + ", text=" + text + ", checked=" + checked
-				+ ", regCode=" + regCode + ", regValue=" + regValue
-				+ ", regDesc=" + regDesc + ", parentId=" + parentId
-				+ ", parentPath=" + parentPath + ", children=" + children + "]";
+				+ ", state=" + state + ", iconCls=" + iconCls + ", leaf="
+				+ leaf + ", children=" + children + "]";
 	}
 
 }

@@ -16,6 +16,7 @@
 		REG_CODE regCode,
 		REG_DESC regDesc,
 		REG_VALUE regValue,
+		REG_STATUS regStatus,
 		PARENT_PATH parentPath,
 		PARENT_ID parentId,
 		ORDER_CODE orderCode,

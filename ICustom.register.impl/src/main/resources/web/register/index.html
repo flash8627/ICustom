@@ -1,4 +1,6 @@
 
+<link rel="stylesheet" type="text/css" href="../resources/jquery/themes/icon.css">
+
 <script src="js/RegisterView.js"></script>
 <script src="js/RegisterService.js"></script>
 
@@ -23,11 +25,11 @@
 			</div>
 
 		</div>
-		<div
-			data-options="region:'center',title:'信息',iconCls:'Module-mgr-ico'">
+		<div style="padding:8px;"
+			data-options="region:'center',iconCls:'Module-mgr-ico'">
 			<div style="margin: 6px 0;">
-				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" data-options="" onclick="loadLocal()"><i class="fa fa-plus"></i> Add Item</a> 
-				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" data-options="" onclick="loadRemote()"><i class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
+				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" data-options="" onclick="addItem()"><i class="fa fa-plus"></i> Add Item</a> 
+				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" data-options="" onclick="doSave()"><i class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
 				<div class="btn-group actionbtn">
                     <a href="javascript:;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> 导入导出</a>
                     <a href="javascript:;" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
@@ -40,68 +42,68 @@
                     </ul>
                 </div>
 			</div>
-
-			<form id="ff" method="post">
-				<table class="myFormTable" cellpadding="5" cellpadding="3"
-					cellspacing="3" style="width: 100%">
-					<tr>
-						<td>名称:</td>
-						<td><input class="easyui-textbox" type="text" name="regCode"
-							style="width: 80%" data-options="required:true"></input></td>
-					</tr>
-					<tr>
-						<td>显示名称:</td>
-						<td><input class="easyui-textbox" type="text" name="regName"
-							style="width: 80%" data-options="required:true"></input></td>
-					</tr>
-					<tr>
-						<td>有效状态:</td>
-						<td><input class="easyui-textbox" type="text" name="regStatus"
-							style="width: 80%" data-options="required:true,validType:'email'"></input></td>
-					</tr>
-					<tr>
-						<td>父节点名称:</td>
-						<td><input class="easyui-textbox" type="text"
-							name="parentName" style="width: 80%" data-options="required:true"></input></td>
-					</tr>
-					<tr>
-						<td>父路径:</td>
-						<td><input class="easyui-textbox" type="text"
-							name="parentPath" style="width: 80%" data-options="required:true"></input></td>
-					</tr>
-					<tr>
-						<td>值:</td>
-						<td><input class="easyui-textbox" type="text"
-							name="regValue" style="width: 80%" data-options="required:true"></input></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<fieldset>
-								<legend>说明</legend>
-								<input class="easyui-textbox" name="regDesc"
-									style="height: 108px; width: 80%"></input>
-							</fieldset>
-						</td>
-					</tr>
-					<tr style="display: none;">
-						<td height="10" colspan="2">
-							<!-- 隐藏区 --> 
-							<input class="easyui-textbox" type="hidden"
-							name="regId" /> 
-							<input class="easyui-textbox" type="hidden"
-							name="parentId" />
-						</td>
-					</tr>
-				</table>
-				<div style="text-align: center; padding: 5px">
-					<button class="btn btn-success actionbtn" type="button" onclick="submitForm()">
-						<i class="fa fa-save"></i> Save
-					</button> 
-					<button class="btn btn-success actionbtn" type="button" onclick="clearForm()">
-						<i class="fa fa-undo"></i> Reset 
-					</button>
-				</div>
-			</form>
+			
+			<div class="my-form-group-row" style="">
+				<span class="form-group my-form-group" style="width: 38%;">
+				节点信息
+				</span>
+				<span class="form-group my-form-group" style="width: 38%;">
+				</span>
+			</div>
+			<form class="form-horizontal" role="form" style="margin:6px;">
+				    <div class="form-group">
+				        <label for="regCode" class="col-sm-2 control-label">名称:</label>
+				        <div class="col-sm-10">
+				        	<input type="hidden" class="form-control" id="regId" name="regId">
+				            <input type="text" class="form-control" id="regCode" name="regCode" placeholder="请输入名称">
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="regName" class="col-sm-2 control-label">显示名称:</label>
+				        <div class="col-sm-10">
+				            <input type="text" class="form-control" id="regName" name="regName" placeholder="请输显示名称">
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="regValue" class="col-sm-2 control-label">值:</label>
+				        <div class="col-sm-10">
+				            <input type="text" class="form-control" id="regValue" name="regValue" placeholder="请输入值">
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="parentPath" class="col-sm-2 control-label">父路径:</label>
+				        <div class="col-sm-10">
+				            <input type="text" class="form-control" id="parentPath" name="parentPath" placeholder="请输入名称">
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="parentName" class="col-sm-2 control-label">父节点名称:</label>
+				        <div class="col-sm-10">
+				        	<input type="hidden" class="form-control" id="parentId" name="parentId">
+				            <input type="text" class="form-control" id="parentName" name="parentName"
+				            	placeholder="请选择父节点" style="width:68%;float:left;">
+				            <!-- 信息警告消息的上下文按钮 -->
+				            <label style="float:left;padding:3px;">
+				            	<button type="button" id="parent_select_btn" class="btn btn-info">...</button>
+							</label>
+				        </div>
+				        
+				    </div>
+				    <div class="form-group">
+				        <div class="col-sm-offset-2 col-sm-10">
+				        	<label for="regStatus" class="col-sm-2 control-label">有效状态</label>
+				            <div class="checkbox">
+				                <label>
+				                    <input type="checkbox" checked="checked" value="1" name="regStatus">
+				                </label>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="form-group" style="width:96%;margin:0 auto;">
+				        <label for="regDesc">说明</label>
+				        <textarea class="form-control" name="regDesc" id="regDesc"></textarea>
+				    </div> 
+				</form> 
 
 		</div>
 	</div>
@@ -125,6 +127,25 @@
 	</div>
 </div>
 
+<div class="modal" id="parent_select_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            	<ul class="easyui-tree"
+					data-options="url:'../services/register/registerService/findRecords/10/1',method:'get',checkbox:true,animate:true">
+				</ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="parent_select_modal_submit"><i class="fa fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 var BASE = '../services/register/registerService/';
 	
@@ -141,9 +162,7 @@ var initRegTree = function(itemId) {
 		method : 'get',
 		fit : true,
 		lines:true,
-		checkbox:true,
-		idField : 'regId',
-		treeField : 'regName',
+		//checkbox:true,
 		onBeforeLoad:function(){
 		　　    //获取根节点
 		　　    var rooNode = $("#regTree").tree('getRoot');
@@ -164,10 +183,19 @@ var initRegTree = function(itemId) {
 			}
 			s += '<span style="color:#21b384;">&nbsp;<i class="fa fa-plus"></i></span><span style="color:#F00;">&nbsp;<i class="fa fa-remove"></i></span>';
 			return s;
-		},
-		/*onClick: function(node){
+		},onClick: function(node){
+			console.dir(node);
+			node.regName = node.text;
+			node.regStatus = 1;
+			/* if(true){//新增
+				node.parentName = node.text;
+				node.parentId = node.id;
+				node.parentPath = node.parentPath+'.'+node.regCode;
+			} */
+			setFormValues(node);
 			//alert(node.text);  // 在用户点击的时候提示
 		},
+		/*
 		onBeforeLoad: function(node, param){
 			if (node) {
 				alert(node.text);
@@ -182,21 +210,42 @@ var initRegTree = function(itemId) {
 	});
 }
 	
+	//过滤
 	function doSearch(value) {
 		alert('You input: ' + value);
 	}
-
-	function loadLocal() {
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+    $('#parent_select_btn').on('click', function() {
+        var title = '上一级节点选择';
+        var navigation = {};
+        //NavigationView.renderNavigationModal(title, navigation);
+        var $modal = $('#parent_select_modal');
+        $modal.find('.modal-title').text(title);
+        $('#parent_select_modal').modal('show');
+    });
+	
+	//添加条目，如果parentId为空则是一级
+	function addItem() {
 		var node = $('#regTree').tree('getSelected');
-		$('#ff').form('load', {
-			name : 'myname',
-			email : 'mymail@gmail.com',
-			subject : 'subject',
-			message : 'message',
-			language : 'en'
-		});
+		console.info(node);
+		node.parentId=node.id;
+		node.parentName=node.regName;
+		var parentPath = '';
+		if(node.parentPath!=null){
+			parentPath=node.parentPath+'.';
+		}
+		node.parentPath=parentPath+node.regCode;
+		node.regId=0;
+		node.regName='';
+		node.regCode='';
+		node.regValue='';
+		node.regId=0;
+		setFormValues(node);
 	}
-	function loadRemote() {
+	
+	//保存，含新增和修改
+	function doSave() {
 		var nodes = $('#regTree').tree('getChecked');
 		var ids = '';
 		for (var i = 0; i < nodes.length; i++) {
@@ -205,8 +254,20 @@ var initRegTree = function(itemId) {
 			ids += nodes[i].id;
 		}
 	}
-	function clearForm() {
-		$('#ff').form('clear');
+	
+	//重置表单
+	function resetForm() {
+		var values = {
+			regId:0,
+			regName:'',
+			regCode:'',
+			regValue:'',
+			parentId:0,
+			parentName:'',
+			parentPath:'',
+			regDesc:''
+		};
+		setFormValues(values);
 	}
     filter = function(){
     	$('#regTree').tree({
@@ -220,9 +281,40 @@ var initRegTree = function(itemId) {
             }
         });
     }
+    
+    /*设置表单值*/
+    function getFormValues(values){
+    	var values={};
+    	values.regId=$('input[name="regId"]').val();
+    	values.regName=$('input[name="regName"]').val(values.regName);
+    	values.regCode=$('input[name="regCode"]').val(values.regCode);
+    	values.regValue=$('input[name="regValue"]').val(values.regValue);
+    	values.parentId=$('input[name="parentId"]').val(values.parentId);
+    	values.parentName=$('input[name="parentName"]').val(values.parentName);
+    	values.parentPath=$('input[name="parentPath"]').val(values.parentPath);
+    	values.regDesc=$('input[name="regDesc"]').text(values.regDesc);
+    	values.regStatus=$('input[name=regStatus]').attr('checked')==1?1:0;
+    	return values;
+    }
+    
+    /*设置表单值*/
+    function setFormValues(values){
+    	$('input[name="regId"]').val(values.regId);
+    	$('input[name="regName"]').val(values.regName);
+    	$('input[name="regCode"]').val(values.regCode);
+    	$('input[name="regValue"]').val(values.regValue);
+    	$('input[name="parentId"]').val(values.parentId);
+    	$('input[name="parentName"]').val(values.parentName);
+    	$('input[name="parentPath"]').val(values.parentPath);
+    	$('input[name="regDesc"]').text(values.regDesc);
+    	$('input[name=regStatus]').attr('checked',true);
+    }
+    
     $(function() {
 		initRegTree();
 	})
 </script>
 
-
+<style>
+	.my-form-group-row{/*border-top:6px #F90 solid;*/border-bottom: 2px #74c557 solid;background:#F0F2F8}
+</style>

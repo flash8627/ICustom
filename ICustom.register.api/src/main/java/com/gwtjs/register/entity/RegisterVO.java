@@ -20,13 +20,15 @@ public class RegisterVO extends BaseResource {
 
 	private String regCode;// 编码,路径形式
 
+	private int regStatus;// 编码,路径形式
+
 	private String regValue;// 字典值
 
 	private String regDesc; // 说明
 
 	private long parentId; // 上级标识 -->等于　regId
 
-	private String parentPath; //icustom.app.xxx
+	private String parentPath; // icustom.app.xxx
 
 	public long getRegId() {
 		return regId;
@@ -82,6 +84,14 @@ public class RegisterVO extends BaseResource {
 
 	public void setParentPath(String parentPath) {
 		this.parentPath = parentPath;
+	}
+
+	public int getRegStatus() {
+		return regStatus;
+	}
+
+	public void setRegStatus(int regStatus) {
+		this.regStatus = regStatus;
 	}
 
 }

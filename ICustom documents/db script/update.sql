@@ -56,6 +56,7 @@ create table SYS_REGISTER_T
   reg_code         VARCHAR2(60),
   reg_desc         VARCHAR2(200),
   reg_value        VARCHAR2(200),
+  reg_status       INTEGER default 1,
   parent_path      VARCHAR2(200),
   parent_id        NUMBER(30),
   order_code  INTEGER default 1,

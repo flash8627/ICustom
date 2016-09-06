@@ -37,7 +37,7 @@ public class BaseResource implements Serializable {
 
 	private Integer orderCode;
 	
-	private Short validFlag;
+	private Integer validFlag;
 
 	public BaseResource() {
 		super();
@@ -199,11 +199,11 @@ public class BaseResource implements Serializable {
 		this.attribute10 = attribute10;
 	}
 
-	public Short getValidFlag() {
+	public Integer getValidFlag() {
 		return validFlag;
 	}
 
-	public void setValidFlag(Short validFlag) {
+	public void setValidFlag(Integer validFlag) {
 		this.validFlag = validFlag;
 	}
 
