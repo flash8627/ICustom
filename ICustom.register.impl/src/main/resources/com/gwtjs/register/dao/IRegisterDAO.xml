@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.register.dao.IRegisterDAO">
-	
+
 	<select id="getByPathRegister" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_REGISTER_T T1 
-		where T1.VALID_FLAG=1 AND T1.PARENT_PATH = #{parentPath,jdbcType=VARCHAR} || #{regCode,jdbcType=VARCHAR}
+		FROM SYS_REGISTER_T T1
+		where T1.VALID_FLAG=1 AND T1.PARENT_PATH = #{parentPath,jdbcType=VARCHAR}
+		||'.'|| #{regCode,jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="findItems" resultType="com.gwtjs.register.entity.TreeVO">
 		SELECT
 		REG_ID id,
@@ -16,47 +17,59 @@
 		REG_CODE regCode,
 		REG_DESC regDesc,
 		REG_VALUE regValue,
-		REG_STATUS regStatus,
+		REG_STATUS
+		regStatus,
 		PARENT_PATH parentPath,
 		PARENT_ID parentId,
-		ORDER_CODE orderCode,
-		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
-        (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn,
-		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,0,1)) leaf,
-		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'',
-			'[]'
+		ORDER_CODE
+		orderCode,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE
+		TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE
+		TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) )
+		lastNameCn,
+		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE
+		TC.PARENT_ID = T1.REG_ID),0,0,1)) leaf,
+		(decode((select count(1) FROM
+		SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'',
+		'[]'
 		)) children,
-		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'',
-			'closed'
+		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE
+		TC.PARENT_ID = T1.REG_ID),0,'',
+		'closed'
 		)) state,
 		CREATED_USER createdUser,
 		CREATED_DATE createdDate,
 		UPDATE_LAST_USER updateLastUser,
 		UPDATE_LAST_DATE updateLastDate
-		FROM SYS_REGISTER_T T1 
+		FROM
+		SYS_REGISTER_T T1
 		where T1.VALID_FLAG=1 AND T1.PARENT_ID = #{id,jdbcType=INTEGER}
 	</select>
-	
+
 	<select id="findItem" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_REGISTER_T T1 
+		FROM SYS_REGISTER_T T1
 		where T1.VALID_FLAG=1 AND T1.REG_ID = #{regId,jdbcType=INTEGER}
 	</select>
-	
+
 	<sql id="Base_Column_List">
 		REG_ID regId,
 		REG_NAME regName,
 		REG_CODE regCode,
-		REG_DESC regDesc,
+		REG_DESC
+		regDesc,
 		REG_VALUE regValue,
 		PARENT_PATH parentPath,
 		PARENT_ID parentId,
 		ORDER_CODE orderCode,
 		CREATED_USER createdUser,
-		CREATED_DATE createdDate,
+		CREATED_DATE
+		createdDate,
 		UPDATE_LAST_USER updateLastUser,
-		UPDATE_LAST_DATE updateLastDate
+		UPDATE_LAST_DATE
+		updateLastDate
 	</sql>
 
 	<sql id="page_st">
@@ -69,16 +82,23 @@
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
 	</sql>
-	
-	<select id="selectList" parameterType="hashmap"
-		resultType="com.gwtjs.register.entity.RegisterVO">
+
+	<select id="findRegisterList" resultType="com.gwtjs.register.entity.TreeVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_REGISTER_T T1
+		where T1.VALID_FLAG=1
+		<include refid="filter_cond" />
+	</select>
+
+	<select id="selectList" resultType="com.gwtjs.register.entity.RegisterVO">
 		<include refid="page_st" />
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_REGISTER_T T1
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
-		ORDER BY REG_ID DESC 
+		ORDER BY REG_ID DESC
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
 		<include refid="page_et" />
 	</select>
@@ -90,23 +110,47 @@
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 	</select>
+	
+	<sql id="filter_cond">
+		<if test='regName != null'>
+			AND T1.REG_NAME LIKE
+			('%'||#{regName,jdbcType=VARCHAR}||'%')
+		</if>
+		<if test='regCode != null'>
+			AND T1.REG_CODE LIKE
+			('%'||#{regCode,jdbcType=VARCHAR}||'%')
+		</if>
+		<if test='regDesc != null'>
+			AND T1.REG_DESC LIKE
+			('%'||#{regDesc,jdbcType=VARCHAR}||'%')
+		</if>
+		<if test='regValue != null'>
+			AND T1.REG_VALUE LIKE
+			('%'||#{regValue,jdbcType=VARCHAR}||'%')
+		</if>
 
+	</sql>
+	
 	<sql id="select_cond">
 
 		<if test='_parameter.get("0").regId != null'>
 			AND T1.REG_ID = #{0.regId,jdbcType=NUMERIC}
 		</if>
 		<if test='_parameter.get("0").regName != null'>
-			AND T1.REG_NAME LIKE ('%'||#{0.regName,jdbcType=VARCHAR}||'%')
+			AND T1.REG_NAME LIKE
+			('%'||#{0.regName,jdbcType=VARCHAR}||'%')
 		</if>
 		<if test='_parameter.get("0").regCode != null'>
-			AND T1.REG_CODE LIKE ('%'||#{0.regCode,jdbcType=VARCHAR}||'%')
+			AND T1.REG_CODE LIKE
+			('%'||#{0.regCode,jdbcType=VARCHAR}||'%')
 		</if>
 		<if test='_parameter.get("0").regDesc != null'>
-			AND T1.REG_DESC LIKE ('%'||#{0.regDesc,jdbcType=VARCHAR}||'%')
+			AND T1.REG_DESC LIKE
+			('%'||#{0.regDesc,jdbcType=VARCHAR}||'%')
 		</if>
 		<if test='_parameter.get("0").regValue != null'>
-			AND T1.REG_VALUE LIKE ('%'||#{0.regValue,jdbcType=VARCHAR}||'%')
+			AND T1.REG_VALUE LIKE
+			('%'||#{0.regValue,jdbcType=VARCHAR}||'%')
 		</if>
 
 	</sql>
@@ -117,7 +161,7 @@
 		DELETE FROM SYS_REGISTER_T WHERE REG_ID in
 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
-			#{item}
+			#{item.regId}
 		</foreach>
 	</delete>
 
@@ -151,9 +195,9 @@
 				INSERT into
 				SYS_REGISTER_T
 				(
-				REG_ID, 
+				REG_ID,
 				REG_NAME,
-				REG_CODE, 
+				REG_CODE,
 				REG_DESC,
 				REG_VALUE,
 				PARENT_ID,

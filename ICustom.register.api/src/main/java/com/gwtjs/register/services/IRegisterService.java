@@ -3,7 +3,6 @@ package com.gwtjs.register.services;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -35,6 +34,10 @@ public interface IRegisterService {
 	public PagedResult<RegisterVO> findRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
 	
 	@GET
+	@Path("/findRegisterList")
+	public List<TreeVO> findRegisterList(@QueryParam("") RegisterVO record);
+	
+	@GET
 	@Path("/findItem/{regId}")
 	ResultWrapper findItem(@PathParam("regId")Integer regId);
 	
@@ -42,7 +45,7 @@ public interface IRegisterService {
 	@Path("/findRegisterList/{parentId}")
 	List<TreeVO> findRegisterList(@PathParam("") TreeVO record);
 
-	@DELETE
+	@PUT
 	@Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<RegisterVO> records);
 

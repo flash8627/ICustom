@@ -25,7 +25,12 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	@Inject
 	private IRegisterDAO registerDAO;
-	
+
+	@Override
+	public List<TreeVO> findRegisterList(RegisterVO record) {
+		return registerDAO.findRegisterList(record);
+	}
+
 	/**
 	 * 分页的lookup 条目
 	 */
@@ -33,35 +38,35 @@ public class RegisterServiceImpl implements IRegisterService {
 	public PagedResult<RegisterVO> findRecords(RegisterVO record, PagerVO page) {
 		PagedResult<RegisterVO> paged = new PagedResult<RegisterVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(registerDAO.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
+		pageVO.setTotalRows(registerDAO.selectListCount(record, page));
+		if (pageVO.getTotalRows() > 0) {
 			paged.setPageVO(pageVO);
 			paged.setResult(registerDAO.selectList(record, page));
 		}
 		return paged;
 	}
-	
+
 	@Override
 	public ResultWrapper findItem(Integer regId) {
 		return ResultWrapper.successResult(registerDAO.findItem(regId));
 	}
-	
+
 	private List<TreeVO> getTree(TreeVO record) {
 		List<TreeVO> list = registerDAO.findItems(record);
 		for (TreeVO tree : list) {
-			if(tree.isLeaf()){
+			if (tree.isLeaf()) {
 				tree.setChildren(getTree(tree));
 			}
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<TreeVO> findRegisterList(TreeVO record) {
 		List<TreeVO> records = registerDAO.findItems(record);
 		for (TreeVO tree : records) {
 			List<TreeVO> children = getTree(tree);
-			
+
 			tree.setChildren(children);
 		}
 		return records;
@@ -75,24 +80,32 @@ public class RegisterServiceImpl implements IRegisterService {
 	@Override
 	public ResultWrapper batchUpdate(List<RegisterVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(registerDAO.batchUpdate(records));
+		registerDAO.batchUpdate(records);
+		return ResultWrapper.successResult(records);
 	}
 
 	@Override
 	public ResultWrapper batchInsert(List<RegisterVO> records) {
 		records = setRecordsUser(records);
-		return ResultWrapper.successResult(registerDAO.batchInsert(records));
+		registerDAO.batchInsert(records);
+		List<RegisterVO> result = new ArrayList<RegisterVO>();
+		for (RegisterVO reg : records) {
+			RegisterVO vo = registerDAO.getByPathRegister(reg);
+			result.add(vo);
+		}
+		return ResultWrapper.successResult(result);
 	}
-	
+
 	/**
-	 * 设置当前操作用户 
+	 * 设置当前操作用户
+	 * 
 	 * @param records
 	 * @return
 	 */
-	private List<RegisterVO> setRecordsUser(List<RegisterVO> records){
+	private List<RegisterVO> setRecordsUser(List<RegisterVO> records) {
 		List<RegisterVO> result = new ArrayList<RegisterVO>();
 		long createdUser = new Long(1);
-		
+
 		for (RegisterVO vo : records) {
 			vo.setCreatedUser(createdUser);
 			vo.setUpdateLastUser(createdUser);

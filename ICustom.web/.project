@@ -130,5 +130,20 @@
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.register.impl/src/main/resources</location>
 		</link>
+		<link>
+			<name>security.api</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.security.api/src/main/java</location>
+		</link>
+		<link>
+			<name>security.impl</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.security.impl/src/main/java</location>
+		</link>
+		<link>
+			<name>security.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.security.impl/src/main/resources</location>
+		</link>
 	</linkedResources>
 </projectDescription>

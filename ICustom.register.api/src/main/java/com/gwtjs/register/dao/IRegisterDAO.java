@@ -17,11 +17,14 @@ import com.gwtjs.register.entity.TreeVO;
 public interface IRegisterDAO extends BaseSqlMapper<RegisterVO> {
 	
 	//
-	RegisterVO getByPathRegister(@Param("regId")Integer regId);
+	RegisterVO getByPathRegister(RegisterVO reg);
 	
 	//
 	RegisterVO findItem(@Param("regId")Integer regId);
-
+	
+	//
+	List<TreeVO> findRegisterList(RegisterVO record);
+	
 	//
 	List<RegisterVO> selectList(RegisterVO record,PagerVO page);
 	
