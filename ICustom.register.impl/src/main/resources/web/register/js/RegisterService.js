@@ -19,10 +19,13 @@ var RegisterService = function() {
                 RegisterView.renderRegisterModal(title, register);
             });
         },
-        batchInsertRegister: function(items,callback) {
-            AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
-            	callback();
+        batchInsertRegister: function(items) {
+        	var result = {};
+            AjaxUtil.sendPostAsyncData(BASE + '/batchInsert', items, function(items) {
+            	result = items;
+            	return result;
             });
+            return result;
         },
         batchUpdateRegister: function(register,callback) {
             AjaxUtil.sendPutData(BASE + '/batchUpdate', register, function(register) {

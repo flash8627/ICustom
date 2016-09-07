@@ -192,6 +192,7 @@ var initRegTree = function(itemId) {
 			var pnode = $('#regTree').tree('getParent',node.target);
 			if(pnode!=null)
 			node.parentName = pnode.text;
+			resetForm();
 			setFormValues(node);
 		},onLoadSuccess:function(node){
 	         $(".tree-title").mouseover(function(event){
@@ -229,18 +230,25 @@ var initRegTree = function(itemId) {
 	//添加条目，如果parentId为空则是一级
 	function addItem() {
 		var node = $('#regTree').tree('getSelected');
-		node.parentId=node.id;
-		node.parentName=node.regName;
 		var parentPath = '';
-		if(node.parentPath!=null){
-			parentPath=node.parentPath+'.';
+		if(node!=null){
+			node.parentId=node.id;
+			node.parentName=node.regName;
+			node.parentPath=parentPath+'.'+node.regCode;
+		}else{
+			node = {};
+			node.parentId=0;
+			node.parentName='';
+			node.parentPath=parentPath;
 		}
-		node.parentPath=parentPath+node.regCode;
+		
 		node.regId=0;
 		node.regName='';
 		node.regCode='';
 		node.regValue='';
+		node.regDesc='';
 		node.regId=0;
+		resetForm();
 		setFormValues(node);
 	}
 	
@@ -266,6 +274,7 @@ var initRegTree = function(itemId) {
 	//保存，含新增和修改
 	function doSave() {
 		var values = getFormValues();
+		console.info(values);
 		var selected = $('#regTree').tree('getSelected');
 		if(values.regId!=0){
 			RegisterService.batchUpdateRegister([values],function(){
@@ -289,15 +298,20 @@ var initRegTree = function(itemId) {
 			});
 			//提交[values]
 		}else{
-			RegisterService.batchInsertRegister([values],function(result){
-				console.warn(result);
-				values.id = values.regId;
-				values.text = values.regName;
-				$('#regTree').tree('append', {
-					parent: selected.target,
-					data: [values]
-				});
-			})
+			var result = RegisterService.batchInsertRegister([values]);
+			for(var i=0;i<result.obj.length;i++){
+				result.obj[i].id = result.obj[i].regId;
+				result.obj[i].text = result.obj[i].regName;
+			}
+			if(selected==null){
+				selected = $('#regTree').tree('getRoot');
+				selected.id = 0;
+				selected.text='';
+			}
+			$('#regTree').tree('append', {
+				parent: selected.target,
+				data: result.obj
+			});
 		}
 		console.info('save',values);
 	}
@@ -344,7 +358,7 @@ var initRegTree = function(itemId) {
     	values.parentId=$('input[name="parentId"]').val();
     	values.parentName=$('input[name="parentName"]').val();
     	values.parentPath=$('input[name="parentPath"]').val();
-    	values.regDesc=$('input[name="regDesc"]').text();
+    	values.regDesc=$('#regDesc').val();
     	values.regStatus=$('input[name=regStatus]').attr('checked')==1?1:0;
     	return values;
     }
@@ -358,12 +372,13 @@ var initRegTree = function(itemId) {
     	$('input[name="parentId"]').val(values.parentId);
     	$('input[name="parentName"]').val(values.parentName);
     	$('input[name="parentPath"]').val(values.parentPath);
-    	$('input[name="regDesc"]').text(values.regDesc);
+    	$('#regDesc').val(values.regDesc);
     	$('input[name=regStatus]').attr('checked',true);
     }
     
     $(function() {
 		initRegTree();
+		alert('父路径有问题!\n添加一级节点有问题!');
 	})
 </script>
 

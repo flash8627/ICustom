@@ -28,14 +28,7 @@ var LanguageService = function() {
             	return result;
             });
             return result;
-        },/*
-        findLanguagesByName: function(name) {
-            AjaxUtil.sendFormData(BASE + '/languages', {
-                itemName: name
-            }, function(languageList) {
-                LanguageView.renderLanguageTable(languageList);
-            });
-        },*/
+        },
         createLanguage: function(language) {
         	var lans = [language];
             batchInsertLanguage(lans);
