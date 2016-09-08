@@ -229,12 +229,21 @@ var initRegTree = function(itemId) {
 	
 	//添加条目，如果parentId为空则是一级
 	function addItem() {
+		resetForm();
 		var node = $('#regTree').tree('getSelected');
 		var parentPath = '';
+		console.warn('add node parent',node);
 		if(node!=null){
 			node.parentId=node.id;
-			node.parentName=node.regName;
-			node.parentPath=parentPath+'.'+node.regCode;
+			node.parentName=node.text;
+			if(node.parentPath!=null&&node.parentPath!=""){
+				node.parentPath=node.parentPath;
+				if(node.regCode!=null&&node.regCode!=''){
+					node.parentPath=node.parentPath+'.'+node.regCode
+				}
+			}else{
+				node.parentPath=node.regCode;
+			}
 		}else{
 			node = {};
 			node.parentId=0;
@@ -248,7 +257,6 @@ var initRegTree = function(itemId) {
 		node.regValue='';
 		node.regDesc='';
 		node.regId=0;
-		resetForm();
 		setFormValues(node);
 	}
 	
@@ -313,7 +321,7 @@ var initRegTree = function(itemId) {
 				data: result.obj
 			});
 		}
-		console.info('save',values);
+		resetForm();
 	}
 	
 	//重置表单

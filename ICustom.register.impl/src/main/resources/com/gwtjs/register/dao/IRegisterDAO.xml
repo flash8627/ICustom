@@ -19,27 +19,15 @@
 		REG_CODE regCode,
 		REG_DESC regDesc,
 		REG_VALUE regValue,
-		REG_STATUS
-		regStatus,
+		REG_STATUS regStatus,
 		PARENT_PATH parentPath,
 		PARENT_ID parentId,
-		ORDER_CODE
-		orderCode,
-		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE
-		TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
-		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE
-		TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) )
-		lastNameCn,
-		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE
-		TC.PARENT_ID = T1.REG_ID),0,0,1)) leaf,
-		(decode((select count(1) FROM
-		SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'',
-		'[]'
-		)) children,
-		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE
-		TC.PARENT_ID = T1.REG_ID),0,'',
-		'closed'
-		)) state,
+		ORDER_CODE orderCode,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn,
+		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,0,1)) leaf,
+		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'', '[]' )) children,
+		(decode((select count(1) FROM SYS_REGISTER_T TC WHERE TC.PARENT_ID = T1.REG_ID),0,'', 'closed' )) state,
 		CREATED_USER createdUser,
 		CREATED_DATE createdDate,
 		UPDATE_LAST_USER updateLastUser,
@@ -60,18 +48,15 @@
 		REG_ID regId,
 		REG_NAME regName,
 		REG_CODE regCode,
-		REG_DESC
-		regDesc,
+		REG_DESC regDesc,
 		REG_VALUE regValue,
 		PARENT_PATH parentPath,
 		PARENT_ID parentId,
 		ORDER_CODE orderCode,
 		CREATED_USER createdUser,
-		CREATED_DATE
-		createdDate,
+		CREATED_DATE createdDate,
 		UPDATE_LAST_USER updateLastUser,
-		UPDATE_LAST_DATE
-		updateLastDate
+		UPDATE_LAST_DATE updateLastDate
 	</sql>
 
 	<sql id="page_st">
@@ -203,6 +188,7 @@
 				REG_DESC,
 				REG_VALUE,
 				PARENT_ID,
+				PARENT_PATH,
 				ORDER_CODE,
 				CREATED_USER,
 				CREATED_DATE,
@@ -218,6 +204,7 @@
 				#{item.regDesc,jdbcType=VARCHAR},
 				#{item.regValue,jdbcType=VARCHAR},
 				#{item.parentId,jdbcType=NUMERIC},
+				#{item.parentPath,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
