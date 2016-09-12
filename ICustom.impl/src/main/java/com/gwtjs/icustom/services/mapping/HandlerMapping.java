@@ -72,10 +72,10 @@ public class HandlerMapping extends AbstractUrlHandlerMapping implements
 			createAndPublishEndpoint(this.urlPrefix + ws.serviceName(), bean);
 			registerHandler(this.urlPrefix + ws.name(), new ServletAdapter(
 					new CXFServlet()));
-		} else if (this.logger.isDebugEnabled()) {
+		}/* else if (this.logger.isDebugEnabled()) {
 			this.logger.debug("Rejected bean '" + beanName
 					+ "' since it has no WebService annotation");
-		}
+		}*/
 		return bean;
 	}
 }

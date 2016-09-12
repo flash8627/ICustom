@@ -1,4 +1,4 @@
-var BASE = '../services/nav';
+var BASE = '../../sys/nav';
 
 var tname = 'zh_cn=System User,zh_en=System User';
 

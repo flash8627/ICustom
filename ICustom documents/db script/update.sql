@@ -242,7 +242,7 @@ alter table SYS_LANGUAGE_T
 -- Create table
 create table SYS_NAVIGATION_T
 (
-  item_id          NUMBER(30),
+  item_id          NUMBER(30) not null PRIMARY KEY ,
   item_name        VARCHAR2(60) not null,
   parent_id        NUMBER(30),
   icon             VARCHAR2(30),
@@ -255,7 +255,9 @@ create table SYS_NAVIGATION_T
   update_last_date DATE default SYSDATE,
   valid_flag       NUMBER(1)
 );
-
+alter table SYS_NAVIGATION_T
+  add constraint SYS_NAVIGATION_T_UNIQUE unique (parent_id, item_name)
+  using index;
 
 -- Create table
 create table SYS_USERS_T
