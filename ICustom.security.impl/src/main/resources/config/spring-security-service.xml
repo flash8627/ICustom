@@ -7,7 +7,7 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 	
-	<jaxrs:server address="/">
+	<jaxrs:server address="/sys">
         <jaxrs:serviceBeans>
             <ref bean="resourcesService"/>
             <ref bean="rolesService"/>

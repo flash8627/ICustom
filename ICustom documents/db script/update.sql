@@ -240,46 +240,6 @@ alter table SYS_LANGUAGE_T
 
 
 -- Create table
-create table SYS_USERS_T
-(
-  user_id       VARCHAR2(32) not null,
-  user_account  VARCHAR2(30),
-  user_name     VARCHAR2(40),
-  user_password VARCHAR2(100),
-  user_desc     VARCHAR2(100),
-  enabled       NUMBER(1),
-  issys         NUMBER(1),
-  user_dept     VARCHAR2(20),
-  user_duty     VARCHAR2(10),
-  sub_system    VARCHAR2(30)
-);
-
-
--- Create table
-create table SYS_ROLES_AUTHORITIES_T
-(
-  id           NUMBER(13) not null,
-  role_id      VARCHAR2(32),
-  authority_id VARCHAR2(32),
-  enabled      NUMBER(1)
-);
-
--- Create table
-create table SYS_RESOURCES_T
-(
-  resource_id     VARCHAR2(32) not null,
-  resource_name   VARCHAR2(100),
-  resource_desc   VARCHAR2(100),
-  resource_type   VARCHAR2(40),
-  resource_string VARCHAR2(200),
-  priority        NUMBER(1),
-  enabled         NUMBER(1),
-  issys           NUMBER(1),
-  module          VARCHAR2(4)
-);
-
-
--- Create table
 create table SYS_NAVIGATION_T
 (
   item_id          NUMBER(30),
@@ -296,61 +256,232 @@ create table SYS_NAVIGATION_T
   valid_flag       NUMBER(1)
 );
 
+
+-- Create table
+create table SYS_USERS_T
+(
+  user_id          NUMBER(32) not null,
+  user_account     VARCHAR2(30),
+  user_name        VARCHAR2(40),
+  user_password    VARCHAR2(100),
+  user_desc        VARCHAR2(998),
+  enabled          NUMBER(1),
+  issys            NUMBER(1),
+  user_dept        VARCHAR2(20),
+  user_duty        VARCHAR2(10),
+  sub_system       VARCHAR2(30),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1,
+  valid_start      DATE,
+  valid_end        DATE
+);
+-- Add comments to the table 
+comment on table SYS_USERS_T
+  is '系统用户表';
+-- Add comments to the columns 
+comment on column SYS_USERS_T.user_id
+  is '用户id';
+comment on column SYS_USERS_T.user_account
+  is '用户账户';
+comment on column SYS_USERS_T.user_name
+  is '用户名';
+comment on column SYS_USERS_T.user_password
+  is '用户密码';
+comment on column SYS_USERS_T.user_desc
+  is '用户描述或简介';
+comment on column SYS_USERS_T.enabled
+  is '用户是否能用';
+comment on column SYS_USERS_T.issys
+  is '是否超级用户-这个字段没什么用';
+comment on column SYS_USERS_T.user_dept
+  is '所属的单位';
+comment on column SYS_USERS_T.user_duty
+  is '用户职位';
+comment on column SYS_USERS_T.sub_system
+  is '用户分管的子系统';
+comment on column SYS_USERS_T.order_code
+  is '排序码';
+comment on column SYS_USERS_T.created_user
+  is '创建用户';
+comment on column SYS_USERS_T.created_date
+  is '创建日期';
+comment on column SYS_USERS_T.update_last_user
+  is '最后更新用户';
+comment on column SYS_USERS_T.update_last_date
+  is '最后更新日期';
+comment on column SYS_USERS_T.valid_flag
+  is '删除状态';
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SYS_USERS_T
+  add primary key (USER_ID)
+  using index;
+
+
+
+-- Create table
+create table SYS_RESOURCES_T
+(
+  resource_id     NUMBER(32) not null primary key,
+  resource_name   VARCHAR2(100),
+  resource_desc   VARCHAR2(1008),
+  resource_type   VARCHAR2(40),
+  parent_id       NUMBER(32),
+  icon             VARCHAR2(30),
+  res_url         VARCHAR2(1200),
+  priority        NUMBER(1),
+  enabled         NUMBER(1),
+  issys           NUMBER(1),
+  module          VARCHAR2(4),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+
 -- Create table
 create table SYS_ROLES_T
 (
-  role_id   VARCHAR2(32) not null,
+  role_id   NUMBER(32) not null primary key,
   role_name VARCHAR2(40),
   role_desc VARCHAR2(100),
   enabled   NUMBER(1),
   issys     NUMBER(1),
-  module    VARCHAR2(4)
+  module    VARCHAR2(4),
+  remarks          VARCHAR2(308),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
+);
+
+-- Create table
+create table SYS_ROLES_AUTHORITIES_T
+(
+  id           NUMBER(32) not null primary key,
+  role_id      VARCHAR2(32),
+  authority_id VARCHAR2(32),
+  enabled      NUMBER(1)
 );
 
 -- Create table
 create table SYS_USERS_ROLES_T
 (
-  id      NUMBER(13) not null,
+  id      NUMBER(32) not null primary key,
   user_id VARCHAR2(32),
   role_id VARCHAR2(32),
-  enabled NUMBER(1)
+  USERS_ROLES_enabled NUMBER(1),
+  remarks          VARCHAR2(308),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
 );
 
 -- Create table
 create table SYS_AUTHORITIES_T
 (
-  authority_id   VARCHAR2(32) not null,
+  authority_id   NUMBER(32) not null primary key,
   authority_name VARCHAR2(40),
   authority_desc VARCHAR2(100),
-  enabled        NUMBER(1),
+  AUTHORITIES_enabled        NUMBER(1),
   issys          NUMBER(1),
-  module         VARCHAR2(4)
+  module         VARCHAR2(4),
+  remarks          VARCHAR2(308),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
 );
 
 
 -- Create table
 create table SYS_AUTHORITIES_RESOURCES_T
 (
-  id           NUMBER(13) not null,
+  id           NUMBER(32) not null primary key,
   authority_id VARCHAR2(32),
   resource_id  VARCHAR2(32),
-  enabled      NUMBER(1)
+  AUTHORITIES_RESOURCES_enabled      NUMBER(1),
+  remarks          VARCHAR2(308),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       NUMBER(1) default 1
 );
 
--- Create table
-create table SC_DISTRICT
-(
-  id        NUMBER(10) not null,
-  parent_id NUMBER(10),
-  name      VARCHAR2(255) not null
-);
--- Create/Recreate primary, unique and foreign key constraints 
-alter table SC_DISTRICT
-  add constraint SC_DISTRICT_PK primary key (ID)
-  using index;
-alter table SC_DISTRICT
-  add constraint SC_DISTRICT_R01 foreign key (PARENT_ID)
-  references SC_DISTRICT (ID);
 
 -- Create table
 create table PERSISTENT_LOGINS

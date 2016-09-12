@@ -1,5 +1,5 @@
 var AjaxUtil = function() {
-	console.info('AjaxUtil success...');
+	//console.info('AjaxUtil success...');
     $.ajaxSetup({
         statusCode: {
             401: function() {
