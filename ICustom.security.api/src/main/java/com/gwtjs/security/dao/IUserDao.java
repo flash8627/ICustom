@@ -1,5 +1,8 @@
 package com.gwtjs.security.dao;
 
-public interface IUserDao {
+import com.gwtjs.core.mapper.BaseSqlMapper;
+import com.gwtjs.security.entity.SysUsersVO;
+
+public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 
 }

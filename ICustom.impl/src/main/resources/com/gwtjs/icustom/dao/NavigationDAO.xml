@@ -170,11 +170,6 @@
 		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</update>
 
-	<!-- by select -->
-	<!-- mul select -->
-	<!-- select -->
-	<!-- update -->
-	<!-- delete -->
 	<delete id="batchRemoveNavigationPks" parameterType="java.util.List">
 		DELETE FROM SYS_NAVIGATION_T WHERE ITEM_ID in 
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">

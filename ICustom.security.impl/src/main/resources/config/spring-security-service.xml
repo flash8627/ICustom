@@ -7,14 +7,16 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 	
-	<!-- <jaxrs:server address="/lookup">
+	<jaxrs:server address="/">
         <jaxrs:serviceBeans>
-            <ref bean="lookupClassifyService"/>
-            <ref bean="lookupItemService"/>
+            <ref bean="resourcesService"/>
+            <ref bean="rolesService"/>
+            <ref bean="authoritiesService"/>
+            <ref bean="userServices"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
         </jaxrs:providers>
-    </jaxrs:server> -->
+    </jaxrs:server>
 	
 </beans>
