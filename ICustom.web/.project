@@ -56,6 +56,11 @@
 			<location>D:/Workspaces/20151108/ICustom/ICustom.impl/src/main/resources</location>
 		</link>
 		<link>
+			<name>angularjs</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.angularjs/src/main/resources</location>
+		</link>
+		<link>
 			<name>common.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.common.api/src/main/java</location>
