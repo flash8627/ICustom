@@ -1,8 +1,8 @@
 var ResourceService = function() {
-    var BASE = '../services/nav';
+    var BASE = '../../services/sys/resourcesService';
     return {
     	getItemId: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findNavItemId', function(result) {
+            AjaxUtil.sendGetRequest(BASE + '/selectByItemId', function(result) {
                 callback(result);
             });
         },
@@ -19,7 +19,7 @@ var ResourceService = function() {
             });
         },
         createResource: function(resource,callback) {
-            AjaxUtil.sendPostData(BASE + '/insert', resource, function(resource) {
+            AjaxUtil.sendPostData(BASE + '/batchInsert', [resource], function(resource) {
                 //return resource;//ResourceView.insertResourceRow(resource.obj);
             	//callback(resource.obj);
             });
@@ -30,7 +30,7 @@ var ResourceService = function() {
             });
         },
         updateResource: function(resource) {
-            AjaxUtil.sendPostData(BASE + '/updateByKey', resource, function(resource) {
+            AjaxUtil.sendPostData(BASE + '/batchUpdate', [resource], function(resource) {
             	return resource;//ResourceView.updateResourceRow(resource.obj);
             });
         },

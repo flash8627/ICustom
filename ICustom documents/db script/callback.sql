@@ -1,7 +1,25 @@
 
 
 -- drop sequence 
+drop sequence SYS_ROLES_S;
+
+-- drop sequence 
+drop sequence SYS_AUTHORITIES_S;
+
+-- drop sequence 
+drop sequence SYS_RESOURCES_S;
+
+-- drop sequence 
 drop sequence SYS_USERS_S;
+
+-- drop sequence 
+drop sequence SYS_ROLES_AUTHORITIES_S;
+
+-- drop sequence 
+drop sequence SYS_USERS_ROLES_S;
+
+-- drop sequence 
+drop sequence SYS_AUTHORITIES_RESOURCES_S;
 
 -- drop sequence 
 drop sequence SYS_NAVIGATION_S;

@@ -2,6 +2,8 @@ package com.gwtjs.security.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysResourcesVO;
 
@@ -16,15 +18,18 @@ public interface ISysResourcesDAO extends BaseSqlMapper<SysResourcesVO>  {
 	int batchInsert(List<SysResourcesVO> list);
 
 	//
-	int batchRemoveSysResourcesPks(List<SysResourcesVO> list);
+	int batchUpdate(List<SysResourcesVO> list);
+	
+	//
+	int batchRemove(List<SysResourcesVO> list);
 
 	//
-	int deleteByPrimaryKey(long resourceId);
+	int deleteByPrimaryKey(@Param("resourceId")long resourceId);
 
 	//
 	Integer selectByItemId();
 
 	//
-	SysResourcesVO selectByPrimaryKey(long resourceId);
+	SysResourcesVO selectByPrimaryKey(@Param("resourceId")long resourceId);
 
 }

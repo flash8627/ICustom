@@ -3,7 +3,7 @@
 <mapper namespace="com.gwtjs.security.dao.ISysResourcesDAO">
 	
 	<select id="findResourcesList" resultType="com.gwtjs.security.entity.SysResourcesVO">
-		<include refid="res_tree_column" />
+		<include refid="res_base_column" />
 		 WHERE 1 = 1
 		<if test="parentId != null">
 			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
@@ -18,19 +18,14 @@
 	</select>
 	
 	<select id="findSysResourcesTreeRoot" resultType="com.gwtjs.security.entity.SysResourcesVO">
-		<include refid="res_tree_column" /> 
+		<include refid="res_base_column" /> 
 		where parent_id is null and rownum = 1 
 	</select>
 	
 	<select id="selectByPrimaryKey" resultType="com.gwtjs.security.entity.SysResourcesVO">
-		<include refid="res_tree_column" />
+		<include refid="res_base_column" />
 		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
 	</select>
-	
-	<delete id="deleteByPrimaryKey">
-		delete from SYS_RESOURCES_T
-		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
-	</delete>
 	
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.security.entity.SysResourcesVO">
 		update SYS_RESOURCES_T
@@ -46,13 +41,42 @@
 		UPDATE_LAST_DATE = SYSDATE
 		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
 	</update>
-
-	<delete id="batchRemoveSysResourcesPks" parameterType="java.util.List">
+	
+	<delete id="deleteByPrimaryKey">
+		delete from SYS_RESOURCES_T
+		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
+	</delete>
+	
+	<delete id="batchRemove" parameterType="java.util.List">
 		DELETE FROM SYS_RESOURCES_T WHERE RESOURCE_ID in 
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 			#{item.resourceId}
 		</foreach>
 	</delete>
+	
+	<!-- batchUpdate -->
+	<update id="batchUpdate">
+		declare
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+				UPDATE SYS_RESOURCES_T 
+				SET RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
+				PARENT_ID = #{parentId,jdbcType=NUMERIC},
+				ICON = #{icon,jdbcType=VARCHAR},
+				RES_URL = #{resUrl,jdbcType=VARCHAR},
+				enabled = #{enabled,jdbcType=INTEGER},
+				RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
+				RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
+				ORDER_CODE = #{orderCode,jdbcType=NUMERIC},
+				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMERIC},
+				UPDATE_LAST_DATE = SYSDATE
+				WHERE RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
+			</foreach>
+			end;
+		</if>
+	</update>
+	
 	<!-- add -->
 	<insert id="batchInsert">
 		declare 
@@ -84,7 +108,7 @@
 					#{item.resUrl,jdbcType=VARCHAR}, 
 					#{item.resourceDesc,jdbcType=VARCHAR}, 
 					#{item.resourceType,jdbcType=INTEGER}, 
-					#{enabled,jdbcType=INTEGER},
+					#{item.enabled,jdbcType=INTEGER},
 					#{item.orderCode,jdbcType=NUMERIC},
 					#{item.createdUser,jdbcType=NUMERIC}, 
 					SYSDATE,
@@ -96,6 +120,28 @@
 		end; 
 	</insert>
 	
+	<!-- 递归查询 -->
+	<sql id="res_base_column">
+		SELECT T1.RESOURCE_ID resourceId,
+              T1.RESOURCE_NAME resourceName,
+              T1.PARENT_ID parentId,
+              nvl((select T2.RESOURCE_NAME parentName FROM SYS_RESOURCES_T T2 WHERE RESOURCE_ID = T1.PARENT_ID ),'') parentName,
+              T1.ICON icon,
+              T1.RES_URL resUrl,
+              T1.resource_desc resourceDesc,
+              T1.RESOURCE_TYPE resourceType,
+				T1.enabled enabled,
+              (decode((select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID = T1.RESOURCE_ID),0,0,1)) leaf,
+              (decode((select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID = T1.RESOURCE_ID),0,'','[]')) children,
+              T1.ORDER_CODE orderCode,
+              T1.CREATED_USER createdUser,
+              T1.CREATED_DATE createdDate,
+              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+              T1.UPDATE_LAST_USER updateLastUser,
+              T1.UPDATE_LAST_DATE updateLastDate,
+              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
+		FROM    SYS_RESOURCES_T T1 
+	</sql>
 	<!-- 递归查询 -->
 	<sql id="res_tree_column">
 		SELECT T1.RESOURCE_ID resourceId,

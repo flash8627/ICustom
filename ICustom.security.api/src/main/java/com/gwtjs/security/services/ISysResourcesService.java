@@ -3,13 +3,16 @@ package com.gwtjs.security.services;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.security.entity.SysResourcesVO;
 
 /**
@@ -25,25 +28,35 @@ public interface ISysResourcesService {
 	@GET @Path("findSiteMenu")
 	List<SysResourcesVO> findSiteMenu();
 	
+	@GET @Path("findResourcesTree")
+	List<SysResourcesVO> findSysResourcesTree();
+	
+	@GET @Path("findResourcesTree/{parentId}")
+	List<SysResourcesVO> findSysResourcesTree(@PathParam("")long parentId);
+	
 	@GET
 	@Path("/findResourcesTreeRoot")
 	SysResourcesVO findSysResourcesTreeRoot();
 	
 	@GET
 	@Path("/findByResource/{resourceId}")
-	SysResourcesVO selectByPrimaryKey(long resourceId);
+	SysResourcesVO selectByPrimaryKey(@PathParam("")long resourceId);
 	
 	@POST
 	@Path("/batchInsert")
-	int batchInsert(List<SysResourcesVO> list);
+	ResultWrapper batchInsert(List<SysResourcesVO> list);
+	
+	@PUT
+	@Path("/batchUpdate")
+	ResultWrapper batchUpdate(List<SysResourcesVO> list);
 
 	@PUT
 	@Path("/batchRemove")
-	int batchRemoveSysResourcesPks(List<SysResourcesVO> list);
+	ResultWrapper batchRemove(List<SysResourcesVO> list);
 
-	@PUT
-	@Path("/deleteByKey")
-	int deleteByPrimaryKey(long resourceId);
+	@DELETE
+	@Path("/deleteByKey/{resourceId}")
+	ResultWrapper deleteByPrimaryKey(@PathParam("")long resourceId);
 
 	@GET
 	@Path("/selectByItemId")

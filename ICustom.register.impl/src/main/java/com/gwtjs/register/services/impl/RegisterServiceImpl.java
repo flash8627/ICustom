@@ -104,7 +104,7 @@ public class RegisterServiceImpl implements IRegisterService {
 	 */
 	private List<RegisterVO> setRecordsUser(List<RegisterVO> records) {
 		List<RegisterVO> result = new ArrayList<RegisterVO>();
-		long createdUser = new Long(1);
+		long createdUser = new Long(10001);
 
 		for (RegisterVO vo : records) {
 			vo.setCreatedUser(createdUser);

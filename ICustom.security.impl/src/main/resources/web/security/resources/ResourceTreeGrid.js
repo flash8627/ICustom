@@ -1,4 +1,4 @@
-var BASE = '../../sys/nav';
+var BASE = '../../services/sys/resourcesService';
 
 var tname = 'zh_cn=System User,zh_en=System User';
 
@@ -9,12 +9,12 @@ $(function() {
 })
 
 var viewGrid = function(resourceId) {
-	var url = BASE + '/findResourceTree';
+	var url = BASE + '/findResourcesTree';
 	if (resourceId != undefined) {
 		url = url + '/' + resourceId;
 	}
 	$('#tg').treegrid({
-		url : BASE + '/findResourceTree',
+		url : BASE + '/findResourcesTree',
 		method : 'get',
 		fitColumns : true,
 		rownumbers : true,
@@ -29,8 +29,12 @@ var viewGrid = function(resourceId) {
 		},
 		onSelect:function(row){
 			//选择行后可以执行添加删除修改
-			$(".formbtn").addClass("l-btn-disabled");
-			$(".actionbtn").removeClass("l-btn-disabled");
+			console.info('row',row);
+			$("#addResource").removeClass("l-btn-disabled");
+			if(row.resourceName!='HOME'&&row.parentId!=0){
+				$("#editorResource").removeClass("l-btn-disabled");
+				$("#removeResource").removeClass("l-btn-disabled");
+			}
 		},
 		showFooter : true,
 		onDblClickRow : function(rowIndex, rowData) {
@@ -50,13 +54,37 @@ var viewGrid = function(resourceId) {
 		{
 			title : '名称',field : 'resourceName',width : 260,editor : 'text',options : {	required : true},formatter : resourceNameFormatter
 		}, {
-			title : '上级',field : 'parentName',	width : 180,align : 'left',formatter : resourceNameFormatter,editor : 'text'
+			title : '上级',field : 'parentName',	width : 180,align : 'left',formatter : resourceNameFormatter,editor : {
+				type:'combotree',
+				url : BASE + '/findResourcesTree',
+				method : 'get',
+				fitColumns : true
+			}
 		}, {
 			title : '地址',field : 'resUrl',	width : 180,align : 'right',editor : 'text'
 		}, {
 			title : '图标',field : 'icon',	width : 120,editor : 'text'
 		}, {
-			title : '资源类型',field : 'resourceType',	width : 120,editor : 'text',formatter : resourceTypeFormatter
+			title : '说明',field : 'resourceDesc',	width : 120,editor : 'text'
+		}, {
+			title : '资源类型',field : 'resourceType',	width : 120,editor :{
+				type : 'combobox',
+				options : {
+					valueField : 'parentId',
+					textField : 'parentName', 
+					data : resourceTypes,
+					required : false,
+					onChange : function (newValue, oldValue) {
+						var row = $dg.datagrid('getSelected');
+                        var rindex = $dg.datagrid('getRowIndex', row);
+                        var ed = $dg.datagrid('getEditor', {
+                                index : rindex,
+                                field : 'listprice'
+                            });
+                        $(ed.target).numberbox('setValue', '2012');
+					}
+				}
+			},formatter : resourceTypeFormatter
 		}, {
 			title : '排序码',field : 'orderCode',width : 80,editor : 'numberbox'
 		}, {
@@ -81,6 +109,17 @@ updateNameFormatter = function(value, rowData) {
 	}
 	return rowData.lastNameCn;
 }
+
+var resourceTypes = [{
+	productid : 1,
+    name : "页面"
+}, {
+    productid : 2,
+    name : "按钮"
+}, {
+    productid : 3,
+    name : "其它"
+}];
 
 resourceTypeFormatter = function(value, rowData) {
 	if (!value) {
@@ -188,7 +227,12 @@ function addSequence(sequence){
 	var data = [{
 		resourceId : index,
 		resourceName : '',
-		url : '',resourceType : 0,
+		resUrl : '',
+		resourceDesc : '',
+		resourceType : 0,
+		parentName : node.resourceName,
+		parentId : node.resourceId,
+		enabled : 1,
 		orderCode : parseInt(Math.random() * 100),
 		createdUser : '10001',
 		createdDate : getFormatDateByLong(null, "yyyy-MM-dd"),
@@ -229,7 +273,10 @@ function onSaveItem() {
 			resourceId : row.resourceId,
 			resourceName : row.resourceName,
 			parentId : row._parentId,
-			url : row.url,
+			parentName : row.parentName,
+			resUrl : row.resUrl,
+			resourceDesc : row.resourceDesc,
+			enabled : row.enabled,
 			resourceType : row.resourceType,
 			icon : row.icon,
 			orderCode : row.orderCode

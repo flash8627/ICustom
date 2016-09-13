@@ -1,4 +1,57 @@
 
+
+-- Create sequence 
+create sequence SYS_ROLES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+
+-- Create sequence 
+create sequence SYS_AUTHORITIES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+
+-- Create sequence 
+create sequence SYS_RESOURCES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+
+
+-- Create sequence 
+create sequence SYS_AUTHORITIES_RESOURCES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SYS_USERS_ROLES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
+-- Create sequence 
+create sequence SYS_ROLES_AUTHORITIES_S
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 1
+increment by 1
+cache 20;
+
 -- Create sequence 
 create sequence SYS_USERS_S
 minvalue 1
@@ -242,7 +295,7 @@ alter table SYS_LANGUAGE_T
 -- Create table
 create table SYS_NAVIGATION_T
 (
-  item_id          NUMBER(30) not null PRIMARY KEY ,
+  item_id          NUMBER(30),
   item_name        VARCHAR2(60) not null,
   parent_id        NUMBER(30),
   icon             VARCHAR2(30),
@@ -255,9 +308,7 @@ create table SYS_NAVIGATION_T
   update_last_date DATE default SYSDATE,
   valid_flag       NUMBER(1)
 );
-alter table SYS_NAVIGATION_T
-  add constraint SYS_NAVIGATION_T_UNIQUE unique (parent_id, item_name)
-  using index;
+
 
 -- Create table
 create table SYS_USERS_T
