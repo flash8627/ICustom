@@ -52,7 +52,7 @@ public class SysResourcesVO extends BaseResource {
 	public SysResourcesVO() {
 	}
 
-	public SysResourcesVO(long resourceId, String resourceName,
+	public SysResourcesVO(Integer resourceId, String resourceName,
 			int resourceType, String resUrl, String resourceDesc,
 			long parentId, String parentName, List<SysResourcesVO> children,
 			int childrenCount, String icon, boolean leaf, Boolean priority,

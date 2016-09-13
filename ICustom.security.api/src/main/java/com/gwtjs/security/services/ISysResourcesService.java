@@ -32,7 +32,7 @@ public interface ISysResourcesService {
 	List<SysResourcesVO> findSysResourcesTree();
 	
 	@GET @Path("findResourcesTree/{parentId}")
-	List<SysResourcesVO> findSysResourcesTree(@PathParam("")long parentId);
+	List<SysResourcesVO> findSysResourcesTree(@PathParam("parentId")long parentId);
 	
 	@GET
 	@Path("/findResourcesTreeRoot")
@@ -56,7 +56,7 @@ public interface ISysResourcesService {
 
 	@DELETE
 	@Path("/deleteByKey/{resourceId}")
-	ResultWrapper deleteByPrimaryKey(@PathParam("")long resourceId);
+	ResultWrapper deleteByPrimaryKey(@PathParam("resourceId")long resourceId);
 
 	@GET
 	@Path("/selectByItemId")

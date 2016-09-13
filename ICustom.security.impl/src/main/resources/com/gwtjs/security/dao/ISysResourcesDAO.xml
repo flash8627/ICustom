@@ -61,17 +61,17 @@
 			begin
 			<foreach collection="list" item="item">
 				UPDATE SYS_RESOURCES_T 
-				SET RESOURCE_NAME = #{resourceName,jdbcType=VARCHAR},
-				PARENT_ID = #{parentId,jdbcType=NUMERIC},
-				ICON = #{icon,jdbcType=VARCHAR},
-				RES_URL = #{resUrl,jdbcType=VARCHAR},
-				enabled = #{enabled,jdbcType=INTEGER},
-				RESOURCE_DESC = #{resourceDesc,jdbcType=VARCHAR},
-				RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
-				ORDER_CODE = #{orderCode,jdbcType=NUMERIC},
-				UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMERIC},
+				SET RESOURCE_NAME = #{item.resourceName,jdbcType=VARCHAR},
+				PARENT_ID = #{item.parentId,jdbcType=NUMERIC},
+				ICON = #{item.icon,jdbcType=VARCHAR},
+				RES_URL = #{item.resUrl,jdbcType=VARCHAR},
+				enabled = #{item.enabled,jdbcType=INTEGER},
+				RESOURCE_DESC = #{item.resourceDesc,jdbcType=VARCHAR},
+				RESOURCE_TYPE = #{item.resourceType,jdbcType=VARCHAR},
+				ORDER_CODE = #{item.orderCode,jdbcType=NUMERIC},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
-				WHERE RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
+				WHERE RESOURCE_ID = #{item.resourceId,jdbcType=NUMERIC};
 			</foreach>
 			end;
 		</if>

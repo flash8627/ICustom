@@ -42,6 +42,7 @@ public class SysResourcesService implements ISysResourcesService {
 	 */
 	@Override
 	public List<SysResourcesVO> findSysResourcesTree(long parentId) {
+		
 		List<SysResourcesVO> list = this.findResourcesChildren(parentId);
 		for (SysResourcesVO record : list) {
 			if (record.isLeaf()) {
@@ -58,8 +59,8 @@ public class SysResourcesService implements ISysResourcesService {
 	 */
 	@Override
 	public List<SysResourcesVO> findSiteMenu() {
-		SysResourcesVO nav = resourcesDao.findSysResourcesTreeRoot();
-		List<SysResourcesVO> menus = this.findSysResourcesTree(nav.getResourceId());
+		SysResourcesVO res = resourcesDao.findSysResourcesTreeRoot();
+		List<SysResourcesVO> menus = this.findSysResourcesTree(res.getResourceId());
 		for (SysResourcesVO menu : menus) {
 			List<SysResourcesVO> child = this
 					.findSysResourcesTree(menu.getResourceId());

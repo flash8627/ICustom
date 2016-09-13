@@ -30,12 +30,12 @@ var ResourceService = function() {
             });
         },
         updateResource: function(resource) {
-            AjaxUtil.sendPostData(BASE + '/batchUpdate', [resource], function(resource) {
+            AjaxUtil.sendPutData(BASE + '/batchUpdate', [resource], function(resource) {
             	return resource;//ResourceView.updateResourceRow(resource.obj);
             });
         },
         deleteResourceById: function(id) {
-            AjaxUtil.sendDeleteRequest(BASE + '/deleteBy/' + id, function() {
+            AjaxUtil.sendDeleteRequest(BASE + '/deleteByKey/' + id, function() {
                 //ResourceView.deleteResourceRow(id);
             });
         },

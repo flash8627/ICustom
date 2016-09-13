@@ -42,13 +42,16 @@ var viewGrid = function(resourceId) {
 		},
 		onBeforeEdit:function(row){
 		    // 编辑后的数据在row里面 console.warn(row);
+			$("#editorResource").addClass("l-btn-disabled");
+			$("#removeResource").addClass("l-btn-disabled");
+			$("#addResource").addClass("l-btn-disabled");
 			$(".formbtn").removeClass("l-btn-disabled");
-			$(".actionbtn").addClass("l-btn-disabled");
 		},
 		onCancelEdit:function(row,changes){
+			$("#editorResource").addClass("l-btn-disabled");
+			$("#addResource").addClass("l-btn-disabled");
 		    // 编辑后的数据在row里面 console.warn(row);
 			$(".formbtn").addClass("l-btn-disabled");
-			$(".actionbtn").removeClass("l-btn-disabled");
 		},
 		columns :[[
 		{
@@ -75,13 +78,13 @@ var viewGrid = function(resourceId) {
 					data : resourceTypes,
 					required : false,
 					onChange : function (newValue, oldValue) {
-						var row = $dg.datagrid('getSelected');
+						/*var row = $dg.datagrid('getSelected');
                         var rindex = $dg.datagrid('getRowIndex', row);
                         var ed = $dg.datagrid('getEditor', {
                                 index : rindex,
                                 field : 'listprice'
                             });
-                        $(ed.target).numberbox('setValue', '2012');
+                        $(ed.target).numberbox('setValue', '2012');*/
 					}
 				}
 			},formatter : resourceTypeFormatter
@@ -257,6 +260,10 @@ function onRemoveItem() {
 		$.messager.confirm("提示信息", "确定要删除资源吗？", function(r){
 			$('#tg').treegrid('remove', node.resourceId);
 			ResourceService.deleteResourceById(node.resourceId);
+			$("#editorResource").addClass("l-btn-disabled");
+			$("#removeResource").addClass("l-btn-disabled");
+			$("#addResource").removeClass("l-btn-disabled");
+			$(".formbtn").addClass("l-btn-disabled");
 		});
 	}
 	
@@ -288,7 +295,10 @@ function onSaveItem() {
 			ResourceService.updateResource(nav);
 		}
 		editingId = undefined;
-
+		
+		$("#editorResource").addClass("l-btn-disabled");
+		$("#removeResource").addClass("l-btn-disabled");
+		$("#addResource").removeClass("l-btn-disabled");
 		$(".formbtn").addClass("l-btn-disabled");
 		$(".actionbtn").removeClass("l-btn-disabled");
 	}
