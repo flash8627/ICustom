@@ -1,34 +1,34 @@
-var LookupService = function() {
-    var BASE = '../services/lookup/lookupClassifyService';
+var RoleService = function() {
+    var BASE = '../../services/sys/rolesService';
     return {
-    	findLookups: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookupList/10/1', function(list) {
-                LookupView.renderLookupTable(list.result);
-                LookupView.renderLookupTablePager(list.result);
+    	findRoles: function(callback) {
+            AjaxUtil.sendGetRequest(BASE + '/findRoleList/10/1', function(list) {
+                RoleView.renderRoleTable(list.result);
+                RoleView.renderRoleTablePager(list.result);
                 callback();
             });
         },
-        findLookupById: function(itemId) {
+        findRoleById: function(itemId) {
         	var result = {};
-            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(lookup) {
-            	result = lookup;
+            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(role) {
+            	result = role;
             	return result;
             });
             return result;
         },
-        batchInsertLookup: function(items) {
+        batchInsertRole: function(items) {
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
+                RoleView.insertRoleRows(result.obj);
             });
         },
-        batchUpdateLookup: function(items) {
+        batchUpdateRole: function(items) {
             AjaxUtil.sendPutData(BASE + '/batchUpdate', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
+                RoleView.insertRoleRows(result.obj);
             });
         },
-        deleteLookupRows: function(items) {
+        deleteRoleRows: function(items) {
             AjaxUtil.sendPutData(BASE + '/batchRemovePks',items, function() {
-                LookupView.deleteLookupRows(items);
+                RoleView.deleteRoleRows(items);
             });
         }
     }

@@ -11,9 +11,9 @@ public class SysAuthoritiesVO extends BaseResource {
 	 * 
 	 */
 	private static final long serialVersionUID = -7323278301594838580L;
-	private long authorityId;
-	private String authorityName;
-	private String authorityDesc;
+	private long authId;
+	private String authName;
+	private String authDesc;
 	private boolean enabled;
 	private boolean issys;
 	private Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses = new HashSet<SysRolesAuthoritiesVO>(
@@ -24,42 +24,42 @@ public class SysAuthoritiesVO extends BaseResource {
 	public SysAuthoritiesVO() {
 	}
 
-	public SysAuthoritiesVO(long authorityId, String authorityName,
-			String authorityDesc, Boolean enabled, Boolean issys,
+	public SysAuthoritiesVO(long authId, String authName,
+			String authDesc, Boolean enabled, Boolean issys,
 			Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses,
 			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
 		super();
-		this.authorityId = authorityId;
-		this.authorityName = authorityName;
-		this.authorityDesc = authorityDesc;
+		this.authId = authId;
+		this.authName = authName;
+		this.authDesc = authDesc;
 		this.enabled = enabled;
 		this.issys = issys;
 		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
 		this.sysAuthoritiesResources = sysAuthoritiesResources;
 	}
 
-	public long getAuthorityId() {
-		return authorityId;
+	public long getAuthId() {
+		return authId;
 	}
 
-	public void setAuthorityId(long authorityId) {
-		this.authorityId = authorityId;
+	public void setAuthId(long authId) {
+		this.authId = authId;
 	}
 
-	public String getAuthorityName() {
-		return authorityName;
+	public String getAuthName() {
+		return authName;
 	}
 
-	public void setAuthorityName(String authorityName) {
-		this.authorityName = authorityName;
+	public void setAuthName(String authName) {
+		this.authName = authName;
 	}
 
-	public String getAuthorityDesc() {
-		return authorityDesc;
+	public String getAuthDesc() {
+		return authDesc;
 	}
 
-	public void setAuthorityDesc(String authorityDesc) {
-		this.authorityDesc = authorityDesc;
+	public void setAuthDesc(String authDesc) {
+		this.authDesc = authDesc;
 	}
 
 	public boolean getEnabled() {

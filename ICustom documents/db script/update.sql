@@ -318,6 +318,8 @@ create table SYS_USERS_T
   user_name        VARCHAR2(40),
   user_password    VARCHAR2(100),
   user_desc        VARCHAR2(998),
+  valid_start      DATE,
+  valid_end        DATE,
   enabled          NUMBER(1),
   issys            NUMBER(1),
   user_dept        VARCHAR2(20),
@@ -338,9 +340,7 @@ create table SYS_USERS_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1,
-  valid_start      DATE,
-  valid_end        DATE
+  valid_flag       NUMBER(1) default 1
 );
 -- Add comments to the table 
 comment on table SYS_USERS_T
@@ -382,7 +382,7 @@ comment on column SYS_USERS_T.valid_flag
 alter table SYS_USERS_T
   add primary key (USER_ID)
   using index;
-
+create unique index USER_ACCOUNT_UNIQUE on SYS_USERS_T (USER_ACCOUNT);
 
 
 -- Create table
@@ -421,12 +421,11 @@ create table SYS_RESOURCES_T
 create table SYS_ROLES_T
 (
   role_id   NUMBER(32) not null primary key,
-  role_name VARCHAR2(40),
-  role_desc VARCHAR2(100),
+  role_name VARCHAR2(40) unique,
+  role_desc VARCHAR2(1008),
   enabled   NUMBER(1),
   issys     NUMBER(1),
   module    VARCHAR2(4),
-  remarks          VARCHAR2(308),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
   attribute3       VARCHAR2(100),
@@ -483,13 +482,12 @@ create table SYS_USERS_ROLES_T
 -- Create table
 create table SYS_AUTHORITIES_T
 (
-  authority_id   NUMBER(32) not null primary key,
-  authority_name VARCHAR2(40),
-  authority_desc VARCHAR2(100),
-  AUTHORITIES_enabled        NUMBER(1),
+  auth_id   NUMBER(32) not null primary key,
+  auth_name VARCHAR2(40),
+  auth_desc VARCHAR2(1008),
+  enabled        NUMBER(1),
   issys          NUMBER(1),
   module         VARCHAR2(4),
-  remarks          VARCHAR2(308),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
   attribute3       VARCHAR2(100),

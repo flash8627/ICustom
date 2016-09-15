@@ -35,9 +35,9 @@ public class UserServices implements IUserServices {
 	}
 	
 	@Override
-	public ResultWrapper findItem(long classId) {
+	public ResultWrapper findItem(long roleId) {
 		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(userDao.findItem(classId));
+		return ResultWrapper.successResult(userDao.findItem(roleId));
 	}
 
 	@Override
