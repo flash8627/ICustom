@@ -1,46 +1,65 @@
-var LookupView = function() {
-    var generateLookupTableTrHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_table_tr_template', item);
-    };
-    var generateLookupTrEditorHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_modal_form_template', item);
-    };
-    var generateLookupPagerHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_table_pager_template', item);
+var AuthoritiesView = function() {
+    var generateAuthoritiesTableTrHtml = function(item) {
+        return TemplateUtil.renderHtml('authorities_table_tr_template', item);
     };
     return {
-        renderLookupTable: function(items) {
-            TemplateUtil.registerPartical('tr', 'lookup_table_tr_template');
-            var html = TemplateUtil.renderHtml('lookup_table_template', {
+        renderAuthoritiesTable: function(items) {
+            TemplateUtil.authoritiesPartical('tr', 'authorities_table_tr_template');
+            var html = TemplateUtil.renderHtml('authorities_table_template', {
                 data: items
             });
-            $('#lookup_list').html(html);
+            $('#authorities_list').html(html);
         },
-        renderLookupTablePager: function(pager) {
-        	var html = generateLookupPagerHtml(pager);
-            $('#lookup_list').find('tfoot').html(html);
+        renderAuthoritiesModal: function(title, item) {
+            var $modal = $('#authorities_modal');
+            $modal.find('.modal-title').text(title);
+            var html = TemplateUtil.renderHtml('authorities_modal_form_template', item);
+            $modal.find('.modal-body').html(html);
         },
-        insertLookupRow: function(item) {
-            var html = generateLookupTableTrHtml(item);
-            $('#lookup_table').find('tbody').prepend(html);
+        insertAuthoritiesRow: function(item) {
+            var html = generateAuthoritiesTableTrHtml(item);
+            $('#authorities_table').find('tbody').prepend(html);
         },
-        insertLookupRows: function(items) {
-        	 for(var i=0;i<items.length;i++){
-             	var html = generateLookupTableTrHtml(items[i]);
-                $('#lookup_table').find('tbody').prepend(html);
-             }
+        updateAuthoritiesRow: function(item) {
+        	console.warn(item);
+            var html = generateAuthoritiesTableTrHtml(item);
+            $('#authorities_table').find('tbody').find('tr[data-id="' + item.itemId + '"]').replaceWith(html);
         },
-        insertLookupEditorRow: function(item) {
-            var html = generateLookupTrEditorHtml(item);
-            $('#lookup_table').find('tbody').prepend(html);
+        deleteAuthoritiesRow: function(itemId) {
+            $('#authorities_table').find('tbody').find('tr[data-id="' + itemId + '"]').remove();
         },
-        deleteLookupRow: function(classId) {
-            $('#lookup_table').find('tbody').find('tr[data-id="' + classId + '"]').remove();
-        },
-        deleteLookupRows: function(items) {
+        deleteAuthoritiesRows: function(items) {
             for(var nav in items){
-            	$('#lookup_table').find('tbody').find('tr[data-id="' + items[nav].classId + '"]').remove();
+            	$('#authorities_table').find('tbody').find('tr[data-id="' + nav.itemId + '"]').remove();
             }
-        }
+        },
+        remove:function(){
+			var nodes = $('#regTree').tree('getChecked');
+			var ids = '';
+			for (var i = 0; i < nodes.length; i++) {
+				if (ids != '')
+					ids += ',';
+				ids += nodes[i].id;
+			}
+        },
+        update:function(){
+        	var node = $('#regTree').tree('getSelected');
+            if (node){
+                node.text = '修改';  //-->txt-->DB
+                node.iconCls = 'icon-save'; //-->sel-->DB
+                $('#regTree').tree('update', node);
+            }
+        },
+		append : function() {
+			var node = $('#regTree').tree('getSelected');
+			$('#regTree').tree('append', {
+				parent : (node ? node.target : null),
+				data : [{
+					text : 'new1',//  -->txt-->DB
+					id : '10001',
+					checked : false
+				} ]
+			});
+		}
     };
 }();

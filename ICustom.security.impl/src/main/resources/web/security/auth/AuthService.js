@@ -1,34 +1,40 @@
-var LookupService = function() {
-    var BASE = '../services/lookup/lookupClassifyService';
+var AuthoritiesService = function() {
+    var BASE = '../services/authorities/authoritiesService';
     return {
-    	findLookups: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookupList/10/1', function(list) {
-                LookupView.renderLookupTable(list.result);
-                LookupView.renderLookupTablePager(list.result);
+    	findAuthoritiess: function(callback) {
+            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesList', function(list) {
+                AuthoritiesView.renderAuthoritiesTable(list);
                 callback();
             });
         },
-        findLookupById: function(itemId) {
+        findChildren: function(callback,itemId) {
+            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesList/'+itemId, function(list) {
+                AuthoritiesView.renderAuthoritiesTable(list);
+                callback();
+            });
+        },
+        findAuthoritiesById: function(itemId) {
+            AjaxUtil.sendGetRequest(BASE + '/findAuthorities/' + itemId, function(authorities) {
+                var title = 'Edit Authorities';
+                AuthoritiesView.renderAuthoritiesModal(title, authorities);
+            });
+        },
+        batchInsertAuthorities: function(items) {
         	var result = {};
-            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(lookup) {
-            	result = lookup;
+            AjaxUtil.sendPostAsyncData(BASE + '/batchInsert', items, function(items) {
+            	result = items;
             	return result;
             });
             return result;
         },
-        batchInsertLookup: function(items) {
-            AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
+        batchUpdateAuthorities: function(authorities,callback) {
+            AjaxUtil.sendPutData(BASE + '/batchUpdate', authorities, function(authorities) {
+            	callback(authorities);
             });
         },
-        batchUpdateLookup: function(items) {
-            AjaxUtil.sendPutData(BASE + '/batchUpdate', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
-            });
-        },
-        deleteLookupRows: function(items) {
-            AjaxUtil.sendPutData(BASE + '/batchRemovePks',items, function() {
-                LookupView.deleteLookupRows(items);
+        batchRemoveAuthorities: function(items,callback) {
+            AjaxUtil.sendPutData(BASE + '/batchRemovePks', items, function() {
+            	callback();
             });
         }
     }

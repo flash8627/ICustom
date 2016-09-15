@@ -220,8 +220,6 @@ var initRegTree = function(itemId) {
 	// 点击 Create 按钮，弹出创建产品对话框
     $('#parent_select_btn').on('click', function() {
         var title = '上一级节点选择';
-        var navigation = {};
-        //NavigationView.renderNavigationModal(title, navigation);
         var $modal = $('#parent_select_modal');
         $modal.find('.modal-title').text(title);
         $('#parent_select_modal').modal('show');

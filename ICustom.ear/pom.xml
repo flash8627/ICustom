@@ -188,6 +188,18 @@
 			<artifactId>ICustom.workflow.impl</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+		  <groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.browselog.api</artifactId>
+		 <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.gwtjs.ICustom</groupId>
+			<artifactId>ICustom.browselog.impl</artifactId>
+		 <version>1.0.0-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
@@ -347,6 +359,16 @@
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.workflow.impl</artifactId>
+						</jarModule>
+						
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.browselog.api</artifactId>
+						</jarModule>
+
+						<jarModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.browselog.impl</artifactId>
 						</jarModule>
 						
 						<webModule>

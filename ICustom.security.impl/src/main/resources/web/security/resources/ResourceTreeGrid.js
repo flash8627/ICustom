@@ -1,5 +1,4 @@
 var BASE = '../../services/sys/resourcesService';
-
 var tname = 'zh_cn=System User,zh_en=System User';
 
 $(function() {

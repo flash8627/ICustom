@@ -1,0 +1,54 @@
+
+<style type="text/css">
+</style>
+
+<title>AngularJS Shell Page</title>
+<script data-main="main.js" src="resources/1.2.16/require.js"></script>      
+<link href="resources/1.2.16/Content/angular-block-ui.css" rel="stylesheet" />
+<link href="resources/1.2.16/Content/bootstrap.css" rel="stylesheet" />
+<link href="resources/1.2.16/Content/Application.css" rel="stylesheet" />
+<link href="resources/1.2.16/Content/SortableGrid.css" rel="stylesheet" />
+
+<div ng-controller="indexController" ng-init="initializeController()"  ng-cloak>
+
+	<div class="navbar navbar-inverse navbar-fixed-top" >
+		<div class="container">
+			<div class="navbar-collapse collapse" id="MainMenu" ng-show="displayContent" style="visibility:hidden">
+				<ul class="nav navbar-nav" ng-repeat="menuItem in MenuItems | filter:{Module: 'Main'}">
+					<li><a href="{{menuItem.Route}}">{{menuItem.Description}}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="margin: 75px 50px 50px 50px" ng-view></div>
+
+<script type="text/javascript">
+	window.onload = init();
+	function init() {
+
+		setTimeout(function () {
+			var mainMenu = document.getElementById("MainMenu");          
+			mainMenu.style.visibility = 'visible';
+			},1000);                    
+
+	}
+</script>
+
+<!--
+<div>
+<ul>
+<li><a href="#Customers/AddNewCustomer">Add New Customer</a></li>
+<li><a href="#Customers/CustomerInquiry">Show Customers</a></li>
+</ul>
+</div>
+-->
+
+<!-- ng-view directive to tell AngularJS where to inject content pages -->
+
+<!--
+<div ng-view></div>
+<script src="resources/1.5.8/angular.min.js"></script>
+<script src="js/app.js"></script>
+-->

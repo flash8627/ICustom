@@ -1,533 +1,337 @@
 
 <link href="../css/content.css" rel="stylesheet">
 
+
 <div class="container">
 	<div class="page-header">
 		<h1>Authorities Manager</h1>
 	</div>
-
-	<div id="Lookup_tt" class="easyui-tabs" data-options="tabWidth:118"
-		style="height: 580px">
-		<div title="Lookup Classify">
-
-			<form class="form-inline" method="post" id="lookup_search_form"
-				style="padding: 8px;">
-
-				<div class="form-group my-form-group" style="width: 36%;">
-					<label for="lookupCode" style="width: 18%; text-align: right;">编码:</label>
-					<input type="text" class="form-control" style="width: 78%;"
-						placeholder="lookup code" id="lookupCode">
+	<div class="easyui-layout" style="width: 100%; height: 508px;">
+		<div data-options="region:'west',split:true" title="条目"
+			style="width: 50%; padding: 0;">
+			<div class="easyui-layout" data-options="fit:true">
+				<div data-options="region:'north'"
+					style="height: 34px; width: 100%; border: 0; padding: 3px;">
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="refreshItem()"><i class="fa fa-refresh"></i> async</a> 
 				</div>
-
-				<div class="form-group my-form-group" style="width: 36%;">
-					<label for="lookupName" style="width: 18%; text-align: right;">名称:</label>
-					<input type="text" class="form-control" style="width: 78%;"
-						placeholder="lookup name" id="lookupName">
-				</div>
-
-				<div class="form-group my-form-group form-search-btn-group"
-					style="width: 20%; text-align: center;">
-					<button type="submit" class="btn btn-success">
-						<i class="fa fa-search"></i> Search
-					</button>
-					<button type="submit" class="btn btn-success">
-						<i class="fa fa-undo"></i> Reset
-					</button>
-				</div>
-
-			</form>
-
-			<div
-				style="padding: 8px 3px; margin: 6px; height: 36px; display: inline">
-				<button class="btn btn-success actionbtn" type="button" id="lookup_create">
-					<i class="fa fa-plus"></i> 新增
-				</button>
-				<button class="btn btn-success optionbtn l-btn-disabled" id="lookup_remove"
-					type="button">
-					<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
-				</button>
-				<a href="javascript:void(0)" id="lookup_modal_submit"
-					class="btn btn-primary actionbtn l-btn-disabled"
-					><i
-					class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
-
-				<div class="btn-group actionbtn">
-					<a href="javascript:;" class="btn btn-primary"><i
-						class="fa fa-file-excel-o"></i> 导入导出</a> <a href="javascript:;"
-						data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
-						aria-expanded="false"> <span class="fa fa-caret-down"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="javascript:;"><i class="i"></i> 导出Excel</a></li>
-						<li><a href="javascript:;"><i class="i"></i> 下载Excel模板</a></li>
-						<li class="divider"></li>
-						<li><a href="javascript:;"><i class="i"></i> 导入Excel</a></li>
-					</ul>
+				<div data-options="region:'center'" style="border: 0;">
+					<ul class="easyui-tree" id="authTree"></ul>
+					<!-- <ul class="easyui-tree"
+					data-options="url:'../services/authorities/authoritiesService/findRecords/10/1',method:'get',animate:true"></ul> -->
 				</div>
 			</div>
-			<div id="lookup_list" style="margin: 6px; border: 1px solid #EEEEEE;">
+
+		</div>
+		<div style="padding:8px;"
+			data-options="region:'center',iconCls:'Module-mgr-ico'">
+			<div style="margin: 6px 0;">
+				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="addItem()"><i class="fa fa-plus"></i> Add Item</a> 
+				<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="doSave()"><i class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
+				<div class="btn-group actionbtn">
+                    <a href="javascript:;" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> 导入导出</a>
+                    <a href="javascript:;" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">
+                        <span class="fa fa-caret-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:;"><i class="i"></i> 导出Excel</a></li>
+                        <li><a href="javascript:;"><i class="i"></i> 下载Excel模板</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;"><i class="i"></i> 导入Excel</a></li>
+                    </ul>
+                </div>
+			</div>
+			
+			<div class="my-form-group-row" style="">
+				<span class="form-group my-form-group" style="width: 38%;">
+				&nbsp;权限信息
+				</span>
+				<span class="form-group my-form-group" style="width: 38%;">
+				</span>
+			</div>
+			<form class="form-horizontal" role="form" style="margin:6px;">
+				    <div class="form-group">
+				        <label for="authName" class="col-sm-2 control-label">权限名称:</label>
+				        <div class="col-sm-10">
+				            <input type="text" class="form-control" id="authName" name="authName" placeholder="请输显示名称">
+				        </div>
+				    </div>
+				    <div class="form-group">
+				        <label for="authDesc" class="col-sm-2 control-label">说明:</label>
+				        <div class="col-sm-10">
+				        	<input type="hidden" class="form-control" id="authId" name="authId">
+				            <input type="text" class="form-control" id="authDesc" name="authDesc" placeholder="请输入说明">
+				        </div>
+				    </div>
+				    
+				    <div class="form-group">
+				        <label for="parentName" class="col-sm-2 control-label">父节点名称:</label>
+				        <div class="col-sm-10">
+				        	<input type="hidden" class="form-control" id="parentId" name="parentId">
+				            <!-- 信息警告消息的上下文按钮 -->
+				            <!-- <label style="float:left;padding:3px;">
+				            	<button type="button" id="parent_select_btn" class="btn btn-info">...</button>
+							</label> -->
+				        </div>
+				    </div>
+				    <div class="form-group" style="width:96%;margin:0 auto;">
+				        <label for="authDesc">说明</label>
+				        <textarea class="form-control" name="authDesc" id="authDesc"></textarea>
+				    </div> 
+				</form> 
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="authorities_modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"></h4>
+			</div>
+			<div class="modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary"
+					id="authorities_modal_submit">
+					<i class="fa fa-save"></i> Save
+				</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script type="text/x-handlebars-template-partial" id="lookup_item_table_template">
-<div style="margin: 8px;">
-	<div class="page-header">
-		<h5>类别信息</h5>
-	</div>
-	<div style="" class="my-form-group-row">
-		<span class="form-group my-form-group" style="width: 38%;">
-			<label for="classCode" style="">类编码:</label>
-			<span>{{classCode}}</span>
-		</span> <span class="form-group my-form-group" style="width: 38%;">
-			<label for="className" style="width: 18%; text-align: right;">类名称:</label>
-			<span>{{className}}</span>
-		</span>
-	</div>
+<div class="modal" id="parent_select_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+            	<ul class="easyui-tree"
+					data-options="url:'../services/authorities/authoritiesService/findRecords/10/1',method:'get',checkbox:true,animate:true">
+				</ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="parent_select_modal_submit"><i class="fa fa-save"></i> Save</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="Lookup_Item_{{classCode}}" style="height: auto; margin: 6px;">
-	<button class="btn btn-success itemActionbtn" type="button" onclick="lookupItemAdd()">
-		<i class="fa fa-plus"></i> 新增行
-	</button>
-	<button class="btn btn-success itemOptionbtn l-btn-disabled"
-		type="button" onclick="lookupItemRemove()">
-		<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
-	</button>
-	<button class="btn btn-success itemFormActionbtn l-btn-disabled"
-		type="button" onclick="lookupItemSave()">
-		<i class="fa fa-save" aria-hidden="true"></i> 保存
-	</button>
-	<button class="btn btn-success actionbtn" type="button" onclick="lookupItemBack()">
-		<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
-	</button>
-</div>
-<div id="Lookup_Item_{{classCode}}_grid" class="{{classCode}}">
-	<table class="table table-hover" id="lookup_item_{{classCode}}_table">
-		<thead>
-			<tr>
-				<th>选择</th>
-				<th>编码 <span class="required">*</span></th>
-				<th>名称 <span class="required">*</span></th>
-				<th>语言</th>
-				<th>状态</th>
-				<th>排序码</th>
-				<th>说明</th>
-				<th>创建用户</th>
-				<th>创建时间</th>
-				<th>最后更新用户</th>
-				<th>最后更新时间</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{#if data}}
-			{{#data}}
-            {{> tr}}
-            {{/data}}
-			{{else}}
-        		<div class="alert alert-warning">Can not find any data!</div>
-    		{{/if}}
-		</tbody>
-		<tfoot>
-		</tfoot>
-	</table>
-</div>
-</script>
-
-<!-- lookup item 行编辑模板 -->
-<script type="text/x-handlebars-template" id="lookup_item_form_template">
-    <tr data-id="{{itemId}}" data-name="itemId" class="item_form_template">
-	<td>
-		<input type="hidden" name="itemId" id="itemId" value="{{itemId}}">
-		&nbsp;
-		<input type="hidden" name="classId" id="classId"
-		value="{{classId}}">
-	</td>
-	<td><input type="text" value="{{itemCode}}" id="itemCode"
-		class="form-control"></td>
-	<td><input type="text" value="{{itemName}}" id="itemName"
-		class="form-control"></td>
-	<td><input type="text" value="{{itemLan}}" id="itemLan"
-		class="form-control"></td>
-	<td><input type="text" value="{{itemStatus}}" id="itemStatus"
-		class="form-control"></td>
-	<td><input type="text" value="{{orderCode}}" id="orderCode"
-		class="form-control"></td>
-	<td><input type="text" value="{{remarks}}" id="remarks"
-		class="form-control"></td>
-	<td>{{createdUser}}</td>
-	<td>{{createdDate}}</td>
-	<td>{{updateLastUser}}</td>
-	<td>{{updateLastDate}}</td>
-	<td>
-		<button class="btn btn-xs btn-primary lookup_item_row_edit_cancel" title="cancel">
-			<i class="fa fa-remove"></i>
-		</button>
-	</td>
-</tr>
-</script>
-<!-- lookup item 行模板 -->
-<script type="text/x-handlebars-template" id="lookup_item_info_template">
-    <tr data-id="{{itemId}}" data-name="itemId">
-	<td>
-		<form>
-			<label class="checkbox-inline"> 
-				<input type="checkbox" onclick="validateItemRemoveBtn()"
-					id="itemId" name="itemId" value="{{itemId}}" >
-				&nbsp;
-				<input type="hidden" name="itemId" id="itemId" value="{{itemId}}">
-			</label>
-		</form>
-	</td>
-	<td>{{itemCode}}</td>
-	<td>{{itemName}}</td>
-	<td>{{itemLan}}</td>
-	<td>{{itemStatus}}</td>
-	<td>{{orderCode}}</td>
-	<td>{{remarks}}</td>
-	<td>{{createdUser}}</td>
-	<td>{{createdDate}}</td>
-	<td>{{updateLastUser}}</td>
-	<td>{{updateLastDate}}</td>
-	<td>
-		<button class="btn btn-xs btn-primary lookup_item_row_edit" title="Edit">
-			<i class="fa fa-fw fa-edit"></i>
-		</button>
-	</td>
-</tr>
-</script>
-
-<!-- 分页组件 -->
-<script type="text/x-handlebars-template-partial"
-	id="lookup_table_pager_template">
-	<tr id="lookup_pager_template">
-		<th colspan="5"><span>1</span> <span>...</span> <span>12</span> <span>13</span>
-			<span>14</span> <span>15</span> <span>16</span> <span>...</span> <span>116</span>
-			<span>&nbsp;</span> <span>{{totalRows}}</span> <span>/</span> <span>{{totalPage}}</span>
-		</th>
-		<th colspan="5">&nbsp;</th>
-	</tr>
-</script>
-
-<!-- 表头 -->
-<script type="text/x-handlebars-template" id="lookup_table_template">
-	<table class="table table-hover" id="lookup_table">
-		<thead>
-			<tr>
-				<th>选择</th>
-				<th>编码 <span class="required">*</span></th>
-				<th>名称 <span class="required">*</span></th>
-				<th>说明</th>
-				<th>排序码</th>
-				<th>创建用户</th>
-				<th>创建时间</th>
-				<th>最后更新用户</th>
-				<th>最后更新时间</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{#if data}}
-			{{#data}} {{> tr}} {{/data}} {{else}}
-			<div class="alert alert-warning">Can not find any data!</div>
-			{{/if}}
-		</tbody>
-		<tfoot>
-		</tfoot>
-	</table>
-</script>
-
-<!-- 行模板 -->
-<script type="text/x-handlebars-template-partial"
-	id="lookup_table_tr_template">
-	<tr data-id="{{classId}}" data-name="classId">
-		<td>
-			<form>
-				<label class="checkbox-inline"> <input type="checkbox"
-					id="classId" name="classId" value="{{classId}}"
-					onclick="validateRemoveBtn()">
-				</label>
-			</form>
-		</td>
-		<td data-id="{{classCode}}" data-name="classCode">
-			<a href="javascript:void(0);" class="lookup_item_edit">{{classCode}}</a></td>
-		<td data-id="{{className}}" data-name="className">{{className}}</td>
-		<td>{{classDesc}}</td>
-		<td>{{orderCode}}</td>
-		<td>{{createdUser}}</td>
-		<td>{{createdDate}}</td>
-		<td>{{updateLastUser}}</td>
-		<td>{{updateLastDate}}</td>
-		<td>
-			<button class="btn btn-xs btn-primary lookup_edit" title="Edit">
-				<i class="fa fa-fw fa-edit"></i>
-			</button>
-		</td>
-	</tr>
-</script>
-
-<!-- 行编辑模板 -->
-<script type="text/x-handlebars-template" id="lookup_modal_form_template">
-    <tr data-id="{{classId}}" data-name="classId" class="template">
-		<td>
-			<input type="hidden" name="classId" id="classId" value="{{classId}}">&nbsp;
-		</td>
-		<td><input type="text" value="{{classCode}}" id="classCode" class="form-control"></td>
-		<td><input type="text" value="{{className}}" id="className" class="form-control"></td>
-		<td><input type="text" value="{{classDesc}}" id="classDesc" class="form-control"></td>
-		<td><input type="text" value="{{orderCode}}" id="orderCode" class="form-control"></td>
-		<td>{{createdUser}}</td>
-		<td>{{createdDate}}</td>
-		<td>{{updateLastUser}}</td>
-		<td>{{updateLastDate}}</td>
-		<td>
-			<button class="btn btn-xs btn-primary lookup_edit_cancel" title="cancel Edit">
-				<i class="fa fa-fw fa-remove"></i>
-			</button>
-		</td>
-	</tr>
-</script>
-
-<script src="../global.js"></script>
-<script src="AuthView.js"></script>
-<script src="AuthService.js"></script>
-
-<!-- 全局参数 -->
-<script type="text/javascript">
-	var lookup={};
-</script>
-
-<!-- lookup classify script -->
-<script type="text/javascript">
+<script>
+var BASE = '../services/authorities/authoritiesService/';
 	
-	var validateRemoveBtn = function(){
-		var checkNum = $('input:checkbox[name=classId]:checked').length;
-		if(checkNum>0){
-			$(".optionbtn").removeClass("l-btn-disabled");
-		}else{
-			$(".optionbtn").addClass("l-btn-disabled");
-		}
+var initRegTree = function(itemId) {
+	var baseUrl = BASE + 'findAuthoritiesList';
+	var url = baseUrl;
+	if (itemId != undefined) {
+		url = url + '/' + authId;
+	}else{
+		url = url + '/0';
 	}
-	
-	$(function() {
-		
-		// 显示所有产品
-		//$('body').hide(); // 隐藏界面
-		LookupService.findLookups(function() {
-			$('body').show(); // 显示界面
-		});
-
-		// 根据关键字查询产品
-		$('#lookup_search_form').on('submit', function() {
-			var keyword = $('#keyword').val().trim();
-			LookupService.findLookupsByName(keyword);
-			return false;
-		});
-		
-		// 点击 Create 按钮，弹出创建产品对话框
-		$('#lookup_create').on('click', function() {
-			var lookup = {
-				classId : 0,
-				classCode : '',
-				orderCode : 1,
-				className : '',
-				classDesc : ''
-			};
-			LookupView.insertLookupEditorRow(lookup);
-			$(".actionbtn").toggleClass("l-btn-disabled");
-		});
-
-		// 点击对话框中的 Save 按钮，创建或更新产品
-		$('#lookup_modal_submit').on('click', function() {
-			var id = $('#classId').val();
-			var lookup = [{
-				classId : id,
-				classCode : $('#classCode').val().trim(),
-				orderCode : $('#orderCode').val().trim(),
-				className : $('#className').val().trim(),
-				classDesc : $('#classDesc').val().trim()
-			}];
-			if (id == 0) {
-				LookupService.batchInsertLookup(lookup);
-			} else {
-				LookupService.batchUpdateLookup(lookup);
+	$('#authTree').tree({
+		url : url,
+		method : 'get',
+		fit : true,
+		lines:true,
+		//checkbox:true,
+		onBeforeLoad:function(){
+		　　    //获取根节点
+		　　    var rooNode = $("#authTree").tree('getRoot');
+		　　    //调用expand方法
+		　　    $("#authTree").tree('expand',rooNode); 
+		},
+		formatter:function(node){
+			if(node.leaf){
+				// 叶子节点否?
+				node.iconCls = 'icon-reload';
+				node.state = 'closed';
+				$("#authTree").tree("expandAll",node.target);
 			}
-			//删除当前行
-			$("tr.template").detach();
-		});
-		
-		// 点击 Edit 按钮，插入编辑行
-		$(document).on('click', '#lookup_table .lookup_edit', function() {
-			var $tr = $(this).closest('tr');
-			var itemId = $tr.data('id');
-			var lookup = LookupService.findLookupById(itemId);
-			//删除当前行
-			LookupView.deleteLookupRow(itemId);
-			//插入编辑行
-			LookupView.insertLookupEditorRow(lookup.obj);
-			$(".actionbtn").toggleClass("l-btn-disabled");
-		});
-
-		// 点击 Delete 按钮，删除产品
-		$(document).on('click', '#lookup_remove', function() {
-			var chkValues =[];
-			$('input[name="classId"]:checked').each(function(){
-				var item = {classId:$(this).val()}
-				chkValues.push(item);
-			});
-			if(chkValues.length<1){
-				//
-				return;
+			var s = node.text;
+			if (node.children){
+				s += ' <span style="color:CCCCCC">(' + node.children.length + ')</span>';
 			}
-			if (confirm('Do you want to delete this Lookup?')) {
-				LookupService.deleteLookupRows(chkValues);
+			//s += '<span style="color:#FFFFFF;">&nbsp;<i class="fa fa-plus"></i></span>';
+			s += '<span class="removeNode" style="color:#FFFFFF;" onclick="doRemove()">&nbsp;<i class="fa fa-remove"></i></span>';
+			return s;
+		},onClick: function(node){
+			node.authName = node.text;
+			node.authId = node.id;
+			//node.parentId = pnode.id;
+			var pnode = $('#authTree').tree('getParent',node.target);
+			if(pnode!=null){
+				node.parentId = node.id;
 			}
-			return false;
-		});
-		
-		// 点击 Edit 按钮，弹出编辑产品对话框
-		$(document).on('click', '#lookup_table .lookup_item_edit', function() {
-			var $tr = $(this).closest('tr');
-			var itemId = $tr.data('id');
-			var codeText = $tr.find('td[data-name="classCode"]').text().trim();
-			var nameText = $tr.find('td[data-name="className"]').text().trim();
-			lookup = {classId:itemId,classCode:codeText,className:nameText};
-			//var lookup = LookupService.findLookupById(itemId);
-			LookupItemService.initLookupItems(lookup,function(){});
 			
-		});
-		// 点击 行cancel按钮，撤销编辑
-		$(document).on('click', '.lookup_edit_cancel', function() {
-			var $tr = $(this).closest('tr');
-			$tr.detach();
-			$("#lookup_create").removeClass("l-btn-disabled");
-			$("#lookup_modal_submit").addClass("l-btn-disabled");
-			
-		});
-
+			resetForm();
+			setFormValues(node);
+		},onLoadSuccess:function(node){
+	         $(".tree-title").mouseover(function(event){
+					/* console.info('mouseover',event);
+					console.info('mouseover',event.target);
+					console.info('mouseover',event.delegateTarget); */
+	         }); 
+	    },
+		/*
+		onBeforeLoad: function(node, param){
+		}, */
+		onBeforeExpand : function(node) {
+			if (node) {
+				$('#authTree').tree('options').url = baseUrl+"/"+node.id;
+			}
+		}
 	});
-</script>
-
-<!-- lookup classify script -->
-<script type="text/javascript">
+}
 	
-	validateItemRemoveBtn = function(){
-		var checkNum = $('input:checkbox[name=itemId]:checked').length;
-		if(checkNum>0){
-			$(".itemOptionbtn").removeClass("l-btn-disabled");
+	//过滤
+	function doSearch(value) {
+		alert('You input: ' + value);
+	}
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+    $('#parent_select_btn').on('click', function() {
+        var title = '上一级节点选择';
+        //NavigationView.renderNavigationModal(title, navigation);
+        var $modal = $('#parent_select_modal');
+        $modal.find('.modal-title').text(title);
+        $('#parent_select_modal').modal('show');
+    });
+	
+	//添加条目，如果parentId为空则是一级
+	function addItem() {
+		resetForm();
+		var node = $('#authTree').tree('getSelected');
+		console.warn('add node parent',node);
+		if(node!=null){
+			node.parentId=node.id;
 		}else{
-			$(".itemOptionbtn").addClass("l-btn-disabled");
+			node = {};
+			node.parentId=0;
 		}
-	}
-	
-	$(function() {
-	
-		//$(".itemActionbtn").removeClass("l-btn-disabled");
-		$(".itemOptionbtn").removeClass("l-btn-disabled");
-		$(".itemFormActionbtn").removeClass("l-btn-disabled");
 		
-	// 点击 Create 按钮，弹出创建产品对话框
-	lookupItemAdd = function() {
-		var lookupItem = {
-			itemId : 0,
-			itemCode : '',
-			classId : lookup.classId,
-			classCode : lookup.classCode,
-			itemName : '',
-			itemLan : '',
-			itemStatus : '',
-			remarks : '',
-			orderCode : 1
-		};
-
-		LookupItemView.insertLookupItemEditorRow(lookup.classCode,lookupItem);
-		$(".lookup_item_row_edit").addClass("l-btn-disabled");
-		$(".itemActionbtn").addClass("l-btn-disabled");
-		//$(".itemOptionbtn").removeClass("l-btn-disabled");
-		$(".itemFormActionbtn").removeClass("l-btn-disabled");
-		//$(".actionbtn").toggleClass("l-btn-disabled");
+		node.authId=0;
+		node.authName='';
+		node.authDesc='';
+		setFormValues(node);
 	}
 	
-	// 点击 Create 按钮，弹出创建产品对话框
-	lookupItemRemove = function() {
-		var chkValues =[];
-		$('input[name="itemId"]:checked').each(function(){
-			var item = {itemId:$(this).val()}
-			chkValues.push(item);
-		});
-		if(chkValues.length<1){
-			//
-			return;
-		}
-		if (confirm('Do you want to delete this Lookup?')) {
-			LookupItemService.batchRemoveLookupItem(lookup.classCode,chkValues);
+	//.tree-title .fa-remove
+	// 点击 Delete 按钮，删除产品
+	doRemove = function() {
+		var node = $("#authTree").tree("getSelected");
+		if(node){
+			var params = [{
+				authId:node.id
+			}];
+			
+			if (confirm('Do you want to delete this language?')) {
+				AuthoritiesService.batchRemoveAuthorities(params,function(){
+					$('#authTree').tree('remove', node.target);
+				});
+				
+			}
 		}
 		return false;
 	}
 	
-	// 点击 Create 按钮，弹出创建产品对话框
-	lookupItemSave = function() {
-		var id = $('#itemId').val();
-		var classId = $('#classId').val();
-		var lookupItem = [{
-			itemId : id,
-			itemCode : $('#itemCode').val().trim(),
-			classId : classId,
-			itemName : $('#itemName').val().trim(),
-			itemLan : $('#itemLan').val().trim(),
-			itemStatus : $('#itemStatus').val().trim(),
-			remarks : $('#remarks').val().trim(),
-			orderCode : $('#orderCode').val().trim(),
-		}];
-		if (id == 0) {
-			LookupItemService.batchInsertLookupItem(lookup.classCode,lookupItem);
-		} else {
-			LookupItemService.batchUpdateLookupItem(lookup.classCode,lookupItem);
+	//保存，含新增和修改
+	function doSave() {
+		var values = getFormValues();
+		console.info(values);
+		var selected = $('#authTree').tree('getSelected');
+		if(values.authId!=0){
+			AuthoritiesService.batchUpdateAuthorities([values],function(){
+				//更新
+				if (selected){
+					$('#authTree').tree('update', {
+						target: selected.target,
+						parentId: values.parentId,
+						authDesc: values.authDesc,
+						authId:values.authId,
+						authName:values.authName,
+						text: values.authName//,
+						//不用更新id:values.authId
+					});
+				}
+			});
+			//提交[values]
+		}else{
+			var result = AuthoritiesService.batchInsertAuthorities([values]);
+			for(var i=0;i<result.obj.length;i++){
+				result.obj[i].id = result.obj[i].authId;
+				result.obj[i].text = result.obj[i].authName;
+			}
+			if(selected==null){
+				selected = $('#authTree').tree('getRoot');
+				selected.id = 0;
+				selected.text='';
+			}
+			$('#authTree').tree('append', {
+				parent: selected.target,
+				data: result.obj
+			});
 		}
-		//删除当前行
-		$("tr.item_form_template").detach();
-		$(".itemActionbtn").removeClass("l-btn-disabled");
-		$(".itemFormActionbtn").addClass("l-btn-disabled");
-		$(".lookup_item_row_edit").removeClass("l-btn-disabled");
-		
+		resetForm();
 	}
 	
-	// 点击 行cancel按钮，撤销编辑
-	$(document).on('click', '.lookup_item_row_edit_cancel', function() {
-		var $tr = $(this).closest('tr');
-		var itemId = $('#itemId').val();
-		var lookupItem = LookupItemService.findLookupItemById(itemId);
-		//删除当前行
-		$tr.detach();
-		//插入编辑行
-		LookupItemView.insertLookupItemRow(lookup.classCode,lookupItem.obj);
-		$(".itemActionbtn").removeClass("l-btn-disabled");
-		$(".itemFormActionbtn").addClass("l-btn-disabled");
-		$(".lookup_item_row_edit").removeClass("l-btn-disabled");
-	});
-	
-	// 点击 行cancel按钮，撤销编辑
-	$(document).on('click', '.lookup_item_row_edit', function() {
-		var $tr = $(this).closest('tr');
-		var itemId = $tr.data('id');
-		var lookupItem = LookupItemService.findLookupItemById(itemId);
-		//删除当前行
-		$tr.detach();
-		//插入编辑行
-		LookupItemView.insertLookupItemEditorRow(lookup.classCode,lookupItem.obj);
-		$(".itemActionbtn").addClass("l-btn-disabled");
-		$(".itemFormActionbtn").removeClass("l-btn-disabled");
-		$(".lookup_item_row_edit").addClass("l-btn-disabled");
-	});
-	
-	// 点击 Create 按钮，弹出创建产品对话框
-	lookupItemBack = function() {
-		$('#Lookup_tt').tabs('close', lookup.className);
-		//LookupView.insertLookupEditorRow(lookup);
-		//$(".actionbtn").toggleClass("l-btn-disabled");
+	//重置表单
+	function resetForm() {
+		var values = {
+			authId:0,
+			authName:'',
+			parentId:0,
+			authDesc:''
+		};
+		setFormValues(values);
 	}
-});
+    filter = function(){
+    	/*$('#tt').tree({
+			filter: function(q, node){
+				return node.text.toLowerCase().indexOf(q.toLowerCase()) >= 0;
+			}
+		})*/
+    	$('#authTree').tree({
+            //url: '../services/authorities/authoritiesService/findAuthoritiesList',
+            loadFilter: function(data){
+                if (data.d){
+                    return data.d;
+                } else {
+                    return data;
+                }
+            }
+        });
+    }
+    
+    /*设置表单值*/
+    function getFormValues(){
+    	var values={};
+    	values.authId=$('input[name="authId"]').val();
+    	values.authName=$('input[name="authName"]').val();
+    	values.parentId=$('input[name="parentId"]').val();
+    	values.authDesc=$('#authDesc').val();
+    	return values;
+    }
+    
+    /*设置表单值*/
+    function setFormValues(values){
+    	$('input[name="authId"]').val(values.authId);
+    	$('input[name="authName"]').val(values.authName);
+    	$('input[name="parentId"]').val(values.parentId);
+    	$('#authDesc').val(values.authDesc);
+    }
+    
+    $(function() {
+		initRegTree();
+		console.info('添加一级节点有问题!');
+	})
 </script>
+
+<style>
+	.tree-title .fa-remove:hover{color:#F00;}
+	.my-form-group-row{/*border-top:6px #F90 solid;*/border-bottom: 2px #74c557 solid;background:#F0F2F8}
+</style>
+
 
 

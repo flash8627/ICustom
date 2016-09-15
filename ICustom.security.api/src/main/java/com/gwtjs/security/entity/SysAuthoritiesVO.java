@@ -1,6 +1,8 @@
 package com.gwtjs.security.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.gwtjs.common.entity.BaseResource;
@@ -16,6 +18,9 @@ public class SysAuthoritiesVO extends BaseResource {
 	private String authDesc;
 	private boolean enabled;
 	private boolean issys;
+	private long parentId;
+	private List<SysAuthoritiesVO> children = new ArrayList<SysAuthoritiesVO>();
+
 	private Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses = new HashSet<SysRolesAuthoritiesVO>(
 			0);
 	private Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources = new HashSet<SysAuthoritiesResourcesVO>(
@@ -24,8 +29,8 @@ public class SysAuthoritiesVO extends BaseResource {
 	public SysAuthoritiesVO() {
 	}
 
-	public SysAuthoritiesVO(long authId, String authName,
-			String authDesc, Boolean enabled, Boolean issys,
+	public SysAuthoritiesVO(long authId, String authName, String authDesc,
+			Boolean enabled, Boolean issys,
 			Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses,
 			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
 		super();
@@ -34,6 +39,23 @@ public class SysAuthoritiesVO extends BaseResource {
 		this.authDesc = authDesc;
 		this.enabled = enabled;
 		this.issys = issys;
+		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
+		this.sysAuthoritiesResources = sysAuthoritiesResources;
+	}
+
+	public SysAuthoritiesVO(long authId, String authName, String authDesc,
+			boolean enabled, boolean issys, long parentId,
+			List<SysAuthoritiesVO> children,
+			Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses,
+			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
+		super();
+		this.authId = authId;
+		this.authName = authName;
+		this.authDesc = authDesc;
+		this.enabled = enabled;
+		this.issys = issys;
+		this.parentId = parentId;
+		this.children = children;
 		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
 		this.sysAuthoritiesResources = sysAuthoritiesResources;
 	}
@@ -94,6 +116,22 @@ public class SysAuthoritiesVO extends BaseResource {
 	public void setSysAuthoritiesResources(
 			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
 		this.sysAuthoritiesResources = sysAuthoritiesResources;
+	}
+
+	public long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(long parentId) {
+		this.parentId = parentId;
+	}
+
+	public List<SysAuthoritiesVO> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SysAuthoritiesVO> children) {
+		this.children = children;
 	}
 
 }

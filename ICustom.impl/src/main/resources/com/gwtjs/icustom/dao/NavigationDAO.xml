@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
 <mapper namespace="com.gwtjs.icustom.dao.NavigationDAO">
+
 
 	<select id="selectByItemId" resultType="java.lang.Integer">
 		select
 		SYS_NAVIGATION_S.NEXTVAL
-		from DUAL 
+		from DUAL
 	</select>
-	
+
 	<select id="findNavigationTreeRoot" resultType="com.gwtjs.icustom.entity.NavigationVO">
-		<include refid="nav_base_column" /> 
-		where parent_id is null and rownum = 1 
+		<include refid="nav_base_column" />
+		where parent_id is null and rownum = 1
 	</select>
-	
+
 	<select id="selectByPrimaryKey" resultType="com.gwtjs.icustom.entity.NavigationVO">
 		<include refid="nav_base_column" />
 		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</select>
-	
+
 	<delete id="deleteByPrimaryKey">
 		delete from SYS_NAVIGATION_T
-		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
+		where ITEM_ID =
+		#{itemId,jdbcType=NUMERIC}
 	</delete>
-	
+
 	<insert id="insert" parameterType="com.gwtjs.icustom.entity.NavigationVO">
-		insert into SYS_NAVIGATION_T 
+		insert into SYS_NAVIGATION_T
 		(
-			ITEM_ID, 
-			ITEM_NAME, 
-			PARENT_ID,
-			ICON, 
-			URL, 
-			RESOURCE_TYPE, 
-			ORDER_CODE,
-			CREATED_USER, 
-			CREATED_DATE, 
-			UPDATE_LAST_USER,
-			UPDATE_LAST_DATE
+		ITEM_ID,
+		ITEM_NAME,
+		PARENT_ID,
+		ICON,
+		URL,
+		RESOURCE_TYPE,
+		ORDER_CODE,
+		CREATED_USER,
+		CREATED_DATE,
+		UPDATE_LAST_USER,
+		UPDATE_LAST_DATE
 		)
-		values 
+		values
 		(
-			#{itemId,jdbcType=NUMERIC},
-			#{itemName,jdbcType=VARCHAR},
-			#{parentId,jdbcType=NUMERIC},
-			#{icon,jdbcType=VARCHAR}, 
-			#{url,jdbcType=VARCHAR}, 
-			#{resourceType,jdbcType=INTEGER}, 
-			#{orderCode,jdbcType=NUMERIC},
-			#{createdUser,jdbcType=NUMERIC}, 
-			SYSDATE,
-			#{updateLastUser,jdbcType=NUMERIC},
-			SYSDATE
+		#{itemId,jdbcType=NUMERIC},
+		#{itemName,jdbcType=VARCHAR},
+		#{parentId,jdbcType=NUMERIC},
+		#{icon,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{resourceType,jdbcType=INTEGER},
+		#{orderCode,jdbcType=NUMERIC},
+		#{createdUser,jdbcType=NUMERIC},
+		SYSDATE,
+		#{updateLastUser,jdbcType=NUMERIC},
+		SYSDATE
 		)
 	</insert>
-	
+
 	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.NavigationVO">
 		insert into SYS_NAVIGATION_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -116,7 +118,7 @@
 			SYSDATE
 		</trim>
 	</insert>
-	
+
 	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.NavigationVO">
 		update SYS_NAVIGATION_T
 		<set>
@@ -150,115 +152,133 @@
 		</set>
 		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</update>
-	
+
 	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.NavigationVO">
-		update SYS_NAVIGATION_T
+		update
+		SYS_NAVIGATION_T
 		set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
 		PARENT_ID = #{parentId,jdbcType=NUMERIC},
-		ICON = #{icon,jdbcType=VARCHAR},
+		ICON =
+		#{icon,jdbcType=VARCHAR},
 		URL = #{url,jdbcType=VARCHAR},
-		RESOURCE_TYPE = #{resourceType,jdbcType=VARCHAR},
-		ORDER_CODE = #{orderCode,jdbcType=NUMERIC},
-		UPDATE_LAST_USER = #{updateLastUser,jdbcType=NUMERIC},
+		RESOURCE_TYPE =
+		#{resourceType,jdbcType=VARCHAR},
+		ORDER_CODE =
+		#{orderCode,jdbcType=NUMERIC},
+		UPDATE_LAST_USER =
+		#{updateLastUser,jdbcType=NUMERIC},
 		UPDATE_LAST_DATE = SYSDATE
-		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
+		where
+		ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</update>
 
 	<delete id="batchRemoveNavigationPks" parameterType="java.util.List">
-		DELETE FROM SYS_NAVIGATION_T WHERE ITEM_ID in 
-		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		DELETE FROM SYS_NAVIGATION_T WHERE ITEM_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
 			#{item}
 		</foreach>
 	</delete>
 	<!-- add -->
 	<insert id="batchInsert">
-		declare 
+		declare
 		<if test="list!=null and !list.isEmpty()">
-			begin 
+			begin
 			<foreach collection="list" item="item">
-				insert into SYS_NAVIGATION_T 
+				insert into SYS_NAVIGATION_T
 				(
-					ITEM_ID, 
-					ITEM_NAME, 
-					PARENT_ID,
-					ICON, 
-					URL, 
-					RESOURCE_TYPE, 
-					ORDER_CODE,
-					CREATED_USER, 
-					CREATED_DATE, 
-					UPDATE_LAST_USER,
-					UPDATE_LAST_DATE 
+				ITEM_ID,
+				ITEM_NAME,
+				PARENT_ID,
+				ICON,
+				URL,
+				RESOURCE_TYPE,
+				ORDER_CODE,
+				CREATED_USER,
+				CREATED_DATE,
+				UPDATE_LAST_USER,
+				UPDATE_LAST_DATE
 				)
-				values 
+				values
 				(
-					SYS_NAVIGATION_S.NEXTVAL, 
-					#{item.itemName,jdbcType=VARCHAR},
-					#{item.parentId,jdbcType=NUMERIC},
-					#{item.icon,jdbcType=VARCHAR}, 
-					#{item.url,jdbcType=VARCHAR}, 
-					#{item.resourceType,jdbcType=INTEGER}, 
-					#{item.orderCode,jdbcType=NUMERIC},
-					#{item.createdUser,jdbcType=NUMERIC}, 
-					SYSDATE,
-					#{item.updateLastUser,jdbcType=NUMERIC},
-					SYSDATE
+				SYS_NAVIGATION_S.NEXTVAL,
+				#{item.itemName,jdbcType=VARCHAR},
+				#{item.parentId,jdbcType=NUMERIC},
+				#{item.icon,jdbcType=VARCHAR},
+				#{item.url,jdbcType=VARCHAR},
+				#{item.resourceType,jdbcType=INTEGER},
+				#{item.orderCode,jdbcType=NUMERIC},
+				#{item.createdUser,jdbcType=NUMERIC},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMERIC},
+				SYSDATE
 				);
 			</foreach>
 		</if>
-		end; 
+		end;
 	</insert>
 	
 	<!-- 递归查询 暂时未启用 -->
 	<sql id="nav_tree_column">
 		SELECT T1.ITEM_ID itemId,
-              T1.ITEM_NAME itemName,
-              T1.PARENT_ID parentId,
-              nvl((select T2.item_name parentName FROM SYS_NAVIGATION_T T2 WHERE ITEM_ID = T1.PARENT_ID ),'') parentName,
-              T1.ICON icon,
-              T1.URL url,
-              T1.RESOURCE_TYPE resourceType,
-              (decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID = T1.ITEM_ID),0,0,1)) leaf,
-              (decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID = T1.ITEM_ID),0,'','[]')) children,
-              T1.ORDER_CODE orderCode,
-              T1.CREATED_USER createdUser,
-              T1.CREATED_DATE createdDate,
-              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
-              T1.UPDATE_LAST_USER updateLastUser,
-              T1.UPDATE_LAST_DATE updateLastDate,
-              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
-		FROM    SYS_NAVIGATION_T T1 
-		        START   WITH T1.PARENT_ID IS NULL 
-		        CONNECT BY  PRIOR  T1.ITEM_ID = PARENT_ID 
+		T1.ITEM_NAME itemName,
+		T1.PARENT_ID parentId,
+		nvl((select T2.item_name parentName FROM SYS_NAVIGATION_T T2 WHERE ITEM_ID =
+		T1.PARENT_ID AND ROWNUM=1),'') parentName,
+		T1.ICON icon,
+		T1.URL url,
+		T1.RESOURCE_TYPE resourceType,
+		(decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
+		T1.ITEM_ID),0,0,1)) leaf,
+		(decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
+		T1.ITEM_ID),0,'','[]')) children,
+		T1.ORDER_CODE orderCode,
+		T1.CREATED_USER createdUser,
+		T1.CREATED_DATE createdDate,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+		to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+		T1.UPDATE_LAST_USER updateLastUser,
+		T1.UPDATE_LAST_DATE updateLastDate,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+		to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
+		FROM
+		SYS_NAVIGATION_T T1
+		START WITH T1.PARENT_ID IS NULL
+		CONNECT BY PRIOR T1.ITEM_ID = PARENT_ID
 	</sql>
-	
+
 	<sql id="nav_base_column">
 		SELECT T1.ITEM_ID itemId,
-              T1.ITEM_NAME itemName,
-              T1.PARENT_ID parentId,
-              nvl((select T2.item_name parentName FROM SYS_NAVIGATION_T T2 WHERE ITEM_ID = T1.PARENT_ID ),'') parentName,
-              T1.ICON icon,
-              T1.URL url,
-              T1.RESOURCE_TYPE resourceType,
-              (decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID = T1.ITEM_ID),0,0,1)) leaf,
-              (decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID = T1.ITEM_ID),0,'','[]')) children,
-              T1.ORDER_CODE orderCode,
-              T1.CREATED_USER createdUser,
-              T1.CREATED_DATE createdDate,
-              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
-              T1.UPDATE_LAST_USER updateLastUser,
-              T1.UPDATE_LAST_DATE updateLastDate,
-              (nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU  WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
-         FROM SYS_NAVIGATION_T T1 
+		T1.ITEM_NAME itemName,
+		T1.PARENT_ID parentId,
+		nvl((select T2.item_name parentName FROM SYS_NAVIGATION_T T2 WHERE ITEM_ID =
+		T1.PARENT_ID AND ROWNUM=1),'') parentName,
+		T1.ICON icon,
+		T1.URL url,
+		T1.RESOURCE_TYPE resourceType,
+		(decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
+		T1.ITEM_ID),0,0,1)) leaf,
+		(decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
+		T1.ITEM_ID),0,'','[]')) children,
+		T1.ORDER_CODE orderCode,
+		T1.CREATED_USER createdUser,
+		T1.CREATED_DATE createdDate,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+		to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+		T1.UPDATE_LAST_USER updateLastUser,
+		T1.UPDATE_LAST_DATE updateLastDate,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+		to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
+		FROM SYS_NAVIGATION_T T1
 	</sql>
-	
+
 	<select id="findNavigationList" resultType="com.gwtjs.icustom.entity.NavigationVO">
 		<include refid="nav_base_column" />
-		 WHERE 1 = 1
+		WHERE 1 = 1
 		<if test="parentId != null">
 			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
 		</if>
-		ORDER BY T1.ORDER_CODE ASC 
+		ORDER BY T1.ORDER_CODE ASC
 	</select>
-	
+
 </mapper>

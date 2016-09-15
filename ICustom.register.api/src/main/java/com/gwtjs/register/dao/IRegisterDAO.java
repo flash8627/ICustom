@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.register.entity.RegisterVO;
-import com.gwtjs.register.entity.TreeVO;
+import com.gwtjs.register.entity.RegisterTreeVO;
 
 /**
  * 数据字典
@@ -23,13 +23,13 @@ public interface IRegisterDAO extends BaseSqlMapper<RegisterVO> {
 	RegisterVO findItem(@Param("regId")Integer regId);
 	
 	//
-	List<TreeVO> findRegisterList(RegisterVO record);
+	List<RegisterTreeVO> findRegisterList(RegisterVO record);
 	
 	//
 	List<RegisterVO> selectList(RegisterVO record,PagerVO page);
 	
 	//
-	List<TreeVO> findItems(TreeVO record);
+	List<RegisterTreeVO> findItems(RegisterTreeVO record);
 
 	//
 	int selectListCount(RegisterVO record,PagerVO page);
