@@ -13,9 +13,10 @@ public class SysRolesVO extends BaseResource {
 	private static final long serialVersionUID = 6350828764328566490L;
 	private long roleId;
 	private String roleName;
+	private String roleCode;
 	private String roleDesc;
-	private boolean enabled;
-	private boolean issys;
+	private int enabled;
+	private int issys;
 
 	// 系统用户，这层可以省
 	private Set<SysUsersRolesVO> sysUsersRoles = new HashSet<SysUsersRolesVO>(0);
@@ -23,12 +24,14 @@ public class SysRolesVO extends BaseResource {
 	private Set<SysRolesAuthoritiesVO> sysRolesAuthorities = new HashSet<SysRolesAuthoritiesVO>(
 			0);
 
-	public SysRolesVO(long roleId, String roleName, String roleDesc,
-			boolean enabled, boolean issys, Set<SysUsersRolesVO> sysUsersRoles,
+	public SysRolesVO(long roleId, String roleName, String roleCode,
+			String roleDesc, int enabled, int issys,
+			Set<SysUsersRolesVO> sysUsersRoles,
 			Set<SysRolesAuthoritiesVO> sysRolesAuthorities) {
 		super();
 		this.roleId = roleId;
 		this.roleName = roleName;
+		this.roleCode = roleCode;
 		this.roleDesc = roleDesc;
 		this.enabled = enabled;
 		this.issys = issys;
@@ -55,6 +58,22 @@ public class SysRolesVO extends BaseResource {
 		this.roleName = roleName;
 	}
 
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public int getIssys() {
+		return issys;
+	}
+
 	public String getRoleDesc() {
 		return roleDesc;
 	}
@@ -63,19 +82,11 @@ public class SysRolesVO extends BaseResource {
 		this.roleDesc = roleDesc;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
 
-	public boolean isIssys() {
-		return issys;
-	}
-
-	public void setIssys(boolean issys) {
+	public void setIssys(int issys) {
 		this.issys = issys;
 	}
 

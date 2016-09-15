@@ -1,4 +1,6 @@
 
+<link href="../css/content.css" rel="stylesheet">
+
 <div class="container">
 	<div class="page-header">
 		<h1>Role Manager</h1>
@@ -12,15 +14,15 @@
 				style="padding: 8px;">
 
 				<div class="form-group my-form-group" style="width: 36%;">
-					<label for="roleCode" style="width: 18%; text-align: right;">编码:</label>
+					<label for="formRoleName" style="width: 18%; text-align: right;">角色名称:</label>
 					<input type="text" class="form-control" style="width: 78%;"
-						placeholder="role code" id="roleCode">
+						placeholder="role code" id="formRoleName">
 				</div>
 
 				<div class="form-group my-form-group" style="width: 36%;">
-					<label for="roleName" style="width: 18%; text-align: right;">名称:</label>
+					<label for="formRoleDesc" style="width: 18%; text-align: right;">角色描述:</label>
 					<input type="text" class="form-control" style="width: 78%;"
-						placeholder="role name" id="roleName">
+						placeholder="role name" id="formRoleDesc">
 				</div>
 
 				<div class="form-group my-form-group form-search-btn-group"
@@ -81,15 +83,14 @@
 	</tr>
 </script>
 
-<!-- 表头 -->
+<!--角色****** 表头 -->
 <script type="text/x-handlebars-template" id="role_table_template">
 	<table class="table table-hover" id="role_table">
 		<thead>
 			<tr>
 				<th>选择</th>
-				<th>编码 <span class="required">*</span></th>
-				<th>名称 <span class="required">*</span></th>
-				<th>说明</th>
+				<th>角色名称 <span class="required">*</span></th>
+				<th>角色说明</th>
 				<th>排序码</th>
 				<th>创建用户</th>
 				<th>创建时间</th>
@@ -112,19 +113,17 @@
 <!-- 行模板 -->
 <script type="text/x-handlebars-template-partial"
 	id="role_table_tr_template">
-	<tr data-id="{{classId}}" data-name="classId">
+	<tr data-id="{{roleId}}" data-name="roleId">
 		<td>
 			<form>
 				<label class="checkbox-inline"> <input type="checkbox"
-					id="classId" name="classId" value="{{classId}}"
+					id="roleId" name="roleId" value="{{roleId}}"
 					onclick="validateRemoveBtn()">
 				</label>
 			</form>
 		</td>
-		<td data-id="{{classCode}}" data-name="classCode">
-			<a href="javascript:void(0);" class="role_item_edit">{{classCode}}</a></td>
-		<td data-id="{{className}}" data-name="className">{{className}}</td>
-		<td>{{classDesc}}</td>
+		<td data-id="{{roleName}}" data-name="roleName">{{roleName}}</td>
+		<td>{{roleDesc}}</td>
 		<td>{{orderCode}}</td>
 		<td>{{createdUser}}</td>
 		<td>{{createdDate}}</td>
@@ -132,7 +131,10 @@
 		<td>{{updateLastDate}}</td>
 		<td>
 			<button class="btn btn-xs btn-primary role_edit" title="Edit">
-				<i class="fa fa-fw fa-edit"></i>
+				<i class="fa fa-edit"></i>
+			</button>
+			<button class="btn btn-xs btn-primary role_gears" title="Edit">
+				<i class="fa fa-gears"></i>
 			</button>
 		</td>
 	</tr>
@@ -140,13 +142,12 @@
 
 <!-- 行编辑模板 -->
 <script type="text/x-handlebars-template" id="role_modal_form_template">
-    <tr data-id="{{classId}}" data-name="classId" class="template">
+    <tr data-id="{{roleId}}" data-name="roleId" class="template">
 		<td>
-			<input type="hidden" name="classId" id="classId" value="{{classId}}">&nbsp;
+			<input type="hidden" name="roleId" id="roleId" value="{{roleId}}">&nbsp;
 		</td>
-		<td><input type="text" value="{{classCode}}" id="classCode" class="form-control"></td>
-		<td><input type="text" value="{{className}}" id="className" class="form-control"></td>
-		<td><input type="text" value="{{classDesc}}" id="classDesc" class="form-control"></td>
+		<td><input type="text" value="{{roleName}}" id="roleName" class="form-control"></td>
+		<td><input type="text" value="{{roleDesc}}" id="roleDesc" class="form-control"></td>
 		<td><input type="text" value="{{orderCode}}" id="orderCode" class="form-control"></td>
 		<td>{{createdUser}}</td>
 		<td>{{createdDate}}</td>
@@ -173,7 +174,7 @@
 <script type="text/javascript">
 	
 	var validateRemoveBtn = function(){
-		var checkNum = $('input:checkbox[name=classId]:checked').length;
+		var checkNum = $('input:checkbox[name=roleId]:checked').length;
 		if(checkNum>0){
 			$(".optionbtn").removeClass("l-btn-disabled");
 		}else{
@@ -191,19 +192,23 @@
 
 		// 根据关键字查询产品
 		$('#role_search_form').on('submit', function() {
-			var keyword = $('#keyword').val().trim();
-			RoleService.findRolesByName(keyword);
+			var roleName = $('#roleName').val().trim();
+			var roleDesc = $('#roleDesc').val().trim();
+			var role = {
+				roleDesc:roleDesc,
+				roleName:roleName
+			};
+			RoleService.findRolesByName(role);
 			return false;
 		});
 		
 		// 点击 Create 按钮，弹出创建产品对话框
 		$('#role_create').on('click', function() {
 			var role = {
-				classId : 0,
-				classCode : '',
+				roleId : 0,
 				orderCode : 1,
-				className : '',
-				classDesc : ''
+				roleName : '',
+				roleDesc : ''
 			};
 			RoleView.insertRoleEditorRow(role);
 			$(".actionbtn").toggleClass("l-btn-disabled");
@@ -211,13 +216,12 @@
 
 		// 点击对话框中的 Save 按钮，创建或更新产品
 		$('#role_modal_submit').on('click', function() {
-			var id = $('#classId').val();
+			var id = $('#roleId').val();
 			var role = [{
-				classId : id,
-				classCode : $('#classCode').val().trim(),
+				roleId : id,
+				roleName : $('#roleName').val().trim(),
 				orderCode : $('#orderCode').val().trim(),
-				className : $('#className').val().trim(),
-				classDesc : $('#classDesc').val().trim()
+				roleDesc : $('#roleDesc').val().trim()
 			}];
 			if (id == 0) {
 				RoleService.batchInsertRole(role);
@@ -243,8 +247,8 @@
 		// 点击 Delete 按钮，删除产品
 		$(document).on('click', '#role_remove', function() {
 			var chkValues =[];
-			$('input[name="classId"]:checked').each(function(){
-				var item = {classId:$(this).val()}
+			$('input[name="roleId"]:checked').each(function(){
+				var item = {roleId:$(this).val()}
 				chkValues.push(item);
 			});
 			if(chkValues.length<1){
@@ -261,9 +265,9 @@
 		$(document).on('click', '#role_table .role_item_edit', function() {
 			var $tr = $(this).closest('tr');
 			var itemId = $tr.data('id');
-			var codeText = $tr.find('td[data-name="classCode"]').text().trim();
-			var nameText = $tr.find('td[data-name="className"]').text().trim();
-			role = {classId:itemId,classCode:codeText,className:nameText};
+			var roleDesc = $tr.find('td[data-name="roleDesc"]').text().trim();
+			var roleName = $tr.find('td[data-name="roleName"]').text().trim();
+			role = {roleId:itemId,roleDesc:roleDesc,roleName:roleName};
 			//var role = RoleService.findRoleById(itemId);
 			RoleItemService.initRoleItems(role,function(){});
 			
@@ -281,7 +285,4 @@
 </script>
 
 
-<style>
-	.my-form-group-row{border-top:6px #F90 solid;border-bottom: 6px #74c557 solid;background:#F0F2F8}
-</style>
 

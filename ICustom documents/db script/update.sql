@@ -291,7 +291,6 @@ alter table SYS_LANGUAGE_T
   add constraint SYS_LANGUAGE_UNIQUE unique (LAN_VALUE, LAN_TYPE)
   using index;
 
-
 -- Create table
 create table SYS_NAVIGATION_T
 (
@@ -388,17 +387,17 @@ create unique index USER_ACCOUNT_UNIQUE on SYS_USERS_T (USER_ACCOUNT);
 -- Create table
 create table SYS_RESOURCES_T
 (
-  resource_id     NUMBER(32) not null primary key,
-  resource_name   VARCHAR2(100),
-  resource_desc   VARCHAR2(1008),
-  resource_type   VARCHAR2(40),
-  parent_id       NUMBER(32),
-  icon             VARCHAR2(30),
-  res_url         VARCHAR2(1200),
-  priority        NUMBER(1),
-  enabled         NUMBER(1),
-  issys           NUMBER(1),
-  module          VARCHAR2(4),
+  resource_id      NUMBER(32) not null,
+  resource_name    VARCHAR2(100),
+  resource_desc    VARCHAR2(1008),
+  resource_type    VARCHAR2(40),
+  resource_string  VARCHAR2(200),
+  parent_id        NUMBER(32) default 0,
+  res_url          VARCHAR2(1200),
+  priority         NUMBER(1) default 1,
+  enabled          NUMBER(1) default 1,
+  issys            NUMBER(1) default 1,
+  module           VARCHAR2(4),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
   attribute3       VARCHAR2(100),
@@ -414,18 +413,26 @@ create table SYS_RESOURCES_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
+  valid_flag       NUMBER(1) default 1,
+  icon             VARCHAR2(30)
 );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SYS_RESOURCES_T
+  add primary key (RESOURCE_ID)
+  using index;
+alter table SYS_RESOURCES_T
+  add constraint SYS_RESOURCE_TREE_UNIQUE unique (RESOURCE_NAME, PARENT_ID)
+  using index;
 
--- Create table
 create table SYS_ROLES_T
 (
-  role_id   NUMBER(32) not null primary key,
-  role_name VARCHAR2(40) unique,
-  role_desc VARCHAR2(1008),
-  enabled   NUMBER(1),
-  issys     NUMBER(1),
-  module    VARCHAR2(4),
+  role_id          NUMBER(32) not null primary key,
+  role_name        VARCHAR2(40) unique,
+  role_code        VARCHAR2(100) unique,
+  role_desc        VARCHAR2(1008),
+  enabled          NUMBER(1),
+  issys            NUMBER(1),
+  module           VARCHAR2(4),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
   attribute3       VARCHAR2(100),

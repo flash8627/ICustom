@@ -34,12 +34,12 @@ var RoleView = function() {
             var html = generateRoleTrEditorHtml(item);
             $('#role_table').find('tbody').prepend(html);
         },
-        deleteRoleRow: function(classId) {
-            $('#role_table').find('tbody').find('tr[data-id="' + classId + '"]').remove();
+        deleteRoleRow: function(roleId) {
+            $('#role_table').find('tbody').find('tr[data-id="' + roleId + '"]').remove();
         },
         deleteRoleRows: function(items) {
             for(var nav in items){
-            	$('#role_table').find('tbody').find('tr[data-id="' + items[nav].classId + '"]').remove();
+            	$('#role_table').find('tbody').find('tr[data-id="' + items[nav].roleId + '"]').remove();
             }
         }
     };

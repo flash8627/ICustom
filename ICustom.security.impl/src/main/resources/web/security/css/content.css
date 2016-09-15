@@ -1,0 +1,88 @@
+
+.row-table{background:#666;}
+.row-table tr th {background:#F1F2F8;height:36px;color:#666;font-weight: bold;text-indent: 6px;}
+.row-table tr td {background:#FFF;text-indent: 6px;}
+
+.editCur{background:#DDD;color:#FFF;}
+.h_grid_tr td{line-height: 100%;vertical-align:middle;/*设置垂直居中*/}
+
+.row-table {
+	background: #666;
+}
+
+.row-table tr th {
+	background: #F1F2F8;
+	height: 36px;
+	color: #666;
+	font-weight: bold;
+	text-indent: 6px;
+}
+
+.row-table tbody tr td {
+	background: #FFF;
+	text-indent: 6px;
+	vertical-align:middle;/*设置垂直居中*/
+}
+
+.required {
+	color: #F00;
+}
+
+.row-table table, .row-table td {
+	margin: 0;
+	padding: 0;
+	vertical-align: middle;
+	text-align: left;
+	vertical-align:middle;/*设置垂直居中*/
+}
+
+.row-table tbody {
+	border-top: 1px solid #DDD;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+}
+
+.row-table tbody td {
+	background-color: #DFC;
+	border-bottom: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+	padding: 9px;
+	vertical-align:middle;/*设置垂直居中*/
+}
+
+.row-table td {
+	font-weight: bold;
+	padding: 4px 8px 6px 9px;
+	text-align: center;
+	vertical-align:middle;/*设置垂直居中*/
+}
+
+.row-table thead th {
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 19px;
+	padding: 0 8px 2px;
+	text-align: center;
+}
+
+.tabs-title {
+	width: 138px;
+}
+.row-table tfoot{
+	background-color: #DDD;
+	border-bottom: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+	padding: 9px;
+	vertical-align:middle;/*设置垂直居中*/
+}
+.row-table tfoot td {
+	background-color: #DDD;
+	border: 1px d #DDD;
+	padding: 9px;
+	vertical-align:middle;/*设置垂直居中*/
+}
+
+.row-table tfoot span{
+	width:3em;height:1em;padding:3px;background:#FFF;
+}
+.my-form-group-row{border-top:6px #F90 solid;border-bottom: 6px #74c557 solid;background:#F0F2F8}

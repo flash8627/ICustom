@@ -25,7 +25,7 @@ public interface IRolesService {
 	
 	@GET
 	@Path("findListRecords/{pageSize}/{curPage}")
-	public PagedResult<SysRolesVO> findListRecords(@QueryParam("")SysRolesVO record, @PathParam("")PagerVO page);
+	PagedResult<SysRolesVO> findListRecords(@QueryParam("")SysRolesVO record, @PathParam("")PagerVO page);
 	
 	@GET @Path("findItem/{roleId}")
 	ResultWrapper findItem(@PathParam("roleId")long roleId);

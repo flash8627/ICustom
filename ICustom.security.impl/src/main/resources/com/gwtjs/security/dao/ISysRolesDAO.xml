@@ -19,7 +19,8 @@
 	
 	<sql id="Base_Column_List">
 		ROLE_ID 		 roleId,
-		ROLE_NAME        roleName,    
+		ROLE_NAME        roleName, 
+		ROLE_CODE        roleCode,    
 		ROLE_DESC        roleDesc,
 		ENABLED          enabled, 
 		ISSYS            issys,
@@ -77,6 +78,9 @@
 		<if test='_parameter.get("0").roleName != null'>
 			AND T1.ROLE_NAME LIKE ('%'||#{0.roleName,jdbcType=VARCHAR}||'%')
 		</if>
+		<if test='_parameter.get("0").roleCode != null'>
+			AND upper(T1.ROLE_CODE) LIKE ('%'||upper(#{0.roleCode,jdbcType=VARCHAR})||'%')
+		</if>
 		<if test='_parameter.get("0").roleDesc != null'>
 			AND T1.ROLE_DESC LIKE ('%'||#{0.roleDesc,jdbcType=VARCHAR}||'%')
 		</if>
@@ -109,6 +113,7 @@
 				SYS_ROLES_T
 				SET
 					ROLE_NAME  =  #{item.roleName,jdbcType=VARCHAR},
+					ROLE_CODE  =  #{item.roleCode,jdbcType=VARCHAR},
 					ROLE_DESC =   #{item.roleDesc,jdbcType=VARCHAR},
 					ENABLED   =   #{item.enabled,jdbcType=INTEGER},
 					ISSYS    =   #{item.issys,jdbcType=INTEGER},
@@ -140,7 +145,8 @@
 				SYS_ROLES_T
 				(
 					ROLE_ID,                          
-					ROLE_NAME,                         
+					ROLE_NAME,
+					ROLE_CODE, 
 					ROLE_DESC,                         
 					ENABLED,                         
 					ISSYS,                           
@@ -165,6 +171,7 @@
 				(
 					SYS_ROLES_S.NEXTVAL,
 					#{item.roleName,jdbcType=VARCHAR},
+					#{item.roleCode,jdbcType=VARCHAR},
 					#{item.roleDesc,jdbcType=VARCHAR},
 					#{item.enabled,jdbcType=INTEGER},
 					#{item.issys,jdbcType=INTEGER},
