@@ -1,45 +1,48 @@
-var LookupView = function() {
-    var generateLookupTableTrHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_table_tr_template', item);
+var UserView = function() {
+    var generateUserTableTrHtml = function(item) {
+        return TemplateUtil.renderHtml('user_table_tr_template', item);
     };
-    var generateLookupTrEditorHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_modal_form_template', item);
+    var generateUserTrEditorHtml = function(item) {
+        return TemplateUtil.renderHtml('user_modal_form_template', item);
     };
-    var generateLookupPagerHtml = function(item) {
-        return TemplateUtil.renderHtml('lookup_table_pager_template', item);
+    var generateUserPagerHtml = function(item) {
+        return TemplateUtil.renderHtml('user_table_pager_template', item);
     };
     return {
-        renderLookupTable: function(items) {
-            TemplateUtil.registerPartical('tr', 'lookup_table_tr_template');
-            var html = TemplateUtil.renderHtml('lookup_table_template', {
+        renderUserTable: function(items) {
+            TemplateUtil.registerPartical('tr', 'user_table_tr_template');
+            var html = TemplateUtil.renderHtml('user_table_template', {
                 data: items
             });
-            $('#lookup_list').html(html);
+            $('#user_list').html(html);
         },
-        renderLookupTablePager: function(pager) {
-        	var html = generateLookupPagerHtml(pager);
-            $('#lookup_list').find('tfoot').html(html);
+        renderUserTablePager: function(pager) {
+        	var html = generateUserPagerHtml(pager);
+            $('#user_list').find('tfoot').html(html);
         },
-        insertLookupRow: function(item) {
-            var html = generateLookupTableTrHtml(item);
-            $('#lookup_table').find('tbody').prepend(html);
+        insertUserRow: function(item) {
+            var html = generateUserTableTrHtml(item);
+            $('#user_table').find('tbody').prepend(html);
         },
-        insertLookupRows: function(items) {
+        insertUserRows: function(items) {
         	 for(var i=0;i<items.length;i++){
-             	var html = generateLookupTableTrHtml(items[i]);
-                $('#lookup_table').find('tbody').prepend(html);
+             	var html = generateUserTableTrHtml(items[i]);
+                $('#user_table').find('tbody').prepend(html);
              }
         },
-        insertLookupEditorRow: function(item) {
-            var html = generateLookupTrEditorHtml(item);
-            $('#lookup_table').find('tbody').prepend(html);
+        insertUserEditorRow: function(item) {
+            var html = generateUserTrEditorHtml(item);
+            $('#user_table').find('tbody').prepend(html);
+            $('#user_table').find('.user_form_template .easyui-datebox').datebox({
+                required:false
+            });
         },
-        deleteLookupRow: function(classId) {
-            $('#lookup_table').find('tbody').find('tr[data-id="' + classId + '"]').remove();
+        deleteUserRow: function(userId) {
+            $('#user_table').find('tbody').find('tr[data-id="' + userId + '"]').remove();
         },
-        deleteLookupRows: function(items) {
+        deleteUserRows: function(items) {
             for(var nav in items){
-            	$('#lookup_table').find('tbody').find('tr[data-id="' + items[nav].classId + '"]').remove();
+            	$('#user_table').find('tbody').find('tr[data-id="' + items[nav].userId + '"]').remove();
             }
         }
     };

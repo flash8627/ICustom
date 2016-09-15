@@ -1,34 +1,34 @@
-var LookupService = function() {
-    var BASE = '../services/lookup/lookupClassifyService';
+var UserService = function() {
+    var BASE = '../../services/sys/userServices';
     return {
-    	findLookups: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findLookupList/10/1', function(list) {
-                LookupView.renderLookupTable(list.result);
-                LookupView.renderLookupTablePager(list.result);
+    	findUsers: function(callback) {
+            AjaxUtil.sendGetRequest(BASE + '/findUserList/10/1', function(list) {
+                UserView.renderUserTable(list.result);
+                UserView.renderUserTablePager(list.result);
                 callback();
             });
         },
-        findLookupById: function(itemId) {
+        findUserById: function(itemId) {
         	var result = {};
-            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(lookup) {
-            	result = lookup;
+            AjaxUtil.sendGetAsyncRequest(BASE + '/findItem/' + itemId, function(user) {
+            	result = user;
             	return result;
             });
             return result;
         },
-        batchInsertLookup: function(items) {
+        batchInsertUser: function(items) {
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
+                UserView.insertUserRows(result.obj);
             });
         },
-        batchUpdateLookup: function(items) {
+        batchUpdateUser: function(items) {
             AjaxUtil.sendPutData(BASE + '/batchUpdate', items, function(result) {
-                LookupView.insertLookupRows(result.obj);
+                UserView.insertUserRows(result.obj);
             });
         },
-        deleteLookupRows: function(items) {
+        deleteUserRows: function(items) {
             AjaxUtil.sendPutData(BASE + '/batchRemovePks',items, function() {
-                LookupView.deleteLookupRows(items);
+                UserView.deleteUserRows(items);
             });
         }
     }

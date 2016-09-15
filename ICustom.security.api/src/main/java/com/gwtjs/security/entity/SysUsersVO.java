@@ -22,8 +22,25 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 	 * 
 	 */
 	private static final long serialVersionUID = -601015534390564069L;
-	
-	
+
+	private long userId;
+	private String userAccount;
+	private String username;
+	private String password;
+	private String userDesc;
+	private int userEnabled;
+	private int issys;
+	private String userDept;
+	private String userDuty;
+	private String subSystem;
+	private Date validStart;// 有效期开始
+	private Date validEnd;// 有效期结束
+	// 一个用户具有多个角色。
+	private Set<SysUsersRolesVO> sysUsersRoleses = new HashSet<SysUsersRolesVO>(
+			0);
+
+	private Set<GrantedAuthority> authorities;
+
 	@Override
 	public long getUserId() {
 		// TODO Auto-generated method stub
@@ -41,7 +58,7 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 		// TODO Auto-generated method stub
 		return username;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
@@ -54,16 +71,12 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 		return userDesc;
 	}
 
-	@Override
-	public boolean getEnabled() {
-		// TODO Auto-generated method stub
-		return enabled;
+	public int getIssys() {
+		return issys;
 	}
 
-	@Override
-	public boolean getIssys() {
-		// TODO Auto-generated method stub
-		return issys;
+	public String getSubSystem() {
+		return subSystem;
 	}
 
 	@Override
@@ -76,12 +89,6 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 	public String getUserDuty() {
 		// TODO Auto-generated method stub
 		return userDuty;
-	}
-
-	@Override
-	public String getSubSystem() {
-		// TODO Auto-generated method stub
-		return subSystem;
 	}
 
 	@Override
@@ -111,26 +118,16 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return enabled;
+		return userEnabled==1?true:false;
 	}
 
-	private Set<GrantedAuthority> authorities;
-	
+	public int getUserEnabled() {
+		return userEnabled;
+	}
 
-	private long userId;
-	private String userAccount;
-	private String password;
-	private String username;
-	private String userDesc;
-	private boolean enabled;
-	private boolean issys;
-	private String userDept;
-	private String userDuty;
-	private String subSystem;
-	private Date validStart;// 有效期开始
-	private Date validEnd;// 有效期结束
-	// 一个用户具有多个角色。
-	private Set<SysUsersRolesVO> sysUsersRoleses = new HashSet<SysUsersRolesVO>(0);
+	public void setUserEnabled(int userEnabled) {
+		this.userEnabled = userEnabled;
+	}
 
 	public Date getValidStart() {
 		return validStart;
@@ -168,11 +165,7 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 		this.userDesc = userDesc;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public void setIssys(boolean issys) {
+	public void setIssys(int issys) {
 		this.issys = issys;
 	}
 
@@ -207,16 +200,16 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 	public void setAuthorities(Collection<GrantedAuthority> authorities) {
 		this.authorities = (Set<GrantedAuthority>) authorities;
 	}
-	
+
 	public SysUsersVO() {
 
 	}
-	
+
 	public SysUsersVO(Set<GrantedAuthority> authorities,
 			boolean accountNonExpired, boolean accountNonLocked,
 			boolean credentialsNonExpired, long userId, String userAccount,
-			String password, String username, String userDesc, boolean enabled,
-			boolean issys, String userDept, String userDuty, String subSystem,
+			String password, String username, String userDesc, int userEnabled,
+			int issys, String userDept, String userDuty, String subSystem,
 			Date validStart, Date validEnd, Set<SysUsersRolesVO> sysUsersRoleses) {
 		super();
 		if (((userAccount == null) || "".equals(userAccount))
@@ -231,7 +224,7 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 		this.password = password;
 		this.username = username;
 		this.userDesc = userDesc;
-		this.enabled = enabled;
+		this.userEnabled = userEnabled;
 		this.issys = issys;
 		this.userDept = userDept;
 		this.userDuty = userDuty;

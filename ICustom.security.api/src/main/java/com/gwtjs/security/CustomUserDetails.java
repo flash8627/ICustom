@@ -29,19 +29,13 @@ public interface CustomUserDetails extends UserDetails {
 	public String getUserDesc();
 
 	// 用户是否能用
-	public boolean getEnabled();
-
-	// 是否超级用户
-	public boolean getIssys();
+	public boolean isEnabled();
 
 	// 所属的单位
 	public String getUserDept();
 
 	// 用户职位
 	public String getUserDuty();
-
-	// 用户分管的子系统
-	public String getSubSystem();
 
 	// 用户相对应的角色集
 	public Set<SysUsersRolesVO> getSysUsersRoleses();
