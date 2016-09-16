@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:jdbc.oracle.properties</value>
+		</property>
+	</bean>
+	
+    <!-- 注解探测器 -->
+	<context:component-scan base-package="com.gwtjs.*.services.impl" />
+	
+	<!-- 配置DataSource数据源 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${mybatis.connection.driver_class}" />
+		<property name="url" value="${mybatis.connection.url}" />
+		<property name="username" value="${mybatis.connection.username}" />
+		<property name="password" value="${mybatis.connection.password}" />
+	</bean>
+
+	<!-- 配置SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis.xml" />
+		<!-- mapper和resultmap配置路径 -->
+		<property name="mapperLocations">
+			<list>
+				<!-- 表示在com.gwtjs.resultmap包或以下所有目录中，以-resultmap.xml结尾所有文件 -->
+				<value>classpath:com/gwtjs/**/dao/**/*-resultmap.xml</value>
+				<value>classpath:com/gwtjs/**/dao/*-resultmap.xml</value>
+				<value>classpath:com/gwtjs/**/dao/**/*-mapper.xml</value>
+				<!-- DAO -->
+				<value>classpath:com/gwtjs/**/dao/**/*DAO.xml</value>
+				<value>classpath:com/gwtjs/**/dao/*DAO.xml</value>
+				<!-- dao -->
+				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
+				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 配置事务的传播特性 -->
+	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="edit*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="del*">PROPAGATION_REQUIRED</prop>
+				<prop key="*">readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 通过扫描的模式，扫描目录在com/gwtjs/mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.gwtjs.*.dao" />
+		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
+	</bean>
+
+</beans>

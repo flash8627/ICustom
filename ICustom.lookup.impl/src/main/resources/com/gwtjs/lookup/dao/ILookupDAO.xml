@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.lookup.dao.ILookupDAO">
-	
+
+	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="true" />
+	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期 
+		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
+
 	<select id="findByItem" resultType="com.gwtjs.lookup.entity.LookupVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_CLASSIFY_T T1 
-		where T1.VALID_FLAG=1 AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR} AND T1.CLASS_CODE = #{classCode,jdbcType=VARCHAR}
+		FROM SYS_LOOKUP_CLASSIFY_T T1
+		where T1.VALID_FLAG=1 AND T1.CLASS_NAME = #{className,jdbcType=VARCHAR} AND
+		T1.CLASS_CODE = #{classCode,jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="findItem" resultType="com.gwtjs.lookup.entity.LookupVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_LOOKUP_CLASSIFY_T T1 
+		FROM SYS_LOOKUP_CLASSIFY_T T1
 		where T1.VALID_FLAG=1 AND T1.CLASS_ID = #{classId,jdbcType=NUMERIC}
 	</select>
-	
+
 	<sql id="Base_Column_List">
 		CLASS_ID classId,
 		CLASS_NAME className,
@@ -38,7 +43,7 @@
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
 	</sql>
-	
+
 	<select id="selectList" parameterType="hashmap"
 		resultType="com.gwtjs.lookup.entity.LookupVO">
 		<include refid="page_st" />
@@ -47,7 +52,7 @@
 		FROM SYS_LOOKUP_CLASSIFY_T T1
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
-		ORDER BY CLASS_ID DESC 
+		ORDER BY CLASS_ID DESC
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
 		<include refid="page_et" />
 	</select>
@@ -69,7 +74,8 @@
 			AND T1.CLASS_NAME = #{0.className,jdbcType=VARCHAR}
 		</if>
 		<if test='_parameter.get("0").classCode != null'>
-			AND T1.CLASS_CODE LIKE ('%'||#{0.classCode,jdbcType=VARCHAR}||'%')
+			AND T1.CLASS_CODE LIKE
+			('%'||#{0.classCode,jdbcType=VARCHAR}||'%')
 		</if>
 
 	</sql>
@@ -94,11 +100,15 @@
 				SYS_LOOKUP_CLASSIFY_T
 				SET
 				CLASS_NAME = #{item.className,jdbcType=VARCHAR},
-				CLASS_CODE = #{item.classCode,jdbcType=VARCHAR},
-				CLASS_DESC = #{item.classDesc,jdbcType=VARCHAR},
-				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
-				UPDATE_LAST_DATE = SYSDATE 
+				CLASS_CODE =
+				#{item.classCode,jdbcType=VARCHAR},
+				CLASS_DESC =
+				#{item.classDesc,jdbcType=VARCHAR},
+				ORDER_CODE =
+				#{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER =
+				#{item.updateLastUser,jdbcType=NUMERIC},
+				UPDATE_LAST_DATE = SYSDATE
 				where CLASS_ID = #{item.classId,jdbcType=NUMERIC};
 			</foreach>
 			end;
@@ -113,9 +123,9 @@
 				INSERT into
 				SYS_LOOKUP_CLASSIFY_T
 				(
-				CLASS_ID, 
+				CLASS_ID,
 				CLASS_NAME,
-				CLASS_CODE, 
+				CLASS_CODE,
 				CLASS_DESC,
 				ORDER_CODE,
 				CREATED_USER,
