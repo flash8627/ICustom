@@ -67,6 +67,8 @@ var viewGrid = function(resourceId) {
 		}, {
 			title : '图标',field : 'icon',	width : 120,editor : 'text'
 		}, {
+			title : '启用',field : 'enabled',	width : 120,editor : 'checkbox'
+		}, {
 			title : '说明',field : 'resourceDesc',	width : 120,editor : 'text'
 		}, {
 			title : '资源类型',field : 'resourceType',	width : 120,editor :{

@@ -311,6 +311,7 @@ alter table SYS_NAVIGATION_T
   add constraint SYS_NAVIGATION_T_UNIQUE unique (parent_id, item_name)
   using index;
 
+/* 权限表 开始　 */
 -- Create table
 create table SYS_USERS_T
 (
@@ -321,8 +322,8 @@ create table SYS_USERS_T
   user_desc        VARCHAR2(998),
   valid_start      DATE,
   valid_end        DATE,
-  enabled          NUMBER(1),
-  issys            NUMBER(1),
+  enabled        INTEGER default 1,
+  issys          INTEGER default 0,
   user_dept        VARCHAR2(20),
   user_duty        VARCHAR2(10),
   sub_system       VARCHAR2(30),
@@ -341,7 +342,7 @@ create table SYS_USERS_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
+  valid_flag       INTEGER default 1
 );
 -- Add comments to the table 
 comment on table SYS_USERS_T
@@ -394,11 +395,12 @@ create table SYS_RESOURCES_T
   resource_desc    VARCHAR2(1008),
   resource_type    VARCHAR2(40),
   resource_string  VARCHAR2(200),
+  icon             VARCHAR2(30),
   parent_id        NUMBER(32) default 0,
   res_url          VARCHAR2(1200),
   priority         NUMBER(1) default 1,
-  enabled          NUMBER(1) default 1,
-  issys            NUMBER(1) default 1,
+  enabled        INTEGER default 1,
+  issys          INTEGER default 0,
   module           VARCHAR2(4),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
@@ -415,8 +417,7 @@ create table SYS_RESOURCES_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1,
-  icon             VARCHAR2(30)
+  valid_flag       INTEGER default 1
 );
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table SYS_RESOURCES_T
@@ -425,77 +426,21 @@ alter table SYS_RESOURCES_T
 alter table SYS_RESOURCES_T
   add constraint SYS_RESOURCE_TREE_UNIQUE unique (RESOURCE_NAME, PARENT_ID)
   using index;
-
-create table SYS_ROLES_T
-(
-  role_id          NUMBER(32) not null primary key,
-  role_name        VARCHAR2(40) unique,
-  role_code        VARCHAR2(100) unique,
-  role_desc        VARCHAR2(1008),
-  enabled          NUMBER(1),
-  issys            NUMBER(1),
-  module           VARCHAR2(4),
-  attribute1       VARCHAR2(100),
-  attribute2       VARCHAR2(100),
-  attribute3       VARCHAR2(100),
-  attribute4       VARCHAR2(100),
-  attribute5       VARCHAR2(100),
-  attribute6       VARCHAR2(100),
-  attribute7       VARCHAR2(100),
-  attribute8       VARCHAR2(100),
-  attribute9       VARCHAR2(100),
-  attribute10      VARCHAR2(100),
-  order_code       INTEGER default 1,
-  created_user     NUMBER,
-  created_date     DATE default SYSDATE,
-  update_last_user NUMBER,
-  update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
-);
-
--- Create table
-create table SYS_ROLES_AUTHORITIES_T
-(
-  id           NUMBER(32) not null primary key,
-  role_id      VARCHAR2(32),
-  authority_id VARCHAR2(32),
-  enabled      NUMBER(1)
-);
-
--- Create table
-create table SYS_USERS_ROLES_T
-(
-  id      NUMBER(32) not null primary key,
-  user_id VARCHAR2(32),
-  role_id VARCHAR2(32),
-  USERS_ROLES_enabled NUMBER(1),
-  remarks          VARCHAR2(308),
-  attribute1       VARCHAR2(100),
-  attribute2       VARCHAR2(100),
-  attribute3       VARCHAR2(100),
-  attribute4       VARCHAR2(100),
-  attribute5       VARCHAR2(100),
-  attribute6       VARCHAR2(100),
-  attribute7       VARCHAR2(100),
-  attribute8       VARCHAR2(100),
-  attribute9       VARCHAR2(100),
-  attribute10      VARCHAR2(100),
-  order_code       INTEGER default 1,
-  created_user     NUMBER,
-  created_date     DATE default SYSDATE,
-  update_last_user NUMBER,
-  update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
-);
-
+comment on table SYS_RESOURCES_T
+   is '资源表';
+ comment on column SYS_RESOURCES_T.PRIORITY
+   is '（暂不用，保留）';
+ comment on column SYS_RESOURCES_T.MODULE
+   is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。 （暂不用，保留）';
+   
 -- Create table
 create table SYS_AUTHORITIES_T
 (
-  auth_id   NUMBER(32) not null primary key,
-  auth_name VARCHAR2(40),
-  auth_desc VARCHAR2(1008),
-  enabled        NUMBER(1),
-  issys          NUMBER(1),
+  auth_id          NUMBER(32) not null primary key,
+  auth_name        VARCHAR2(40),
+  auth_desc        VARCHAR2(1008),
+  enabled        INTEGER default 1,
+  issys          INTEGER default 0,
   module         VARCHAR2(4),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
@@ -512,17 +457,70 @@ create table SYS_AUTHORITIES_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
+  valid_flag       INTEGER default 1
 );
+comment on table SYS_AUTHORITIES_T
+   is '权限表';
+ comment on column SYS_AUTHORITIES_T.MODULE
+   is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。';
 
 
--- Create table
-create table SYS_AUTHORITIES_RESOURCES_T
+create table SYS_ROLES_T
+(
+  role_id          NUMBER(32) not null primary key,
+  role_name        VARCHAR2(40) unique,
+  role_code        VARCHAR2(100) unique,
+  role_desc        VARCHAR2(1008),
+  enabled        INTEGER default 1,
+  issys          INTEGER default 0,
+  module           VARCHAR2(4),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       INTEGER default 1
+);
+ comment on table SYS_ROLES_T
+   is '角色表';
+ comment on column SYS_ROLES_T.MODULE
+   is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。';
+
+--中间表 或关系表 Create table
+create table SYS_ROLES_AUTHORITIES_T
 (
   id           NUMBER(32) not null primary key,
-  authority_id VARCHAR2(32),
-  resource_id  VARCHAR2(32),
-  AUTHORITIES_RESOURCES_enabled      NUMBER(1),
+  role_id      NUMBER(32),
+  auth_id      NUMBER(32),
+  enabled        INTEGER default 1
+);
+comment on table SYS_ROLES_AUTHORITIES_T
+   is '角色权限表';
+
+ alter table SYS_ROLES_AUTHORITIES_T
+   add constraint FK_PUB_ROLES_AUTHORITIES_AU foreign key (AUTH_ID)
+   references SYS_AUTHORITIES_T (AUTH_ID);
+ alter table SYS_ROLES_AUTHORITIES_T
+   add constraint FK_PUB_ROLES_AUTHORITIES_ROLES foreign key (ROLE_ID)
+   references SYS_ROLES_T (ROLE_ID);
+   
+-- Create table
+create table SYS_USERS_ROLES_T
+(
+  id                      NUMBER(32) not null primary key,
+  user_id                 VARCHAR2(32),
+  role_id                 VARCHAR2(32),
+  enabled                 INTEGER default 1,
   remarks          VARCHAR2(308),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
@@ -539,11 +537,46 @@ create table SYS_AUTHORITIES_RESOURCES_T
   created_date     DATE default SYSDATE,
   update_last_user NUMBER,
   update_last_date DATE default SYSDATE,
-  valid_flag       NUMBER(1) default 1
+  valid_flag       INTEGER default 1
 );
 
-
 -- Create table
+create table SYS_AUTHORITIES_RESOURCES_T
+(
+  id               NUMBER(32) not null primary key,
+  AUTH_ID          NUMBER(32),
+  RESOURCE_ID      NUMBER(32),
+  enabled        INTEGER default 1,
+  remarks          VARCHAR2(308),
+  attribute1       VARCHAR2(100),
+  attribute2       VARCHAR2(100),
+  attribute3       VARCHAR2(100),
+  attribute4       VARCHAR2(100),
+  attribute5       VARCHAR2(100),
+  attribute6       VARCHAR2(100),
+  attribute7       VARCHAR2(100),
+  attribute8       VARCHAR2(100),
+  attribute9       VARCHAR2(100),
+  attribute10      VARCHAR2(100),
+  order_code       INTEGER default 1,
+  created_user     NUMBER,
+  created_date     DATE default SYSDATE,
+  update_last_user NUMBER,
+  update_last_date DATE default SYSDATE,
+  valid_flag       INTEGER default 1
+);
+comment on table SYS_AUTHORITIES_RESOURCES_T
+   is '权限资源表';
+alter table SYS_AUTHORITIES_RESOURCES_T
+   add constraint FK_PUB_AUTHORITIES_RE_AU foreign key (AUTH_ID) 
+   references SYS_AUTHORITIES_T (AUTH_ID);
+ alter table SYS_AUTHORITIES_RESOURCES_T
+   add constraint FK_PUB_AUTHORITIES_RE_RE foreign key (RESOURCE_ID)
+   references SYS_RESOURCES_T (RESOURCE_ID);
+
+
+
+-- Create table　
 create table PERSISTENT_LOGINS
 (
   username  VARCHAR2(40),
@@ -551,4 +584,5 @@ create table PERSISTENT_LOGINS
   token     VARCHAR2(256),
   last_used VARCHAR2(40)
 );
-
+comment on table PERSISTENT_LOGINS
+   is '用户登陆日志表';

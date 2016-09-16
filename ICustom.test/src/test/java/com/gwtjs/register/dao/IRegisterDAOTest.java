@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 
-import com.gwtjs.common.test.SpringTestBase;
+import com.gwtjs.common.unit.SpringTestBase;
 
 public class IRegisterDAOTest extends SpringTestBase {
 	

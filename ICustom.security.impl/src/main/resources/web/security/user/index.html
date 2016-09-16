@@ -59,7 +59,7 @@
 					<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 				</button>
 				<a href="javascript:void(0)" id="user_modal_submit"
-					class="btn btn-primary actionbtn l-btn-disabled"
+					class="btn btn-primary formbtn l-btn-disabled"
 					><i
 					class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
 
@@ -166,11 +166,14 @@
 		<td>{{updateLastUser}}</td>
 		<td>{{updateLastDate}}</td>
 		<td>
-			<button class="btn btn-xs btn-primary user_edit" title="edit">
+			<button class="btn btn-xs btn-primary user_edit" title="edit user info">
 				<i class="fa fa-edit"></i>
 			</button>
-			<button class="btn btn-xs btn-primary user_edit_cancel" title="cancel">
+			<button class="btn btn-xs btn-primary user_edit_cancel" title="cancel edit">
 				<i class="fa fa-key fa-fw"></i>
+			</button>
+			<button class="btn btn-xs btn-primary role_gears" title="Edit user roles">
+				<i class="fa fa-gears"></i>
 			</button>
 		</td>
 	</tr>
@@ -277,7 +280,9 @@
 				updateLastDate:getFormatDate(new Date(),"yyyy/MM/dd hh:mm")
 			};
 			UserView.insertUserEditorRow(user);
-			$(".actionbtn").toggleClass("l-btn-disabled");
+
+			$(".actionbtn").addClass("l-btn-disabled");
+			$(".formbtn").removeClass("l-btn-disabled");
 		});
 
 		// 点击对话框中的 Save 按钮，创建或更新产品
@@ -314,6 +319,8 @@
 			} else {
 				UserService.batchUpdateUser([user]);
 			}
+			$(".actionbtn").removeClass("l-btn-disabled");
+			$(".formbtn").addClass("l-btn-disabled");
 			//删除当前行
 			$("tr.user_form_template").detach();
 		});
@@ -327,7 +334,8 @@
 			UserView.deleteUserRow(userId);
 			//插入编辑行
 			UserView.insertUserEditorRow(user.obj);
-			$(".actionbtn").toggleClass("l-btn-disabled");
+			$(".actionbtn").addClass("l-btn-disabled");
+			$(".formbtn").removeClass("l-btn-disabled");
 		});
 
 		// 点击 Delete 按钮，删除产品

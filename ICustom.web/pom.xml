@@ -184,15 +184,15 @@
 		</dependency>
 
 		<dependency>
-		  <groupId>com.gwtjs.ICustom</groupId>
+			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.browselog.api</artifactId>
-		 <version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-		  <groupId>com.gwtjs.ICustom</groupId>
+			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.browselog.impl</artifactId>
-		 <version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Servlet -->

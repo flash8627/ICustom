@@ -45,28 +45,14 @@ DROP table SYS_LOOKUP_CLASSIFY_T;
 DROP table SYS_LANGUAGE_T;
 
 -- drop table
-drop table SYS_USERS_T;
-
--- drop table
 drop table SYS_ROLES_AUTHORITIES_T;
-
--- drop table
-drop table SYS_RESOURCES_T;
-
-
--- drop table
-drop table SYS_ROLES_T;
-
--- drop table
 drop table SYS_USERS_ROLES_T;
-
--- drop table
-drop table SYS_AUTHORITIES_T;
-
--- drop table
 drop table SYS_AUTHORITIES_RESOURCES_T;
 
+drop table SYS_USERS_T;
+drop table SYS_ROLES_T;
+drop table SYS_RESOURCES_T;
+drop table SYS_AUTHORITIES_T;
 
--- drop table
 drop table PERSISTENT_LOGINS;
 

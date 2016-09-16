@@ -47,7 +47,7 @@
 					<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 				</button>
 				<a href="javascript:void(0)" id="role_modal_submit"
-					class="btn btn-primary actionbtn l-btn-disabled"
+					class="btn btn-primary formbtn l-btn-disabled"
 					><i
 					class="fa fa-save fa-trash-o fa-lg"></i> Save</a> 
 
@@ -130,10 +130,10 @@
 		<td>{{updateLastUser}}</td>
 		<td>{{updateLastDate}}</td>
 		<td>
-			<button class="btn btn-xs btn-primary role_edit" title="Edit">
+			<button class="btn btn-xs btn-primary role_edit" title="Edit Role Info">
 				<i class="fa fa-edit"></i>
 			</button>
-			<button class="btn btn-xs btn-primary role_gears" title="Edit">
+			<button class="btn btn-xs btn-primary role_gears" title="Edit ">
 				<i class="fa fa-gears"></i>
 			</button>
 		</td>
@@ -211,7 +211,9 @@
 				roleDesc : ''
 			};
 			RoleView.insertRoleEditorRow(role);
-			$(".actionbtn").toggleClass("l-btn-disabled");
+			
+			$(".actionbtn").addClass("l-btn-disabled");
+			$(".formbtn").removeClass("l-btn-disabled");
 		});
 
 		// 点击对话框中的 Save 按钮，创建或更新产品
@@ -228,6 +230,8 @@
 			} else {
 				RoleService.batchUpdateRole(role);
 			}
+			$(".actionbtn").removeClass("l-btn-disabled");
+			$(".formbtn").addClass("l-btn-disabled");
 			//删除当前行
 			$("tr.template").detach();
 		});
@@ -241,7 +245,8 @@
 			RoleView.deleteRoleRow(itemId);
 			//插入编辑行
 			RoleView.insertRoleEditorRow(role.obj);
-			$(".actionbtn").toggleClass("l-btn-disabled");
+			$(".actionbtn").addClass("l-btn-disabled");
+			$(".formbtn").removeClass("l-btn-disabled");
 		});
 
 		// 点击 Delete 按钮，删除产品
@@ -270,6 +275,9 @@
 			role = {roleId:itemId,roleDesc:roleDesc,roleName:roleName};
 			//var role = RoleService.findRoleById(itemId);
 			RoleItemService.initRoleItems(role,function(){});
+			
+			$(".actionbtn").addClass("l-btn-disabled");
+			$(".formbtn").removeClass("l-btn-disabled");
 			
 		});
 		// 点击 行cancel按钮，撤销编辑

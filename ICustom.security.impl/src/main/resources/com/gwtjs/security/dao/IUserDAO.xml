@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gwtjs.security.dao.IUserDAO">
-	
-	
-	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
-	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期 
+
+	<!--mybatis ehcache缓存配置 ,以下两个<cache>标签二选一,第一个可以输出日志,第二个不输出日志 -->
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache" /> -->
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
+
+	<!-- 内置缓存 -->
+	<cache eviction="LRU" flushInterval="300000" size="1024" readOnly="false" 
+		/>
+	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，1000毫秒*60*5即为5分钟，缺省值为空，即只要容量足够，永不过期 
 		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
-	
-	
+
 	<select id="login" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1 
+		FROM SYS_USERS_T T1
 		where upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
 	</select>
-	
+
 	<select id="findByItem" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1 
-		where T1.VALID_FLAG=1 
-			AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
-			AND T1.USER_NAME = #{username,jdbcType=NUMERIC}
+		FROM SYS_USERS_T T1
+		where T1.VALID_FLAG=1
+		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
+		AND T1.USER_NAME = #{username,jdbcType=NUMERIC}
 	</select>
-	
+
 	<select id="findItem" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1 
+		FROM SYS_USERS_T T1
 		where T1.VALID_FLAG=1 AND T1.USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
-	
+
 	<sql id="Base_Column_List">
-		USER_ID 		 userId,
-		USER_ACCOUNT     userAccount,    
-		USER_NAME        username,    
-		USER_PASSWORD    password, 
-		USER_DESC        userDesc,
-		ENABLED          userEnabled, 
-		ISSYS            issys,
-		USER_DEPT        userDept,
-		USER_DUTY        userDuty,
-		SUB_SYSTEM       subSystem,
-		ATTRIBUTE1       attribute1,                                
-		ATTRIBUTE2       attribute2,                                
-		ATTRIBUTE3       attribute3,                                
-		ATTRIBUTE4       attribute4,                                
-		ATTRIBUTE5       attribute5,                                
-		ATTRIBUTE6       attribute6,                                
-		ATTRIBUTE7       attribute7,                                
-		ATTRIBUTE8       attribute8,                                
-		ATTRIBUTE9       attribute9,                                
-		ATTRIBUTE10      attribute10,  
-		VALID_FLAG       validFlag,
-		VALID_START      validStart,                           
-		VALID_END        validEnd,
+		USER_ID userId,
+		USER_ACCOUNT userAccount,
+		USER_NAME username,
+		USER_PASSWORD password,
+		USER_DESC userDesc,
+		ENABLED userEnabled,
+		ISSYS issys,
+		USER_DEPT userDept,
+		USER_DUTY userDuty,
+		SUB_SYSTEM subSystem,
+		ATTRIBUTE1 attribute1,
+		ATTRIBUTE2 attribute2,
+		ATTRIBUTE3 attribute3,
+		ATTRIBUTE4 attribute4,
+		ATTRIBUTE5 attribute5,
+		ATTRIBUTE6 attribute6,
+		ATTRIBUTE7 attribute7,
+		ATTRIBUTE8 attribute8,
+		ATTRIBUTE9 attribute9,
+		ATTRIBUTE10 attribute10,
+		VALID_FLAG validFlag,
+		VALID_START validStart,
+		VALID_END validEnd,
 		ORDER_CODE orderCode,
 		CREATED_USER createdUser,
-		CREATED_DATE createdDate,
+		CREATED_DATE
+		createdDate,
 		UPDATE_LAST_USER updateLastUser,
-		UPDATE_LAST_DATE updateLastDate
+		UPDATE_LAST_DATE
+		updateLastDate
 	</sql>
 
 	<sql id="page_st">
@@ -72,7 +78,7 @@
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
 	</sql>
-	
+
 	<select id="selectList" parameterType="hashmap"
 		resultType="com.gwtjs.security.entity.SysUsersVO">
 		<include refid="page_st" />
@@ -81,7 +87,7 @@
 		FROM SYS_USERS_T T1
 		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
-		ORDER BY USER_ID DESC 
+		ORDER BY USER_ID DESC
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
 		<include refid="page_et" />
 	</select>
@@ -96,19 +102,24 @@
 
 	<sql id="select_cond">
 		<if test='_parameter.get("0").userAccount != null'>
-			AND upper(T1.USER_ACCOUNT) = upper(#{0.userAccount,jdbcType=VARCHAR})
+			AND upper(T1.USER_ACCOUNT) =
+			upper(#{0.userAccount,jdbcType=VARCHAR})
 		</if>
 		<if test='_parameter.get("0").username != null'>
-			AND T1.USER_NAME LIKE ('%'||#{0.username,jdbcType=VARCHAR}||'%')
+			AND T1.USER_NAME LIKE
+			('%'||#{0.username,jdbcType=VARCHAR}||'%')
 		</if>
 		<if test='_parameter.get("0").userDesc != null'>
-			AND T1.USER_DESC LIKE ('%'||#{0.userDesc,jdbcType=VARCHAR}||'%')
+			AND T1.USER_DESC LIKE
+			('%'||#{0.userDesc,jdbcType=VARCHAR}||'%')
 		</if>
 		<if test='_parameter.get("0").validStart != null'>
-			AND T1.VALID_START <![CDATA[>=]]> TO_CHAR(#{0.validStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
+			AND T1.VALID_START <![CDATA[>=]]>
+			TO_CHAR(#{0.validStart,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 		</if>
 		<if test='_parameter.get("0").validEnd != null'>
-			AND T1.VALID_END <![CDATA[<=]]> TO_CHAR(#{0.validEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
+			AND T1.VALID_END <![CDATA[<=]]>
+			TO_CHAR(#{0.validEnd,jdbcType=DATE},'YYYY-MM-DD HH24:MI:SS')
 		</if>
 
 	</sql>
@@ -122,13 +133,14 @@
 			#{item.userId}
 		</foreach>
 	</delete>
-	
+
 	<update id="updateUserPwd">
 		UPDATE SYS_USERS_T
-		SET 
-			USER_PASSWORD=#{item.password,jdbcType=VARCHAR}
-		where USER_ID = #{item.userId,jdbcType=NUMERIC}
-			AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
+		SET
+		USER_PASSWORD=#{item.password,jdbcType=VARCHAR}
+		where USER_ID =
+		#{item.userId,jdbcType=NUMERIC}
+		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
 	</update>
 
 	<!-- batchUpdate -->
@@ -140,30 +152,30 @@
 				UPDATE
 				SYS_USERS_T
 				SET
-					USER_ACCOUNT = #{item.userAccount,jdbcType=VARCHAR},
-					USER_NAME  =  #{item.username,jdbcType=VARCHAR},
-					USER_PASSWORD=#{item.password,jdbcType=VARCHAR},
-					USER_DESC =   #{item.userDesc,jdbcType=VARCHAR},
-					ENABLED   =   #{item.userEnabled,jdbcType=INTEGER},
-					ISSYS    =   #{item.issys,jdbcType=INTEGER},
-					USER_DEPT =  #{item.userDept,jdbcType=VARCHAR},
-					USER_DUTY = #{item.userDuty,jdbcType=VARCHAR},
-					SUB_SYSTEM = #{item.subSystem,jdbcType=VARCHAR},
-					ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
-					ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
-					ATTRIBUTE3 = #{item.attribute3,jdbcType=VARCHAR},
-					ATTRIBUTE4 = #{item.attribute4,jdbcType=VARCHAR},
-					ATTRIBUTE5 = #{item.attribute5,jdbcType=VARCHAR},
-					ATTRIBUTE6 = #{item.attribute6,jdbcType=VARCHAR},
-					ATTRIBUTE7 = #{item.attribute7,jdbcType=VARCHAR},
-					ATTRIBUTE8 = #{item.attribute8,jdbcType=VARCHAR},
-					ATTRIBUTE9 = #{item.attribute9,jdbcType=VARCHAR},
-					ATTRIBUTE10 = #{item.attribute10,jdbcType=VARCHAR},
-					VALID_START = SYSDATE,                    
-					VALID_END = #{item.validEnd,jdbcType=DATE},
-					ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
-					UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
-					UPDATE_LAST_DATE = SYSDATE 
+				USER_ACCOUNT = #{item.userAccount,jdbcType=VARCHAR},
+				USER_NAME = #{item.username,jdbcType=VARCHAR},
+				USER_PASSWORD=#{item.password,jdbcType=VARCHAR},
+				USER_DESC = #{item.userDesc,jdbcType=VARCHAR},
+				ENABLED = #{item.userEnabled,jdbcType=INTEGER},
+				ISSYS = #{item.issys,jdbcType=INTEGER},
+				USER_DEPT = #{item.userDept,jdbcType=VARCHAR},
+				USER_DUTY = #{item.userDuty,jdbcType=VARCHAR},
+				SUB_SYSTEM = #{item.subSystem,jdbcType=VARCHAR},
+				ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
+				ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
+				ATTRIBUTE3 = #{item.attribute3,jdbcType=VARCHAR},
+				ATTRIBUTE4 = #{item.attribute4,jdbcType=VARCHAR},
+				ATTRIBUTE5 = #{item.attribute5,jdbcType=VARCHAR},
+				ATTRIBUTE6 = #{item.attribute6,jdbcType=VARCHAR},
+				ATTRIBUTE7 = #{item.attribute7,jdbcType=VARCHAR},
+				ATTRIBUTE8 = #{item.attribute8,jdbcType=VARCHAR},
+				ATTRIBUTE9 = #{item.attribute9,jdbcType=VARCHAR},
+				ATTRIBUTE10 = #{item.attribute10,jdbcType=VARCHAR},
+				VALID_START = SYSDATE,
+				VALID_END = #{item.validEnd,jdbcType=DATE},
+				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
+				UPDATE_LAST_DATE = SYSDATE
 				where USER_ID = #{item.userId,jdbcType=NUMERIC};
 			</foreach>
 			end;
@@ -178,65 +190,65 @@
 				INSERT into
 				SYS_USERS_T
 				(
-					USER_ID 		 ,
-					USER_ACCOUNT     ,    
-					USER_NAME        ,    
-					USER_PASSWORD    , 
-					USER_DESC        ,
-					ENABLED          , 
-					ISSYS            ,
-					USER_DEPT        ,
-					USER_DUTY        ,
-					SUB_SYSTEM       ,
-					ATTRIBUTE1       ,                                
-					ATTRIBUTE2       ,                                
-					ATTRIBUTE3       ,                                
-					ATTRIBUTE4       ,                                
-					ATTRIBUTE5       ,                                
-					ATTRIBUTE6       ,                                
-					ATTRIBUTE7       ,                                
-					ATTRIBUTE8       ,                                
-					ATTRIBUTE9       ,                                
-					ATTRIBUTE10      ,  
-					VALID_FLAG       ,
-					VALID_START      ,                           
-					VALID_END        ,
-					ORDER_CODE		 ,
-					CREATED_USER	 ,
-					CREATED_DATE	 ,
-					UPDATE_LAST_USER ,
-					UPDATE_LAST_DATE
+				USER_ID ,
+				USER_ACCOUNT ,
+				USER_NAME ,
+				USER_PASSWORD ,
+				USER_DESC ,
+				ENABLED ,
+				ISSYS ,
+				USER_DEPT ,
+				USER_DUTY ,
+				SUB_SYSTEM ,
+				ATTRIBUTE1 ,
+				ATTRIBUTE2 ,
+				ATTRIBUTE3 ,
+				ATTRIBUTE4 ,
+				ATTRIBUTE5 ,
+				ATTRIBUTE6 ,
+				ATTRIBUTE7 ,
+				ATTRIBUTE8 ,
+				ATTRIBUTE9 ,
+				ATTRIBUTE10 ,
+				VALID_FLAG ,
+				VALID_START ,
+				VALID_END ,
+				ORDER_CODE ,
+				CREATED_USER ,
+				CREATED_DATE ,
+				UPDATE_LAST_USER ,
+				UPDATE_LAST_DATE
 				)
 				values
 				(
-					SYS_USERS_S.NEXTVAL,
-					#{item.userAccount,jdbcType=VARCHAR},
-					#{item.username,jdbcType=VARCHAR},
-					#{item.password,jdbcType=VARCHAR},
-					#{item.userDesc,jdbcType=VARCHAR},
-					#{item.userEnabled,jdbcType=INTEGER},
-					#{item.issys,jdbcType=INTEGER},
-					#{item.userDept,jdbcType=VARCHAR},
-					#{item.userDuty,jdbcType=VARCHAR},
-					#{item.subSystem,jdbcType=VARCHAR},
-					#{item.attribute1,jdbcType=VARCHAR},
-					#{item.attribute2,jdbcType=VARCHAR},
-					#{item.attribute3,jdbcType=VARCHAR},
-					#{item.attribute4,jdbcType=VARCHAR},
-					#{item.attribute5,jdbcType=VARCHAR},
-					#{item.attribute6,jdbcType=VARCHAR},
-					#{item.attribute7,jdbcType=VARCHAR},
-					#{item.attribute8,jdbcType=VARCHAR},
-					#{item.attribute9,jdbcType=VARCHAR},
-					#{item.attribute10,jdbcType=VARCHAR},
-					1,
-					SYSDATE,                    
-					#{item.validEnd,jdbcType=DATE},
-					#{item.orderCode,jdbcType=INTEGER},
-					#{item.createdUser,jdbcType=NUMERIC},
-					SYSDATE,
-					#{item.updateLastUser,jdbcType=NUMERIC},
-					SYSDATE
+				SYS_USERS_S.NEXTVAL,
+				#{item.userAccount,jdbcType=VARCHAR},
+				#{item.username,jdbcType=VARCHAR},
+				#{item.password,jdbcType=VARCHAR},
+				#{item.userDesc,jdbcType=VARCHAR},
+				#{item.userEnabled,jdbcType=INTEGER},
+				#{item.issys,jdbcType=INTEGER},
+				#{item.userDept,jdbcType=VARCHAR},
+				#{item.userDuty,jdbcType=VARCHAR},
+				#{item.subSystem,jdbcType=VARCHAR},
+				#{item.attribute1,jdbcType=VARCHAR},
+				#{item.attribute2,jdbcType=VARCHAR},
+				#{item.attribute3,jdbcType=VARCHAR},
+				#{item.attribute4,jdbcType=VARCHAR},
+				#{item.attribute5,jdbcType=VARCHAR},
+				#{item.attribute6,jdbcType=VARCHAR},
+				#{item.attribute7,jdbcType=VARCHAR},
+				#{item.attribute8,jdbcType=VARCHAR},
+				#{item.attribute9,jdbcType=VARCHAR},
+				#{item.attribute10,jdbcType=VARCHAR},
+				1,
+				SYSDATE,
+				#{item.validEnd,jdbcType=DATE},
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createdUser,jdbcType=NUMERIC},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMERIC},
+				SYSDATE
 				);
 			</foreach>
 			end;
