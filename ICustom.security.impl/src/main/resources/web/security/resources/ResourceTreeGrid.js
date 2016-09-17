@@ -19,6 +19,12 @@ var viewGrid = function(resourceId) {
 		rownumbers : true,
 		idField : 'resourceId',
 		treeField : 'resourceName',
+		onBeforeLoad:function(){
+			var rootNode = $('#tg').treegrid('getRoot');
+			if(rootNode){
+				$('#tg').treegrid('expand',rootNode);
+			}
+		},
 		onBeforeExpand : function(row) {
 			if (row) {
 				$('#tg').treegrid('options').url = url+"/"+row.resourceId;
@@ -31,8 +37,8 @@ var viewGrid = function(resourceId) {
 			console.info('row',row);
 			$("#addResource").removeClass("l-btn-disabled");
 			if(row.resourceName!='HOME'&&row.parentId!=0){
-				$("#editorResource").removeClass("l-btn-disabled");
-				$("#removeResource").removeClass("l-btn-disabled");
+				$("#editorResource").addClass("l-btn-disabled");
+				$("#removeResource").addClass("l-btn-disabled");
 			}
 		},
 		showFooter : true,

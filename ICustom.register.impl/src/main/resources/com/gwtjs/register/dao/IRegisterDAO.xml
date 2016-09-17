@@ -18,7 +18,7 @@
 		AND T1.REG_NAME = #{regName,jdbcType=VARCHAR}
 	</select>
 
-	<select id="findItems" resultType="com.gwtjs.register.entity.RegisterTreeVO">
+	<select id="findItems" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		REG_ID id,
 		REG_NAME text,
@@ -76,7 +76,7 @@
 		]]>
 	</sql>
 
-	<select id="findRegisterList" resultType="com.gwtjs.register.entity.RegisterTreeVO">
+	<select id="findRegisterList" resultType="com.gwtjs.register.entity.RegisterVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_REGISTER_T T1

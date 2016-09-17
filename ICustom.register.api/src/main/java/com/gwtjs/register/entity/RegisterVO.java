@@ -1,6 +1,6 @@
 package com.gwtjs.register.entity;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.common.entity.TreeModel;
 
 /**
  * 数据字典
@@ -8,7 +8,7 @@ import com.gwtjs.common.entity.BaseResource;
  * @author aGuang
  *
  */
-public class RegisterVO extends BaseResource {
+public class RegisterVO extends TreeModel<RegisterVO> {
 	/**
 	 * 
 	 */

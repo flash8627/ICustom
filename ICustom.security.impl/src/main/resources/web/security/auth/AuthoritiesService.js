@@ -1,5 +1,5 @@
 var AuthoritiesService = function() {
-    var BASE = '../services/authorities/authoritiesService';
+    var BASE = '../../services/sys/authoritiesService';
     return {
     	findAuthoritiess: function(callback) {
             AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesList', function(list) {
@@ -21,8 +21,8 @@ var AuthoritiesService = function() {
         },
         batchInsertAuthorities: function(items) {
         	var result = {};
-            AjaxUtil.sendPostAsyncData(BASE + '/batchInsert', items, function(items) {
-            	result = items;
+            AjaxUtil.sendPostAsyncData(BASE + '/batchInsert', items, function(resp) {
+            	result = resp;
             	return result;
             });
             return result;

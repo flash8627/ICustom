@@ -16,7 +16,6 @@ import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.register.entity.RegisterVO;
-import com.gwtjs.register.entity.RegisterTreeVO;
 
 /**
  * 数据字典
@@ -34,16 +33,12 @@ public interface IRegisterService {
 	public PagedResult<RegisterVO> findRecords(@QueryParam("") RegisterVO record, @PathParam("")PagerVO page);
 	
 	@GET
-	@Path("/findRegisterList")
-	public List<RegisterTreeVO> findRegisterList(@QueryParam("") RegisterVO record);
-	
-	@GET
 	@Path("/findItem/{regId}")
 	ResultWrapper findItem(@PathParam("regId")Integer regId);
 	
 	@GET
 	@Path("/findRegisterList/{parentId}")
-	List<RegisterTreeVO> findRegisterList(@PathParam("") RegisterTreeVO record);
+	List<RegisterVO> findRegisterList(@PathParam("") RegisterVO record);
 
 	@PUT
 	@Path("batchRemovePks")

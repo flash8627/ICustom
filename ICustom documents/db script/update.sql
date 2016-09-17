@@ -437,8 +437,10 @@ comment on table SYS_RESOURCES_T
 create table SYS_AUTHORITIES_T
 (
   auth_id          NUMBER(32) not null primary key,
-  auth_name        VARCHAR2(40),
+  auth_name        VARCHAR2(60),
   auth_desc        VARCHAR2(1008),
+  PARENT_ID        NUMBER(32),
+  auth_code        VARCHAR2(60),
   enabled        INTEGER default 1,
   issys          INTEGER default 0,
   module         VARCHAR2(4),
@@ -461,9 +463,11 @@ create table SYS_AUTHORITIES_T
 );
 comment on table SYS_AUTHORITIES_T
    is '权限表';
- comment on column SYS_AUTHORITIES_T.MODULE
+comment on column SYS_AUTHORITIES_T.MODULE
    is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。';
-
+alter table SYS_AUTHORITIES_T
+  add constraint AUTH_NAME_UNIQUE unique (PARENT_ID, AUTH_NAME, AUTH_CODE)
+  using index;
 
 create table SYS_ROLES_T
 (

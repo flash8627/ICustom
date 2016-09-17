@@ -136,9 +136,9 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-            	<ul class="easyui-tree"
+            	<!-- <ul class="easyui-tree"
 					data-options="url:'../services/register/registerService/findRecords/10/1',method:'get',checkbox:true,animate:true">
-				</ul>
+				</ul> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="parent_select_modal_submit"><i class="fa fa-save"></i> Save</button>
@@ -310,9 +310,7 @@ var initRegTree = function(itemId) {
 				result.obj[i].text = result.obj[i].regName;
 			}
 			if(selected==null){
-				selected = $('#regTree').tree('getRoot');
-				selected.id = 0;
-				selected.text='';
+				selected = {};
 			}
 			$('#regTree').tree('append', {
 				parent: selected.target,

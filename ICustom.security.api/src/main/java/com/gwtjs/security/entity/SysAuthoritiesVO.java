@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.common.entity.TreeModel;
 
-public class SysAuthoritiesVO extends BaseResource {
+public class SysAuthoritiesVO extends TreeModel<SysAuthoritiesVO> {
 
 	/**
 	 * 
@@ -15,6 +15,7 @@ public class SysAuthoritiesVO extends BaseResource {
 	private static final long serialVersionUID = -7323278301594838580L;
 	private long authId;
 	private String authName;
+	private String authCode;
 	private String authDesc;
 	private boolean enabled;
 	private boolean issys;
@@ -29,28 +30,15 @@ public class SysAuthoritiesVO extends BaseResource {
 	public SysAuthoritiesVO() {
 	}
 
-	public SysAuthoritiesVO(long authId, String authName, String authDesc,
-			Boolean enabled, Boolean issys,
-			Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses,
-			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
-		super();
-		this.authId = authId;
-		this.authName = authName;
-		this.authDesc = authDesc;
-		this.enabled = enabled;
-		this.issys = issys;
-		this.sysRolesAuthoritieses = sysRolesAuthoritieses;
-		this.sysAuthoritiesResources = sysAuthoritiesResources;
-	}
-
-	public SysAuthoritiesVO(long authId, String authName, String authDesc,
-			boolean enabled, boolean issys, long parentId,
+	public SysAuthoritiesVO(long authId, String authName, String authCode,
+			String authDesc, boolean enabled, boolean issys, long parentId,
 			List<SysAuthoritiesVO> children,
 			Set<SysRolesAuthoritiesVO> sysRolesAuthoritieses,
 			Set<SysAuthoritiesResourcesVO> sysAuthoritiesResources) {
 		super();
 		this.authId = authId;
 		this.authName = authName;
+		this.authCode = authCode;
 		this.authDesc = authDesc;
 		this.enabled = enabled;
 		this.issys = issys;
@@ -74,6 +62,14 @@ public class SysAuthoritiesVO extends BaseResource {
 
 	public void setAuthName(String authName) {
 		this.authName = authName;
+	}
+
+	public String getAuthCode() {
+		return authCode;
+	}
+
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
 	}
 
 	public String getAuthDesc() {

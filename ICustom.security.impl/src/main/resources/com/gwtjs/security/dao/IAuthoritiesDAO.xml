@@ -8,6 +8,24 @@
 		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
 	
 	
+	<select id="findAuthoritiesList" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_AUTHORITIES_T T1
+		where T1.VALID_FLAG=1  
+		AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
+	</select>
+	
+	<select id="getByPathAuthorities" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_AUTHORITIES_T T1 
+		where T1.VALID_FLAG=1 
+			AND T1.AUTH_NAME = #{authName,jdbcType=VARCHAR}
+			AND T1.AUTH_CODE = #{authCode,jdbcType=VARCHAR}
+			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
+	</select>
+	
 	<select id="findByItem" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -23,26 +41,44 @@
 		where T1.VALID_FLAG=1 AND T1.AUTH_ID = #{authId,jdbcType=NUMERIC}
 	</select>
 	
+	<select id="findItems" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		SYS_AUTHORITIES_T T1
+		where T1.VALID_FLAG=1 
+			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
+		ORDER BY T1.ORDER_CODE ASC 
+	</select>
+	
 	<sql id="Base_Column_List">
+		AUTH_ID 		 id,
+		AUTH_NAME 		 text,
 		AUTH_ID 		 authId,
-		AUTH_NAME        authName,    
+		AUTH_NAME        authName,   
+		AUTH_CODE        authCode,    
 		AUTH_DESC        authDesc,
 		ENABLED          enabled, 
 		ISSYS            issys,
-		ATTRIBUTE1       attribute1,                                
-		ATTRIBUTE2       attribute2,                                
-		ATTRIBUTE3       attribute3,                                
-		ATTRIBUTE4       attribute4,                                
-		ATTRIBUTE5       attribute5,                                
-		ATTRIBUTE6       attribute6,                                
-		ATTRIBUTE7       attribute7,                                
-		ATTRIBUTE8       attribute8,                                
-		ATTRIBUTE9       attribute9,                                
+		PARENT_ID 		 parentId,
+		ATTRIBUTE1       attribute1,
+		ATTRIBUTE2       attribute2,
+		ATTRIBUTE3       attribute3,
+		ATTRIBUTE4       attribute4,
+		ATTRIBUTE5       attribute5,
+		ATTRIBUTE6       attribute6,
+		ATTRIBUTE7       attribute7,
+		ATTRIBUTE8       attribute8,
+		ATTRIBUTE9       attribute9,
 		ATTRIBUTE10      attribute10,  
-		ORDER_CODE 		 orderCode,
-		VALID_FLAG       validFlag,
-		CREATED_USER 	 createdUser,
-		CREATED_DATE 	 createdDate,
+		ORDER_CODE orderCode,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+		(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID = to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn,
+		(decode((select count(1) FROM SYS_AUTHORITIES_T TC WHERE TC.PARENT_ID = T1.AUTH_ID),0,0,1)) leaf,
+		(decode((select count(1) FROM SYS_AUTHORITIES_T TC WHERE TC.PARENT_ID = T1.AUTH_ID),0,'', '[]' )) children,
+		(decode((select count(1) FROM SYS_AUTHORITIES_T TC WHERE TC.PARENT_ID = T1.AUTH_ID),0,'', 'closed' )) state,
+		CREATED_USER createdUser,
+		CREATED_DATE createdDate,
 		UPDATE_LAST_USER updateLastUser,
 		UPDATE_LAST_DATE updateLastDate
 	</sql>
@@ -83,6 +119,9 @@
 		<if test='_parameter.get("0").authName != null'>
 			AND T1.AUTH_NAME LIKE ('%'||#{0.authName,jdbcType=VARCHAR}||'%')
 		</if>
+		<if test='_parameter.get("0").authCode != null'>
+			AND T1.AUTH_CODE LIKE ('%'||#{0.authCode,jdbcType=VARCHAR}||'%')
+		</if>
 		<if test='_parameter.get("0").authDesc != null'>
 			AND T1.AUTH_DESC LIKE ('%'||#{0.authDesc,jdbcType=VARCHAR}||'%')
 		</if>
@@ -114,8 +153,10 @@
 				UPDATE
 				SYS_AUTHORITIES_T
 				SET
-					AUTH_NAME  =  #{item.authName,jdbcType=VARCHAR},
-					AUTH_DESC =   #{item.authDesc,jdbcType=VARCHAR},
+					AUTH_NAME  =  #{item.authName,jdbcType=VARCHAR},  
+					AUTH_CODE  =  #{item.authCode,jdbcType=VARCHAR}, 
+					AUTH_DESC  =  #{item.authDesc,jdbcType=VARCHAR},
+					PARENT_ID  =  #{item.parentId,jdbcType=NUMERIC},
 					ENABLED   =   #{item.enabled,jdbcType=INTEGER},
 					ISSYS    =   #{item.issys,jdbcType=INTEGER},
 					ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
@@ -145,33 +186,37 @@
 				INSERT into
 				SYS_AUTHORITIES_T
 				(
-					AUTH_ID,                          
-					AUTH_NAME,                         
-					AUTH_DESC,                         
-					ENABLED,                         
-					ISSYS,                           
-					ATTRIBUTE1,                         
-					ATTRIBUTE2,                         
-					ATTRIBUTE3,                         
-					ATTRIBUTE4,                         
-					ATTRIBUTE5,                         
-					ATTRIBUTE6,                         
-					ATTRIBUTE7,                         
-					ATTRIBUTE8,                         
-					ATTRIBUTE9,                         
-					ATTRIBUTE10,                         
+					AUTH_ID, 
+					AUTH_NAME,  
+					AUTH_CODE, 
+					AUTH_DESC,
+					PARENT_ID,
+					ENABLED,
+					ISSYS,  
+					ATTRIBUTE1,
+					ATTRIBUTE2,
+					ATTRIBUTE3,
+					ATTRIBUTE4,
+					ATTRIBUTE5,
+					ATTRIBUTE6,
+					ATTRIBUTE7,
+					ATTRIBUTE8,
+					ATTRIBUTE9,
+					ATTRIBUTE10,
 					ORDER_CODE,
-					CREATED_USER,                         
+					CREATED_USER,
 					CREATED_DATE,
-					UPDATE_LAST_USER,                         
+					UPDATE_LAST_USER,
 					UPDATE_LAST_DATE,
 					VALID_FLAG
 				)
 				values
 				(
-					SYS_ROLES_S.NEXTVAL,
+					SYS_AUTHORITIES_S.NEXTVAL,        
 					#{item.authName,jdbcType=VARCHAR},
+					#{item.authCode,jdbcType=VARCHAR},
 					#{item.authDesc,jdbcType=VARCHAR},
+					#{item.parentId,jdbcType=NUMERIC},
 					#{item.enabled,jdbcType=INTEGER},
 					#{item.issys,jdbcType=INTEGER},
 					#{item.attribute1,jdbcType=VARCHAR},

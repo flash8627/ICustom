@@ -11,7 +11,6 @@ import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.register.dao.IRegisterDAO;
 import com.gwtjs.register.entity.RegisterVO;
-import com.gwtjs.register.entity.RegisterTreeVO;
 import com.gwtjs.register.services.IRegisterService;
 
 /**
@@ -25,11 +24,6 @@ public class RegisterServiceImpl implements IRegisterService {
 
 	@Inject
 	private IRegisterDAO registerDAO;
-
-	@Override
-	public List<RegisterTreeVO> findRegisterList(RegisterVO record) {
-		return registerDAO.findRegisterList(record);
-	}
 
 	/**
 	 * 分页的lookup 条目
@@ -51,9 +45,9 @@ public class RegisterServiceImpl implements IRegisterService {
 		return ResultWrapper.successResult(registerDAO.findItem(regId));
 	}
 
-	private List<RegisterTreeVO> getTree(RegisterTreeVO record) {
-		List<RegisterTreeVO> list = registerDAO.findItems(record);
-		for (RegisterTreeVO tree : list) {
+	private List<RegisterVO> getTree(RegisterVO record) {
+		List<RegisterVO> list = registerDAO.findItems(record);
+		for (RegisterVO tree : list) {
 			if (tree.isLeaf()) {
 				tree.setChildren(getTree(tree));
 			}
@@ -62,10 +56,10 @@ public class RegisterServiceImpl implements IRegisterService {
 	}
 
 	@Override
-	public List<RegisterTreeVO> findRegisterList(RegisterTreeVO record) {
-		List<RegisterTreeVO> records = registerDAO.findItems(record);
-		for (RegisterTreeVO tree : records) {
-			List<RegisterTreeVO> children = getTree(tree);
+	public List<RegisterVO> findRegisterList(RegisterVO record) {
+		List<RegisterVO> records = registerDAO.findItems(record);
+		for (RegisterVO tree : records) {
+			List<RegisterVO> children = getTree(tree);
 
 			tree.setChildren(children);
 		}

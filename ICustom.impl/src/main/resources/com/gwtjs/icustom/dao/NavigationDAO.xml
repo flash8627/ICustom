@@ -263,6 +263,8 @@
 		T1.ITEM_ID),0,0,1)) leaf,
 		(decode((select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
 		T1.ITEM_ID),0,'','[]')) children,
+		(select count(1) FROM SYS_NAVIGATION_T TC WHERE TC.PARENT_ID =
+		T1.ITEM_ID) childrenCount,
 		T1.ORDER_CODE orderCode,
 		T1.CREATED_USER createdUser,
 		T1.CREATED_DATE createdDate,

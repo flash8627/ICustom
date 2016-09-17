@@ -1,6 +1,10 @@
 
+<link rel="stylesheet" type="text/css" href="../../resources/jquery/themes/icon.css">
 <link href="../css/content.css" rel="stylesheet">
 
+<script src="../global.js"></script>
+<script src="AuthoritiesView.js"></script>
+<script src="AuthoritiesService.js"></script>
 
 <div class="container">
 	<div class="page-header">
@@ -8,16 +12,17 @@
 	</div>
 	<div class="easyui-layout" style="width: 100%; height: 508px;">
 		<div data-options="region:'west',split:true" title="条目"
-			style="width: 50%; padding: 0;">
+			style="width: 46%; padding: 0;">
 			<div class="easyui-layout" data-options="fit:true">
 				<div data-options="region:'north'"
 					style="height: 34px; width: 100%; border: 0; padding: 3px;">
-					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="refreshItem()"><i class="fa fa-refresh"></i> async</a> 
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="refreshItem()">
+					<i class="fa fa-refresh"></i> async</a> 
+					<a href="javascript:void(0)" class="easyui-linkbutton btn-primary" onclick="refreshItem()">
+					<i class="fa fa-undo"></i> clear</a> 
 				</div>
 				<div data-options="region:'center'" style="border: 0;">
 					<ul class="easyui-tree" id="authTree"></ul>
-					<!-- <ul class="easyui-tree"
-					data-options="url:'../services/authorities/authoritiesService/findRecords/10/1',method:'get',animate:true"></ul> -->
 				</div>
 			</div>
 
@@ -42,7 +47,7 @@
 			
 			<div class="my-form-group-row" style="">
 				<span class="form-group my-form-group" style="width: 38%;">
-				&nbsp;权限信息
+				&nbsp;&nbsp;权限信息
 				</span>
 				<span class="form-group my-form-group" style="width: 38%;">
 				</span>
@@ -51,25 +56,21 @@
 				    <div class="form-group">
 				        <label for="authName" class="col-sm-2 control-label">权限名称:</label>
 				        <div class="col-sm-10">
+				        	<input type="hidden" class="form-control" id="parentId" name="parentId">
+				        	<input type="hidden" class="form-control" id="authId" name="authId">
 				            <input type="text" class="form-control" id="authName" name="authName" placeholder="请输显示名称">
 				        </div>
 				    </div>
 				    <div class="form-group">
-				        <label for="authDesc" class="col-sm-2 control-label">说明:</label>
+				        <label for="authCode" class="col-sm-2 control-label">权限编码:</label>
 				        <div class="col-sm-10">
-				        	<input type="hidden" class="form-control" id="authId" name="authId">
-				            <input type="text" class="form-control" id="authDesc" name="authDesc" placeholder="请输入说明">
+				            <input type="text" class="form-control" id="authCode" name="authCode" placeholder="请输权限编码">
 				        </div>
 				    </div>
-				    
 				    <div class="form-group">
-				        <label for="parentName" class="col-sm-2 control-label">父节点名称:</label>
+				        <label for="authDesc" class="col-sm-2 control-label">启用:</label>
 				        <div class="col-sm-10">
-				        	<input type="hidden" class="form-control" id="parentId" name="parentId">
-				            <!-- 信息警告消息的上下文按钮 -->
-				            <!-- <label style="float:left;padding:3px;">
-				            	<button type="button" id="parent_select_btn" class="btn btn-info">...</button>
-							</label> -->
+				            <input type="checkbox" style="float: left;" id="enabled" name="enabled" >
 				        </div>
 				    </div>
 				    <div class="form-group" style="width:96%;margin:0 auto;">
@@ -108,9 +109,9 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-            	<ul class="easyui-tree"
-					data-options="url:'../services/authorities/authoritiesService/findRecords/10/1',method:'get',checkbox:true,animate:true">
-				</ul>
+            	<!-- <ul class="easyui-tree"
+					data-options="url:'../../services/sys/authoritiesService/findRecords/10/1',method:'get',checkbox:true,animate:true">
+				</ul> -->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="parent_select_modal_submit"><i class="fa fa-save"></i> Save</button>
@@ -120,14 +121,14 @@
 </div>
 
 <script>
-var BASE = '../services/authorities/authoritiesService/';
+var BASE = '../../services/sys/authoritiesService/';
 	
 var initRegTree = function(itemId) {
 	var baseUrl = BASE + 'findAuthoritiesList';
 	var url = baseUrl;
 	if (itemId != undefined) {
 		url = url + '/' + authId;
-	}else{
+	} else{
 		url = url + '/0';
 	}
 	$('#authTree').tree({
@@ -135,7 +136,7 @@ var initRegTree = function(itemId) {
 		method : 'get',
 		fit : true,
 		lines:true,
-		//checkbox:true,
+		checkbox:true,
 		onBeforeLoad:function(){
 		　　    //获取根节点
 		　　    var rooNode = $("#authTree").tree('getRoot');
@@ -161,9 +162,9 @@ var initRegTree = function(itemId) {
 			node.authId = node.id;
 			//node.parentId = pnode.id;
 			var pnode = $('#authTree').tree('getParent',node.target);
-			if(pnode!=null){
+			/*if(pnode!=null){
 				node.parentId = node.id;
-			}
+			}*/
 			
 			resetForm();
 			setFormValues(node);
@@ -213,6 +214,7 @@ var initRegTree = function(itemId) {
 		
 		node.authId=0;
 		node.authName='';
+		node.authCode='';
 		node.authDesc='';
 		setFormValues(node);
 	}
@@ -251,6 +253,7 @@ var initRegTree = function(itemId) {
 						authDesc: values.authDesc,
 						authId:values.authId,
 						authName:values.authName,
+						authCode:values.authCode,
 						text: values.authName//,
 						//不用更新id:values.authId
 					});
@@ -264,9 +267,7 @@ var initRegTree = function(itemId) {
 				result.obj[i].text = result.obj[i].authName;
 			}
 			if(selected==null){
-				selected = $('#authTree').tree('getRoot');
-				selected.id = 0;
-				selected.text='';
+				selected = {};
 			}
 			$('#authTree').tree('append', {
 				parent: selected.target,
@@ -281,6 +282,7 @@ var initRegTree = function(itemId) {
 		var values = {
 			authId:0,
 			authName:'',
+			authCode:'',
 			parentId:0,
 			authDesc:''
 		};
@@ -309,6 +311,7 @@ var initRegTree = function(itemId) {
     	var values={};
     	values.authId=$('input[name="authId"]').val();
     	values.authName=$('input[name="authName"]').val();
+    	values.authCode=$('input[name="authCode"]').val();
     	values.parentId=$('input[name="parentId"]').val();
     	values.authDesc=$('#authDesc').val();
     	return values;
@@ -318,6 +321,7 @@ var initRegTree = function(itemId) {
     function setFormValues(values){
     	$('input[name="authId"]').val(values.authId);
     	$('input[name="authName"]').val(values.authName);
+    	$('input[name="authCode"]').val(values.authCode);
     	$('input[name="parentId"]').val(values.parentId);
     	$('#authDesc').val(values.authDesc);
     }

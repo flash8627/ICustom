@@ -1,19 +1,14 @@
-package com.gwtjs.register.entity;
+package com.gwtjs.common.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 树型结构模型
- * 
- * @author aGuang
- *
- */
-public class RegisterTreeVO extends RegisterVO {
+public class TreeModel<T> extends BaseResource {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6494862592290138908L;
 
 	private long id; //
 
@@ -27,7 +22,7 @@ public class RegisterTreeVO extends RegisterVO {
 	// 叶子节点否?
 	private boolean leaf;
 
-	private List<RegisterTreeVO> children = new ArrayList<RegisterTreeVO>();
+	private List<T> children = new ArrayList<T>();
 
 	public long getId() {
 		return id;
@@ -53,22 +48,6 @@ public class RegisterTreeVO extends RegisterVO {
 		this.checked = checked;
 	}
 
-	public List<RegisterTreeVO> getChildren() {
-		return children;
-	}
-
-	public void setChildren(List<RegisterTreeVO> children) {
-		this.children = children;
-	}
-
-	public boolean isLeaf() {
-		return leaf;
-	}
-
-	public void setLeaf(boolean leaf) {
-		this.leaf = leaf;
-	}
-
 	public String getState() {
 		return state;
 	}
@@ -85,11 +64,20 @@ public class RegisterTreeVO extends RegisterVO {
 		this.iconCls = iconCls;
 	}
 
-	@Override
-	public String toString() {
-		return "TreeVO [id=" + id + ", text=" + text + ", checked=" + checked
-				+ ", state=" + state + ", iconCls=" + iconCls + ", leaf="
-				+ leaf + ", children=" + children + "]";
+	public boolean isLeaf() {
+		return leaf;
+	}
+
+	public void setLeaf(boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	public List<T> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<T> children) {
+		this.children = children;
 	}
 
 }

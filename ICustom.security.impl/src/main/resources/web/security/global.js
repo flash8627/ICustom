@@ -58,6 +58,19 @@ var AjaxUtil = function() {
                 }
             });
         },
+        sendPostAsyncData: function(url, json, callback) {
+            $.ajax({
+                type: 'post',
+                url: url,
+                data: JSON.stringify(json),
+                dataType: 'json',
+                async: false,
+                contentType: 'application/json',
+                success: function(data) {
+                    callback(data);
+                }
+            });
+        },
         sendPutData: function(url, json, callback) {
             $.ajax({
                 type: 'put',
