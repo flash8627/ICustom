@@ -54,4 +54,25 @@ public interface IUserServices {
 	
 	@GET @Path("login")
 	public ResultWrapper login(SysUsersVO record) ;
+	
+	/**
+	 *@author aGuang 2011-3-30 下午03:51:48
+	 *@param account
+	 *@param session
+	 *@return  字符数组
+	 */
+	
+	/**用户权限名称*/@GET @Path("loadUserAuthorities")
+	List<String> loadUserAuthorities(SysUsersVO record);
+	
+	/**
+	 * 根据用户账号返回SysUsers实例对象。
+	 * 
+	 * @author aGuang 2011-4-8 下午01:53:05
+	 *@param userAccount
+	 *            用户账号，比如admin等。
+	 *@return SysUsers实例对象。
+	 */@GET @Path("findByUserAccount")
+	public SysUsersVO findByUserAccount(SysUsersVO record);
+	
 }

@@ -7,16 +7,33 @@
 	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/> -->
 
 	<!-- 内置缓存 -->
-	<cache eviction="LRU" flushInterval="300000" size="1024" readOnly="false" 
-		/>
+	<cache eviction="LRU" flushInterval="300000" size="1024"
+		readOnly="false" />
 	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，1000毫秒*60*5即为5分钟，缺省值为空，即只要容量足够，永不过期 
 		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
 
-	<select id="login" resultType="com.gwtjs.security.entity.SysUsersVO">
+	<select id="findByUserAccount" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_USERS_T T1
-		where upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
+		where upper(T1.USER_ACCOUNT) =
+		upper(#{userAccount,jdbcType=VARCHAR})
+	</select>
+
+	<select id="loadUserAuthorities" resultType="string">
+		SELECT
+			A.AUTH_NAME 
+		FROM 
+			SYS_AUTHORITIES_T A, 
+			SYS_ROLES_AUTHORITIES_T B, 
+			SYS_USERS_ROLES_T C, 
+			SYS_USERS_T D 
+		WHERE 
+		A.AUTH_ID = B.AUTH_ID 
+		AND B.ROLE_ID = C.ROLE_ID 
+		AND C.USER_ID = D.USER_ID 
+		AND D.VALID_FLAG = 1 
+		AND upper(D.USER_ACCOUNT = upper(#{userAccount,jdbcType=VARCHAR})
 	</select>
 
 	<select id="findByItem" resultType="com.gwtjs.security.entity.SysUsersVO">
@@ -24,15 +41,18 @@
 		<include refid="Base_Column_List" />
 		FROM SYS_USERS_T T1
 		where T1.VALID_FLAG=1
-		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
-		AND T1.USER_NAME = #{username,jdbcType=NUMERIC}
+		AND upper(T1.USER_ACCOUNT) =
+		upper(#{userAccount,jdbcType=VARCHAR})
+		AND T1.USER_NAME =
+		#{username,jdbcType=NUMERIC}
 	</select>
 
 	<select id="findItem" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_USERS_T T1
-		where T1.VALID_FLAG=1 AND T1.USER_ID = #{userId,jdbcType=NUMERIC}
+		where T1.VALID_FLAG=1 AND T1.USER_ID =
+		#{userId,jdbcType=NUMERIC}
 	</select>
 
 	<sql id="Base_Column_List">
@@ -42,7 +62,8 @@
 		USER_PASSWORD password,
 		USER_DESC userDesc,
 		ENABLED userEnabled,
-		ISSYS issys,
+		ISSYS
+		issys,
 		USER_DEPT userDept,
 		USER_DUTY userDuty,
 		SUB_SYSTEM subSystem,
@@ -140,7 +161,8 @@
 		USER_PASSWORD=#{item.password,jdbcType=VARCHAR}
 		where USER_ID =
 		#{item.userId,jdbcType=NUMERIC}
-		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
+		AND upper(T1.USER_ACCOUNT) =
+		upper(#{userAccount,jdbcType=VARCHAR})
 	</update>
 
 	<!-- batchUpdate -->
@@ -153,28 +175,47 @@
 				SYS_USERS_T
 				SET
 				USER_ACCOUNT = #{item.userAccount,jdbcType=VARCHAR},
-				USER_NAME = #{item.username,jdbcType=VARCHAR},
+				USER_NAME =
+				#{item.username,jdbcType=VARCHAR},
 				USER_PASSWORD=#{item.password,jdbcType=VARCHAR},
-				USER_DESC = #{item.userDesc,jdbcType=VARCHAR},
-				ENABLED = #{item.userEnabled,jdbcType=INTEGER},
-				ISSYS = #{item.issys,jdbcType=INTEGER},
-				USER_DEPT = #{item.userDept,jdbcType=VARCHAR},
-				USER_DUTY = #{item.userDuty,jdbcType=VARCHAR},
-				SUB_SYSTEM = #{item.subSystem,jdbcType=VARCHAR},
-				ATTRIBUTE1 = #{item.attribute1,jdbcType=VARCHAR},
-				ATTRIBUTE2 = #{item.attribute2,jdbcType=VARCHAR},
-				ATTRIBUTE3 = #{item.attribute3,jdbcType=VARCHAR},
-				ATTRIBUTE4 = #{item.attribute4,jdbcType=VARCHAR},
-				ATTRIBUTE5 = #{item.attribute5,jdbcType=VARCHAR},
-				ATTRIBUTE6 = #{item.attribute6,jdbcType=VARCHAR},
-				ATTRIBUTE7 = #{item.attribute7,jdbcType=VARCHAR},
-				ATTRIBUTE8 = #{item.attribute8,jdbcType=VARCHAR},
-				ATTRIBUTE9 = #{item.attribute9,jdbcType=VARCHAR},
-				ATTRIBUTE10 = #{item.attribute10,jdbcType=VARCHAR},
+				USER_DESC =
+				#{item.userDesc,jdbcType=VARCHAR},
+				ENABLED =
+				#{item.userEnabled,jdbcType=INTEGER},
+				ISSYS =
+				#{item.issys,jdbcType=INTEGER},
+				USER_DEPT =
+				#{item.userDept,jdbcType=VARCHAR},
+				USER_DUTY =
+				#{item.userDuty,jdbcType=VARCHAR},
+				SUB_SYSTEM =
+				#{item.subSystem,jdbcType=VARCHAR},
+				ATTRIBUTE1 =
+				#{item.attribute1,jdbcType=VARCHAR},
+				ATTRIBUTE2 =
+				#{item.attribute2,jdbcType=VARCHAR},
+				ATTRIBUTE3 =
+				#{item.attribute3,jdbcType=VARCHAR},
+				ATTRIBUTE4 =
+				#{item.attribute4,jdbcType=VARCHAR},
+				ATTRIBUTE5 =
+				#{item.attribute5,jdbcType=VARCHAR},
+				ATTRIBUTE6 =
+				#{item.attribute6,jdbcType=VARCHAR},
+				ATTRIBUTE7 =
+				#{item.attribute7,jdbcType=VARCHAR},
+				ATTRIBUTE8 =
+				#{item.attribute8,jdbcType=VARCHAR},
+				ATTRIBUTE9 =
+				#{item.attribute9,jdbcType=VARCHAR},
+				ATTRIBUTE10 =
+				#{item.attribute10,jdbcType=VARCHAR},
 				VALID_START = SYSDATE,
 				VALID_END = #{item.validEnd,jdbcType=DATE},
-				ORDER_CODE = #{item.orderCode,jdbcType=INTEGER},
-				UPDATE_LAST_USER = #{item.updateLastUser,jdbcType=NUMERIC},
+				ORDER_CODE =
+				#{item.orderCode,jdbcType=INTEGER},
+				UPDATE_LAST_USER =
+				#{item.updateLastUser,jdbcType=NUMERIC},
 				UPDATE_LAST_DATE = SYSDATE
 				where USER_ID = #{item.userId,jdbcType=NUMERIC};
 			</foreach>
@@ -195,7 +236,8 @@
 				USER_NAME ,
 				USER_PASSWORD ,
 				USER_DESC ,
-				ENABLED ,
+				ENABLED
+				,
 				ISSYS ,
 				USER_DEPT ,
 				USER_DUTY ,
@@ -216,7 +258,8 @@
 				ORDER_CODE ,
 				CREATED_USER ,
 				CREATED_DATE ,
-				UPDATE_LAST_USER ,
+				UPDATE_LAST_USER
+				,
 				UPDATE_LAST_DATE
 				)
 				values

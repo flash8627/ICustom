@@ -3,19 +3,26 @@ package com.gwtjs.security.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysAuthoritiesVO;
 
-public interface IAuthoritiesDAO  extends BaseSqlMapper<SysAuthoritiesVO>  {
+@Component
+public interface IAuthoritiesDAO extends BaseSqlMapper<SysAuthoritiesVO> {
 	
+	//权限框架专用
+	List<String> getSysAuthorities();
+	
+	/* 以下为维护数据专用　 */
 	//
 	SysAuthoritiesVO getByPathAuthorities(SysAuthoritiesVO reg);
 	
 	//
 	SysAuthoritiesVO findItem(@Param("authId")Integer authId);
 	
+	//
 	List<SysAuthoritiesVO> findAuthoritiesList(SysAuthoritiesVO record);
 	
 	//

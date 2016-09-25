@@ -204,10 +204,34 @@ public class SysUsersVO extends BaseResource implements CustomUserDetails {
 	public SysUsersVO() {
 
 	}
-
+	
 	public SysUsersVO(Set<GrantedAuthority> authorities,
-			boolean accountNonExpired, boolean accountNonLocked,
-			boolean credentialsNonExpired, long userId, String userAccount,
+			long userId, String userAccount,
+			String password, String username, String userDesc, int userEnabled,
+			String userDept, String userDuty,
+			Date validStart, Date validEnd) {
+		super();
+		if (((userAccount == null) || "".equals(userAccount))
+				|| (password == null)) {
+			throw new IllegalArgumentException(
+					"Cannot pass null or empty values to constructor");
+		}
+		this.authorities = Collections
+				.unmodifiableSet(sortAuthorities(authorities));
+		this.userId = userId;
+		this.userAccount = userAccount;
+		this.password = password;
+		this.username = username;
+		this.userDesc = userDesc;
+		this.userEnabled = userEnabled;
+		this.userDept = userDept;
+		this.userDuty = userDuty;
+		this.validStart = validStart;
+		this.validEnd = validEnd;
+	}
+	
+	public SysUsersVO(Set<GrantedAuthority> authorities,
+			long userId, String userAccount,
 			String password, String username, String userDesc, int userEnabled,
 			int issys, String userDept, String userDuty, String subSystem,
 			Date validStart, Date validEnd, Set<SysUsersRolesVO> sysUsersRoleses) {

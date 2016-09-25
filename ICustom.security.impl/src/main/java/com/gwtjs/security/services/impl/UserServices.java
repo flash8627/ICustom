@@ -19,6 +19,19 @@ public class UserServices implements IUserServices {
 	@Inject
 	private IUserDAO userDao;
 	
+	
+	
+	@Override
+	public List<String> loadUserAuthorities(SysUsersVO record) {
+		return userDao.loadUserAuthorities(record);
+	}
+
+	@Override
+	public SysUsersVO findByUserAccount(SysUsersVO record) {
+		// TODO Auto-generated method stub
+		return userDao.findByUserAccount(record);
+	}
+
 	/**
 	 * 分页的user 条目
 	 */
@@ -81,7 +94,7 @@ public class UserServices implements IUserServices {
 	@Override
 	public ResultWrapper login(SysUsersVO record) {
 		userDao.updateUserPwd(record);
-		SysUsersVO user = userDao.findByItem(record);
+		SysUsersVO user = userDao.findByUserAccount(record);
 		if(user==null){
 			return ResultWrapper.faultResult("用户　不存在!", record);
 		}else if(!user.getPassword().equals(record.getPassword())){
