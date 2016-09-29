@@ -543,6 +543,9 @@ create table SYS_USERS_ROLES_T
   update_last_date DATE default SYSDATE,
   valid_flag       INTEGER default 1
 );
+alter table SYS_USERS_ROLES_T
+  add constraint USER_ROLE_UNIQUE unique (USER_ID, ROLE_ID)
+  using index ;
 
 -- Create table
 create table SYS_AUTHORITIES_RESOURCES_T

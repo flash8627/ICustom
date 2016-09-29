@@ -8,12 +8,12 @@ import java.util.List;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 
-import com.gwtjs.email.dao.EmailDao;
+import com.gwtjs.email.dao.IEmailDao;
 import com.gwtjs.email.vo.Email;
 
 public class SendEmail {
 
-	private static EmailDao emailDao = new EmailDao();
+	private static IEmailDao emailDao = new IEmailDao();
 	private static List<Email> emails = new ArrayList<Email>();
 
 	// 简单邮件发送

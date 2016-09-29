@@ -5,7 +5,7 @@
 
 <div class="container">
 	<div class="page-header">
-		<h1>User Manager</h1>
+		<h1>User Manager 1</h1>
 	</div>
 
 	<div id="User_tt" class="easyui-tabs" data-options="tabWidth:118"
@@ -200,10 +200,18 @@
 		<td>
 			<input id="validEnd" class="form-control" type="text" class="easyui-datebox" style="width:86px;height:32px;">
 		</td>
-		<td>{{createdUser}}</td>
-		<td>{{createdDate}}</td>
-		<td>{{updateLastUser}}</td>
-		<td>{{updateLastDate}}</td>
+		<td>{{createdUser}}
+			<input type="hidden" name="createdUser" id="createdUser" value="{{createdUser}}">
+		</td>
+		<td>{{createdDate}}
+			<input type="hidden" name="createdDate" id="createdDate" value="{{createdDate}}">
+		</td>
+		<td>{{updateLastUser}}
+			<input type="hidden" name="updateLastUser" id="updateLastUser" value="{{updateLastUser}}">
+		</td>
+		<td>{{updateLastDate}}
+			<input type="hidden" name="updateLastDate" id="updateLastDate" value="{{updateLastDate}}">
+		</td>
 		<td>
 			<button class="btn btn-xs btn-primary user_edit_cancel" title="cancel">
 				<i class="fa fa-remove"></i>
@@ -369,7 +377,25 @@
 		// 点击 行cancel按钮，撤销编辑
 		$(document).on('click', '.user_edit_cancel', function() {
 			var $tr = $(this).closest('tr');
-			$tr.detach();
+			var userId = $tr.data('id');
+			var user = {
+				userId:userId,
+				userAccount:$('#userAccount').val(),    
+				username:$('#username').val(),    
+				password:$('#password').val(), 
+				userDesc:$('#userDesc').val(),
+				userEnabled:$('#userEnabled').is(':checked')?1:0,
+				userDept:$('#userDept').val(),
+				userDuty:$('#userDuty').val(),
+				validEnd:$('#validEnd').val(),
+				orderCode:$('#orderCode').val(),
+				createdUser:$('#createdUser').val(),
+				createdDate:$('#createdDate').val(),
+				updateLastUser:$('#updateLastUser').val(),
+				updateLastDate:$('#updateLastDate').val()
+			};
+			$tr.detach();console.info(user);
+			UserView.insertUserRows([user]);
 			$("#user_create").removeClass("l-btn-disabled");
 			$("#user_modal_submit").addClass("l-btn-disabled");
 			

@@ -7,19 +7,16 @@
        http://cxf.apache.org/jaxrs
        http://cxf.apache.org/schemas/jaxrs.xsd">
 	
-	<jaxrs:server address="/sys">
+	<!-- <jaxrs:server address="/sys">
         <jaxrs:serviceBeans>
             <ref bean="resourcesService"/>
             <ref bean="rolesService"/>
             <ref bean="authoritiesService"/>
             <ref bean="userServices"/>
-            <ref bean="userRolesServices"/>
-            <ref bean="authoritiesResourcesService"/>
-            <ref bean="roleAuthoritiesService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
         </jaxrs:providers>
-    </jaxrs:server>
+    </jaxrs:server> -->
 	
 </beans>

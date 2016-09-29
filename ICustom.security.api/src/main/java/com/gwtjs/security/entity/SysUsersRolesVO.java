@@ -2,7 +2,7 @@ package com.gwtjs.security.entity;
 
 import com.gwtjs.common.entity.BaseResource;
 
-public class SysUsersRolesVO extends BaseResource{
+public class SysUsersRolesVO extends BaseResource {
 	/**
 	 * 
 	 */
@@ -11,16 +11,27 @@ public class SysUsersRolesVO extends BaseResource{
 	private SysUsersVO sysUsers;
 	private SysRolesVO sysRoles;
 	private boolean enabled;
+	private String remarks;// REMARKS;
 
 	public SysUsersRolesVO() {
 	}
 
 	public SysUsersRolesVO(long id, SysUsersVO sysUsers, SysRolesVO sysRoles,
-			Boolean enabled) {
+			boolean enabled, String remarks) {
+		super();
 		this.id = id;
 		this.sysUsers = sysUsers;
 		this.sysRoles = sysRoles;
 		this.enabled = enabled;
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public long getId() {

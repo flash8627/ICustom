@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.gwtjs.email.vo.Email;
 
-public class EmailDao {
+public class IEmailDao {
 	static {
 		String driverName = "com.mysql.jdbc.Driver";
 

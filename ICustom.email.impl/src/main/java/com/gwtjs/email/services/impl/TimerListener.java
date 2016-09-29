@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 public class TimerListener extends HttpServlet implements
 		ServletContextListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5461428855264247411L;
+
 	// 这是一个重复执行的方法，间隔可以设定
 	public void execute() {
 		Timer timer = new Timer();

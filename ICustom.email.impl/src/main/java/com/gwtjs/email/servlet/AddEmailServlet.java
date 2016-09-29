@@ -7,11 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gwtjs.email.dao.EmailDao;
+import com.gwtjs.email.dao.IEmailDao;
 
 public class AddEmailServlet extends HttpServlet {
 	
-	private EmailDao emailDao = new EmailDao();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7987390731571529941L;
+	private IEmailDao emailDao = new IEmailDao();
 
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

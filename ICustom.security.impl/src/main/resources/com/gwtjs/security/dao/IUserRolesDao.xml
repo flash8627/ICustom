@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwtjs.security.dao.IUserRolesDao">
+	
+	
+	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
+	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期 
+		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
+	
+	<!-- 批量 - 删除某用户的某角色 -->
+	<delete id="batchRemovePks" parameterType="java.util.List">
+		DELETE FROM SYS_USERS_ROLES_T WHERE USER_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item.id}
+		</foreach>
+	</delete>
+	
+	<!-- 批量　－ 新增 某用户角色　 -->
+	<insert id="batchInsert">
+		declare 
+		<if test="list!=null and !list.isEmpty()">
+			begin
+			<foreach collection="list" item="item">
+			INSERT INTO SYS_USERS_ROLES_T 
+			  (
+				  ID, 
+				  USER_ID, 
+				  ROLE_ID,
+				  ENABLED,
+				  REMARKS,
+				  ORDER_CODE,
+				  CREATED_USER,
+				  CREATED_DATE,
+				  UPDATE_LAST_USER,
+				  UPDATE_LAST_DATE,
+				  VALID_FLAG
+			  )
+			VALUES
+			  (
+				SYS_USERS_ROLES_S.NEXTVAL, 
+				#{item.sysUsers.userId,jdbcType=INTEGER},
+				#{item.sysRoles.roleId,jdbcType=INTEGER},
+				1,
+				#{item.remarks,jdbcType=VARCHAR},
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createdUser,jdbcType=NUMERIC},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMERIC},
+				SYSDATE，
+				1
+			  )
+			;
+			</foreach>
+			end;
+		</if>
+	</insert>
+	
+	<!-- 查询某用户的角色  -->
+	<select id="findUserRole" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
+		SELECT 
+		      UR.ID id,
+		      R.Role_Id roleId,
+		      R.ROLE_NAME roleName,
+		      R.ROLE_CODE roleCode,
+		      R.ROLE_DESC roleDesc   
+		   FROM 
+		        SYS_ROLES_T R,
+		        SYS_USERS_ROLES_T UR 
+		   WHERE 
+		        UR.VALID_FLAG=1
+		        AND  R.ROLE_ID = #{sysRoles.roleId,jdbcType=NUMERIC}
+		        AND  UR.USER_ID = #{sysUsers.userId,jdbcType=NUMERIC}
+	</select>
+	
+	<!-- 查询某用户的角色  -->
+	<select id="findUserRoles" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
+		SELECT 
+		      UR.ID id,
+		      R.Role_Id roleId,
+		      R.ROLE_NAME roleName,
+		      R.ROLE_CODE roleCode,
+		      R.ROLE_DESC roleDesc   
+		   FROM 
+		        SYS_ROLES_T R,
+		        SYS_USERS_ROLES_T UR 
+		   WHERE 
+		        UR.VALID_FLAG=1
+		        AND  R.ROLE_ID = UR.ROLE_ID
+		        AND  UR.USER_ID = #{userId,jdbcType=NUMERIC}
+	</select>
+	
+</mapper>
