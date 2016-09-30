@@ -19,21 +19,6 @@ public class RolesService implements IRolesService {
 	@Inject
 	private ISysRolesDAO rolesDao;
 	
-	/**
-	 * 分页的user 条目
-	 */
-	@Override
-	public PagedResult<SysRolesVO> findListRecords(SysRolesVO record, PagerVO page) {
-		PagedResult<SysRolesVO> paged = new PagedResult<SysRolesVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(rolesDao.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
-			paged.setPageVO(pageVO);
-			paged.setResult(rolesDao.selectList(record, page));
-		}
-		return paged;
-	}
-	
 	@Override
 	public ResultWrapper findItem(long roleId) {
 		// TODO Auto-generated method stub
@@ -42,7 +27,14 @@ public class RolesService implements IRolesService {
 
 	@Override
 	public PagedResult<SysRolesVO> findRolesList(SysRolesVO record, PagerVO page) {
-		return findListRecords(record, page);
+		PagedResult<SysRolesVO> paged = new PagedResult<SysRolesVO>();
+		PagerVO pageVO = new PagerVO();
+		pageVO.setTotalRows(rolesDao.selectListCount(record,page));
+		if(pageVO.getTotalRows()>0){
+			paged.setPageVO(pageVO);
+			paged.setResult(rolesDao.selectList(record, page));
+		}
+		return paged;
 	}
 
 	@Override

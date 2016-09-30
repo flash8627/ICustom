@@ -50,8 +50,8 @@
 		</if>
 	</insert>
 	
-	<!-- 查询某用户的角色  -->
-	<select id="findByRolesAuthorities" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
+	<!-- 查询某角色的权限列表  -->
+	<select id="findByRoleAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
 		select 
 			<include refid="column_base" />
 		  from 
@@ -63,8 +63,8 @@
 		       AND RA.ROLE_ID=#{sysRoles.roleId,jdbcType=NUMERIC}
 	</select>
 	
-	<!-- 查询某用户的角色  -->
-	<select id="findRolesAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
+	<!-- 查询某权限  -->
+	<select id="findRoleAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
 		select 
 			<include refid="column_base" />
 		  from 

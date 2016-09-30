@@ -23,10 +23,6 @@ import com.gwtjs.security.entity.SysRolesVO;
 @Produces(MediaType.APPLICATION_JSON)
 public interface IRolesService {
 	
-	@GET
-	@Path("findListRecords/{pageSize}/{curPage}")
-	PagedResult<SysRolesVO> findListRecords(@QueryParam("")SysRolesVO record, @PathParam("")PagerVO page);
-	
 	@GET @Path("findItem/{roleId}")
 	ResultWrapper findItem(@PathParam("roleId")long roleId);
 	

@@ -49,10 +49,10 @@ public interface IUserServices {
 	@POST @Path("batchInsert")
 	ResultWrapper batchInsert(List<SysUsersVO> records);
 	
-	@GET @Path("updateUserPwd")
+	@POST @Path("updateUserPwd")
 	public ResultWrapper updateUserPwd(SysUsersVO record);
 	
-	@GET @Path("login")
+	@POST @Path("login")
 	public ResultWrapper login(SysUsersVO record) ;
 	
 	/**

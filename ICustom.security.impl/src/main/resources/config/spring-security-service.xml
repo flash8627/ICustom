@@ -14,7 +14,7 @@
             <ref bean="authoritiesService"/>
             <ref bean="userServices"/>
             <ref bean="userRolesServices"/>
-            <ref bean="authoritiesResourcesService"/>
+            <ref bean="authorityResourcesService"/>
             <ref bean="roleAuthoritiesService"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>

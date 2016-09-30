@@ -19,8 +19,6 @@ public class UserServices implements IUserServices {
 	@Inject
 	private IUserDAO userDao;
 	
-	
-	
 	@Override
 	public List<String> loadUserAuthorities(SysUsersVO record) {
 		return userDao.loadUserAuthorities(record);
