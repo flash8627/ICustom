@@ -8,9 +8,10 @@ import javax.inject.Named;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.security.dao.IAuthoritiesResourcesDAO;
 import com.gwtjs.security.entity.SysAuthoritiesResourcesVO;
+import com.gwtjs.security.services.IAuthorityResourcesService;
 
 @Named("authorityResourcesService")
-public class AuthoritiesResourcesService implements
+public class AuthorityResourcesService implements
 		IAuthorityResourcesService {
 
 	private IAuthoritiesResourcesDAO authoritiesResourcesDao;
