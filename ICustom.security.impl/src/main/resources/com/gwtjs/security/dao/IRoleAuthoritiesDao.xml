@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gwtjs.security.dao.IUserRolesDao">
+<mapper namespace="com.gwtjs.security.dao.IRoleAuthoritiesDao">
 	
 	
 	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
@@ -9,7 +9,7 @@
 	
 	<!-- 批量 - 删除某用户的某角色 -->
 	<delete id="batchRemovePks" parameterType="java.util.List">
-		DELETE FROM SYS_USERS_ROLES_T WHERE ID in
+		DELETE FROM SYS_ROLES_AUTHORITIES_T WHERE ID in 
 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
 			#{item.id}
@@ -22,33 +22,27 @@
 		<if test="list!=null and !list.isEmpty()">
 			begin
 			<foreach collection="list" item="item">
-			INSERT INTO SYS_USERS_ROLES_T 
+			INSERT INTO SYS_ROLES_AUTHORITIES_T 
 			  (
 				  ID, 
-				  USER_ID, 
+				  AUTH_ID, 
 				  ROLE_ID,
 				  ENABLED,
-				  REMARKS,
-				  ORDER_CODE,
 				  CREATED_USER,
 				  CREATED_DATE,
 				  UPDATE_LAST_USER,
-				  UPDATE_LAST_DATE,
-				  VALID_FLAG
+				  UPDATE_LAST_DATE
 			  )
-			VALUES
+			VALUES 
 			  (
-				SYS_USERS_ROLES_S.NEXTVAL, 
-				#{item.sysUsers.userId,jdbcType=INTEGER},
+				SYS_ROLES_AUTHORITIES_S.NEXTVAL, 
+				#{item.sysAuthorities.authId,jdbcType=INTEGER},
 				#{item.sysRoles.roleId,jdbcType=INTEGER},
 				1,
-				#{item.remarks,jdbcType=VARCHAR},
-				#{item.orderCode,jdbcType=INTEGER},
 				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
 				#{item.updateLastUser,jdbcType=NUMERIC},
-				SYSDATE,
-				1
+				SYSDATE
 			  )
 			;
 			</foreach>
@@ -57,37 +51,44 @@
 	</insert>
 	
 	<!-- 查询某用户的角色  -->
-	<select id="findUserRole" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
-		SELECT 
-		      UR.ID id,
-		      R.Role_Id roleId,
-		      R.ROLE_NAME roleName,
-		      R.ROLE_CODE roleCode,
-		      R.ROLE_DESC roleDesc   
-		   FROM 
-		        SYS_ROLES_T R,
-		        SYS_USERS_ROLES_T UR 
-		   WHERE 
-		        UR.VALID_FLAG=1
-		        AND  R.ROLE_ID = #{sysRoles.roleId,jdbcType=NUMERIC}
-		        AND  UR.USER_ID = #{sysUsers.userId,jdbcType=NUMERIC}
+	<select id="findByRolesAuthorities" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
+		select 
+			<include refid="column_base" />
+		  from 
+		  SYS_ROLES_AUTHORITIES_T RA, 
+		  SYS_AUTHORITIES_T A
+		  WHERE 
+		       A.VALID_FLAG = 1 
+		       AND RA.AUTH_ID=#{sysAuthorities.authId,jdbcType=NUMERIC}
+		       AND RA.ROLE_ID=#{sysRoles.roleId,jdbcType=NUMERIC}
 	</select>
 	
 	<!-- 查询某用户的角色  -->
-	<select id="findUserRoles" resultType="com.gwtjs.security.entity.SysUsersRolesVO">
-		SELECT 
-		      UR.ID id,
-		      R.Role_Id roleId,
-		      R.ROLE_NAME roleName,
-		      R.ROLE_CODE roleCode,
-		      R.ROLE_DESC roleDesc   
-		   FROM 
-		        SYS_ROLES_T R,
-		        SYS_USERS_ROLES_T UR 
-		   WHERE 
-		        UR.VALID_FLAG=1
-		        AND  R.ROLE_ID = UR.ROLE_ID
-		        AND  UR.USER_ID = #{userId,jdbcType=NUMERIC}
+	<select id="findRolesAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
+		select 
+			<include refid="column_base" />
+		  from 
+		  SYS_ROLES_AUTHORITIES_T RA, 
+		  SYS_AUTHORITIES_T A
+		  WHERE 
+		       A.VALID_FLAG = 1
+		       AND A.AUTH_ID=RA.AUTH_ID
+		       AND RA.ROLE_ID=#{roleId,jdbcType=NUMERIC}
 	</select>
+	
+	<sql id="column_base">
+		RA.ID id, 
+		RA.ROLE_ID roleId, 
+		A.AUTH_ID authId,
+		A.AUTH_NAME authId,
+		A.AUTH_DESC authId,
+		A.AUTH_CODE authId,
+		A.ORDER_CODE authId,
+		A.CREATED_USER authId,
+		A.CREATED_DATE authId,
+		A.UPDATE_LAST_USER authId,
+		A.UPDATE_LAST_DATE authId,
+		RA.ENABLED enabled 
+	</sql>
 	
 </mapper>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gwtjs.security.dao.IAuthoritiesResourcesDao">
+<mapper namespace="com.gwtjs.security.dao.IAuthoritiesResourcesDAO">
 	
 	
-	<!-- <cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" /> -->
+	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
 	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期 
 		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
 	
-	<!-- <select id="loadResource" resultType="string">
+	<select id="loadResource" resultType="string">
 		SELECT 
 			B.RES_URL  
 		  FROM 
@@ -19,6 +19,105 @@
 		 	AND A.RESOURCE_ID = B.RESOURCE_ID 
 			AND A.AUTH_ID = C.AUTH_ID 
 			AND upper(C.AUTH_NAME) = upper(#{authName,jdbcType=VARCHAR}) 
-	</select> -->
+	</select>
+	
+	<select id="findAuthoritiesResourcesItem" resultType="com.gwtjs.security.entity.SysAuthoritiesResourcesVO">
+		SELECT 
+	      A.ID id,
+	      A.AUTH_ID authId, 
+	      A.RESOURCE_ID resourceId, 
+	      B.RES_URL  resUrl, 
+	      B.RESOURCE_NAME resourceName, 
+	      B.RESOURCE_DESC resourceDesc, 
+	      B.RESOURCE_TYPE resourceType, 
+	      A.ORDER_CODE orderCode, 
+			A.CREATED_USER createdUser, 
+			A.CREATED_DATE createdDate, 
+			A.UPDATE_LAST_USER updateLastUser, 
+			A.UPDATE_LAST_DATE updateLastDate 
+	      FROM 
+	        SYS_AUTHORITIES_RESOURCES_T A, 
+	        SYS_RESOURCES_T B, 
+	        SYS_AUTHORITIES_T C 
+	     WHERE B.VALID_FLAG = 1  
+	       AND A.RESOURCE_ID = #{sysResources.resourceId,jdbcType=NUMERIC} 
+	       AND A.AUTH_ID = #{sysAuthorities.authId,jdbcType=NUMERIC} 
+	       AND ROWNUM = 1
+	</select>
+	
+	<select id="findAuthoritiesResources" resultType="com.gwtjs.security.entity.SysAuthoritiesResourcesVO">
+		SELECT 
+	      A.ID id,
+	      A.AUTH_ID authId,
+	      A.RESOURCE_ID resourceId,
+	      B.RES_URL  resUrl,
+	      B.RESOURCE_NAME resourceName,
+	      B.RESOURCE_DESC resourceDesc,
+	      B.RESOURCE_TYPE resourceType,
+	      A.ORDER_CODE orderCode,
+			A.CREATED_USER createdUser, 
+			A.CREATED_DATE createdDate, 
+			A.UPDATE_LAST_USER updateLastUser, 
+			A.UPDATE_LAST_DATE updateLastDate 
+	      FROM 
+	        SYS_AUTHORITIES_RESOURCES_T A, 
+	        SYS_RESOURCES_T B, 
+	        SYS_AUTHORITIES_T C 
+	     WHERE B.VALID_FLAG = 1  
+	       AND A.RESOURCE_ID = B.RESOURCE_ID 
+	       AND A.AUTH_ID = C.AUTH_ID 
+	       AND A.AUTH_ID = #{sysAuthorities.authId,jdbcType=NUMERIC} 
+	</select>
+	
+	<!-- 批量 - 删除某权限的某资源 -->
+	<delete id="batchRemovePks" parameterType="java.util.List">
+		DELETE FROM SYS_AUTHORITIES_RESOURCES_T WHERE ID IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item.id} 
+		</foreach>
+	</delete>
+	
+	<!-- 批量　－ 新增 某权限的资源　 -->
+	<insert id="batchInsert">
+		declare 
+		<if test="list!=null and !list.isEmpty()">
+			begin 
+			<foreach collection="list" item="item">
+			INSERT INTO SYS_AUTHORITIES_RESOURCES_T
+			  (
+				  ID,AUTH_ID,RESOURCE_ID,ENABLED,REMARKS,
+				  ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,ATTRIBUTE5,ATTRIBUTE6,ATTRIBUTE7,ATTRIBUTE8,ATTRIBUTE9,ATTRIBUTE10,
+				  ORDER_CODE,CREATED_USER,CREATED_DATE,UPDATE_LAST_USER,UPDATE_LAST_USER,UPDATE_LAST_DATE,VALID_FLAG
+			  )
+			VALUES
+			  (
+				SYS_AUTHORITIES_RESOURCES_S.NEXTVAL, 
+				#{item.sysAuthorities.authId,jdbcType=NUMERIC},
+				#{item.sysResources.resourceId,jdbcType=NUMERIC},
+				1,
+				#{item.remarks,jdbcType=VARCHAR},
+				#{item.attribut1,jdbcType=VARCHAR},
+				#{item.attribut2,jdbcType=VARCHAR},
+				#{item.attribut3,jdbcType=VARCHAR},
+				#{item.attribut4,jdbcType=VARCHAR},
+				#{item.attribut5,jdbcType=VARCHAR},
+				#{item.attribut6,jdbcType=VARCHAR},
+				#{item.attribut7,jdbcType=VARCHAR},
+				#{item.attribut8,jdbcType=VARCHAR},
+				#{item.attribut9,jdbcType=VARCHAR},
+				#{item.attribut10,jdbcType=VARCHAR},
+				#{item.orderCode,jdbcType=INTEGER},
+				#{item.createdUser,jdbcType=NUMERIC},
+				SYSDATE,
+				#{item.updateLastUser,jdbcType=NUMERIC},
+				SYSDATE,
+				1
+			  )
+			;
+			</foreach>
+			end;
+		</if>
+	</insert>
 	
 </mapper>

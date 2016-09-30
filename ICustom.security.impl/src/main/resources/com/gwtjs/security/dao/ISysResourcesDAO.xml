@@ -49,7 +49,7 @@
 	</update>
 	
 	<delete id="deleteByPrimaryKey">
-		delete from SYS_RESOURCES_T
+		delete FROM SYS_RESOURCES_T
 		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
 	</delete>
 	

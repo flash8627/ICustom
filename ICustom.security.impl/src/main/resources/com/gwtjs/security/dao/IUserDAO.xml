@@ -236,8 +236,7 @@
 				USER_NAME ,
 				USER_PASSWORD ,
 				USER_DESC ,
-				ENABLED
-				,
+				ENABLED,
 				ISSYS ,
 				USER_DEPT ,
 				USER_DUTY ,
@@ -258,8 +257,7 @@
 				ORDER_CODE ,
 				CREATED_USER ,
 				CREATED_DATE ,
-				UPDATE_LAST_USER
-				,
+				UPDATE_LAST_USER,
 				UPDATE_LAST_DATE
 				)
 				values
