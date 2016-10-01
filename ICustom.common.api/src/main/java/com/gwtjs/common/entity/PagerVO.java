@@ -2,19 +2,21 @@ package com.gwtjs.common.entity;
 
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * 分页组件
  * 
  * @author aGuang
  *
- */
+ */@JsonIgnoreProperties
 public class PagerVO {
 
 	private Object entityList;
 	private int totalRows;
 	private int curPage = 1;
-	private int pageSize = 20;
+	private int pageSize = 15 ;
 	/** 配合结果模式为0取结果集与记录总，为1取记录数，为2只取结果集 */
 	private int resultMode;
 	private int startIndex;
@@ -38,9 +40,9 @@ public class PagerVO {
 		}
 		return endIndex == 0? curPage*pageSize:(endIndex-1>totalRows?totalRows:endIndex);
 	}
-
+	
 	public int getTotalPage() {
-		return totalPage%pageSize==0?totalRows/pageSize:totalRows/pageSize+1;
+		return totalRows%pageSize==0 ? totalRows/pageSize : totalRows/pageSize+1;
 	}
 
 	public void setEndIndex(int endIndex) {
@@ -72,13 +74,13 @@ public class PagerVO {
 	}
 
 	public int getPageSize() {
-		return pageSize;
+		return pageSize == 0 ? 15 : pageSize;
 	}
 
 	public void setPageSize(int pageSize) {
-		if(pageSize<=0 || pageSize>20){
+		/*if(pageSize<=0 || pageSize>20){
 			return ;
-		}
+		}*/
 		this.pageSize = pageSize;
 	}
 
