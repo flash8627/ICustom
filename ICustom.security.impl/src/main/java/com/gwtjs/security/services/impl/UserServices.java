@@ -18,7 +18,12 @@ public class UserServices implements IUserServices {
 
 	@Inject
 	private IUserDAO userDao;
-	
+
+	@Override
+	public PagedResult<SysUsersVO> findUserPage(SysUsersVO record, PagerVO page) {
+		return userDao.findUserPage(record, page);
+	}
+
 	@Override
 	public List<String> loadUserAuthorities(SysUsersVO record) {
 		return userDao.loadUserAuthorities(record);
@@ -34,17 +39,18 @@ public class UserServices implements IUserServices {
 	 * 分页的user 条目
 	 */
 	@Override
-	public PagedResult<SysUsersVO> findListRecords(SysUsersVO record, PagerVO page) {
+	public PagedResult<SysUsersVO> findListRecords(SysUsersVO record,
+			PagerVO page) {
 		PagedResult<SysUsersVO> paged = new PagedResult<SysUsersVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(userDao.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
+		pageVO.setTotalRows(userDao.selectListCount(record, page));
+		if (pageVO.getTotalRows() > 0) {
 			paged.setPageVO(pageVO);
 			paged.setResult(userDao.selectList(record, page));
 		}
 		return paged;
 	}
-	
+
 	@Override
 	public ResultWrapper findItem(long roleId) {
 		// TODO Auto-generated method stub
@@ -59,7 +65,8 @@ public class UserServices implements IUserServices {
 	@Override
 	public ResultWrapper findUserListCount(SysUsersVO record) {
 		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(userDao.selectListCount(record,null));
+		return ResultWrapper.successResult(userDao
+				.selectListCount(record, null));
 	}
 
 	@Override
@@ -88,39 +95,39 @@ public class UserServices implements IUserServices {
 		userDao.updateUserPwd(record);
 		return ResultWrapper.successResult(record);
 	}
-	
+
 	@Override
 	public ResultWrapper login(SysUsersVO record) {
 		userDao.updateUserPwd(record);
 		SysUsersVO user = userDao.findByUserAccount(record);
-		if(user==null){
+		if (user == null) {
 			return ResultWrapper.faultResult("用户　不存在!", record);
-		}else if(!user.getPassword().equals(record.getPassword())){
+		} else if (!user.getPassword().equals(record.getPassword())) {
 			return ResultWrapper.faultResult("密码错误!", record);
-		}else if(user.getUserEnabled()==1){
+		} else if (user.getUserEnabled() == 1) {
 			return ResultWrapper.faultResult("用户已经被禁用,请联系管理员!", record);
 		}
 		return ResultWrapper.successResult(record);
 	}
-	
-	private ResultWrapper genericResult(List<SysUsersVO> list)
-	{
+
+	private ResultWrapper genericResult(List<SysUsersVO> list) {
 		List<SysUsersVO> records = new ArrayList<SysUsersVO>();
 		for (SysUsersVO user : list) {
 			records.add(userDao.findByItem(user));
 		}
 		return ResultWrapper.successResult(records);
 	}
-	
+
 	/**
-	 * 设置当前操作用户 
+	 * 设置当前操作用户
+	 * 
 	 * @param records
 	 * @return
 	 */
-	private List<SysUsersVO> setRecordsUser(List<SysUsersVO> records){
+	private List<SysUsersVO> setRecordsUser(List<SysUsersVO> records) {
 		List<SysUsersVO> result = new ArrayList<SysUsersVO>();
 		long createdUser = new Long(1);
-		
+
 		for (SysUsersVO vo : records) {
 			vo.setCreatedUser(createdUser);
 			vo.setUpdateLastUser(createdUser);

@@ -24,13 +24,11 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 	
 	@WebMethod
 	public String sayHello(@WebParam String name) {
-		System.out.println(1111);
 		return "Hi,"+name;
 	}
 
 	@WebMethod
 	public String sayBye(@WebParam String name) {
-		System.out.println(222);
 		return "Good Bye,"+name;
 	}
 	

@@ -50,8 +50,8 @@ var LookupItemView = function() {
         },
     	addTabPanel:function(lookup,lookupItem){
     		var tabId = 'Tab_' + lookup.classCode;
-    		if ($('#Lookup_tt').tabs('exists', lookup.classCode)){
-    			$('#Lookup_tt').tabs('select', lookup.classCode);
+    		if ($('#Lookup_tt').tabs('exists', lookup.className)){
+    			$('#Lookup_tt').tabs('select', lookup.className);
     		} else {
     			var tableId = 'lookup_item_'+lookup.classCode+'_table';
     			var title = lookup.className;

@@ -28,6 +28,10 @@ import com.gwtjs.security.entity.SysUsersVO;
 public interface IUserServices {
 	
 	@GET
+	@Path("findUserPage/{pageSize}/{curPage}")
+	PagedResult<SysUsersVO> findUserPage(@QueryParam("")SysUsersVO record,@PathParam("")PagerVO page);
+	
+	@GET
 	@Path("findListRecords/{pageSize}/{curPage}")
 	public PagedResult<SysUsersVO> findListRecords(@QueryParam("")SysUsersVO record, @PathParam("")PagerVO page);
 	

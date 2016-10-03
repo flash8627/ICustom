@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysUsersVO;
@@ -12,6 +13,10 @@ import com.gwtjs.security.entity.SysUsersVO;
 @Repository(value = "userDao")
 public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 	
+	//
+	PagedResult<SysUsersVO> queryUserByPage(SysUsersVO record);
+	//
+	PagedResult<SysUsersVO> findUserPage(SysUsersVO record,PagerVO page);
 	
 	/**
 	 *@author aGuang 2011-3-30 下午03:51:48
@@ -19,7 +24,6 @@ public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 	 *@param session
 	 *@return  字符数组
 	 */
-	
 	/**用户权限名称*/
 	List<String> loadUserAuthorities(SysUsersVO record);
 	

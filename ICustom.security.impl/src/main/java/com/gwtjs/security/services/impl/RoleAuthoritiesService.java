@@ -39,8 +39,8 @@ public class RoleAuthoritiesService implements IRoleAuthoritiesService {
 	}
 
 	@Override
-	public List<SysRolesAuthoritiesVO> findRoleAuthorities(SysRolesAuthoritiesVO vo) {
-		List<SysRolesAuthoritiesVO>result = roleAuthoritiesDao.findRoleAuthorities(vo);
+	public List<SysRolesAuthoritiesVO> findRoleAuthorities(long roleId) {
+		List<SysRolesAuthoritiesVO>result = roleAuthoritiesDao.findRoleAuthorities(roleId);
 		return result;
 	}
 	

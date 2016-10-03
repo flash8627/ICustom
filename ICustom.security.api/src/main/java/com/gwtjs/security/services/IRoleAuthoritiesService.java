@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -36,7 +37,7 @@ public interface IRoleAuthoritiesService {
 	SysRolesAuthoritiesVO findByRoleAuthorities(SysRolesAuthoritiesVO vo);
 	
 	@GET
-	@Path("/findRoleAuthorities")
-	List<SysRolesAuthoritiesVO> findRoleAuthorities(SysRolesAuthoritiesVO vo);
+	@Path("/findRoleAuthorities/{roleId}")
+	List<SysRolesAuthoritiesVO> findRoleAuthorities(@PathParam("roleId")long roleId);
 	
 }

@@ -36,23 +36,22 @@
 		AND upper(D.USER_ACCOUNT = upper(#{userAccount,jdbcType=VARCHAR})
 	</select>
 
+	<!-- 按登陆帐号和姓名查找用户　 -->
 	<select id="findByItem" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_USERS_T T1
 		where T1.VALID_FLAG=1
-		AND upper(T1.USER_ACCOUNT) =
-		upper(#{userAccount,jdbcType=VARCHAR})
-		AND T1.USER_NAME =
-		#{username,jdbcType=NUMERIC}
+		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
+		AND T1.USER_NAME = #{username,jdbcType=NUMERIC}
 	</select>
-
+	
+	<!-- 按用户主键查找用户 -->
 	<select id="findItem" resultType="com.gwtjs.security.entity.SysUsersVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM SYS_USERS_T T1
-		where T1.VALID_FLAG=1 AND T1.USER_ID =
-		#{userId,jdbcType=NUMERIC}
+		where T1.VALID_FLAG=1 AND T1.USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
 
 	<sql id="Base_Column_List">
@@ -62,8 +61,7 @@
 		USER_PASSWORD password,
 		USER_DESC userDesc,
 		ENABLED userEnabled,
-		ISSYS
-		issys,
+		ISSYS  issys,
 		USER_DEPT userDept,
 		USER_DUTY userDuty,
 		SUB_SYSTEM subSystem,
@@ -99,7 +97,27 @@
 		) WHERE RN<=#{1.endIndex} AND RN>=#{1.startIndex}
 		]]>
 	</sql>
-
+	
+	<select id="findUserPage" resultType="com.gwtjs.security.entity.SysUsersVO">
+		<include refid="page_st" />
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM SYS_USERS_T T1 
+		where T1.VALID_FLAG=1
+		<include refid="select_cond" />
+		ORDER BY USER_ID DESC
+		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
+		<include refid="page_et" />
+	</select>
+	
+	<select id="findUserPageCount" resultType="INTEGER">
+		SELECT
+		COUNT(1)
+		FROM SYS_USERS_T T1
+		where T1.VALID_FLAG=1
+		<include refid="select_cond" />
+	</select>
+	
 	<select id="selectList" parameterType="hashmap"
 		resultType="com.gwtjs.security.entity.SysUsersVO">
 		<include refid="page_st" />
@@ -123,8 +141,7 @@
 
 	<sql id="select_cond">
 		<if test='_parameter.get("0").userAccount != null'>
-			AND upper(T1.USER_ACCOUNT) =
-			upper(#{0.userAccount,jdbcType=VARCHAR})
+			AND upper(T1.USER_ACCOUNT) = upper(#{0.userAccount,jdbcType=VARCHAR})
 		</if>
 		<if test='_parameter.get("0").username != null'>
 			AND T1.USER_NAME LIKE

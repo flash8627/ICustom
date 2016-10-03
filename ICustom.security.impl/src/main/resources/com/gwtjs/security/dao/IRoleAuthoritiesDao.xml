@@ -71,7 +71,7 @@
 		  SYS_ROLES_AUTHORITIES_T RA, 
 		  SYS_AUTHORITIES_T A
 		  WHERE 
-		       A.VALID_FLAG = 1
+		       A.VALID_FLAG = 1 
 		       AND A.AUTH_ID=RA.AUTH_ID
 		       AND RA.ROLE_ID=#{roleId,jdbcType=NUMERIC}
 	</select>
@@ -80,14 +80,14 @@
 		RA.ID id, 
 		RA.ROLE_ID roleId, 
 		A.AUTH_ID authId,
-		A.AUTH_NAME authId,
-		A.AUTH_DESC authId,
-		A.AUTH_CODE authId,
-		A.ORDER_CODE authId,
-		A.CREATED_USER authId,
-		A.CREATED_DATE authId,
-		A.UPDATE_LAST_USER authId,
-		A.UPDATE_LAST_DATE authId,
+		A.AUTH_NAME authName,
+		A.AUTH_DESC authDesc,
+		A.AUTH_CODE authCode,
+		A.ORDER_CODE orderCode,
+		A.CREATED_USER createdUser,
+		A.CREATED_DATE createdDate,
+		A.UPDATE_LAST_USER updateLastUser,
+		A.UPDATE_LAST_DATE updateLastDate,
 		RA.ENABLED enabled 
 	</sql>
 	

@@ -82,14 +82,142 @@
 	</div>
 </div>
 
-<script type="text/x-handlebars-template-partial" id="user_item_table_template">
+<!-- user roles 行编辑模板 -->
+<script type="text/x-handlebars-template" id="user_roles_form_template">
+	<tr data-id="{{id}}" data-name="id" class="template">
+		<td>
+			<input type="hidden" name="id" id="id" value="{{id}}">
+			<input type="hidden" name="roleId" id="roleId" value="{{roleId}}">&nbsp;
+			<input type="hidden" name="userId" id="userId" value="{{userId}}">
+		</td>
+		<td><input type="text" value="{{roleName}}" id="roleName" class="form-control"></td>
+		<td><input type="text" value="{{roleDesc}}" id="roleDesc" class="form-control"></td>
+		<td><input type="text" value="{{orderCode}}" id="orderCode" class="form-control"></td>
+		<td>{{createdUser}}</td>
+		<td>{{createdDate}}</td>
+		<td>{{updateLastUser}}</td>
+		<td>{{updateLastDate}}</td>
+		<td>
+			<button class="btn btn-xs btn-primary role_edit_cancel" title="cancel Edit">
+				<i class="fa fa-fw fa-remove"></i>
+			</button>
+		</td>
+	</tr>
 </script>
 
-<!-- user item 行编辑模板 -->
-<script type="text/x-handlebars-template" id="user_item_form_template">
+<!-- user roles 行模板 -->
+<script type="text/x-handlebars-template" id="user_roles_info_template">
+	<tr data-id="{{id}}" data-name="id">
+		<td>
+			<form>
+				<label class="checkbox-inline"> 
+				<input type="hidden" name="roleId" id="roleId" value="{{roleId}}">&nbsp;
+				<input type="hidden" name="userId" id="userId" value="{{userId}}">
+				<input type="checkbox" id="id" name="id" value="{{id}}"
+					onclick="validateRemoveBtn()">
+				</label>
+			</form>
+		</td>
+		<td data-id="{{roleName}}" data-name="roleName">{{roleName}}</td>
+		<td data-id="{{roleCode}}" data-name="roleCode">{{roleCode}}</td>
+		<td>{{roleDesc}}</td>
+	</tr>
 </script>
-<!-- user item 行模板 -->
-<script type="text/x-handlebars-template" id="user_item_info_template">
+
+<script type="text/x-handlebars-template-partial" id="user_roles_table_template">
+	
+<div style="margin: 8px;">
+	<div class="page-header">
+		<h5>角色信息</h5>
+	</div>
+	<div style="" class="my-form-group-row">
+		<span class="form-group my-form-group" style="width: 38%;"> <label
+			for="userAccount" style="">登陆帐号:</label> <span>{{userAccount}}</span>
+		</span> <span class="form-group my-form-group" style="width: 38%;"> <label
+			for="username" style="width: 18%; text-align: right;">用户姓名:</label> <span>{{username}}</span>
+		</span>
+	</div>
+</div>
+
+<div id="UserRole_Item_{{userAccount}}"
+	style="height: auto; margin: 6px;">
+	<button class="btn btn-success itemFormActionbtn l-btn-disabled"
+		type="button" onclick="userItemSave()">
+		<i class="fa fa-save" aria-hidden="true"></i> 保存
+	</button>
+	<button class="btn btn-success actionbtn" type="button"
+		onclick="userItemBack()">
+		<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
+	</button>
+</div>
+<div id="UserRole_Item_{{userAccount}}_grid" class="{{userAccount}}">
+	<table style="width:100%;">
+		<tr>
+			<td>用户角色</td>
+			<td>&nbsp;</td>
+			<td>系统角色</td>
+		</tr>
+		<tr>
+			<td style="width:45%;padding:0;" align="left" valign="top">
+				<table class="table table-hover"
+					id="user_item_{{userAccount}}_table">
+					<thead>
+						<tr>
+							<th>选择</th>
+							<th>角色名称 <span class="required">*</span></th>
+							<th data-id="{{roleCode}}" data-name="roleCode">角色编码</th>
+							<th>角色说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#if data}} {{#data}} {{> tr}} {{/data}} {{else}}
+						<div class="alert alert-warning">Can not find any data!</div>
+						{{/if}}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</td>
+
+			<td style="background: #f0f2f8; text-align: center;width:38px;" align="center" valign="middle">
+				<div>
+				<a href="javascript:;">
+					<i class="fa fa-chevron-left" aria-hidden="true"></i>
+					<span class="sr-only"> chevron-left </span>
+				</a>
+				</div>
+				<div>
+				<a href="javascript:;">
+					<i class="fa fa-chevron-right" aria-hidden="true"></i>
+					<span class="sr-only">chevron-right </span> 
+				</a>
+				</div>
+			</td>
+
+			<td style="width:45%;padding:0;" align="left" valign="top">
+				<table class="table table-hover"
+					id="sys_roles_table">
+					<thead>
+						<tr>
+							<th>选择</th>
+							<th>角色名称 <span class="required">*</span></th>
+							<th data-id="{{roleCode}}" data-name="roleCode">角色编码</th>
+							<th>角色说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#if data}} {{#data}} {{> tr}} {{/data}} {{else}}
+						<div class="alert alert-warning">Can not find any data!</div>
+						{{/if}}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
 </script>
 
 <!-- 分页组件 -->
@@ -122,7 +250,9 @@
 			  <th>创建时间</th>
 			  <th>最后更新用户</th>
 			  <th>最后更新时间</th>
-			  <th>操作</th>
+			  <th>角色</th>
+			  <th>密码</th>
+			  <th>编辑</th>
 		  	</tr>
 		</thead>
 		<tbody>
@@ -139,7 +269,7 @@
 	</table>
 </script>
 
-<!-- 行模板 -->
+<!-- 表格行模板-无编辑框 -->
 <script type="text/x-handlebars-template-partial"
 	id="user_table_tr_template">
 	<tr data-id="{{userId}}" data-name="userId" class="user_tr_template">
@@ -150,8 +280,8 @@
 			</label>
 			</form>
 		</td>
-		<td>{{userAccount}}</td>
-		<td>{{username}}</td>
+		<td data-id="{{userAccount}}" data-name="userAccount">{{userAccount}}</td>
+		<td data-id="{{username}}" data-name="username">{{username}}</td>
 		<td>{{userDesc}}</td>
 		<td>{{userEnabled}}</td>
 		<td>{{orderCode}}</td>
@@ -166,14 +296,16 @@
 		<td>{{updateLastUser}}</td>
 		<td>{{updateLastDate}}</td>
 		<td>
-			<button class="btn btn-xs btn-primary user_edit" title="edit user info">
-				<i class="fa fa-edit"></i>
-			</button>
+			<button class="btn btn-xs btn-primary user_roles_editor" title="Edit user roles">
+				<i class="fa fa-list"></i>
+			</button></td>
+		<td>
 			<button class="btn btn-xs btn-primary user_edit_cancel" title="cancel edit">
 				<i class="fa fa-key fa-fw"></i>
-			</button>
-			<button class="btn btn-xs btn-primary role_gears" title="Edit user roles">
-				<i class="fa fa-list"></i>
+			</button></td>
+		<td>
+			<button class="btn btn-xs btn-primary user_edit" title="edit user info">
+				<i class="fa fa-edit"></i>
 			</button>
 		</td>
 	</tr>
@@ -183,11 +315,9 @@
 <script type="text/x-handlebars-template" id="user_modal_form_template">
     <tr data-id="{{userId}}" data-name="userId" class="user_form_template">
 		<td>
-			<form>
 			<label class="checkbox-inline"> 
 				<input type="hidden" name="userId" id="userId" value="{{userId}}">
 			</label>
-			</form>
 		</td>
 		<td><input type="text" class="form-control" name="userAccount" id="userAccount" value="{{userAccount}}" size="8"></td>
 		<td><input type="text" class="form-control" name="username" id="username" value="{{username}}" size="8"></td>
@@ -212,7 +342,7 @@
 		<td>{{updateLastDate}}
 			<input type="hidden" name="updateLastDate" id="updateLastDate" value="{{updateLastDate}}">
 		</td>
-		<td>
+		<td colspan="3">
 			<button class="btn btn-xs btn-primary user_edit_cancel" title="cancel">
 				<i class="fa fa-remove"></i>
 			</button>
@@ -220,9 +350,12 @@
 	</tr>
 </script>
 
+
 <script src="../global.js"></script>
 <script src="UserView.js"></script>
 <script src="UserService.js"></script>
+<script src="roles/UserRolesView.js"></script>
+<script src="roles/UserRolesService.js"></script>
 
 <!-- 全局参数 -->
 <script type="text/javascript">
@@ -402,6 +535,28 @@
 		});
 
 	});
+	
+	/**用户角色，开始*/
+	
+	// 点击  按钮，弹出编辑用户角色tab
+	$(document).on('click', '#user_table .user_roles_editor', function() {
+		var $tr = $(this).closest('tr');
+		var userId = $tr.data('id');
+		var userAccount = $tr.find('td[data-name="userAccount"]').text().trim();
+		var username = $tr.find('td[data-name="username"]').text().trim();
+		user = {userId:userId,userAccount:userAccount,username:username};
+		//var user = UserRoleService.findUserRoleById(itemId);
+		UserRolesService.initUserRoleItems(user,function(){});
+		
+	});
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	userItemBack = function() {
+		$('#User_tt').tabs('close', user.userAccount);
+		//LookupView.insertLookupEditorRow(lookup);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+	
 </script>
 
 

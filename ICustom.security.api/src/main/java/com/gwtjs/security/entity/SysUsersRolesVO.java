@@ -11,7 +11,13 @@ public class SysUsersRolesVO extends BaseResource {
 	private SysUsersVO sysUsers;
 	private SysRolesVO sysRoles;
 	private boolean enabled;
-	private String remarks;// REMARKS;
+	private String remarks;// REMARKS;FGV
+
+	/* 视图显示用 */
+	private String roleId;
+	private String roleDesc;
+	private String roleName;
+	private String roleCode;
 
 	public SysUsersRolesVO() {
 	}
@@ -65,4 +71,37 @@ public class SysUsersRolesVO extends BaseResource {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 }

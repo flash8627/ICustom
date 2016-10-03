@@ -22,8 +22,15 @@
 	</select>
 	
 	<select id="findAuthoritiesResourcesItem" resultType="com.gwtjs.security.entity.SysAuthoritiesResourcesVO">
+		<include refid="base_list_sql" />
+	       AND A.RESOURCE_ID = #{sysResources.resourceId,jdbcType=NUMERIC} 
+	       AND A.AUTH_ID = #{sysAuthorities.authId,jdbcType=NUMERIC} 
+	       AND ROWNUM = 1
+	</select>
+	
+	<sql id="base_list_sql">
 		SELECT 
-	      A.ID id,
+			A.ID id,
 	      A.AUTH_ID authId, 
 	      A.RESOURCE_ID resourceId, 
 	      B.RES_URL  resUrl, 
@@ -40,30 +47,10 @@
 	        SYS_RESOURCES_T B, 
 	        SYS_AUTHORITIES_T C 
 	     WHERE B.VALID_FLAG = 1  
-	       AND A.RESOURCE_ID = #{sysResources.resourceId,jdbcType=NUMERIC} 
-	       AND A.AUTH_ID = #{sysAuthorities.authId,jdbcType=NUMERIC} 
-	       AND ROWNUM = 1
-	</select>
+	</sql>
 	
 	<select id="findAuthoritiesResources" resultType="com.gwtjs.security.entity.SysAuthoritiesResourcesVO">
-		SELECT 
-	      A.ID id,
-	      A.AUTH_ID authId,
-	      A.RESOURCE_ID resourceId,
-	      B.RES_URL  resUrl,
-	      B.RESOURCE_NAME resourceName,
-	      B.RESOURCE_DESC resourceDesc,
-	      B.RESOURCE_TYPE resourceType,
-	      A.ORDER_CODE orderCode,
-			A.CREATED_USER createdUser, 
-			A.CREATED_DATE createdDate, 
-			A.UPDATE_LAST_USER updateLastUser, 
-			A.UPDATE_LAST_DATE updateLastDate 
-	      FROM 
-	        SYS_AUTHORITIES_RESOURCES_T A, 
-	        SYS_RESOURCES_T B, 
-	        SYS_AUTHORITIES_T C 
-	     WHERE B.VALID_FLAG = 1  
+		<include refid="base_list_sql" />
 	       AND A.RESOURCE_ID = B.RESOURCE_ID 
 	       AND A.AUTH_ID = C.AUTH_ID 
 	       AND A.AUTH_ID = #{sysAuthorities.authId,jdbcType=NUMERIC} 

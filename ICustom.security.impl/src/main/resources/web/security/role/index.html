@@ -90,6 +90,7 @@
 			<tr>
 				<th>选择</th>
 				<th>角色名称 <span class="required">*</span></th>
+				<th>角色编码</th>
 				<th>角色说明</th>
 				<th>排序码</th>
 				<th>创建用户</th>
@@ -110,20 +111,21 @@
 	</table>
 </script>
 
-<!-- 行模板 -->
+<!-- 角色 行模板 -->
 <script type="text/x-handlebars-template-partial"
 	id="role_table_tr_template">
-	<tr data-id="{{roleId}}" data-name="roleId">
+	<tr data-id="{{roleId}}" data-name="id">
 		<td>
 			<form>
 				<label class="checkbox-inline"> <input type="checkbox"
-					id="roleId" name="roleId" value="{{roleId}}"
+					id="id" name="id" value="{{roleId}}"
 					onclick="validateRemoveBtn()">
 				</label>
 			</form>
 		</td>
 		<td data-id="{{roleName}}" data-name="roleName">{{roleName}}</td>
-		<td>{{roleDesc}}</td>
+		<td data-id="{{roleCode}}" data-name="roleCode">{{roleCode}}</td>
+		<td data-id="{{roleDesc}}" data-name="roleDesc">{{roleDesc}}</td>
 		<td>{{orderCode}}</td>
 		<td>{{createdUser}}</td>
 		<td>{{createdDate}}</td>
@@ -133,20 +135,21 @@
 			<button class="btn btn-xs btn-primary role_edit" title="Edit Role Info">
 				<i class="fa fa-edit"></i>
 			</button>
-			<button class="btn btn-xs btn-primary role_gears" title="Edit ">
+			<button class="btn btn-xs btn-primary role_gears" title="Role Authorities">
 				<i class="fa fa-gears"></i>
 			</button>
 		</td>
 	</tr>
 </script>
 
-<!-- 行编辑模板 -->
+<!-- 角色　行编辑模板 -->
 <script type="text/x-handlebars-template" id="role_modal_form_template">
     <tr data-id="{{roleId}}" data-name="roleId" class="template">
 		<td>
 			<input type="hidden" name="roleId" id="roleId" value="{{roleId}}">&nbsp;
 		</td>
 		<td><input type="text" value="{{roleName}}" id="roleName" class="form-control"></td>
+		<td><input type="text" value="{{roleCode}}" id="roleCode" class="form-control"></td>
 		<td><input type="text" value="{{roleDesc}}" id="roleDesc" class="form-control"></td>
 		<td><input type="text" value="{{orderCode}}" id="orderCode" class="form-control"></td>
 		<td>{{createdUser}}</td>
@@ -161,9 +164,62 @@
 	</tr>
 </script>
 
+<!-- 角色权限视图 -->
+<script type="text/x-handlebars-template-partial" id="role_auths_table_template">
+	
+<div style="margin: 8px;">
+	<div class="page-header">
+		<h5>角色信息</h5>
+	</div>
+	<div style="" class="my-form-group-row">
+		<span class="form-group my-form-group" style="width: 38%;"> <label
+			for="roleName" style="">角色名称:</label> <span>{{roleName}}</span>
+		</span> <span class="form-group my-form-group" style="width: 38%;"> <label
+			for="roleCode" style="width: 18%; text-align: right;">角色编码:</label> <span>{{roleCode}}</span>
+		</span>
+	</div>
+</div>
+
+<div id="Role_Auth_Item_{{roleName}}"
+	style="height: auto; margin: 6px;">
+	<button class="btn btn-success itemFormActionbtn l-btn-disabled"
+		type="button" onclick="roleItemSave()">
+		<i class="fa fa-save" aria-hidden="true"></i> 保存
+	</button>
+	<button class="btn btn-success actionbtn" type="button"
+		onclick="roleItemBack()">
+		<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
+	</button>
+</div>
+<div id="Role_Auth_Item_{{roleName}}_grid" class="{{roleName}}">
+	<table class="table table-hover"
+					id="role_item_{{roleName}}_table">
+					<thead>
+						<tr>
+							<th>选择</th>
+							<th>角色名称 <span class="required">*</span></th>
+							<th data-id="{{roleCode}}" data-name="roleCode">角色编码</th>
+							<th>角色说明</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#if data}} {{#data}} {{> tr}} {{/data}} {{else}}
+						<div class="alert alert-warning">Can not find any data!</div>
+						{{/if}}
+					</tbody>
+					<tfoot>
+					</tfoot>
+				</table>
+</div>
+
+</script>
+
+
 <script src="../global.js"></script>
 <script src="RoleView.js"></script>
 <script src="RoleService.js"></script>
+<script src="auth/RoleAuthoritiesView.js"></script>
+<script src="auth/RoleAuthoritiesService.js"></script>
 
 <!-- 全局参数 -->
 <script type="text/javascript">
@@ -193,9 +249,11 @@
 		// 根据关键字查询产品
 		$('#role_search_form').on('submit', function() {
 			var roleName = $('#roleName').val().trim();
+			var roleCode = $('#roleCode').val().trim();
 			var roleDesc = $('#roleDesc').val().trim();
 			var role = {
 				roleDesc:roleDesc,
+				roleCode:roleCode,
 				roleName:roleName
 			};
 			RoleService.findRolesByName(role);
@@ -208,6 +266,7 @@
 				roleId : 0,
 				orderCode : 1,
 				roleName : '',
+				roleCode : '',
 				roleDesc : ''
 			};
 			RoleView.insertRoleEditorRow(role);
@@ -222,6 +281,7 @@
 			var role = [{
 				roleId : id,
 				roleName : $('#roleName').val().trim(),
+				roleCode : $('#roleCode').val().trim(),
 				orderCode : $('#orderCode').val().trim(),
 				roleDesc : $('#roleDesc').val().trim()
 			}];
@@ -271,6 +331,7 @@
 			var $tr = $(this).closest('tr');
 			var itemId = $tr.data('id');
 			var roleDesc = $tr.find('td[data-name="roleDesc"]').text().trim();
+			var roleCode = $tr.find('td[data-name="roleCode"]').text().trim();
 			var roleName = $tr.find('td[data-name="roleName"]').text().trim();
 			role = {roleId:itemId,roleDesc:roleDesc,roleName:roleName};
 			//var role = RoleService.findRoleById(itemId);
@@ -290,6 +351,28 @@
 		});
 
 	});
+
+	/**用户角色，开始*/
+	
+	// 点击  按钮，弹出编辑用户角色tab
+	$(document).on('click', '#role_table .role_gears', function() {
+		var $tr = $(this).closest('tr');
+		var roleId = $tr.data('id');
+		var roleName = $tr.find('td[data-name="roleName"]').text().trim();
+		var roleCode = $tr.find('td[data-name="roleCode"]').text().trim();
+		role = {roleId:roleId,roleName:roleName,roleCode:roleCode};
+		//var role = UserRoleService.findUserRoleById(itemId);
+		RolesAuthoritiesService.initRoleAuthorities(role,function(){});
+		
+	});
+	
+	// 点击 Create 按钮，弹出创建产品对话框
+	roleItemBack = function() {
+		$('#Role_tt').tabs('close', role.roleName);
+		//LookupView.insertLookupEditorRow(lookup);
+		//$(".actionbtn").toggleClass("l-btn-disabled");
+	}
+	
 </script>
 
 
