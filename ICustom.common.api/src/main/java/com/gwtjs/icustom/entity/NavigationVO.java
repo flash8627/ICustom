@@ -3,7 +3,6 @@ package com.gwtjs.icustom.entity;
 import java.util.List;
 
 import com.gwtjs.common.entity.BaseResource;
-import com.gwtjs.icustom.entity.NavigationVO;
 
 /**
  * 系统导航

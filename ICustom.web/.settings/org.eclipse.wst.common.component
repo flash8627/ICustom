@@ -5,7 +5,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.impl.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.impl.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.impl"/>
@@ -13,8 +12,6 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/common.api"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/common.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/core.api"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.api"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/ICustom.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/international.api"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/register.impl.resources"/>
@@ -27,6 +24,90 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/security.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/security.api"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/angularjs"/>
+        <dependent-module archiveName="ICustom.angularjs-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.angularjs/ICustom.angularjs">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.fckeditor-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.fckeditor/ICustom.fckeditor">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.common.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.common.api/ICustom.common.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.common.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.common.impl/ICustom.common.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.core.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.core.api/ICustom.core.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.core.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.core.impl/ICustom.core.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.lookup.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.lookup.api/ICustom.lookup.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.lookup.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.lookup.impl/ICustom.lookup.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.security.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.security.api/ICustom.security.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.security.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.security.impl/ICustom.security.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.email.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.email.api/ICustom.email.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.email.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.email.impl/ICustom.email.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.register.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.register.api/ICustom.register.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.register.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.register.impl/ICustom.register.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.iexcel.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.iexcel.api/ICustom.iexcel.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.iexcel.impl/ICustom.iexcel.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.international.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.international.api/ICustom.international.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.international.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.international.impl/ICustom.international.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.attachments.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.attachments.api/ICustom.attachments.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.attachments.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.attachments.impl/ICustom.attachments.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.bbs.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.bbs.api/ICustom.bbs.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.bbs.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.bbs.impl/ICustom.bbs.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.friendly.link.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.friendly.link.api/ICustom.friendly.link.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.friendly.link.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.friendly.link.impl/ICustom.friendly.link.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.workflow.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.workflow.api/ICustom.workflow.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.workflow.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.workflow.impl/ICustom.workflow.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.browselog.api-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.browselog.api/ICustom.browselog.api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ICustom.browselog.impl-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ICustom.browselog.impl/ICustom.browselog.impl">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/ICustom/target/classes"/>
         <property name="context-root" value="ICustom.web"/>
         <property name="component.inclusion.patterns"/>

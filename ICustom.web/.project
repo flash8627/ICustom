@@ -41,21 +41,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>ICustom.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.api/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.impl/src/main/resources</location>
-		</link>
-		<link>
 			<name>angularjs</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.angularjs/src/main/resources</location>

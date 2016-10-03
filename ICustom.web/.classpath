@@ -20,9 +20,6 @@
 	<classpathentry kind="src" path="core.api"/>
 	<classpathentry kind="src" path="core.impl"/>
 	<classpathentry kind="src" path="core.impl.resources"/>
-	<classpathentry kind="src" path="ICustom.api"/>
-	<classpathentry kind="src" path="ICustom.impl"/>
-	<classpathentry kind="src" path="ICustom.impl.resources"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

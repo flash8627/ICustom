@@ -4,8 +4,8 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 
+import com.gwtjs.SpringTestBase;
 import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.unit.SpringTestBase;
 import com.gwtjs.security.entity.SysUsersVO;
 
 public class IUserDAOTest extends SpringTestBase {
