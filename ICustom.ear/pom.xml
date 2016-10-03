@@ -59,18 +59,6 @@
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
-			<artifactId>ICustom.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.lookup.api</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
@@ -249,16 +237,6 @@
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.core.impl</artifactId>
-						</jarModule>
-
-						<jarModule>
-							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.api</artifactId>
-						</jarModule>
-
-						<jarModule>
-							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.impl</artifactId>
 						</jarModule>
 
 						<jarModule>

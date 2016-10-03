@@ -95,6 +95,14 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework</groupId><artifactId>spring-context</artifactId><version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId><artifactId>spring-context-support</artifactId><version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
@@ -196,7 +204,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -209,8 +217,6 @@
 		<module>ICustom.core.impl</module>
 		<module>ICustom.common.api</module>
 		<module>ICustom.common.impl</module>
-		<module>ICustom.api</module>
-		<module>ICustom.impl</module>
 		<module>ICustom.security.api</module>
 		<module>ICustom.security.impl</module>
 		<module>ICustom.lookup.api</module>
