@@ -41,11 +41,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>angularjs</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.angularjs/src/main/resources</location>
-		</link>
-		<link>
 			<name>common.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.common.api/src/main/java</location>
@@ -74,51 +69,6 @@
 			<name>core.impl.resources</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>international.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.international.api/src/main/java</location>
-		</link>
-		<link>
-			<name>international.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.international.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>international.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.international.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>lookup.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.api/src/main/java</location>
-		</link>
-		<link>
-			<name>lookup.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>lookup.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.lookup.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>register.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.register.api/src/main/java</location>
-		</link>
-		<link>
-			<name>register.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.register.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>register.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.register.impl/src/main/resources</location>
 		</link>
 		<link>
 			<name>security.api</name>

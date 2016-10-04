@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,41 +24,40 @@ import com.gwtjs.security.entity.SysResourcesVO;
 @Produces(MediaType.APPLICATION_JSON)
 public interface ISysResourcesService {
 	
-	@GET @Path("findSiteMenu")
-	List<SysResourcesVO> findSiteMenu();
+	@GET @Path("findResourcesSiteMenu")
+	List<SysResourcesVO> findResourcesSiteMenu();
 	
 	@GET @Path("findResourcesTree")
-	List<SysResourcesVO> findSysResourcesTree();
+	List<SysResourcesVO> findResourcesTree();
 	
 	@GET @Path("findResourcesTree/{parentId}")
-	List<SysResourcesVO> findSysResourcesTree(@PathParam("parentId")long parentId);
+	List<SysResourcesVO> findResourcesTree(@PathParam("parentId")long parentId);
 	
-	@GET
-	@Path("/findResourcesTreeRoot")
-	SysResourcesVO findSysResourcesTreeRoot();
+	@GET @Path("findResourcesList")
+	List<SysResourcesVO> findResourcesList();
 	
-	@GET
-	@Path("/findByResource/{resourceId}")
-	SysResourcesVO selectByPrimaryKey(@PathParam("")long resourceId);
+	@GET @Path("findResourcesList/{resourceId}")
+	List<SysResourcesVO> findResourcesList(SysResourcesVO record);
 	
-	@POST
-	@Path("/batchInsert")
+	@GET @Path("findResources/{resourceId}")
+    SysResourcesVO selectByPrimaryKey(@PathParam("resourceId")long resourceId);
+	
+	@GET @Path("findResourcesPrimaryId")
+	Integer selectByItemId();
+	
+	@POST @Path("batchInsert")
 	ResultWrapper batchInsert(List<SysResourcesVO> list);
 	
-	@PUT
-	@Path("/batchUpdate")
-	ResultWrapper batchUpdate(List<SysResourcesVO> list);
+	@POST @Path("insert")
+	ResultWrapper insert(SysResourcesVO record);
 
-	@PUT
-	@Path("/batchRemove")
-	ResultWrapper batchRemove(List<SysResourcesVO> list);
-
-	@DELETE
-	@Path("/deleteByKey/{resourceId}")
+	@DELETE @Path("batchRemove")
+	ResultWrapper batchRemoveResourcesPks(List<SysResourcesVO> list);
+	
+	@DELETE @Path("deleteBy/{resourceId}")
 	ResultWrapper deleteByPrimaryKey(@PathParam("resourceId")long resourceId);
-
-	@GET
-	@Path("/selectByItemId")
-	Integer selectByItemId();
+	
+	@POST @Path("updateByKey")
+	ResultWrapper updateByPrimaryKey(SysResourcesVO record);
 
 }

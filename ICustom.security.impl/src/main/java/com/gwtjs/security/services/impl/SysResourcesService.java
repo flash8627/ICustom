@@ -1,6 +1,7 @@
 package com.gwtjs.security.services.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.icustom.services.impl.NavigationServiceImpl;
 import com.gwtjs.security.dao.ISysResourcesDAO;
 import com.gwtjs.security.entity.SysResourcesVO;
 import com.gwtjs.security.services.ISysResourcesService;
@@ -18,31 +20,34 @@ import com.gwtjs.security.services.ISysResourcesService;
 public class SysResourcesService implements ISysResourcesService {
 	
 	@Inject
-	private ISysResourcesDAO resourcesDao;
-	
-	private static final Logger log = LoggerFactory.getLogger(SysResourcesService.class);
-	
-	/**
-	 */
-	@Override
-	public List<SysResourcesVO> findSysResourcesTree() {
-		SysResourcesVO record = resourcesDao.findSysResourcesTreeRoot();
-		List<SysResourcesVO> list = new ArrayList<SysResourcesVO>();
+	private ISysResourcesDAO resourcesDAO;
 
-		if(record!=null && record.isLeaf()){
-			List<SysResourcesVO> children = this.findResourcesChildren(record.getResourceId());
-			record.setChildren(children);
-		}
-		list.add(record);
-		log.debug("", list);
-		return list;
+	private static final Logger log = LoggerFactory.getLogger(NavigationServiceImpl.class);
+	@Override
+	public Integer selectByItemId() {
+		// TODO Auto-generated method stub
+		return resourcesDAO.selectByItemId();
 	}
+
 	/**
-	 * 管理界面第一个请求
+	 * 站点菜单
 	 */
 	@Override
-	public List<SysResourcesVO> findSysResourcesTree(long parentId) {
-		
+	public List<SysResourcesVO> findResourcesSiteMenu() {
+		SysResourcesVO nav = resourcesDAO.findResourcesTreeRoot();
+		List<SysResourcesVO> menus = this.findResourcesTree(nav.getResourceId());
+		for (SysResourcesVO menu : menus) {
+			List<SysResourcesVO> child = this
+					.findResourcesTree(menu.getResourceId());
+			if(child.size()>0){
+				menu.setChildren(child);
+			}
+		}
+		return menus;
+	}
+
+	@Override
+	public List<SysResourcesVO> findResourcesTree(long parentId) {
 		List<SysResourcesVO> list = this.findResourcesChildren(parentId);
 		for (SysResourcesVO record : list) {
 			if (record.isLeaf()) {
@@ -53,24 +58,27 @@ public class SysResourcesService implements ISysResourcesService {
 		}
 		return list;
 	}
-	
-	/**
-	 * 站点菜单
-	 */
+
 	@Override
-	public List<SysResourcesVO> findSiteMenu() {
-		SysResourcesVO res = resourcesDao.findSysResourcesTreeRoot();
-		List<SysResourcesVO> menus = this.findSysResourcesTree(res.getResourceId());
-		for (SysResourcesVO menu : menus) {
-			List<SysResourcesVO> child = this
-					.findSysResourcesTree(menu.getResourceId());
-			if(child.size()>0){
-				menu.setChildren(child);
-			}
+	public List<SysResourcesVO> findResourcesTree() {
+		SysResourcesVO record = resourcesDAO.findResourcesTreeRoot();
+		List<SysResourcesVO> list = new ArrayList<SysResourcesVO>();
+
+		if(record!=null && record.isLeaf()){
+			List<SysResourcesVO> children = this.findResourcesChildren(record.getResourceId());
+			record.setChildren(children);
 		}
-		return menus;
+		list.add(record);
+		log.debug("", list);
+		return list;
 	}
-	
+
+	@Override
+	public List<SysResourcesVO> findResourcesList() {
+		SysResourcesVO record = new SysResourcesVO();
+		return this.findResourcesList(record);
+	}
+
 	/**
 	 * 重载封装
 	 * 
@@ -80,59 +88,51 @@ public class SysResourcesService implements ISysResourcesService {
 	private List<SysResourcesVO> findResourcesChildren(long parentId) {
 		SysResourcesVO record = new SysResourcesVO();
 		record.setParentId(parentId);
-		return resourcesDao.findResourcesList(record);
-	}
-	
-	@Override
-	public SysResourcesVO findSysResourcesTreeRoot() {
-		return resourcesDao.findSysResourcesTreeRoot();
+		return resourcesDAO.findResourcesList(record);
 	}
 
 	@Override
-	public ResultWrapper batchInsert(List<SysResourcesVO> list) {
-		resourcesDao.batchInsert(list);
-		setActionUser(list);
-		return ResultWrapper.successResult(list);
-	}
-
-	@Override
-	public ResultWrapper batchUpdate(List<SysResourcesVO> list) {
-		resourcesDao.batchUpdate(list);
-		setActionUser(list);
-		return ResultWrapper.successResult(list);
-	}
-
-	@Override
-	public ResultWrapper batchRemove(List<SysResourcesVO> list) {
-		 resourcesDao.batchRemove(list);
-		return ResultWrapper.successResult(list);
-	}
-
-	@Override
-	public ResultWrapper deleteByPrimaryKey(long resourceId) {
-		resourcesDao.deleteByPrimaryKey(resourceId);
-		return ResultWrapper.successResult();
-	}
-
-	@Override
-	public Integer selectByItemId() {
-		return resourcesDao.selectByItemId();
+	public List<SysResourcesVO> findResourcesList(SysResourcesVO record) {
+		return resourcesDAO.findResourcesList(record);
 	}
 
 	@Override
 	public SysResourcesVO selectByPrimaryKey(long resourceId) {
-		return resourcesDao.selectByPrimaryKey(resourceId);
-	}
-	
-	private List<SysResourcesVO> setActionUser(List<SysResourcesVO> list){
-		List<SysResourcesVO> result = new ArrayList<SysResourcesVO>();
-		long createdUser = new Long(10001);
-		for (SysResourcesVO res : list) {
-			res.setCreatedUser(createdUser);
-			res.setUpdateLastUser(createdUser);
-			result.add(res);
-		}
-		return result;
+		return resourcesDAO.selectByPrimaryKey(resourceId);
 	}
 
+	@Override
+	public ResultWrapper batchInsert(List<SysResourcesVO> list) {
+		int msg = resourcesDAO.batchInsert(list);
+		return ResultWrapper.successResult(msg, list);
+	}
+
+	@Override
+	public ResultWrapper batchRemoveResourcesPks(List<SysResourcesVO> list) {
+		int msg = resourcesDAO.batchRemoveResourcesPks(list);
+		return ResultWrapper.successResult(msg, list);
+	}
+
+	@Override
+	public ResultWrapper deleteByPrimaryKey(long resourceId) {
+		int msg = resourcesDAO.deleteByPrimaryKey(resourceId);
+		return ResultWrapper.successResult(msg);
+	}
+
+	@Override
+	public ResultWrapper insert(SysResourcesVO record) {
+		//Integer resourceId = resourcesDAO.selectByItemId();
+		//record.setItemId(resourceId);
+		record.setCreatedUser(new Long("10001"));
+		record.setCreatedDate(new Date());
+		int msg = resourcesDAO.insert(record);
+		return ResultWrapper.successResult(msg, record);
+	}
+
+	@Override
+	public ResultWrapper updateByPrimaryKey(SysResourcesVO record) {
+		int msg = resourcesDAO.updateByPrimaryKey(record);
+		return ResultWrapper.successResult(msg, record);
+	}
+	
 }

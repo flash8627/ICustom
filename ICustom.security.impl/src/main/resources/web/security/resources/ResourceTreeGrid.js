@@ -1,16 +1,18 @@
 var BASE = '../../services/sys/resourcesService';
+
 var tname = 'zh_cn=System User,zh_en=System User';
 
 $(function() {
 	$(".actionbtn").toggleClass("l-btn-disabled");
 	$(".formbtn").toggleClass("l-btn-disabled");
+	//视图加载
 	viewGrid();
 })
 
 var viewGrid = function(resourceId) {
-	var url = BASE + '/findResourcesTree';
+	var resUrl = BASE + '/findResourcesTree';
 	if (resourceId != undefined) {
-		url = url + '/' + resourceId;
+		resUrl = resUrl + '/' + resourceId;
 	}
 	$('#tg').treegrid({
 		url : BASE + '/findResourcesTree',
@@ -21,18 +23,15 @@ var viewGrid = function(resourceId) {
 		treeField : 'resourceName',
 		onBeforeExpand : function(row) {
 			if (row) {
-				$('#tg').treegrid('options').url = url+"/"+row.resourceId;
+				$('#tg').treegrid('options').url = resUrl+"/"+row.resourceId;
 			}else{
-				$('#tg').treegrid('options').url = url;
+				$('#tg').treegrid('options').url = resUrl;
 			}
 		},
 		onSelect:function(row){
 			//选择行后可以执行添加删除修改
-			$("#addResource").removeClass("l-btn-disabled");
-			$("#editorResource").removeClass("l-btn-disabled");
-			if(row.resourceName!='HOME'&&row.parentId!=0){
-				$("#removeResource").addClass("l-btn-disabled");
-			}
+			$(".formbtn").addClass("l-btn-disabled");
+			$(".actionbtn").removeClass("l-btn-disabled");
 		},
 		showFooter : true,
 		onDblClickRow : function(rowIndex, rowData) {
@@ -40,54 +39,28 @@ var viewGrid = function(resourceId) {
 		},
 		onBeforeEdit:function(row){
 		    // 编辑后的数据在row里面 console.warn(row);
-			$("#editorResource").addClass("l-btn-disabled");
-			$("#removeResource").addClass("l-btn-disabled");
-			$("#addResource").addClass("l-btn-disabled");
 			$(".formbtn").removeClass("l-btn-disabled");
+			$(".actionbtn").addClass("l-btn-disabled");
 		},
 		onCancelEdit:function(row,changes){
-			$("#editorResource").addClass("l-btn-disabled");
-			$("#addResource").addClass("l-btn-disabled");
 		    // 编辑后的数据在row里面 console.warn(row);
 			$(".formbtn").addClass("l-btn-disabled");
+			$(".actionbtn").removeClass("l-btn-disabled");
 		},
 		columns :[[
 		{
 			title : '名称',field : 'resourceName',width : 260,editor : 'text',options : {	required : true},formatter : resourceNameFormatter
 		}, {
-			title : '上级',field : 'parentName',	width : 180,align : 'left',formatter : resourceNameFormatter,editor : {
-				type:'combotree',
-				url : BASE + '/findResourcesTree',
-				method : 'get',
-				fitColumns : true
-			}
+			title : '上级',field : 'parentName',	width : 180,align : 'left',formatter : resourceNameFormatter,editor : 'text'
 		}, {
-			title : '地址',field : 'resUrl',	width : 180,align : 'right',editor : 'text'
+			title : '地址',field : 'resUrl',	width : 180,align : 'left',editor : 'text'
 		}, {
-			title : '图标',field : 'icon',	width : 120,editor : 'text'
+			title : '启用',field : 'useStatus',	width : 60,editor:{type:'checkbox',options:{on:1,off:0}},
+			formatter : resourceUseStatus		
+		},{
+			title : '说明',field : 'resourceDesc',	width : 120,align : 'left',editor : 'text'
 		}, {
-			title : '启用',field : 'enabled',	width : 120,editor : 'checkbox'
-		}, {
-			title : '说明',field : 'resourceDesc',	width : 120,editor : 'text'
-		}, {
-			title : '资源类型',field : 'resourceType',	width : 120,editor :{
-				type : 'combobox',
-				options : {
-					valueField : 'parentId',
-					textField : 'parentName', 
-					data : resourceTypes,
-					required : false,
-					onChange : function (newValue, oldValue) {
-						/*var row = $dg.datagrid('getSelected');
-                        var rindex = $dg.datagrid('getRowIndex', row);
-                        var ed = $dg.datagrid('getEditor', {
-                                index : rindex,
-                                field : 'listprice'
-                            });
-                        $(ed.target).numberbox('setValue', '2012');*/
-					}
-				}
-			},formatter : resourceTypeFormatter
+			title : '资源类型',field : 'resourceType',	width : 120,editor : 'text',formatter : resourceTypeFormatter
 		}, {
 			title : '排序码',field : 'orderCode',width : 80,editor : 'numberbox'
 		}, {
@@ -113,16 +86,16 @@ updateNameFormatter = function(value, rowData) {
 	return rowData.lastNameCn;
 }
 
-var resourceTypes = [{
-	productid : 1,
-    name : "页面"
-}, {
-    productid : 2,
-    name : "按钮"
-}, {
-    productid : 3,
-    name : "其它"
-}];
+resourceUseStatus=function(value, rowData) {
+	if(value==undefined){
+		return "<span style='color:#5cb85c'>√</span>";
+	}
+	if(value==1){
+		return "<span style='color:#5cb85c'>√</span>";
+	}else{
+		return "<span style='color:#e4cc05'>×</span>";
+	}
+}
 
 resourceTypeFormatter = function(value, rowData) {
 	if (!value) {
@@ -202,10 +175,8 @@ function onEditItem() {
 		return;
 	}
 	var row = $('#tg').treegrid('getSelected');
-	console.warn('editor row',row);
 	if (row) {
 		editingId = row.resourceId;
-		console.info(editingId,row.resourceId);
 		$('#tg').treegrid('beginEdit', editingId);
 	}
 }
@@ -215,7 +186,14 @@ function onAddItem() {
 	if (node == null) {
 		jQuery.messager.alert('提示:', '请选择上一级条目!', 'info');
 	} else {
-		ResourceService.getItemId(addSequence);
+		//回调函数为addSequence,并拼装对象
+		ResourcesService.getItemId(addSequence);
+		// ResourcesService.createResources(res);
+
+		/*
+		 * $('#tg').treegrid('select', editingId); onEditItem();
+		 */
+
 	}
 }
 
@@ -223,15 +201,18 @@ function addSequence(sequence){
 	createFlag = true;
 	var node = $('#tg').treegrid('getSelected');
 	var index = sequence;
+	var parentName = "";
+	if(node){
+		parentName = node.resourceName;
+	}
 	var data = [{
 		resourceId : index,
 		resourceName : '',
+		parentName:parentName,
 		resUrl : '',
-		resourceDesc : '',
 		resourceType : 0,
-		parentName : node.resourceName,
-		parentId : node.resourceId,
-		enabled : 1,
+		resourceDesc : '',
+		useStatus:1,
 		orderCode : parseInt(Math.random() * 100),
 		createdUser : '10001',
 		createdDate : getFormatDateByLong(null, "yyyy-MM-dd"),
@@ -255,11 +236,7 @@ function onRemoveItem() {
 	}else{
 		$.messager.confirm("提示信息", "确定要删除资源吗？", function(r){
 			$('#tg').treegrid('remove', node.resourceId);
-			ResourceService.deleteResourceById(node.resourceId);
-			$("#editorResource").addClass("l-btn-disabled");
-			$("#removeResource").addClass("l-btn-disabled");
-			$("#addResource").removeClass("l-btn-disabled");
-			$(".formbtn").addClass("l-btn-disabled");
+			ResourcesService.deleteResourcesById(node.resourceId);
 		});
 	}
 	
@@ -272,29 +249,25 @@ function onSaveItem() {
 		//console.warn('更新数据', row);
 		t.treegrid('endEdit', editingId);
 		
-		var nav = {
+		var res = {
 			resourceId : row.resourceId,
 			resourceName : row.resourceName,
 			parentId : row._parentId,
-			parentName : row.parentName,
 			resUrl : row.resUrl,
-			resourceDesc : row.resourceDesc,
-			enabled : row.enabled,
 			resourceType : row.resourceType,
+			resourceDesc : row.resourceDesc,
+			useStatus:row.useStatus,
 			icon : row.icon,
 			orderCode : row.orderCode
 		};
 		
 		if (createFlag) {
-			ResourceService.createResource(nav);
+			ResourcesService.createResources(res);
 		} else {
-			ResourceService.updateResource(nav);
+			ResourcesService.updateResources(res);
 		}
 		editingId = undefined;
-		
-		$("#editorResource").addClass("l-btn-disabled");
-		$("#removeResource").addClass("l-btn-disabled");
-		$("#addResource").removeClass("l-btn-disabled");
+
 		$(".formbtn").addClass("l-btn-disabled");
 		$(".actionbtn").removeClass("l-btn-disabled");
 	}
@@ -303,14 +276,11 @@ function onSaveItem() {
 function onEditCancel() {
 	if (editingId != undefined) {
 		$('#tg').treegrid('cancelEdit', editingId);
-		editingId = undefined;
-	}
-	
-	var row = $('#tg').treegrid('getSelected');
-	
-	if (row) {
-		$('#tg').treegrid('cancelEdit', editingId);
+		if (createFlag) {
+			$('#tg').treegrid('remove', editingId);
+		}
 		editingId = undefined;
 		$('#tg').treegrid('reloadFooter');
 	}
+	
 }

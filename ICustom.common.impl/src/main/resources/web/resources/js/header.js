@@ -2,11 +2,11 @@
  * 头部功能
  */
 $(function() {
-	var url = "/services/nav/findNavigationSiteMenu";
+	var url = "/services/sys/resourcesService/findResourcesSiteMenu";
 	AjaxUtil.sendGetRequest(url, menuCallback);	
 })
 
-itemNameFormatter = function(value, rowData) {
+resourceNameFormatter = function(value, rowData) {
 	if (!value) {
 		return "";
 	}
@@ -23,10 +23,10 @@ itemNameFormatter = function(value, rowData) {
 }
 
 var anode = function(item){
-	var name = itemNameFormatter(item.itemName,item);
+	var name = resourceNameFormatter(item.resourceName,item);
 	var url = "#";
-	if(item.url!=null){
-		url = "/"+item.url;
+	if(item.resUrl!=null){
+		url = "/"+item.resUrl;
 	}
 	var node = '';
 	node += '<a href="';
@@ -52,10 +52,10 @@ var menuCallback = function(response){
 			menuHtml += '<li>';
 			var rows = response[i];
 			menuHtml += anode(rows);
-			if('SHOP'==rows.itemName){
+			if('SHOP'==rows.resourceName){
 				menuHtml += newRed;
 			}
-			if('BLOG'==rows.itemName){
+			if('BLOG'==rows.resourceName){
 				menuHtml += newGre;
 			}
 			if(rows.children&&rows.children.length>0){

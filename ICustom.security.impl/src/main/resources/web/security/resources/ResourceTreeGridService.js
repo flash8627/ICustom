@@ -1,47 +1,47 @@
-var ResourceService = function() {
+var ResourcesService = function() {
     var BASE = '../../services/sys/resourcesService';
     return {
     	getItemId: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/selectByItemId', function(result) {
+            AjaxUtil.sendGetRequest(BASE + '/findResourcesPrimaryId', function(result) {
                 callback(result);
             });
         },
-        findChildren: function(callback,itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findResourceList/'+itemId, function(resourceList) {
-                ResourceView.renderResourceTable(resourceList);
+        findChildren: function(callback,resourceId) {
+            AjaxUtil.sendGetRequest(BASE + '/findResourcesList/'+resourceId, function(navigationList) {
+                ResourcesView.renderResourcesTable(navigationList);
                 callback();
             });
         },
-        findResourceById: function(itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findResource/' + itemId, function(resource) {
-                var title = 'Edit Resource';
-                ResourceView.renderResourceModal(title, resource);
+        findResourcesById: function(resourceId) {
+            AjaxUtil.sendGetRequest(BASE + '/findResources/' + resourceId, function(navigation) {
+                var title = 'Edit Resources';
+                ResourcesView.renderResourcesModal(title, navigation);
             });
         },
-        createResource: function(resource,callback) {
-            AjaxUtil.sendPostData(BASE + '/batchInsert', [resource], function(resource) {
-                //return resource;//ResourceView.insertResourceRow(resource.obj);
-            	//callback(resource.obj);
+        createResources: function(navigation,callback) {
+            AjaxUtil.sendPostData(BASE + '/insert', navigation, function(navigation) {
+                //return navigation;//ResourcesView.insertResourcesRow(navigation.obj);
+            	//callback(navigation.obj);
             });
         },
-        batchInsertResource: function(items) {
+        batchInsertResources: function(items) {
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
-                ResourceView.insertResourceRows(items);
+                ResourcesView.insertResourcesRows(items);
             });
         },
-        updateResource: function(resource) {
-            AjaxUtil.sendPutData(BASE + '/batchUpdate', [resource], function(resource) {
-            	return resource;//ResourceView.updateResourceRow(resource.obj);
+        updateResources: function(navigation) {
+            AjaxUtil.sendPostData(BASE + '/updateByKey', navigation, function(navigation) {
+            	return navigation;//ResourcesView.updateResourcesRow(navigation.obj);
             });
         },
-        deleteResourceById: function(id) {
-            AjaxUtil.sendDeleteRequest(BASE + '/deleteByKey/' + id, function() {
-                //ResourceView.deleteResourceRow(id);
+        deleteResourcesById: function(id) {
+            AjaxUtil.sendDeleteRequest(BASE + '/deleteBy/' + id, function() {
+                //ResourcesView.deleteResourcesRow(id);
             });
         },
-        deleteResourceRows: function(items) {
+        deleteResourcesRows: function(items) {
             AjaxUtil.sendBatchRemove(BASE + '/batchRemove',items, function() {
-                ResourceView.deleteResourceRows(items);
+                ResourcesView.deleteResourcesRows(items);
             });
         }
     }

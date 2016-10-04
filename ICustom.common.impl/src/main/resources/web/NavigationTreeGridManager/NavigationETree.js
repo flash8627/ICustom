@@ -250,14 +250,11 @@ function onSaveItem() {
 function onEditCancel() {
 	if (editingId != undefined) {
 		$('#tg').treegrid('cancelEdit', editingId);
-		editingId = undefined;
-	}
-	
-	var row = $('#tg').treegrid('getSelected');
-	
-	if (row) {
-		$('#tg').treegrid('cancelEdit', editingId);
+		if (createFlag) {
+			$('#tg').treegrid('remove', editingId);
+		}
 		editingId = undefined;
 		$('#tg').treegrid('reloadFooter');
 	}
+	
 }

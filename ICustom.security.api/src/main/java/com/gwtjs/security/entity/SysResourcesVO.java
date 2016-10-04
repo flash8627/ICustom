@@ -41,7 +41,7 @@ public class SysResourcesVO extends BaseResource {
 	private boolean priority;
 
 	// 是否可用，0为不可用，1为可用。
-	private Integer enabled;
+	private Integer useStatus;
 
 	// 是否是超级。0为不超级，1为超级。
 	private Integer issys;
@@ -71,7 +71,7 @@ public class SysResourcesVO extends BaseResource {
 		this.icon = icon;
 		this.leaf = leaf;
 		this.priority = priority;
-		this.enabled = enabled;
+		this.useStatus = enabled;
 		this.issys = issys;
 		this.sysAuthoritiesResourceses = sysAuthoritiesResourceses;
 	}
@@ -172,12 +172,12 @@ public class SysResourcesVO extends BaseResource {
 		this.priority = priority;
 	}
 
-	public Integer getEnabled() {
-		return enabled;
+	public Integer getUseStatus() {
+		return useStatus;
 	}
 
-	public void setEnabled(Integer enabled) {
-		this.enabled = enabled;
+	public void setUseStatus(Integer useStatus) {
+		this.useStatus = useStatus;
 	}
 
 	public Integer getIssys() {

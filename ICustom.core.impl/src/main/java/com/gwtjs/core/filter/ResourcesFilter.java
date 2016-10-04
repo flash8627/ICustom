@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
+import com.gwtjs.core.servlet.HtmlInputStreamUtils;
+
 /**
  * Servlet Filter implementation class ResourceFilter
  */
@@ -115,6 +117,19 @@ public class ResourcesFilter implements Filter {
 		} else {
 			arg2.doFilter(arg0, arg1);
 		}
+	}
+	
+	public void service(ServletRequest arg0, ServletResponse arg1)
+			throws ServletException, IOException {
+		InputStream is = HtmlInputStreamUtils.getInputStream(getClass(), "");
+		byte[] buff = new byte[1024];
+		int count = is.read(buff);
+		StringBuilder result = new StringBuilder();
+		while(count>0) {
+			String string =new String(buff, 0, count);
+			result.append(string);
+		}
+		arg1.getWriter().write(result.toString());
 	}
 
 	/**

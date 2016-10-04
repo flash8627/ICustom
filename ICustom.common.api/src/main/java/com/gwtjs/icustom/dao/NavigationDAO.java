@@ -2,6 +2,8 @@ package com.gwtjs.icustom.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.icustom.entity.NavigationVO;
 
@@ -20,7 +22,7 @@ public interface NavigationDAO extends BaseSqlMapper<NavigationVO> {
 	
 	int batchRemoveNavigationPks(List<NavigationVO> list);
 	
-	int deleteByPrimaryKey(Integer itemId);
+	int deleteByPrimaryKey(@Param("itemId")Integer itemId);
 
     int insert(NavigationVO record);
 
@@ -28,7 +30,7 @@ public interface NavigationDAO extends BaseSqlMapper<NavigationVO> {
     
     Integer selectByItemId();
     
-    NavigationVO selectByPrimaryKey(Integer itemId);
+    NavigationVO selectByPrimaryKey(@Param("itemId")Integer itemId);
 
     int updateByPrimaryKeySelective(NavigationVO record);
 

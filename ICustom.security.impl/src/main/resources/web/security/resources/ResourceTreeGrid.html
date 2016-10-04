@@ -1,65 +1,62 @@
 
-<link rel="stylesheet" type="text/css"
-	href="../../resources/jquery/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="../../resources/jquery/themes/icon.css">
-
+<link rel="stylesheet" type="text/css" href="../../resources/jquery/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../resources/jquery/themes/icon.css">
+	
 <script src="../../resources/jquery/jquery.easyui.min.js"></script>
 <script src="../../resources/utils/formatDate.js"></script>
 
 <style type="text/css">
-.buttonEnabled {}
-.buttonShield {}
+	.buttonEnabled{}
+	.buttonShield{}
 </style>
 
 <script src="ResourceTreeGridService.js"></script>
 <script src="ResourceTreeGrid.js"></script>
 
 <div class="container">
-	<div class="page-header">
-		<h1>系统资源管理</h1>
-	</div>
-	<form class="form-inline" method="post" id="resource_search_form">
-		<div class="form-group" style="width: 60%;">
-			<input type="text" style="width: 96%;" class="form-control"
-				placeholder="资源名称" id="keyword">
-		</div>
-		<button type="submit" class="btn btn-default">
-			<i class="fa fa-search"></i> Search
-		</button>
-		<div class="pull-right">&nbsp;</div>
-	</form>
-	<div style="padding: 6px;">
-		<button type="button" class="btn btn-success actionbtn"
-			id="addResource" iconCls="icon-add" onclick="onAddItem()">
-			<i class="fa fa-plus"></i> 新增
-		</button>
-		<button type="button" class="btn btn-success actionbtn"
-			id="editorResource" iconCls="icon-edit" onclick="onEditItem()">
-			<i class="fa fa-edit"></i> 编辑
-		</button>
-		<button type="button" class="btn btn-success actionbtn"
-			id="removeResource" iconCls="icon-remove" onclick="onRemoveItem()">
-			<i class="fa fa-trash-o"></i> 删除
-		</button>
-
-	</div>
-	<table id="tg" style="width: 100%; height: 400px"></table>
-	<div style="margin: 8px;">
-		<button type="button" class="btn btn-success formbtn"
-			iconCls="save-icon" onclick="onSaveItem()">
-			<i class="fa fa-save"></i> 保存
-		</button>
-		<button type="button" class="btn btn-success formbtn"
-			iconCls="icon-cancel" onclick="onEditCancel()">
-			<i class="fa fa-undo"></i> 撤销
-		</button>
-	</div>
-	<ul style="display: none;">
-		<li>bug</li>
-		<li>1.批量删除;</li>
-		<li>2.查询没做</li>
-		<li>3.父节点有问题</li>
-	</ul>
+    <div class="page-header">
+        <h1>导航管理</h1>
+    </div>
+    <form class="form-inline" method="post" id="navigation_search_form">
+        <div class="form-group" style="width:60%;">
+            <input type="text" style="width:96%;" class="form-control" placeholder="导航名称" id="keyword">
+        </div>
+        <button type="submit" class="btn btn-default">
+            <i class="fa fa-search"></i> Search
+        </button>
+        <div class="pull-right">&nbsp;</div>
+    </form>
+    <div style="padding:6px;">
+       	<button type="button" class="btn btn-success actionbtn" iconCls="icon-add" onclick="onAddItem()">
+                  <i class="fa fa-plus"></i> 新增
+              </button>
+              <button type="button" class="btn btn-success actionbtn" iconCls="icon-edit" onclick="onEditItem()">
+                  <i class="fa fa-edit"></i> 编辑
+              </button>
+              <button type="button" class="btn btn-success actionbtn" iconCls="icon-remove" onclick="onRemoveItem()">
+                  <i class="fa fa-trash-o"></i> 删除
+              </button>
+		<!-- <a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-add" plain="true" onclick="onAddItem()">添加</a>
+		<a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-edit" onclick="onEditItem()">编辑</a>
+		<a href="#" class="easyui-linkbutton actionbtn" iconCls="icon-remove" plain="true" onclick="onRemoveItem()">删除</a> -->
+		
+       </div>
+	        <table id="tg" style="width:100%;height:400px"></table>
+			<div style="margin:8px;">
+				<button type="button" class="btn btn-success formbtn" iconCls="save-icon" onclick="onSaveItem()">
+                    <i class="fa fa-save"></i> 保存
+                </button>
+                <button type="button" class="btn btn-success formbtn" iconCls="icon-cancel" onclick="onEditCancel()">
+                    <i class="fa fa-undo"></i> 撤销
+                </button>
+				<!-- <a href="#" class="easyui-linkbutton formbtn" iconCls="icon-save" onclick="onSaveItem()">保存</a>
+				<a href="#" class="easyui-linkbutton formbtn" iconCls="icon-cancel" onclick="onEditCancel()">撤销</a> -->
+			</div>
+		<ul style="display:none;">
+			<li>bug</li>
+			<li>1.添加子节点时，父节点应该展开；</li>
+			<li>2.批量删除;</li>
+			<li>3.查询没做</li>
+		</ul>
 </div>
-
+				

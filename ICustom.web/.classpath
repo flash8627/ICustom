@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="angularjs"/>
 	<classpathentry kind="src" path="security.resources"/>
 	<classpathentry kind="src" path="security.impl"/>
 	<classpathentry kind="src" path="security.api"/>
-	<classpathentry kind="src" path="lookup.impl.resources"/>
-	<classpathentry kind="src" path="lookup.impl"/>
-	<classpathentry kind="src" path="lookup.api"/>
-	<classpathentry kind="src" path="register.api"/>
-	<classpathentry kind="src" path="register.impl"/>
-	<classpathentry kind="src" path="register.impl.resources"/>
-	<classpathentry kind="src" path="international.api"/>
-	<classpathentry kind="src" path="international.impl"/>
-	<classpathentry kind="src" path="international.impl.resources"/>
 	<classpathentry kind="src" path="common.api"/>
 	<classpathentry kind="src" path="common.impl"/>
 	<classpathentry kind="src" path="common.impl.resources"/>
