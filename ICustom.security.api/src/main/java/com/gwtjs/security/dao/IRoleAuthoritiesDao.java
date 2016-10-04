@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysRolesAuthoritiesVO;
 
-public interface IRoleAuthoritiesDao {
+public interface IRoleAuthoritiesDao extends BaseSqlMapper<SysRolesAuthoritiesVO>{
 	
-	ResultWrapper batchRemovePks(List<SysRolesAuthoritiesVO> list);
+	int batchRemovePks(List<SysRolesAuthoritiesVO> list);
 	
-	ResultWrapper batchInsert(List<SysRolesAuthoritiesVO> list);
+	int batchInsert(List<SysRolesAuthoritiesVO> list);
 	
 	SysRolesAuthoritiesVO findByRoleAuthorities(SysRolesAuthoritiesVO vo);
 	

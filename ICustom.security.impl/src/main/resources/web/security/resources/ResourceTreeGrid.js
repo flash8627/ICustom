@@ -19,12 +19,6 @@ var viewGrid = function(resourceId) {
 		rownumbers : true,
 		idField : 'resourceId',
 		treeField : 'resourceName',
-		onBeforeLoad:function(){
-			var rootNode = $('#tg').treegrid('getRoot');
-			if(rootNode){
-				$('#tg').treegrid('expand',rootNode);
-			}
-		},
 		onBeforeExpand : function(row) {
 			if (row) {
 				$('#tg').treegrid('options').url = url+"/"+row.resourceId;
@@ -34,10 +28,9 @@ var viewGrid = function(resourceId) {
 		},
 		onSelect:function(row){
 			//选择行后可以执行添加删除修改
-			console.info('row',row);
 			$("#addResource").removeClass("l-btn-disabled");
+			$("#editorResource").removeClass("l-btn-disabled");
 			if(row.resourceName!='HOME'&&row.parentId!=0){
-				$("#editorResource").addClass("l-btn-disabled");
 				$("#removeResource").addClass("l-btn-disabled");
 			}
 		},
@@ -209,8 +202,10 @@ function onEditItem() {
 		return;
 	}
 	var row = $('#tg').treegrid('getSelected');
+	console.warn('editor row',row);
 	if (row) {
 		editingId = row.resourceId;
+		console.info(editingId,row.resourceId);
 		$('#tg').treegrid('beginEdit', editingId);
 	}
 }
@@ -221,12 +216,6 @@ function onAddItem() {
 		jQuery.messager.alert('提示:', '请选择上一级条目!', 'info');
 	} else {
 		ResourceService.getItemId(addSequence);
-		// ResourceService.createResource(nav);
-
-		/*
-		 * $('#tg').treegrid('select', editingId); onEditItem();
-		 */
-
 	}
 }
 

@@ -2,10 +2,10 @@
     <wb-module deploy-name="ICustom.ear-1.0.0-SNAPSHOT">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/extra" tag="defaultRootSource"/>
-        <dependent-module archiveName="ICustom.angularjs-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.angularjs/ICustom.angularjs">
+        <dependent-module archiveName="ICustom.angularjs-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.angularjs/1.0.0-SNAPSHOT/ICustom.angularjs-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.fckeditor-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.fckeditor/ICustom.fckeditor">
+        <dependent-module archiveName="ICustom.fckeditor-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.fckeditor/1.0.0-SNAPSHOT/ICustom.fckeditor-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="ICustom.common.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.common.api/ICustom.common.api">
@@ -20,10 +20,10 @@
         <dependent-module archiveName="ICustom.core.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.core.impl/ICustom.core.impl">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.lookup.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.lookup.api/ICustom.lookup.api">
+        <dependent-module archiveName="ICustom.lookup.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.lookup.api/1.0.0-SNAPSHOT/ICustom.lookup.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.lookup.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.lookup.impl/ICustom.lookup.impl">
+        <dependent-module archiveName="ICustom.lookup.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.lookup.impl/1.0.0-SNAPSHOT/ICustom.lookup.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="ICustom.security.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.security.api/ICustom.security.api">
@@ -32,10 +32,10 @@
         <dependent-module archiveName="ICustom.security.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.security.impl/ICustom.security.impl">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.email.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.email.api/ICustom.email.api">
+        <dependent-module archiveName="ICustom.email.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.email.api/1.0.0-SNAPSHOT/ICustom.email.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.email.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.email.impl/ICustom.email.impl">
+        <dependent-module archiveName="ICustom.email.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.email.impl/1.0.0-SNAPSHOT/ICustom.email.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="ICustom.register.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.register.api/ICustom.register.api">
@@ -44,46 +44,46 @@
         <dependent-module archiveName="ICustom.register.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.register.impl/ICustom.register.impl">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.iexcel.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.iexcel.api/ICustom.iexcel.api">
+        <dependent-module archiveName="ICustom.iexcel.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.iexcel.api/1.0.0-SNAPSHOT/ICustom.iexcel.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.iexcel.impl/ICustom.iexcel.impl">
+        <dependent-module archiveName="ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.iexcel.impl/1.0.0-SNAPSHOT/ICustom.iexcel.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.international.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.international.api/ICustom.international.api">
+        <dependent-module archiveName="ICustom.international.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.international.api/1.0.0-SNAPSHOT/ICustom.international.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.international.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.international.impl/ICustom.international.impl">
+        <dependent-module archiveName="ICustom.international.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.international.impl/1.0.0-SNAPSHOT/ICustom.international.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.attachments.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.attachments.api/ICustom.attachments.api">
+        <dependent-module archiveName="ICustom.attachments.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.attachments.api/1.0.0-SNAPSHOT/ICustom.attachments.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.attachments.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.attachments.impl/ICustom.attachments.impl">
+        <dependent-module archiveName="ICustom.attachments.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.attachments.impl/1.0.0-SNAPSHOT/ICustom.attachments.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.bbs.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.bbs.api/ICustom.bbs.api">
+        <dependent-module archiveName="ICustom.bbs.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.bbs.api/1.0.0-SNAPSHOT/ICustom.bbs.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.bbs.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.bbs.impl/ICustom.bbs.impl">
+        <dependent-module archiveName="ICustom.bbs.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.bbs.impl/1.0.0-SNAPSHOT/ICustom.bbs.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.friendly.link.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.friendly.link.api/ICustom.friendly.link.api">
+        <dependent-module archiveName="ICustom.friendly.link.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.friendly.link.api/1.0.0-SNAPSHOT/ICustom.friendly.link.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.friendly.link.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.friendly.link.impl/ICustom.friendly.link.impl">
+        <dependent-module archiveName="ICustom.friendly.link.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.friendly.link.impl/1.0.0-SNAPSHOT/ICustom.friendly.link.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.workflow.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.workflow.api/ICustom.workflow.api">
+        <dependent-module archiveName="ICustom.workflow.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.workflow.api/1.0.0-SNAPSHOT/ICustom.workflow.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.workflow.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.workflow.impl/ICustom.workflow.impl">
+        <dependent-module archiveName="ICustom.workflow.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.workflow.impl/1.0.0-SNAPSHOT/ICustom.workflow.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.browselog.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.browselog.api/ICustom.browselog.api">
+        <dependent-module archiveName="ICustom.browselog.api-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.browselog.api/1.0.0-SNAPSHOT/ICustom.browselog.api-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ICustom.browselog.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/ICustom.browselog.impl/ICustom.browselog.impl">
+        <dependent-module archiveName="ICustom.browselog.impl-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/com/gwtjs/ICustom/ICustom.browselog.impl/1.0.0-SNAPSHOT/ICustom.browselog.impl-1.0.0-SNAPSHOT.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="ICustom.web-1.0.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/ICustom.web/ICustom.web">

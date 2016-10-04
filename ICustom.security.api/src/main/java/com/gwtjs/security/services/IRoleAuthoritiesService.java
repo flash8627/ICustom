@@ -38,6 +38,6 @@ public interface IRoleAuthoritiesService {
 	
 	@GET
 	@Path("/findRoleAuthorities/{roleId}")
-	List<SysRolesAuthoritiesVO> findRoleAuthorities(@PathParam("roleId")long roleId);
+	List<SysRolesAuthoritiesVO> findRoleAuthorities(@PathParam("userId")long roleId);
 	
 }

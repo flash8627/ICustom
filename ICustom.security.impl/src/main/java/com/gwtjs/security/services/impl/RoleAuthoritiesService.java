@@ -3,6 +3,7 @@ package com.gwtjs.security.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.gwtjs.common.entity.ResultWrapper;
@@ -12,7 +13,8 @@ import com.gwtjs.security.services.IRoleAuthoritiesService;
 
 @Named("roleAuthoritiesService")
 public class RoleAuthoritiesService implements IRoleAuthoritiesService {
-
+	
+	@Inject
 	private IRoleAuthoritiesDao roleAuthoritiesDao;
 
 	@Override

@@ -13,6 +13,15 @@ public class SysRolesAuthoritiesVO extends BaseResource {
 	private SysAuthoritiesVO sysAuthorities;
 	private SysRolesVO sysRoles;
 
+	/**
+	 * 显示视图使用
+	 */
+	private long roleId;
+	private long authId;
+	private String authName;
+	private String authCode;
+	private String authDesc;
+
 	private boolean enabled;
 
 	public SysRolesAuthoritiesVO() {
@@ -57,6 +66,46 @@ public class SysRolesAuthoritiesVO extends BaseResource {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
+	}
+
+	public long getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(long authId) {
+		this.authId = authId;
+	}
+
+	public String getAuthName() {
+		return authName;
+	}
+
+	public void setAuthName(String authName) {
+		this.authName = authName;
+	}
+
+	public String getAuthCode() {
+		return authCode;
+	}
+
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
+
+	public String getAuthDesc() {
+		return authDesc;
+	}
+
+	public void setAuthDesc(String authDesc) {
+		this.authDesc = authDesc;
 	}
 
 }
