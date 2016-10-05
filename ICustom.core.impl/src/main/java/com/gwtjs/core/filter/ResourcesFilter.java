@@ -40,29 +40,30 @@ public class ResourcesFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest arg0, ServletResponse arg1,
-			FilterChain arg2) throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) arg0;
-		String url = request.getRequestURI();
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		String url = req.getRequestURI();
 
 		// url = getResourcePath(url);
 		String name = FILTER_PATH + url;
 		name = name.replaceAll("//", "/");
 		String headFile = "";
 		String footerFile = "";
+		headFile = "/web/header.html";
+		footerFile = "/web/footer.html";
 		InputStream headIn = null;
 		InputStream footerIn = null;
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream(name);
-		
+		headIn = this.getClass().getClassLoader()
+				.getResourceAsStream(headFile);
+		footerIn = this.getClass().getClassLoader()
+				.getResourceAsStream(footerFile);
+		System.out.println("url:"+url);
+		System.out.println("name:"+name);
 		// 只有首页需要这样的判断
 		if (url != null && "/".equals(url)) {
-			headFile = "web/header.html";
-			footerFile = "web/footer.html";
-			headIn = this.getClass().getClassLoader()
-					.getResourceAsStream(headFile);
-			footerIn = this.getClass().getClassLoader()
-					.getResourceAsStream(footerFile);
 			
 			name = name + "index.html";
 			in = this.getClass().getClassLoader().getResourceAsStream(name);
@@ -76,14 +77,14 @@ public class ResourcesFilter implements Filter {
 			// jar包资源目录下未找到首页文件
 			if (in != null) {
 				try {
-					IOUtils.copy(inWithCode, arg1.getOutputStream());
+					IOUtils.copy(inWithCode, response.getOutputStream());
 				} finally {
 					IOUtils.closeQuietly(headIn);
 					IOUtils.closeQuietly(in);
 					IOUtils.closeQuietly(footerIn);
 				}
 			} else {
-				arg2.doFilter(arg0, arg1);
+				chain.doFilter(request, response);
 			}
 
 		} else if (in != null && url != null && !"/".equals(url)) {
@@ -92,12 +93,6 @@ public class ResourcesFilter implements Filter {
 			InputStream inWithCode = null;
 			//如果是html
 			if (htmlFlag != -1) {
-				headFile = "/web/header.html";
-				footerFile = "/web/footer.html";
-				headIn = this.getClass().getClassLoader()
-						.getResourceAsStream(headFile);
-				footerIn = this.getClass().getClassLoader()
-						.getResourceAsStream(footerFile);
 				String html = convertStreamToString(headIn);
 				html += inputBodyStreamString(in);
 				html += convertStreamToString(footerIn);
@@ -108,18 +103,98 @@ public class ResourcesFilter implements Filter {
 			}
 			
 			try {
-				IOUtils.copy(inWithCode, arg1.getOutputStream());
+				IOUtils.copy(inWithCode, response.getOutputStream());
 			} finally {
 				IOUtils.closeQuietly(headIn);
 				IOUtils.closeQuietly(in);
 				IOUtils.closeQuietly(footerIn);
 			}
+		}else if (in == null && url != null && !"/".equals(url)) {//没有取到内容，地址不为空,不是首页
+			if(name.lastIndexOf(".js")!=-1){
+				boolean jarResources = false;
+				//优先到webapp下面找
+				in = this.getClass().getClassLoader().getResourceAsStream(url);
+				
+				if(in==null){
+					//到jar包里找
+					try {
+						in = HtmlInputStreamUtils.getInputStream(this.getClass(), name);
+						if(in!=null){
+							jarResources = true;
+						}
+					} catch (Exception e) {
+						//还是没有找到，直接转发得了,自己　会报404的
+						chain.doFilter(request, response);
+					}
+				}
+				
+				//找到内容，拼装文件
+				if(in!=null&&jarResources){
+					try {
+						IOUtils.copy(in, response.getOutputStream());
+					} finally {
+						IOUtils.closeQuietly(headIn);
+						IOUtils.closeQuietly(in);
+						IOUtils.closeQuietly(footerIn);
+					}
+				}else{
+					chain.doFilter(request, response);
+				}
+				
+			}
+			//如果是html文件
+			else if(name.lastIndexOf(".html")!=-1){
+				
+				//优先到webapp下面找
+				in = this.getClass().getClassLoader().getResourceAsStream(url);
+				
+				if(in==null){
+					//到jar包里找
+					try {
+						in = HtmlInputStreamUtils.getInputStream(this.getClass(), name);
+					} catch (Exception e) {
+						//还是没有找到，直接转发得了,自己　会报404的
+						chain.doFilter(request, response);
+					}
+				}
+				
+				InputStream inWithCode = null;
+				//找到内容，拼装文件
+				if(in!=null){
+					/*byte[] buff = new byte[1024];
+					int count = in.read(buff);
+					StringBuilder result = new StringBuilder();
+					while(count>0) {
+						String string =new String(buff, 0, count);
+						result.append(string);
+					}*/
+					
+					String html = convertStreamToString(headIn);
+					html += inputBodyStreamString(in);
+					html += convertStreamToString(footerIn);
+					inWithCode = new ByteArrayInputStream(html.getBytes("UTF-8"));
+					
+					try {
+						IOUtils.copy(inWithCode, response.getOutputStream());
+					} finally {
+						IOUtils.closeQuietly(headIn);
+						IOUtils.closeQuietly(in);
+						IOUtils.closeQuietly(footerIn);
+					}
+				}else{
+					//还是没有找到，直接转发得了,自己　会报404的
+					chain.doFilter(request, response);
+				}
+				
+			} else {
+				chain.doFilter(request, response);
+			}
 		} else {
-			arg2.doFilter(arg0, arg1);
+			chain.doFilter(request, response);
 		}
 	}
 	
-	public void service(ServletRequest arg0, ServletResponse arg1)
+	public void service(ServletRequest request, ServletResponse response)
 			throws ServletException, IOException {
 		InputStream is = HtmlInputStreamUtils.getInputStream(getClass(), "");
 		byte[] buff = new byte[1024];
@@ -129,7 +204,7 @@ public class ResourcesFilter implements Filter {
 			String string =new String(buff, 0, count);
 			result.append(string);
 		}
-		arg1.getWriter().write(result.toString());
+		response.getWriter().write(result.toString());
 	}
 
 	/**
@@ -188,7 +263,7 @@ public class ResourcesFilter implements Filter {
 	}*/
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig config) throws ServletException {
 	}
 
 }
