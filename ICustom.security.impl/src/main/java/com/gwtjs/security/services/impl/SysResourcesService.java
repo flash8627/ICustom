@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.icustom.services.impl.NavigationServiceImpl;
 import com.gwtjs.security.dao.ISysResourcesDAO;
 import com.gwtjs.security.entity.SysResourcesVO;
 import com.gwtjs.security.services.ISysResourcesService;
@@ -22,7 +21,7 @@ public class SysResourcesService implements ISysResourcesService {
 	@Inject
 	private ISysResourcesDAO resourcesDAO;
 
-	private static final Logger log = LoggerFactory.getLogger(NavigationServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(SysResourcesService.class);
 	@Override
 	public Integer selectByItemId() {
 		// TODO Auto-generated method stub

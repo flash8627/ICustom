@@ -11,6 +11,7 @@
 		<param-value>
 	        classpath:spring.xml
 	        classpath*:spring-*.xml
+	        classpath:config/spring-*-service.xml
         </param-value>
 	</context-param>
 
