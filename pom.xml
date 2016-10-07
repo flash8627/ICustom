@@ -225,6 +225,7 @@
 	</dependencies>
 
 	<modules>
+		<module>ICustom.resources</module>
 		<module>ICustom.angularjs</module>
 		<module>ICustom.fckeditor</module>
 		<module>ICustom.core.api</module>

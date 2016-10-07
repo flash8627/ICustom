@@ -190,7 +190,16 @@
 			to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
 		FROM SYS_RESOURCES_T T1
 	</sql>
-
+	
+	<select id="findMenuList" resultType="com.gwtjs.security.entity.SysResourcesVO">
+		<include refid="nav_base_column" />
+		WHERE T1.VALID_FLAG=1 AND T1.USE_STATUS=1 
+		<if test="parentId != null">
+			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
+		</if>
+		ORDER BY T1.ORDER_CODE ASC
+	</select>
+	
 	<select id="findResourcesList" resultType="com.gwtjs.security.entity.SysResourcesVO">
 		<include refid="nav_base_column" />
 		WHERE 1 = 1

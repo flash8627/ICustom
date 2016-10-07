@@ -26,7 +26,7 @@ public class UserRolesService implements IUserRolesService {
 	public ResultWrapper saveOrUpdate(List<SysUsersRolesVO> models) {
 		
 		//先删除原有的角色
-		List<SysUsersRolesVO> list = new ArrayList<>();
+		/*List<SysUsersRolesVO> list = new ArrayList<>();
 		for (SysUsersRolesVO ur : models) {
 			if(ur.getId()!=0){
 				list.add(ur);
@@ -34,7 +34,7 @@ public class UserRolesService implements IUserRolesService {
 		}
 		if(list.size()>0){
 			userRolesDao.batchRemovePks(list);
-		}
+		}*/
 		//删除后实体不存在，自动创建主键
 		List<SysUsersRolesVO> records = setRecordsRoles(models);
 		userRolesDao.batchInsert(records);

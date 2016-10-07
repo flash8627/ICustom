@@ -14,6 +14,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/security.resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/security.impl"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/security.api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <property name="java-output-path" value="/ICustom/target/classes"/>
         <property name="context-root" value="ICustom.web"/>
         <property name="component.inclusion.patterns"/>

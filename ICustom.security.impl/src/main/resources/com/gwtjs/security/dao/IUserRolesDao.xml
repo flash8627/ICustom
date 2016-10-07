@@ -39,8 +39,8 @@
 			VALUES
 			  (
 				SYS_USERS_ROLES_S.NEXTVAL, 
-				#{item.sysUsers.userId,jdbcType=INTEGER},
-				#{item.sysRoles.roleId,jdbcType=INTEGER},
+				#{item.userId,jdbcType=INTEGER},
+				#{item.roleId,jdbcType=INTEGER},
 				1,
 				#{item.remarks,jdbcType=VARCHAR},
 				#{item.orderCode,jdbcType=INTEGER},
@@ -69,8 +69,9 @@
 		        SYS_USERS_ROLES_T UR 
 		   WHERE 
 		        UR.VALID_FLAG=1
-		        AND  R.ROLE_ID = #{sysRoles.roleId,jdbcType=NUMERIC}
-		        AND  UR.USER_ID = #{sysUsers.userId,jdbcType=NUMERIC}
+		        AND  R.ROLE_ID = UR.ROLE_ID
+		        AND  UR.ROLE_ID = #{roleId,jdbcType=NUMERIC}
+		        AND  UR.USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
 	
 	<!-- 查询某用户的角色  -->

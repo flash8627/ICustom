@@ -14,6 +14,9 @@ import com.gwtjs.security.entity.SysResourcesVO;
  */
 public interface ISysResourcesDAO extends BaseSqlMapper<SysResourcesVO> {
 	
+	//菜单专用
+	List<SysResourcesVO> findMenuList(SysResourcesVO record);
+	
 	SysResourcesVO findResourcesTreeRoot();
 	
 	List<SysResourcesVO> findResourcesList(SysResourcesVO record);

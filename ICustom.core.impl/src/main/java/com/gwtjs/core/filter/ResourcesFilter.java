@@ -60,8 +60,8 @@ public class ResourcesFilter implements Filter {
 				.getResourceAsStream(headFile);
 		footerIn = this.getClass().getClassLoader()
 				.getResourceAsStream(footerFile);
-		System.out.println("url:"+url);
-		System.out.println("name:"+name);
+		/*System.out.println("url:"+url);
+		System.out.println("name:"+name);*/
 		// 只有首页需要这样的判断
 		if (url != null && "/".equals(url)) {
 			
@@ -213,6 +213,9 @@ public class ResourcesFilter implements Filter {
 	 * @return
 	 */
 	private String convertStreamToString(InputStream is) {
+		if(is==null){
+			return "";
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
 		String line = null;

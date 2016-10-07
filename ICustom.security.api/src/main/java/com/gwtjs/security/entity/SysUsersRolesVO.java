@@ -14,7 +14,8 @@ public class SysUsersRolesVO extends BaseResource {
 	private String remarks;// REMARKS;FGV
 
 	/* 视图显示用 */
-	private String roleId;
+	private long userId;
+	private long roleId;
 	private String roleDesc;
 	private String roleName;
 	private String roleCode;
@@ -72,11 +73,19 @@ public class SysUsersRolesVO extends BaseResource {
 		this.enabled = enabled;
 	}
 
-	public String getRoleId() {
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
 	}
 

@@ -34,17 +34,41 @@ public class SysResourcesService implements ISysResourcesService {
 	@Override
 	public List<SysResourcesVO> findResourcesSiteMenu() {
 		SysResourcesVO nav = resourcesDAO.findResourcesTreeRoot();
-		List<SysResourcesVO> menus = this.findResourcesTree(nav.getResourceId());
+		List<SysResourcesVO> menus = this.findMenus(nav.getResourceId());
 		for (SysResourcesVO menu : menus) {
 			List<SysResourcesVO> child = this
-					.findResourcesTree(menu.getResourceId());
+					.findMenus(menu.getResourceId());
 			if(child.size()>0){
 				menu.setChildren(child);
 			}
 		}
 		return menus;
 	}
-
+	
+	private List<SysResourcesVO> findMenus(long parentId) {
+		List<SysResourcesVO> list = this.findSiteMenuChildren(parentId);
+		for (SysResourcesVO record : list) {
+			if (record.isLeaf()) {
+				List<SysResourcesVO> children = this
+						.findSiteMenuChildren(record.getResourceId());
+				record.setChildren(children);
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 重载封装
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	private List<SysResourcesVO> findSiteMenuChildren(long parentId) {
+		SysResourcesVO record = new SysResourcesVO();
+		record.setParentId(parentId);
+		return resourcesDAO.findMenuList(record);
+	}
+	
 	@Override
 	public List<SysResourcesVO> findResourcesTree(long parentId) {
 		List<SysResourcesVO> list = this.findResourcesChildren(parentId);
@@ -57,7 +81,7 @@ public class SysResourcesService implements ISysResourcesService {
 		}
 		return list;
 	}
-
+	
 	@Override
 	public List<SysResourcesVO> findResourcesTree() {
 		SysResourcesVO record = resourcesDAO.findResourcesTreeRoot();

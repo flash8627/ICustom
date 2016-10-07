@@ -71,6 +71,11 @@
 			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/resources</location>
 		</link>
 		<link>
+			<name>resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.resources/src/main/resources</location>
+		</link>
+		<link>
 			<name>security.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/20151108/ICustom/ICustom.security.api/src/main/java</location>
