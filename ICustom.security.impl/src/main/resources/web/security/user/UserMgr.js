@@ -2,7 +2,7 @@
 var user={};
 var userRoles=[];
 
-var validateRemoveBtn = function() {
+var validateUserRemoveBtn = function() {
 	var checkNum = $('input:checkbox[name=userId]:checked').length;
 	if (checkNum > 0) {
 		$(".optionbtn").removeClass("l-btn-disabled");
@@ -186,7 +186,7 @@ $(function() {
 			updateLastDate : $('#updateLastDate').val()
 		};
 		$tr.detach();
-		UserView.insertUserRows([ user ]);
+		UserView.insertUserRows([user]);
 		$("#user_create").removeClass("l-btn-disabled");
 		$("#user_modal_submit").addClass("l-btn-disabled");
 
@@ -295,7 +295,7 @@ rolesCompareToUserRoles = function(userAccount,roleId){
  * 比对初始化时的用户角色和现在视图中的用户角色是否否相等
  * 任何一个页面　元素在原初始化时的数组中找不到，即为新增了角色
  * */
-compareUserRoles = function(userAccount){
+/*compareUserRoles = function(userAccount){
 	var trs = $('#user_roles_'+userAccount+'_table').find('tbody tr');
 	for(var i=0;i<trs.length;i++){
 		var rowId = $(trs[i]).attr('data-id');
@@ -306,7 +306,7 @@ compareUserRoles = function(userAccount){
 		var roleName = $tr.find('td[data-name="roleName"]').text().trim();
 		console.warn(id,roleName);
 	}
-}
+}*/
 
 // 点击 Create 按钮，弹出创建产品对话框
 userItemBack = function() {

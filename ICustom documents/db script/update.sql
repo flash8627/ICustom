@@ -517,7 +517,9 @@ comment on table SYS_ROLES_AUTHORITIES_T
  alter table SYS_ROLES_AUTHORITIES_T
    add constraint FK_PUB_ROLES_AUTHORITIES_ROLES foreign key (ROLE_ID)
    references SYS_ROLES_T (ROLE_ID);
-   
+ alter table SYS_ROLES_AUTHORITIES_T
+  add constraint FK_PUB_ROLES_AUTHORITIES_UNIQUE unique (ROLE_ID, AUTH_ID);
+  
 -- Create table
 create table SYS_USERS_ROLES_T
 (
@@ -581,7 +583,8 @@ alter table SYS_AUTHORITIES_RESOURCES_T
    add constraint FK_PUB_AUTHORITIES_RE_RE foreign key (RESOURCE_ID)
    references SYS_RESOURCES_T (RESOURCE_ID);
 
-
+alter table SYS_AUTHORITIES_RESOURCES_T
+  add constraint FK_PUB_AUTHORITIES_RE_UQ unique (AUTH_ID, RESOURCE_ID);
 
 -- Create table¡¡
 create table PERSISTENT_LOGINS

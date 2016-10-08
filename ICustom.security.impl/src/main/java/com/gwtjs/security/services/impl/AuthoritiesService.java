@@ -20,8 +20,8 @@ public class AuthoritiesService implements IAuthoritiesService {
 	private IAuthoritiesDAO authoritiesDAO;
 	
 	@Override
-	public List<SysAuthoritiesVO> findAuthoritiesList(SysAuthoritiesVO auth) {
-		List<SysAuthoritiesVO> records = authoritiesDAO.findItems(auth);
+	public List<SysAuthoritiesVO> findAuthoritiesTree(SysAuthoritiesVO auth) {
+		List<SysAuthoritiesVO> records = authoritiesDAO.findAuthoritiesTree(auth);
 		/*for (SysAuthoritiesVO record : records) {
 			List<SysAuthoritiesVO> children = getTree(record);
 			record.setChildren(children);
@@ -30,16 +30,16 @@ public class AuthoritiesService implements IAuthoritiesService {
 	}
 
 	/**
-	 * 分页的lookup 条目
+	 * 分页的权限 条目
 	 */
 	@Override
-	public PagedResult<SysAuthoritiesVO> findRecords(SysAuthoritiesVO record, PagerVO page) {
+	public PagedResult<SysAuthoritiesVO> findAuthoritiesList(SysAuthoritiesVO record, PagerVO page) {
 		PagedResult<SysAuthoritiesVO> paged = new PagedResult<SysAuthoritiesVO>();
 		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(authoritiesDAO.selectListCount(record, page));
+		pageVO.setTotalRows(authoritiesDAO.findAuthoritiesListCount(record, page));
 		if (pageVO.getTotalRows() > 0) {
 			paged.setPageVO(pageVO);
-			paged.setResult(authoritiesDAO.selectList(record, page));
+			paged.setResult(authoritiesDAO.findAuthoritiesList(record, page));
 		}
 		return paged;
 	}

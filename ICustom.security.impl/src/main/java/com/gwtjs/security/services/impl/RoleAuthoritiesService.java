@@ -19,7 +19,7 @@ public class RoleAuthoritiesService implements IRoleAuthoritiesService {
 
 	@Override
 	public ResultWrapper batchRemovePks(List<SysRolesAuthoritiesVO> list) {
-		roleAuthoritiesDao.batchInsert(list);
+		roleAuthoritiesDao.batchRemovePks(list);
 		return ResultWrapper.successResult(list);
 	}
 

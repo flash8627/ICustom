@@ -30,7 +30,7 @@ var UserRolesView = function() {
         },
         initInsertRolesRow: function(user,items) {
     		//user_roles_{{code}}_table
-    		var table = 'roles_select_table';
+    		var table = 'roles_'+user.userAccount+'_table';
     		var tbody = $('#'+table).find('tbody');
     		if(items.length>0){
     			$('.alert-warning').detach();

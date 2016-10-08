@@ -1,11 +1,7 @@
 var RoleAuthoritiesView = function() {
-	/**表格编辑行*/
-	var generateUserRoleTrEditorHtml = function(item) {
-        return TemplateUtil.renderHtml('role_roles_form_template', item);
-    };
     /**表格行*/
-	var generateUserRoleTableTrHtml = function(item) {
-        return TemplateUtil.renderHtml('role_roles_info_template', item);
+	var generateRoleAuthsTableTrHtml = function(item) {
+        return TemplateUtil.renderHtml('roles_auth_info_template', item);
     };
     /**主表*/
     var generateUserRoleTableHtml = function(role) {
@@ -16,44 +12,39 @@ var RoleAuthoritiesView = function() {
     	addTabClassifyInfo:function(role){
     		var html = generateUserRoleTableHtml(role);return html;
     	},
-    	initInsertUserRoleRow: function(code,items) {
+    	initInsertAuthsRow: function(roleId,auths) {
     		//role_item_{{code}}_table
-    		var table = 'role_item_'+code+'_table';
+    		var table = 'role_item_'+roleId+'_table';
     		var tbody = $('#'+table).find('tbody');
+    		
+    		var items = auths.auths.result;
     		if(items.length>0){
     			$('.alert-warning').detach();
     		}
             for(var i=0;i<items.length;i++){
-            	var html = generateUserRoleTableTrHtml(items[i]);
+            	var html = generateRoleAuthsTableTrHtml(items[i]);
                 $(tbody).prepend(html);
             }
         },
-        deleteUserRoleRow:function(roleName,items) {
-        	var table = 'role_item_'+roleName+'_table';
+        deleteRoleAuths:function(roleId,items) {
+        	var table = 'role_item_'+roleId+'_table';
             for(var nav in items){
-            	$('#'+table).find('tbody').find('tr[data-id="' + items[nav].itemId + '"]').remove();
+            	$('#'+table).find('tbody').find('tr[data-id="' + items[nav].id + '"]').remove();
             }
         },
-    	insertUserRoleEditorRow: function(code,item) {
+    	insertRoleAuthRow: function(roleId,item) {
     		//role_item_{{code}}_table
-    		var table = 'role_item_'+code+'_table';
-            var html = generateUserRoleTrEditorHtml(item);
+    		var table = 'role_item_'+roleId+'_table';
+            var html = generateRoleAuthsTableTrHtml(item);
             var tbody = $('#'+table).find('tbody');
             $(tbody).prepend(html);
         },
-    	insertUserRoleRow: function(code,item) {
-    		//role_item_{{code}}_table
-    		var table = 'role_item_'+code+'_table';
-            var html = generateUserRoleTableTrHtml(item);
-            var tbody = $('#'+table).find('tbody');
-            $(tbody).prepend(html);
-        },
-    	addTabPanel:function(role,roleItem){
-    		var tabId = 'Tab_' + role.roleName;
+    	addTabPanel:function(role,auths){
+    		var tabId = 'Tab_' + role.roleId;
     		if ($('#Role_tt').tabs('exists', role.roleName)){
     			$('#Role_tt').tabs('select', role.roleName);
     		} else {
-    			var tableId = 'role_item_'+role.roleName+'_table';
+    			var tableId = 'role_item_'+role.roleId+'_table';
     			var title = role.roleName;
     			var content = RoleAuthoritiesView.addTabClassifyInfo(role);
     			var gridNode = $(content).find('#'+tableId).find('tbody');
@@ -66,7 +57,7 @@ var RoleAuthoritiesView = function() {
 					content : content,
 					closable : true
     			});
-    			RoleAuthoritiesView.initInsertUserRoleRow(role.roleName,roleItem);
+    			RoleAuthoritiesView.initInsertAuthsRow(role.roleId,auths);
     		}
     	}
     };

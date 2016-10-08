@@ -23,16 +23,16 @@ import com.gwtjs.security.entity.SysAuthoritiesVO;
 public interface IAuthoritiesService {
 	
 	@GET
-	@Path("/findRecords/{pageSize}/{curPage}")
-	public PagedResult<SysAuthoritiesVO> findRecords(@QueryParam("") SysAuthoritiesVO record, @PathParam("")PagerVO page);
+	@Path("/findAuthoritiesList/{pageSize}/{curPage}")
+	public PagedResult<SysAuthoritiesVO> findAuthoritiesList(@QueryParam("") SysAuthoritiesVO record, @PathParam("")PagerVO page);
 	
 	@GET
 	@Path("/findItem/{authId}")
 	ResultWrapper findItem(@PathParam("authId")Integer authId);
 	
 	@GET
-	@Path("/findAuthoritiesList/{parentId}")
-	List<SysAuthoritiesVO> findAuthoritiesList(@PathParam("")SysAuthoritiesVO record);
+	@Path("/findAuthoritiesTree/{parentId}")
+	List<SysAuthoritiesVO> findAuthoritiesTree(@PathParam("")SysAuthoritiesVO record);
 
 	@PUT
 	@Path("batchRemovePks")

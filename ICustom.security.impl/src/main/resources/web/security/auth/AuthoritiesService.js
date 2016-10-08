@@ -2,13 +2,13 @@ var AuthoritiesService = function() {
     var BASE = '../../services/sys/authoritiesService';
     return {
     	findAuthoritiess: function(callback) {
-            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesList', function(list) {
+            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesTree', function(list) {
                 AuthoritiesView.renderAuthoritiesTable(list);
                 callback();
             });
         },
         findChildren: function(callback,itemId) {
-            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesList/'+itemId, function(list) {
+            AjaxUtil.sendGetRequest(BASE + '/findAuthoritiesTree/'+itemId, function(list) {
                 AuthoritiesView.renderAuthoritiesTable(list);
                 callback();
             });

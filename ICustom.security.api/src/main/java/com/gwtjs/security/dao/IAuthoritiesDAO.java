@@ -23,15 +23,13 @@ public interface IAuthoritiesDAO extends BaseSqlMapper<SysAuthoritiesVO> {
 	SysAuthoritiesVO findItem(@Param("authId")Integer authId);
 	
 	//
-	List<SysAuthoritiesVO> findAuthoritiesList(SysAuthoritiesVO record);
+	List<SysAuthoritiesVO> findAuthoritiesList(SysAuthoritiesVO record,PagerVO page);
 	
 	//
-	List<SysAuthoritiesVO> selectList(SysAuthoritiesVO record,PagerVO page);
-	
-	List<SysAuthoritiesVO> findItems(SysAuthoritiesVO record);
+	List<SysAuthoritiesVO> findAuthoritiesTree(SysAuthoritiesVO record);
 
 	//
-	int selectListCount(SysAuthoritiesVO record,PagerVO page);
+	int findAuthoritiesListCount(SysAuthoritiesVO record,PagerVO page);
 	
 	//
 	int batchRemovePks(List<SysAuthoritiesVO> records);

@@ -80,8 +80,8 @@
 			VALUES
 			  (
 				SYS_AUTHORITIES_RESOURCES_S.NEXTVAL, 
-				#{item.sysAuthorities.authId,jdbcType=NUMERIC},
-				#{item.sysResources.resourceId,jdbcType=NUMERIC},
+				#{item.authId,jdbcType=NUMERIC},
+				#{item.resourceId,jdbcType=NUMERIC},
 				1,
 				#{item.remarks,jdbcType=VARCHAR},
 				#{item.attribut1,jdbcType=VARCHAR},

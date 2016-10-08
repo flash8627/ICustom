@@ -11,14 +11,6 @@
 		SELECT AUTH_NAME FROM SYS_AUTHORITIES_T T WHERE T.VALID_FLAG=1 
 	</select>
 	
-	<select id="findAuthoritiesList" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM SYS_AUTHORITIES_T T1
-		where T1.VALID_FLAG=1  
-		AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
-	</select>
-	
 	<select id="getByPathAuthorities" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
 		SELECT
 		<include refid="Base_Column_List" />
@@ -44,7 +36,7 @@
 		where T1.VALID_FLAG=1 AND T1.AUTH_ID = #{authId,jdbcType=NUMERIC}
 	</select>
 	
-	<select id="findItems" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
+	<select id="findAuthoritiesTree" resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
 		SELECT
 		<include refid="Base_Column_List" />
 		FROM
@@ -97,7 +89,7 @@
 		]]>
 	</sql>
 	
-	<select id="selectList" parameterType="hashmap"
+	<select id="findAuthoritiesList" parameterType="hashmap"
 		resultType="com.gwtjs.security.entity.SysAuthoritiesVO">
 		<include refid="page_st" />
 		SELECT
@@ -110,7 +102,7 @@
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" resultType="INTEGER">
+	<select id="findAuthoritiesListCount" resultType="INTEGER">
 		SELECT
 		COUNT(1)
 		FROM SYS_AUTHORITIES_T T1

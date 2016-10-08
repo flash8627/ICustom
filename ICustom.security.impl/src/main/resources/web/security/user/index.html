@@ -142,10 +142,11 @@
 		<i class="fa fa-remove fa-trash-o fa-lg" aria-hidden="true"></i> 删除
 	</button>
 
-	<button class="btn btn-success itemFormActionbtn l-btn-disabled"
+	<!--<button class="btn btn-success itemFormActionbtn l-btn-disabled"
 		type="button" onclick="userItemSave()">
 		<i class="fa fa-save" aria-hidden="true"></i> 保存
-	</button>
+	</button>-->
+
 	<button class="btn btn-success actionbtn" type="button"
 		onclick="userItemBack()">
 		<i class="fa fa-reply" aria-hidden="true"></i>&nbsp;返回
@@ -186,7 +187,7 @@
 
 			<td style="width:50%;padding:0;" align="left" valign="top">
 				<table class="table table-hover"
-					id="roles_select_table">
+					id="roles_{{userAccount}}_table">
 					<thead>
 						<tr>
 							<th>选择</th>
@@ -259,14 +260,14 @@
 	</table>
 </script>
 
-<!-- 表格行模板-无编辑框 -->
+<!-- 用户-表格行模板-无编辑框 -->
 <script type="text/x-handlebars-template-partial"
 	id="user_table_tr_template">
 	<tr data-id="{{userId}}" data-name="userId" class="user_tr_template">
 		<td>
 			<form>
 			<label class="checkbox-inline"> 
-				<input type="checkbox" onclick="validateRemoveBtn()" name="userId" id="userId" value="{{userId}}">
+				<input type="checkbox" onclick="validateUserRemoveBtn()" name="userId" id="userId" value="{{userId}}">
 			</label>
 			</form>
 		</td>

@@ -36,8 +36,8 @@
 			VALUES 
 			  (
 				SYS_ROLES_AUTHORITIES_S.NEXTVAL, 
-				#{item.sysAuthorities.authId,jdbcType=INTEGER},
-				#{item.sysRoles.roleId,jdbcType=INTEGER},
+				#{item.authId,jdbcType=INTEGER},
+				#{item.roleId,jdbcType=INTEGER},
 				1,
 				#{item.createdUser,jdbcType=NUMERIC},
 				SYSDATE,
@@ -50,7 +50,7 @@
 		</if>
 	</insert>
 	
-	<!-- 查询某角色的权限列表  -->
+	<!-- 查询某角色权限  -->
 	<select id="findByRoleAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
 		select 
 			<include refid="column_base" />
@@ -58,12 +58,12 @@
 		  SYS_ROLES_AUTHORITIES_T RA, 
 		  SYS_AUTHORITIES_T A
 		  WHERE 
-		       A.VALID_FLAG = 1 
-		       AND RA.AUTH_ID=#{sysAuthorities.authId,jdbcType=NUMERIC}
-		       AND RA.ROLE_ID=#{sysRoles.roleId,jdbcType=NUMERIC}
+		       A.VALID_FLAG = 1 AND RA.AUTH_ID=A.AUTH_ID
+		       AND RA.AUTH_ID=#{authId,jdbcType=NUMERIC}
+		       AND RA.ROLE_ID=#{roleId,jdbcType=NUMERIC}
 	</select>
 	
-	<!-- 查询某权限  -->
+	<!-- 查询某角色的权限  -->
 	<select id="findRoleAuthorities" resultType="com.gwtjs.security.entity.SysRolesAuthoritiesVO">
 		select 
 			<include refid="column_base" />
@@ -80,9 +80,6 @@
 		RA.ID id, 
 		RA.ROLE_ID roleId, 
 		A.AUTH_ID authId,
-		A.AUTH_NAME authName,
-		A.AUTH_DESC authDesc,
-		A.AUTH_CODE authCode,
 		A.ORDER_CODE orderCode,
 		A.CREATED_USER createdUser,
 		A.CREATED_DATE createdDate,
