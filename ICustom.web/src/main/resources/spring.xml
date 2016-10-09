@@ -91,5 +91,7 @@
 		<property name="basePackage" value="com.gwtjs.*.dao" />
 		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
 	</bean>
-
+	
+	<import resource="classpath*:/config/*-service.xml" />
+	
 </beans>
