@@ -56,19 +56,9 @@
 			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/resources</location>
 		</link>
 		<link>
-			<name>core.api</name>
+			<name>core</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.api/src/main/java</location>
-		</link>
-		<link>
-			<name>core.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>core.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core.impl/src/main/resources</location>
+			<location>D:/Workspaces/20151108/ICustom/ICustom.core/src/main/java</location>
 		</link>
 		<link>
 			<name>resources</name>
