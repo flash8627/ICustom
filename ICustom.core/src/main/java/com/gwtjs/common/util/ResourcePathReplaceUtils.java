@@ -1,4 +1,4 @@
-package com.gwtjs.common.utils;
+package com.gwtjs.common.util;
 
 public class ResourcePathReplaceUtils {
 	

@@ -12,7 +12,7 @@ import javax.ws.rs.core.MultivaluedMap;
 
 import org.springframework.stereotype.Component;
 
-import com.gwtjs.common.utils.CodecUtil;
+import com.gwtjs.common.util.CodecUtil;
 
 @Component
 public class MyRealmUserDao {

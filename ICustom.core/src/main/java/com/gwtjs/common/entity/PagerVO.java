@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */@JsonIgnoreProperties
 public class PagerVO {
 
-	private Object entityList;
 	private int totalRows;
 	private int curPage = 1;
 	private int pageSize = 15 ;
@@ -47,14 +46,6 @@ public class PagerVO {
 
 	public void setEndIndex(int endIndex) {
 		this.endIndex = endIndex;
-	}
-
-	public Object getEntityList() {
-		return entityList;
-	}
-
-	public void setEntityList(Object entityList) {
-		this.entityList = entityList;
 	}
 
 	public int getTotalRows() {

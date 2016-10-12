@@ -228,8 +228,7 @@
 		<module>ICustom.resources</module>
 		<module>ICustom.angularjs</module>
 		<module>ICustom.fckeditor</module>
-		<module>ICustom.core.api</module>
-		<module>ICustom.core.impl</module>
+		<module>ICustom.core</module>
 		<module>ICustom.common.api</module>
 		<module>ICustom.common.impl</module>
 		<module>ICustom.security.api</module>

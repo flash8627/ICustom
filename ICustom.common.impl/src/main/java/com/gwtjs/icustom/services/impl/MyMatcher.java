@@ -5,7 +5,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.springframework.stereotype.Component;
 
-import com.gwtjs.common.utils.CodecUtil;
+import com.gwtjs.common.util.CodecUtil;
 
 /**
  * 用于比较密码是否相等
