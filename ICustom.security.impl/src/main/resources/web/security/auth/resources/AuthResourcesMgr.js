@@ -1,12 +1,12 @@
 var BASE = '../../../services/sys/';
 
-
 $(function() {
 	initAuthoritiesTree();
 	initResourcesTree();
 	console.info('添加一级节点有问题!');
 })
 
+var authId = 0;
 var initAuthoritiesTree = function(authId) {
 	var baseUrl = BASE + 'authoritiesService/findAuthoritiesTree';
 	var url = baseUrl;
@@ -22,53 +22,27 @@ var initAuthoritiesTree = function(authId) {
 		fit : true,
 		lines : true,
 		checkbox : false,
-		onBeforeLoad : function() {
-			/*
-			 * //获取根节点 var rooNode = $("#authTree").tree("getRoot");
-			 * //调用expand方法 $("#authTree").tree("expand",rooNode);
-			 */
-		},
-		formatter : function(node) {
-			if (node.leaf) {
-				// 叶子节点否?
-				node.iconCls = 'icon-reload';
-				node.state = 'closed';
-				$("#authTree").tree("expandAll", node.target);
-			}
-			var s = node.text;
-			if (node.children) {
-				s += ' <span style="color:CCCCCC">(' + node.children.length
-						+ ')</span>';
-			}
-			// s += '<span style="color:#FFFFFF;">&nbsp;<i class="fa
-			// fa-plus"></i></span>';
-			s += '<span class="removeNode" style="color:#FFFFFF;" onclick="doRemove()">&nbsp;<i class="fa fa-remove"></i></span>';
-			return s;
-		},
 		onClick : function(node) {
+			console.info('onClick',node);
 			node.authName = node.text;
 			node.authId = node.id;
 			// node.parentId = pnode.id;
-			var pnode = $('#authTree').tree('getParent', node.target);
+			var pnode = $('#authResourcesTree').tree('getParent', node.target);
 			/*
 			 * if(pnode!=null){ node.parentId = node.id; }
 			 */
-
-			resetForm();
-			setFormValues(node);
 		},
-		onLoadSuccess : function(node) {
-			$(".tree-title").mouseover(function(event) {
-				/*
-				 * console.info('mouseover',event);
-				 * console.info('mouseover',event.target);
-				 * console.info('mouseover',event.delegateTarget);
-				 */
-			});
+		onSelect:function(node){
+			console.info('select',node);
+			//选择行查询权限的资源,并赋值给资源的视图
+			$('#authBYName').text(node.text);
+			if(authId!=node.id){
+				authId=node.id;
+				if(!validateAuthData(authId)){
+					doSearchAuthResource(node);
+				}
+			}
 		},
-		/*
-		 * onBeforeLoad: function(node, param){ },
-		 */
 		onBeforeExpand : function(node) {
 			if (node) {
 				$('#authTree').tree('options').url = baseUrl + "/" + node.id;
@@ -77,6 +51,28 @@ var initAuthoritiesTree = function(authId) {
 	}
 
 	var authTreeView = $('#authTree').tree(authTreeConfig);
+}
+
+/**权限的资源,权限标识为数组标识*/
+var authResources = [];
+/**
+ * 验证权限的资源是否已经有数据,有则不再查询
+ */
+validateAuthData = function(nodeId){
+	
+	return false;
+}
+
+/**
+ * 查询权限的资源,AuthoritiesResources
+ * @param node
+ */
+doSearchAuthResource = function(node){
+	var url = BASE+'authorityResourcesService/findAuthoritiesResources/'+node.id;
+	AjaxUtil.sendGetAsyncRequest(url,function(data){
+		console.info(data);
+		validateAuthData.push(data);
+	});
 }
 
 var initResourcesTree = function(resId) {
@@ -92,8 +88,6 @@ var initResourcesTree = function(resId) {
 		fit : true,
 		lines : true,
 		checkbox : true,
-		onBeforeLoad : function() {
-		},
 		formatter : function(node) {
 			if (node.leaf) {
 				// 叶子节点否?
@@ -101,17 +95,15 @@ var initResourcesTree = function(resId) {
 				node.state = 'closed';
 				$("#authResourcesTree").tree("expandAll", node.target);
 			}
-			var s = node.text;
+			var s = getNodeName(node.text,node);
 			if (node.children) {
 				s += ' <span style="color:CCCCCC">(' + node.children.length
 						+ ')</span>';
 			}
-			// s += '<span style="color:#FFFFFF;">&nbsp;<i class="fa
-			// fa-plus"></i></span>';
-			s += '<span class="removeNode" style="color:#FFFFFF;" onclick="doRemove()">&nbsp;<i class="fa fa-remove"></i></span>';
 			return s;
 		},
 		onClick : function(node) {
+			console.info('onClick',node);
 			node.authName = node.text;
 			node.authId = node.id;
 			// node.parentId = pnode.id;
@@ -119,13 +111,14 @@ var initResourcesTree = function(resId) {
 			/*
 			 * if(pnode!=null){ node.parentId = node.id; }
 			 */
-
-			resetForm();
-			setFormValues(node);
+		},
+		onSelect:function(row){
+			console.info('select',row);
+			//选择行后可以执行添加删除修改
 		},
 		onLoadSuccess : function(node) {
 			$(".tree-title").mouseover(function(event) {
-				/*
+				/**
 				 * console.info('mouseover',event);
 				 * console.info('mouseover',event.target);
 				 * console.info('mouseover',event.delegateTarget);
@@ -145,9 +138,66 @@ var initResourcesTree = function(resId) {
 	$('#authResourcesTree').tree(authResourcesTreeConfig);
 }
 
+function doNode(){
+    var c="";
+    var p="";
+    $(".tree-checkbox1").parent().children('.tree-title').each(function(){
+      c+=$(this).parent().attr('node-id')+",";
+    });
+     $(".tree-checkbox2").parent().children('.tree-title').each(function(){
+   p+=$(this).parent().attr('node-id')+",";
+    });
+    var str=(c+p);
+    str=str.substring(0,str.length-1);
+    alert(str);
+}
+
+function getChecked(){
+    var nodes = $('#tt2').tree('getChecked');
+    var s = '';
+    for (var i = 0; i < nodes.length; i++) {
+        if (s != '') 
+            s += ',';
+        s += nodes[i].text;
+    }
+    alert(s);
+}
+
+function getNodeName(value,rowData){
+	var names = value.split(",");
+	var lan = names[0];
+	var lans = lan.split('=');
+	if(lans[1]!=undefined){
+		return lans[1];
+	}
+	return lans;
+}
+
 // 过滤
 function doSearch(value) {
 	alert('You input: ' + value);
+}
+
+resourceNameFormatter = function(value, rowData) {
+	if (!value) {
+		return "";
+	}
+	//
+	if(rowData.leaf == true&&rowData.parentId!=null){
+		rowData.iconCls = 'icon-reload';
+		rowData.state = 'closed';
+	}
+	/*if(rowData.leaf == true&&rowData.parentId==null){
+		rowData.iconCls = 'fa-folder-o';
+		rowData.state = 'closed';
+	}*/
+	var names = value.split(",");
+	var lan = names[0];
+	var lans = lan.split('=');
+	if(lans[1]!=undefined){
+		return lans[1];
+	}
+	return lans;
 }
 
 // 点击 Create 按钮，弹出创建产品对话框
@@ -158,44 +208,6 @@ $('#parent_select_btn').on('click', function() {
 	$modal.find('.modal-title').text(title);
 	$('#parent_select_modal').modal('show');
 });
-
-// 添加条目，如果parentId为空则是一级
-function addItem() {
-	resetForm();
-	var node = $('#authTree').tree('getSelected');
-	console.warn('add node parent', node);
-	if (node != null) {
-		node.parentId = node.id;
-	} else {
-		node = {};
-		node.parentId = 0;
-	}
-
-	node.authId = 0;
-	node.authName = '';
-	node.authCode = '';
-	node.authDesc = '';
-	setFormValues(node);
-}
-
-// .tree-title .fa-remove
-// 点击 Delete 按钮，删除产品
-doRemove = function() {
-	var node = $("#authTree").tree("getSelected");
-	if (node) {
-		var params = [ {
-			authId : node.id
-		} ];
-
-		if (confirm('Do you want to delete this Authorities?')) {
-			AuthoritiesService.batchRemoveAuthorities(params, function() {
-				$('#authTree').tree('remove', node.target);
-			});
-
-		}
-	}
-	return false;
-}
 
 // 保存，含新增和修改
 function doSave() {
@@ -234,54 +246,4 @@ function doSave() {
 			data : result.obj
 		});
 	}
-	resetForm();
-}
-
-// 重置表单
-function resetForm() {
-	var values = {
-		authId : 0,
-		authName : '',
-		authCode : '',
-		parentId : 0,
-		authDesc : ''
-	};
-	setFormValues(values);
-}
-filter = function() {
-	/*
-	 * $('#tt').tree({ filter: function(q, node){ return
-	 * node.text.toLowerCase().indexOf(q.toLowerCase()) >= 0; } })
-	 */
-	$('#authTree').tree({
-		// url:
-		// '../services/authorities/authoritiesService/findAuthoritiesList',
-		loadFilter : function(data) {
-			if (data.d) {
-				return data.d;
-			} else {
-				return data;
-			}
-		}
-	});
-}
-
-/* 设置表单值 */
-function getFormValues() {
-	var values = {};
-	values.authId = $('input[name="authId"]').val();
-	values.authName = $('input[name="authName"]').val();
-	values.authCode = $('input[name="authCode"]').val();
-	values.parentId = $('input[name="parentId"]').val();
-	values.authDesc = $('#authDesc').val();
-	return values;
-}
-
-/* 设置表单值 */
-function setFormValues(values) {
-	$('input[name="authId"]').val(values.authId);
-	$('input[name="authName"]').val(values.authName);
-	$('input[name="authCode"]').val(values.authCode);
-	$('input[name="parentId"]').val(values.parentId);
-	$('#authDesc').val(values.authDesc);
 }

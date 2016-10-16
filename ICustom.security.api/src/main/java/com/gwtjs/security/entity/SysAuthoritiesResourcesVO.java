@@ -11,6 +11,8 @@ public class SysAuthoritiesResourcesVO extends BaseResource {
 	private SysAuthoritiesVO sysAuthorities;
 	private SysResourcesVO sysResources;
 	private boolean enabled;
+	private long authId;
+	private long resourceId;
 
 	public SysAuthoritiesResourcesVO() {
 		super();
@@ -56,5 +58,23 @@ public class SysAuthoritiesResourcesVO extends BaseResource {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public long getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(long authId) {
+		this.authId = authId;
+	}
+
+	public long getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(long resourceId) {
+		this.resourceId = resourceId;
+	}
+	
+	
 
 }

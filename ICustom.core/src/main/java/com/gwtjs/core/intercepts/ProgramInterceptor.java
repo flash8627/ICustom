@@ -20,9 +20,12 @@ public class ProgramInterceptor implements Interceptor{
 	 * 重新构建MappedStatement对象，用delegate的方式，接入ExtendedSqlSource
 	 */
 	public MappedStatement buildMappedStatement(MappedStatement mappedStatement){
-		Builder builder = new Builder(mappedStatement.getConfiguration(),mappedStatement.getId(),
-				new ExtendedSqlSource(mappedStatement.getConfiguration(),mappedStatement.getSqlSource()),
-		mappedStatement.getSqlCommandType());
+		String id=mappedStatement.getId();
+		Configuration configuration=mappedStatement.getConfiguration();
+		SqlSource sqlSource = mappedStatement.getSqlSource();
+		SqlCommandType sqlCommandType = mappedStatement.getSqlCommandType();
+		Builder builder = new Builder(configuration,id,new ExtendedSqlSource(configuration,sqlSource),sqlCommandType);
+		
 		builder.resource(mappedStatement.getResource());
 		builder.parameterMap(mappedStatement.getParameterMap());
 		builder.resultMaps(mappedStatement.getResultMaps());

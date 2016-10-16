@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.security.dao.ISysResourcesDAO;
+import com.gwtjs.security.entity.SysResourcesTreeVO;
 import com.gwtjs.security.entity.SysResourcesVO;
 import com.gwtjs.security.services.ISysResourcesService;
 
@@ -22,6 +23,37 @@ public class SysResourcesService implements ISysResourcesService {
 	private ISysResourcesDAO resourcesDAO;
 
 	private static final Logger log = LoggerFactory.getLogger(SysResourcesService.class);
+	
+	@Override
+	public List<SysResourcesTreeVO> findResourcesTree() {
+		SysResourcesTreeVO record = resourcesDAO.findResourcesTreeRoot();
+		List<SysResourcesTreeVO> list = new ArrayList<SysResourcesTreeVO>();
+
+		if(record!=null && record.isLeaf()){
+			List<SysResourcesTreeVO> children = this.findResourcesTree(record);
+			record.setChildren(children);
+		}
+		list.add(record);
+		log.debug("", list);
+		return list;
+	}
+	
+	@Override
+	public List<SysResourcesTreeVO> findResourcesTree(long parentId) {
+		return this.findResourcesTreeChildren(parentId);
+	}
+	
+	private List<SysResourcesTreeVO> findResourcesTree(SysResourcesTreeVO parent) {
+		List<SysResourcesTreeVO> list = this.findResourcesTreeChildren(parent.getResourceId());
+		for (SysResourcesTreeVO record : list) {
+			if (record.isLeaf()) {
+				List<SysResourcesTreeVO> children = this.findResourcesTreeChildren(record.getResourceId());
+				record.setChildren(children);
+			}
+		}
+		return list;
+	}
+
 	@Override
 	public Integer selectByItemId() {
 		// TODO Auto-generated method stub
@@ -33,7 +65,7 @@ public class SysResourcesService implements ISysResourcesService {
 	 */
 	@Override
 	public List<SysResourcesVO> findResourcesSiteMenu() {
-		SysResourcesVO nav = resourcesDAO.findResourcesTreeRoot();
+		SysResourcesVO nav = resourcesDAO.findResourcesGridTreeRoot();
 		List<SysResourcesVO> menus = this.findMenus(nav.getResourceId());
 		for (SysResourcesVO menu : menus) {
 			List<SysResourcesVO> child = this
@@ -70,7 +102,7 @@ public class SysResourcesService implements ISysResourcesService {
 	}
 	
 	@Override
-	public List<SysResourcesVO> findResourcesTree(long parentId) {
+	public List<SysResourcesVO> findResourcesGridTree(long parentId) {
 		List<SysResourcesVO> list = this.findResourcesChildren(parentId);
 		for (SysResourcesVO record : list) {
 			if (record.isLeaf()) {
@@ -83,8 +115,8 @@ public class SysResourcesService implements ISysResourcesService {
 	}
 	
 	@Override
-	public List<SysResourcesVO> findResourcesTree() {
-		SysResourcesVO record = resourcesDAO.findResourcesTreeRoot();
+	public List<SysResourcesVO> findResourcesGridTree() {
+		SysResourcesVO record = resourcesDAO.findResourcesGridTreeRoot();
 		List<SysResourcesVO> list = new ArrayList<SysResourcesVO>();
 
 		if(record!=null && record.isLeaf()){
@@ -101,7 +133,17 @@ public class SysResourcesService implements ISysResourcesService {
 		SysResourcesVO record = new SysResourcesVO();
 		return this.findResourcesList(record);
 	}
-
+	/**
+	 * 重载封装
+	 * 
+	 * @param parentId
+	 * @return
+	 */
+	private List<SysResourcesTreeVO> findResourcesTreeChildren(long parentId) {
+		SysResourcesTreeVO record = new SysResourcesTreeVO();
+		record.setParentId(parentId);
+		return resourcesDAO.findResourcesTreeList(record);
+	}
 	/**
 	 * 重载封装
 	 * 

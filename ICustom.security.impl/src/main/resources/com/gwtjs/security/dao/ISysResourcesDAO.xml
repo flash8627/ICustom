@@ -12,12 +12,27 @@
 	<select id="selectByItemId" resultType="java.lang.Integer">
 		select SYS_RESOURCES_S.NEXTVAL from DUAL
 	</select>
-
-	<select id="findResourcesTreeRoot" resultType="com.gwtjs.security.entity.SysResourcesVO">
+	
+	<!-- 树专用  -->
+	<select id="findResourcesTreeRoot" resultType="com.gwtjs.security.entity.SysResourcesTreeVO">
+		<include refid="res_tree_base_column" />
+		where parent_id is null and rownum = 1
+	</select>
+	<select id="findResourcesTreeList" resultType="com.gwtjs.security.entity.SysResourcesTreeVO">
+		<include refid="res_tree_base_column" />
+		WHERE 1=1
+		<if test="parentId != null">
+			AND T1.PARENT_ID = #{parentId,jdbcType=NUMERIC}
+		</if>
+		ORDER BY T1.ORDER_CODE ASC
+	</select>
+	
+	<!-- treegrid专用  -->
+	<select id="findResourcesGridTreeRoot" resultType="com.gwtjs.security.entity.SysResourcesVO">
 		<include refid="nav_base_column" />
 		where parent_id is null and rownum = 1
 	</select>
-
+	
 	<select id="selectByPrimaryKey" resultType="com.gwtjs.security.entity.SysResourcesVO">
 		<include refid="nav_base_column" />
 		where RESOURCE_ID = #{resourceId,jdbcType=NUMERIC}
@@ -160,7 +175,38 @@
 		START WITH T1.PARENT_ID IS NULL
 		CONNECT BY PRIOR T1.RESOURCE_ID = PARENT_ID
 	</sql>
-
+	
+	<sql id="res_tree_base_column">
+		SELECT 
+			T1.RESOURCE_ID id,
+			T1.RESOURCE_NAME text,
+			T1.RESOURCE_ID resourceId,
+			T1.RESOURCE_NAME resourceName,
+			T1.PARENT_ID parentId,
+			nvl((select T2.RESOURCE_NAME parentName FROM SYS_RESOURCES_T T2 WHERE RESOURCE_ID = T1.PARENT_ID AND ROWNUM=1),'') parentName,
+			T1.ICON icon,
+			T1.RES_URL resUrl,
+			T1.RESOURCE_TYPE resourceType,
+			T1.resource_desc resourceDesc,
+			T1.USE_STATUS useStatus,
+			(decode((select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID =
+			T1.RESOURCE_ID),0,0,1)) leaf,
+			(decode((select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID = T1.RESOURCE_ID),0,'', 'closed' )) state,
+			(decode((select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID = T1.RESOURCE_ID),0,'','[]')) children,
+			(select count(1) FROM SYS_RESOURCES_T TC WHERE TC.PARENT_ID =
+			T1.RESOURCE_ID) childrenCount,
+			T1.ORDER_CODE orderCode,
+			T1.CREATED_USER createdUser,
+			T1.CREATED_DATE createdDate,
+			(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+			to_char(T1.CREATED_USER)),T1.CREATED_USER) ) nameCn,
+			T1.UPDATE_LAST_USER updateLastUser,
+			T1.UPDATE_LAST_DATE updateLastDate,
+			(nvl((select TU.USER_NAME userName FROM SYS_USERS_T TU WHERE TU.USER_ID =
+			to_char(T1.UPDATE_LAST_USER)),T1.UPDATE_LAST_USER) ) lastNameCn
+		FROM SYS_RESOURCES_T T1
+	</sql>
+	
 	<sql id="nav_base_column">
 		SELECT 
 			T1.RESOURCE_ID resourceId,

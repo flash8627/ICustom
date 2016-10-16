@@ -3,7 +3,11 @@ package com.gwtjs.security.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.security.dao.IAuthoritiesResourcesDAO;
@@ -13,11 +17,15 @@ import com.gwtjs.security.services.IAuthorityResourcesService;
 @Named("authorityResourcesService")
 public class AuthorityResourcesService implements
 		IAuthorityResourcesService {
-
+	
+	private static final Logger log = LoggerFactory.getLogger(SysResourcesService.class);
+	
+	@Inject
 	private IAuthoritiesResourcesDAO authoritiesResourcesDao;
 
 	@Override
 	public List<SysAuthoritiesResourcesVO> findAuthoritiesResources(long authId) {
+		log.debug(authId+"");
 		return authoritiesResourcesDao.findAuthoritiesResources(authId);
 	}
 

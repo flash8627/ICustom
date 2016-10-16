@@ -142,38 +142,15 @@ var initRegTree = function(itemId) {
 		　　    var rooNode = $("#authTree").tree('getRoot');
 		　　    //调用expand方法
 		　　    $("#authTree").tree('expand',rooNode); 
-		},
-		formatter:function(node){
-			if(node.leaf){
-				// 叶子节点否?
-				node.iconCls = 'icon-reload';
-				node.state = 'closed';
-				$("#authTree").tree("expandAll",node.target);
-			}
-			var s = node.text;
-			if (node.children){
-				s += ' <span style="color:CCCCCC">(' + node.children.length + ')</span>';
-			}
-			//s += '<span style="color:#FFFFFF;">&nbsp;<i class="fa fa-plus"></i></span>';
-			s += '<span class="removeNode" style="color:#FFFFFF;" onclick="doRemove()">&nbsp;<i class="fa fa-remove"></i></span>';
-			return s;
 		},onClick: function(node){
 			node.authName = node.text;
 			node.authId = node.id;
 			//node.parentId = pnode.id;
 			var pnode = $('#authTree').tree('getParent',node.target);
-			/*if(pnode!=null){
-				node.parentId = node.id;
-			}*/
 			
 			resetForm();
 			setFormValues(node);
 		},onLoadSuccess:function(node){
-	         $(".tree-title").mouseover(function(event){
-					/* console.info('mouseover',event);
-					console.info('mouseover',event.target);
-					console.info('mouseover',event.delegateTarget); */
-	         }); 
 	    },
 		/*
 		onBeforeLoad: function(node, param){

@@ -20,8 +20,16 @@ public class ExtendedSqlSource implements SqlSource {
 		return boundSql;
 	}
 
-	/*public Configuration getConfiguration() {
+	public Configuration getConfiguration() {
 		return configuration;
-	}*/
+	}
+
+	public void setConfiguration(Configuration configuration) {
+		this.configuration = configuration;
+	}
+
+	/*
+	 * public Configuration getConfiguration() { return configuration; }
+	 */
 
 }

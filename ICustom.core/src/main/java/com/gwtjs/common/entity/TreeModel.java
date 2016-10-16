@@ -12,6 +12,8 @@ public class TreeModel<T> extends BaseResource {
 
 	private long id; //
 
+	private long parentId; //
+
 	private String text;// 名称或label
 
 	private boolean checked = false; // 是否选中
@@ -78,6 +80,14 @@ public class TreeModel<T> extends BaseResource {
 
 	public void setChildren(List<T> children) {
 		this.children = children;
+	}
+
+	public long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(long parentId) {
+		this.parentId = parentId;
 	}
 
 }

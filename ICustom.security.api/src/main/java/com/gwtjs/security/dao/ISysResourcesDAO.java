@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.gwtjs.core.mapper.BaseSqlMapper;
+import com.gwtjs.security.entity.SysResourcesTreeVO;
 import com.gwtjs.security.entity.SysResourcesVO;
 
 /**
@@ -17,7 +18,11 @@ public interface ISysResourcesDAO extends BaseSqlMapper<SysResourcesVO> {
 	//菜单专用
 	List<SysResourcesVO> findMenuList(SysResourcesVO record);
 	
-	SysResourcesVO findResourcesTreeRoot();
+	SysResourcesTreeVO findResourcesTreeRoot();
+	
+	SysResourcesVO findResourcesGridTreeRoot();
+	
+	List<SysResourcesTreeVO> findResourcesTreeList(SysResourcesTreeVO record);
 	
 	List<SysResourcesVO> findResourcesList(SysResourcesVO record);
 	

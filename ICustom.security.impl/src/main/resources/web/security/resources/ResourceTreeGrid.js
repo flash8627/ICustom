@@ -10,12 +10,12 @@ $(function() {
 })
 
 var viewGrid = function(resourceId) {
-	var resUrl = BASE + '/findResourcesTree';
+	var resUrl = BASE + '/findResourcesGridTree';
 	if (resourceId != undefined) {
 		resUrl = resUrl + '/' + resourceId;
 	}
 	$('#tg').treegrid({
-		url : BASE + '/findResourcesTree',
+		url : BASE + '/findResourcesGridTree',
 		method : 'get',
 		fitColumns : true,
 		rownumbers : true,
@@ -28,7 +28,11 @@ var viewGrid = function(resourceId) {
 				$('#tg').treegrid('options').url = resUrl;
 			}
 		},
+		onClick : function(node) {
+			console.info('onClick',node);
+		},
 		onSelect:function(row){
+			console.info('select',row);
 			//选择行后可以执行添加删除修改
 			$(".formbtn").addClass("l-btn-disabled");
 			$(".actionbtn").removeClass("l-btn-disabled");

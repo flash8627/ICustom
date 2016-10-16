@@ -6,12 +6,6 @@ var ResourcesService = function() {
                 callback(result);
             });
         },
-        findChildren: function(callback,resourceId) {
-            AjaxUtil.sendGetRequest(BASE + '/findResourcesList/'+resourceId, function(navigationList) {
-                ResourcesView.renderResourcesTable(navigationList);
-                callback();
-            });
-        },
         findResourcesById: function(resourceId) {
             AjaxUtil.sendGetRequest(BASE + '/findResources/' + resourceId, function(navigation) {
                 var title = 'Edit Resources';
