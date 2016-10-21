@@ -1,8 +1,6 @@
-package com.gwtjs.icustom.entity;
+package com.gwtjs.common.entity;
 
 import java.util.List;
-
-import com.gwtjs.common.entity.BaseResource;
 
 /**
  * 系统导航

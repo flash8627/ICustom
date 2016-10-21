@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services;
+package com.gwtjs.common.services;
 
 import javax.jws.WebService;
 
@@ -8,7 +8,7 @@ import javax.jws.WebService;
  *
  */
 @WebService
-public interface HelloWorldService {
+public interface IHelloWorldService {
 	public String sayHello(String name);
 	public String sayBye(String name);
 }

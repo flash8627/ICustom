@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.dao;
+package com.gwtjs.common.dao;
 
 import java.util.Arrays;
 import java.util.Collection;

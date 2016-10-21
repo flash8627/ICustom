@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.mapping;
+package com.gwtjs.common.services.mapping;
 
 public class AegisServiceConfiguration {
 

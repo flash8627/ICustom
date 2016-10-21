@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.impl;
+package com.gwtjs.common.services.impl;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -8,7 +8,7 @@ import org.apache.cxf.interceptor.InInterceptors;
 import org.apache.cxf.interceptor.OutInterceptors;
 import org.springframework.stereotype.Service;
 
-import com.gwtjs.icustom.services.HelloWorldService;
+import com.gwtjs.common.services.IHelloWorldService;
 
 @Service("HelloWorldService")
 @InInterceptors(interceptors={"org.apache.cxf.interceptor.LoggingInInterceptor","com.gwtjs.icustom.services.interception.AuthInterceptor"})
@@ -20,7 +20,7 @@ import com.gwtjs.icustom.services.HelloWorldService;
 		portName="HelloWorldServicesPort",
 		serviceName = "HelloWorldServices"
 )
-public class HelloWorldServiceImpl implements HelloWorldService {
+public class HelloWorldService implements IHelloWorldService {
 	
 	@WebMethod
 	public String sayHello(@WebParam String name) {

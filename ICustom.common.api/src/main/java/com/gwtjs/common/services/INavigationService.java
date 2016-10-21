@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services;
+package com.gwtjs.common.services;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.NavigationVO;
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.icustom.entity.NavigationVO;
 
 /**
  * 系统导航
@@ -22,7 +22,7 @@ import com.gwtjs.icustom.entity.NavigationVO;
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface NavigationService {
+public interface INavigationService {
 	
 	@GET @Path("findNavigationSiteMenu")
 	List<NavigationVO> findNavigationSiteMenu();

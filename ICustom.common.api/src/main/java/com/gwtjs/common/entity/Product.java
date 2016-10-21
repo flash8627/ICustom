@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.entity;
+package com.gwtjs.common.entity;
 
 public class Product {
 

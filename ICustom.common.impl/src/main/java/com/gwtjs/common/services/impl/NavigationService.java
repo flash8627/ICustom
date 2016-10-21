@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.impl;
+package com.gwtjs.common.services.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,18 +10,17 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gwtjs.common.dao.NavigationDAO;
+import com.gwtjs.common.entity.NavigationVO;
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.icustom.dao.NavigationDAO;
-import com.gwtjs.icustom.entity.NavigationVO;
-import com.gwtjs.icustom.services.NavigationService;
-
+import com.gwtjs.common.services.INavigationService;
 @Named("navigationService")
-public class NavigationServiceImpl implements NavigationService {
+public class NavigationService implements INavigationService {
 
 	@Inject
 	private NavigationDAO navigationDAO;
 
-	private static final Logger log = LoggerFactory.getLogger(NavigationServiceImpl.class);
+	private static final Logger log = LoggerFactory.getLogger(NavigationService.class);
 	@Override
 	public Integer selectByItemId() {
 		// TODO Auto-generated method stub

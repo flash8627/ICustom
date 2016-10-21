@@ -1,12 +1,11 @@
-package com.gwtjs.icustom.dao;
+package com.gwtjs.common.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gwtjs.common.entity.NavigationVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
-import com.gwtjs.icustom.entity.NavigationVO;
-
 /**
  * 栏目，菜单，导航
  * @author aGuang

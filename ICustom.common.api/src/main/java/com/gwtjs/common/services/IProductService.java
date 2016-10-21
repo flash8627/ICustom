@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services;
+package com.gwtjs.common.services;
 
 import java.util.List;
 import java.util.Map;
@@ -14,13 +14,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.gwtjs.common.entity.Product;
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.icustom.entity.Product;
 
 @Path("/productMgs")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface ProductService {
+public interface IProductService {
 	
     @GET
     @Path("/products/{pageSize}/{curPage}")

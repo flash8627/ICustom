@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.impl;
+package com.gwtjs.common.services.impl;
 
 /*import java.util.Set;
 

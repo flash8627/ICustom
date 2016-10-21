@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.impl;
+package com.gwtjs.common.services.impl;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -11,12 +11,11 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.gwtjs.common.entity.Product;
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.icustom.entity.Product;
-import com.gwtjs.icustom.services.ProductService;
-
+import com.gwtjs.common.services.IProductService;
 @Component
-public class ProductServiceImpl implements ProductService {
+public class ProductService implements IProductService {
 
     private static final List<Product> productList = new ArrayList<Product>();
 

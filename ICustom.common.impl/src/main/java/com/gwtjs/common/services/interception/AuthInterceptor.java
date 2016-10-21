@@ -1,4 +1,4 @@
-package com.gwtjs.icustom.services.interception;
+package com.gwtjs.common.services.interception;
 
 
 import java.util.List;
