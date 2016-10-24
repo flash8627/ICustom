@@ -71,7 +71,7 @@ doSearchAuthResource = function(node){
 	var url = BASE+'authorityResourcesService/findAuthoritiesResources/'+node.id;
 	AjaxUtil.sendGetAsyncRequest(url,function(data){
 		console.info(data);
-		authResources.push(data);
+		validateAuthData.push(data);
 	});
 }
 

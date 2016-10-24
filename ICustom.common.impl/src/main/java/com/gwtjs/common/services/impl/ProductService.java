@@ -9,12 +9,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Named;
+
 import org.springframework.stereotype.Component;
 
 import com.gwtjs.common.entity.Product;
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.common.services.IProductService;
-@Component
+@Component("productService") //@Named("navigationService")
 public class ProductService implements IProductService {
 
     private static final List<Product> productList = new ArrayList<Product>();

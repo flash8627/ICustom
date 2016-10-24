@@ -14,7 +14,7 @@ import com.gwtjs.common.services.IHelloWorldService;
 @InInterceptors(interceptors={"org.apache.cxf.interceptor.LoggingInInterceptor","com.gwtjs.icustom.services.interception.AuthInterceptor"})
 @OutInterceptors(classes={org.apache.cxf.interceptor.LoggingOutInterceptor.class})
 @WebService(
-		endpointInterface = "com.gwtjs.icustom.services.HelloWorldService", 
+		endpointInterface = "com.gwtjs.common.services.impl.HelloWorldService", 
 		name="HelloServices",
 		targetNamespace="http://services.gwtjs.com:8080/services/",
 		portName="HelloWorldServicesPort",

@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
-<mapper namespace="com.gwtjs.icustom.dao.NavigationDAO">
+<mapper namespace="com.gwtjs.common.dao.NavigationDAO">
 
 	<cache eviction="LRU" flushInterval="60000" size="1024" readOnly="false" />
 	<!-- eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期 
@@ -15,12 +15,12 @@
 		from DUAL
 	</select>
 
-	<select id="findNavigationTreeRoot" resultType="com.gwtjs.icustom.entity.NavigationVO">
+	<select id="findNavigationTreeRoot" resultType="com.gwtjs.common.entity.NavigationVO">
 		<include refid="nav_base_column" />
 		where parent_id is null and rownum = 1
 	</select>
 
-	<select id="selectByPrimaryKey" resultType="com.gwtjs.icustom.entity.NavigationVO">
+	<select id="selectByPrimaryKey" resultType="com.gwtjs.common.entity.NavigationVO">
 		<include refid="nav_base_column" />
 		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</select>
@@ -31,7 +31,7 @@
 		#{itemId,jdbcType=NUMERIC}
 	</delete>
 
-	<insert id="insert" parameterType="com.gwtjs.icustom.entity.NavigationVO">
+	<insert id="insert" parameterType="com.gwtjs.common.entity.NavigationVO">
 		insert into SYS_NAVIGATION_T
 		(
 		ITEM_ID,
@@ -62,7 +62,7 @@
 		)
 	</insert>
 
-	<insert id="insertSelective" parameterType="com.gwtjs.icustom.entity.NavigationVO">
+	<insert id="insertSelective" parameterType="com.gwtjs.common.entity.NavigationVO">
 		insert into SYS_NAVIGATION_T
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			ITEM_ID,
@@ -122,7 +122,7 @@
 		</trim>
 	</insert>
 
-	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.icustom.entity.NavigationVO">
+	<update id="updateByPrimaryKeySelective" parameterType="com.gwtjs.common.entity.NavigationVO">
 		update SYS_NAVIGATION_T
 		<set>
 			<if test="itemName != null">
@@ -156,7 +156,7 @@
 		where ITEM_ID = #{itemId,jdbcType=NUMERIC}
 	</update>
 
-	<update id="updateByPrimaryKey" parameterType="com.gwtjs.icustom.entity.NavigationVO">
+	<update id="updateByPrimaryKey" parameterType="com.gwtjs.common.entity.NavigationVO">
 		update
 		SYS_NAVIGATION_T
 		set ITEM_NAME = #{itemName,jdbcType=VARCHAR},
@@ -277,7 +277,7 @@
 		FROM SYS_NAVIGATION_T T1
 	</sql>
 
-	<select id="findNavigationList" resultType="com.gwtjs.icustom.entity.NavigationVO">
+	<select id="findNavigationList" resultType="com.gwtjs.common.entity.NavigationVO">
 		<include refid="nav_base_column" />
 		WHERE 1 = 1
 		<if test="parentId != null">
