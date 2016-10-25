@@ -43,42 +43,42 @@
 		<link>
 			<name>common.api</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.api/src/main/java</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.api/src/main/java</location>
 		</link>
 		<link>
 			<name>common.impl</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/java</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.impl/src/main/java</location>
 		</link>
 		<link>
-			<name>common.impl.resources</name>
+			<name>common.resources</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.common.impl/src/main/resources</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.impl/src/main/resources</location>
 		</link>
 		<link>
 			<name>core</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.core/src/main/java</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.core/src/main/java</location>
 		</link>
 		<link>
 			<name>resources</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.resources/src/main/resources</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.resources/src/main/resources</location>
 		</link>
 		<link>
 			<name>security.api</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.security.api/src/main/java</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.api/src/main/java</location>
 		</link>
 		<link>
 			<name>security.impl</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.security.impl/src/main/java</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.impl/src/main/java</location>
 		</link>
 		<link>
 			<name>security.resources</name>
 			<type>2</type>
-			<location>D:/Workspaces/20151108/ICustom/ICustom.security.impl/src/main/resources</location>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.impl/src/main/resources</location>
 		</link>
 	</linkedResources>
 </projectDescription>
