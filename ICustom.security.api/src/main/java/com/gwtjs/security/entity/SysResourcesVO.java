@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.common.entity.TreeModel;
 
 /**
  * 系统导航
@@ -12,7 +12,7 @@ import com.gwtjs.common.entity.BaseResource;
  * @author aGuang
  *
  */
-public class SysResourcesVO extends BaseResource {
+public class SysResourcesVO extends TreeModel<SysResourcesVO> {
 
 	private static final long serialVersionUID = 8995521445443370814L;
 	// 主键ID

@@ -9,6 +9,7 @@
 	
 	<jaxrs:server address="/sys">
         <jaxrs:serviceBeans>
+            <ref bean="authoritiesResourcesTreeService"/>
             <ref bean="resourcesService"/>
             <ref bean="rolesService"/>
             <ref bean="authoritiesService"/>

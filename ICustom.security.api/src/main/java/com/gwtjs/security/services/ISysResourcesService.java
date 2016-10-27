@@ -12,7 +12,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.security.entity.SysResourcesTreeVO;
 import com.gwtjs.security.entity.SysResourcesVO;
 
 /**
@@ -27,12 +26,6 @@ public interface ISysResourcesService {
 	
 	@GET @Path("findResourcesSiteMenu")
 	List<SysResourcesVO> findResourcesSiteMenu();
-	
-	@GET @Path("findResourcesTree")
-	List<SysResourcesTreeVO> findResourcesTree();
-	
-	@GET @Path("findResourcesTree/{parentId}")
-	List<SysResourcesTreeVO> findResourcesTree(@PathParam("parentId")long parentId);
 	
 	@GET @Path("findResourcesGridTree")
 	List<SysResourcesVO> findResourcesGridTree();

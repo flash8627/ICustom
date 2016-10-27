@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import com.gwtjs.common.entity.ResultWrapper;
 import com.gwtjs.security.dao.ISysResourcesDAO;
-import com.gwtjs.security.entity.SysResourcesTreeVO;
 import com.gwtjs.security.entity.SysResourcesVO;
 import com.gwtjs.security.services.ISysResourcesService;
 
@@ -24,36 +23,6 @@ public class SysResourcesService implements ISysResourcesService {
 
 	private static final Logger log = LoggerFactory.getLogger(SysResourcesService.class);
 	
-	@Override
-	public List<SysResourcesTreeVO> findResourcesTree() {
-		SysResourcesTreeVO record = resourcesDAO.findResourcesTreeRoot();
-		List<SysResourcesTreeVO> list = new ArrayList<SysResourcesTreeVO>();
-
-		if(record!=null && record.isLeaf()){
-			List<SysResourcesTreeVO> children = this.findResourcesTree(record);
-			record.setChildren(children);
-		}
-		list.add(record);
-		log.debug("", list);
-		return list;
-	}
-	
-	@Override
-	public List<SysResourcesTreeVO> findResourcesTree(long parentId) {
-		return this.findResourcesTreeChildren(parentId);
-	}
-	
-	private List<SysResourcesTreeVO> findResourcesTree(SysResourcesTreeVO parent) {
-		List<SysResourcesTreeVO> list = this.findResourcesTreeChildren(parent.getResourceId());
-		for (SysResourcesTreeVO record : list) {
-			if (record.isLeaf()) {
-				List<SysResourcesTreeVO> children = this.findResourcesTreeChildren(record.getResourceId());
-				record.setChildren(children);
-			}
-		}
-		return list;
-	}
-
 	@Override
 	public Integer selectByItemId() {
 		// TODO Auto-generated method stub
@@ -133,17 +102,7 @@ public class SysResourcesService implements ISysResourcesService {
 		SysResourcesVO record = new SysResourcesVO();
 		return this.findResourcesList(record);
 	}
-	/**
-	 * 重载封装
-	 * 
-	 * @param parentId
-	 * @return
-	 */
-	private List<SysResourcesTreeVO> findResourcesTreeChildren(long parentId) {
-		SysResourcesTreeVO record = new SysResourcesTreeVO();
-		record.setParentId(parentId);
-		return resourcesDAO.findResourcesTreeList(record);
-	}
+	
 	/**
 	 * 重载封装
 	 * 

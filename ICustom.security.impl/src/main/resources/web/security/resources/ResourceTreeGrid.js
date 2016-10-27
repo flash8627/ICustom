@@ -131,7 +131,7 @@ resourceNameFormatter = function(value, rowData) {
 	}
 	//
 	if(rowData.leaf == true&&rowData.parentId!=null){
-		rowData.iconCls = 'icon-reload';
+		//rowData.iconCls = 'icon-reload';
 		rowData.state = 'closed';
 	}
 	/*if(rowData.leaf == true&&rowData.parentId==null){
