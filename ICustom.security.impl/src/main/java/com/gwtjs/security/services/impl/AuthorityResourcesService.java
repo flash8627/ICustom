@@ -37,6 +37,11 @@ public class AuthorityResourcesService implements
 
 	@Override
 	public ResultWrapper batchInsert(List<SysAuthoritiesResourcesVO> list) {
+		if(list.size()<1){
+			return ResultWrapper.faultResult("没有条目保存!!!",list);
+		}
+		
+		authoritiesResourcesDao.removeAuthResources(list.get(0).getAuthId());
 		list = setRecordsUser(list);
 		authoritiesResourcesDao.batchInsert(list);
 		List<SysAuthoritiesResourcesVO> result = new ArrayList<SysAuthoritiesResourcesVO>();

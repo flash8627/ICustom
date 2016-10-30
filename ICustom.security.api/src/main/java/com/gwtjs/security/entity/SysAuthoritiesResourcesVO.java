@@ -13,6 +13,7 @@ public class SysAuthoritiesResourcesVO extends BaseResource {
 	private boolean enabled;
 	private long authId;
 	private long resourceId;
+	private String remarks;
 
 	public SysAuthoritiesResourcesVO() {
 		super();
@@ -74,7 +75,13 @@ public class SysAuthoritiesResourcesVO extends BaseResource {
 	public void setResourceId(long resourceId) {
 		this.resourceId = resourceId;
 	}
-	
-	
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
 }

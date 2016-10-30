@@ -13,11 +13,8 @@
 		size指缓存多少个对象，默认值为1024 readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），如果设置为false，则相同的sql，后面访问的是cache的clone副本。 -->
 
 	<select id="findByUserAccount" resultType="com.gwtjs.security.entity.SysUsersVO">
-		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1
-		where upper(T1.USER_ACCOUNT) =
-		upper(#{userAccount,jdbcType=VARCHAR})
+		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
 	</select>
 
 	<select id="loadUserAuthorities" resultType="string">
@@ -38,53 +35,47 @@
 
 	<!-- 按登陆帐号和姓名查找用户　 -->
 	<select id="findByItem" resultType="com.gwtjs.security.entity.SysUsersVO">
-		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1
-		where T1.VALID_FLAG=1
 		AND upper(T1.USER_ACCOUNT) = upper(#{userAccount,jdbcType=VARCHAR})
 		AND T1.USER_NAME = #{username,jdbcType=NUMERIC}
 	</select>
 	
 	<!-- 按用户主键查找用户 -->
 	<select id="findItem" resultType="com.gwtjs.security.entity.SysUsersVO">
-		SELECT
-		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1
-		where T1.VALID_FLAG=1 AND T1.USER_ID = #{userId,jdbcType=NUMERIC}
+		<include refid="Base_Column_List" /> AND T1.USER_ID = #{userId,jdbcType=NUMERIC}
 	</select>
 
 	<sql id="Base_Column_List">
-		USER_ID userId,
-		USER_ACCOUNT userAccount,
-		USER_NAME username,
-		USER_PASSWORD password,
-		USER_DESC userDesc,
-		ENABLED userEnabled,
-		ISSYS  issys,
-		USER_DEPT userDept,
-		USER_DUTY userDuty,
-		SUB_SYSTEM subSystem,
-		ATTRIBUTE1 attribute1,
-		ATTRIBUTE2 attribute2,
-		ATTRIBUTE3 attribute3,
-		ATTRIBUTE4 attribute4,
-		ATTRIBUTE5 attribute5,
-		ATTRIBUTE6 attribute6,
-		ATTRIBUTE7 attribute7,
-		ATTRIBUTE8 attribute8,
-		ATTRIBUTE9 attribute9,
-		ATTRIBUTE10 attribute10,
-		VALID_FLAG validFlag,
-		VALID_START validStart,
-		VALID_END validEnd,
-		ORDER_CODE orderCode,
-		CREATED_USER createdUser,
-		CREATED_DATE
-		createdDate,
-		UPDATE_LAST_USER updateLastUser,
-		UPDATE_LAST_DATE
-		updateLastDate
+		SELECT USER_ID          userId,
+		       USER_ACCOUNT     userAccount,
+		       USER_NAME        username,
+		       USER_PASSWORD    password,
+		       USER_DESC        userDesc,
+		       ENABLED          userEnabled,
+		       ISSYS            issys,
+		       USER_DEPT        userDept,
+		       USER_DUTY        userDuty,
+		       SUB_SYSTEM       subSystem,
+		       ATTRIBUTE1       attribute1,
+		       ATTRIBUTE2       attribute2,
+		       ATTRIBUTE3       attribute3,
+		       ATTRIBUTE4       attribute4,
+		       ATTRIBUTE5       attribute5,
+		       ATTRIBUTE6       attribute6,
+		       ATTRIBUTE7       attribute7,
+		       ATTRIBUTE8       attribute8,
+		       ATTRIBUTE9       attribute9,
+		       ATTRIBUTE10      attribute10,
+		       VALID_FLAG       validFlag,
+		       VALID_START      validStart,
+		       VALID_END        validEnd,
+		       ORDER_CODE       orderCode,
+		       CREATED_USER     createdUser,
+		       CREATED_DATE     createdDate,
+		       UPDATE_LAST_USER updateLastUser,
+		       UPDATE_LAST_DATE updateLastDate
+		  FROM SYS_USERS_T T1
+		 where T1.VALID_FLAG = 1
 	</sql>
 
 	<sql id="page_st">
@@ -100,10 +91,7 @@
 	
 	<select id="findUserPage" resultType="com.gwtjs.security.entity.SysUsersVO">
 		<include refid="page_st" />
-		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1 
-		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 		ORDER BY USER_ID DESC
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->
@@ -121,10 +109,7 @@
 	<select id="selectList" parameterType="hashmap"
 		resultType="com.gwtjs.security.entity.SysUsersVO">
 		<include refid="page_st" />
-		SELECT
 		<include refid="Base_Column_List" />
-		FROM SYS_USERS_T T1
-		where T1.VALID_FLAG=1
 		<include refid="select_cond" />
 		ORDER BY USER_ID DESC
 		<!-- <if test="#{1.order != null}"> order by #{1.order} asc </if> -->

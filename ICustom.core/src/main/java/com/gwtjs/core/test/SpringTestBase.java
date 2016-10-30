@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gwtjs;
+package com.gwtjs.core.test;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ZhengGuang Dong
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:spring.xml","classpath:spring-*.xml","classpath*:config/spring-*-service.xml"})
+@ContextConfiguration(locations = {"classpath:spring.xml","classpath*:spring-*.xml"})
 @Transactional
 public class SpringTestBase extends AbstractJUnit4SpringContextTests {
 	

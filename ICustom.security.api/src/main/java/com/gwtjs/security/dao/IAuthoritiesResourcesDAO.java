@@ -14,8 +14,10 @@ public interface IAuthoritiesResourcesDAO extends BaseSqlMapper<SysAuthoritiesRe
 	List<SysAuthoritiesResourcesVO> findAuthoritiesResources(@Param("authId") long authId);
 	
 	SysAuthoritiesResourcesVO findAuthoritiesResourcesItem(SysAuthoritiesResourcesVO ar);
-	
+
 	int batchRemovePks(List<SysAuthoritiesResourcesVO> list);
+	
+	int removeAuthResources(@Param("authId") long authId);
 	
 	int batchInsert(List<SysAuthoritiesResourcesVO> list);
 	

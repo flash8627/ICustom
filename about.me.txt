@@ -7,24 +7,26 @@ init.sql为导航菜单的初始化脚本
 还有一些其它初始化脚本，自己选用；
 
 2.构建项目
-1.进入项目根目录"ICustom\"运行：
+进入项目根目录"ICustom\"运行：
 ***需要先配置maven
 mvn clean install
 *将项目的模块都安装到本地仓库，因为这些模块并没有在网上提供下载；此动作安装了所有依赖的jar包到本地仓库，并将项目模块也同时安装到本地方便再次构建；
-*如果是第一次执行，时间可能有点长．也可以使用eclipse操作此步骤，动作序列为：点击项目虚拟目录ICustom--右键--Run as -- maven install,同时也可以使用maven动作运行．方法很多，不说了．有需要的，可以在http://git.oschina.net/zgdong/ICustom留言，即可得到回复．
+*如果是第一次执行，时间可能有点长．也可以使用eclipse操作此步骤，动作序列为：点击项目虚拟目录ICustom--右键--Run as -- maven install,同时也可以使用maven动作运行．方法很
+
+多，不说了．有需要的，可以在http://git.oschina.net/zgdong/ICustom留言，即可得到回复．
 
 
-2.进入web目录运行：
+进入web目录运行：
 mvn war:inplace
 *此操作是把相关的模块及依赖的jar包添加到项目web模块中，添加成功后就可以使用tomcat启动项目了．
 可以查看/ICustom.web/src/main/webapp/WEB-INF/lib目录，项目模块和依赖的全打成jar包到此．
 *此动作也可以在eclipse运行中配置，把设置参数Name,Base directory ,Goals即可．
 
-3.清理并编译项目
+清理并编译项目
 点击eclipse的Project-->clean即可，注意勾选自动编译．动作的目的是把web项目的resources编译到classes下面．
 resources主要是项目的数据源配置．
 
-4.配置tomcat
+配置tomcat
 配置方式很多种，我是新建一个运行地时tomcat，正好web项目还有impl项目需要添加运行时的jar,添加后eclipse的project Explorer
 视图就会有Servers项目，我直接在项目的server.xml添加了Context节点,具体如下：
 <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
@@ -56,19 +58,17 @@ resources主要是项目的数据源配置．
 1.添加junit测试功能；
 2.缓存配置
 3.分页插件
-4.添加webservices服务描述符WADL；
+4.添加webservices服务描述符WADL；			
+5.添加webservices WSDL描述符
 
 当前正在进行中的事项：
 1.权限注解配置
 2.开发附件管理功能
-3.开发权限细粒度管理功能；
+3.开发权限细粒度管理功能；				完成!
 4.开发工作流功能；
 5.开发SSO单点登陆；
 6.产品管理样板工程；
+7.jar包里加载外部资源；jar包里加载jar 包资源；
+8.系统日志,从以前项目迁移				
 
-设置用户和角色、角色和权限、权限和资源之间的关系。使用三个菜单进行维护，用户设置、角色设置、资源设置。 在用户设置里分别管理用户、用户与角色的关系；在角色设置里管理角色、角色与权限的关系； 在资源设置里分别管理权限、权限与资源的关系
-
-
-
-
-
+设置用户和角色、角色和权限、权限和资源之间的关系。使用三个菜单进行维护，用户设置、角色设置、资源设置。 在用户设置里分别管理用户、用户与角色的关系；在角色设置里管理角色、角色与权限的关系； 在资源设置里分别管理权限、权限与资源的关系			完成!

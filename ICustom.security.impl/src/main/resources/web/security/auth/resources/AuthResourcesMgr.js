@@ -4,19 +4,10 @@ $(function() {
 	initAuthoritiesTree();
 	initResourcesTree();
 	console.info('添加一级节点有问题!');
-	expandAll();
 })
 
-function expandAll() {
-	var node = $('#authResourcesTree').tree('getSelected');
-	if (node) {
-		$('#authResourcesTree').tree('expandAll', node.target);
-	} else {
-		$('#authResourcesTree').tree('expandAll');
-	}
-}
-
 var authId = 0;
+var curAuthId = 0;
 var initAuthoritiesTree = function(authId) {
 	var baseUrl = BASE + 'authoritiesService/findAuthoritiesTree';
 	var url = baseUrl;
@@ -43,7 +34,7 @@ var initAuthoritiesTree = function(authId) {
 			}
 		},
 		onClick : function(node) {
-			console.info('onClick', node);
+			// console.info('onClick', node);
 			node.authName = node.text;
 			node.authId = node.id;
 			// node.parentId = pnode.id;
@@ -58,10 +49,9 @@ var initAuthoritiesTree = function(authId) {
 			$('#authBYName').text(node.text);
 			if (authId != node.id) {
 				authId = node.id;
-				if (!validateAuthData(authId)) {
-					doSearchAuthResource(node);
-				}
+				curAuthId = node.id;
 			}
+			doSearchAuthResource(node);
 		},
 		onBeforeExpand : function(node) {
 			if (node) {
@@ -83,6 +73,24 @@ validateAuthData = function(nodeId) {
 	return false;
 }
 
+/** 根据权限拥有的资源选择资源 */
+doSelectResource = function(data) {
+	var child = $("#authResourcesTree").tree("getChildren");
+	for (var i = 0; i < child.length; i++) {
+		//console.info(child[i].id, child[i].text);
+		var node = $("#authResourcesTree").tree('find',child[i].id);
+		$('#authResourcesTree').tree('update', node);
+		for(var j=0;j<data.length;j++){
+			if(data[j].resourceId==child[i].id){
+                if(node){
+                    $("#authResourcesTree").tree('check',node.target);
+                }
+				console.info(data[j].resourceId+" = "+child[i].id+" -> "+child[i].text);
+			}
+		}
+	}
+}
+
 /**
  * 查询权限的资源,AuthoritiesResources
  * 
@@ -93,12 +101,14 @@ doSearchAuthResource = function(node) {
 			+ node.id;
 	AjaxUtil.sendGetAsyncRequest(url, function(data) {
 		console.info(data);
-		authResources.push(data);
+		//authResources.push(data);
+		doSelectResource(data);
 	});
 }
 
 var initResourcesTree = function(resId) {
-	var baseUrl = BASE + 'authoritiesResourcesTreeService/findAuthResourcesTree';
+	var baseUrl = BASE
+			+ 'authoritiesResourcesTreeService/findAuthResourcesTree';
 	var url = baseUrl;
 	if (resId != undefined) {
 		url = url + '/' + resId;
@@ -120,20 +130,14 @@ var initResourcesTree = function(resId) {
 				});
 			}
 		},
-		/*formatter : function(node) {
-			if (node.leaf) {
-				// 叶子节点否?
-				// node.iconCls = 'icon-reload';
-				node.state = 'closed';
-				$("#authResourcesTree").tree("expandAll", node.target);
-			}
-			var s = getNodeName(node.text, node);
-			if (node.children) {
-				s += ' <span style="color:CCCCCC">(' + node.children.length
-						+ ')</span>';
-			}
-			return s;
-		},*/
+		/*
+		 * formatter : function(node) { if (node.leaf) { // 叶子节点否? //
+		 * node.iconCls = 'icon-reload'; node.state = 'closed';
+		 * $("#authResourcesTree").tree("expandAll", node.target); } var s =
+		 * getNodeName(node.text, node); if (node.children) { s += ' <span
+		 * style="color:CCCCCC">(' + node.children.length + ')</span>'; }
+		 * return s; },
+		 */
 		onClick : function(node) {
 			console.info('onClick', node);
 			node.authName = node.text;
@@ -145,7 +149,7 @@ var initResourcesTree = function(resId) {
 			 */
 		},
 		onSelect : function(row) {
-			console.info('select', row);
+			// console.info('select', row);
 			// 选择行后可以执行添加删除修改
 		},
 		onBeforeLoad : function() {
@@ -163,31 +167,6 @@ var initResourcesTree = function(resId) {
 	$('#authResourcesTree').tree(authResourcesTreeConfig);
 }
 
-function doNode() {
-	var c = "";
-	var p = "";
-	$(".tree-checkbox1").parent().children('.tree-title').each(function() {
-		c += $(this).parent().attr('node-id') + ",";
-	});
-	$(".tree-checkbox2").parent().children('.tree-title').each(function() {
-		p += $(this).parent().attr('node-id') + ",";
-	});
-	var str = (c + p);
-	str = str.substring(0, str.length - 1);
-	alert(str);
-}
-
-function getChecked() {
-	var nodes = $('#tt2').tree('getChecked');
-	var s = '';
-	for (var i = 0; i < nodes.length; i++) {
-		if (s != '')
-			s += ',';
-		s += nodes[i].text;
-	}
-	alert(s);
-}
-
 function getNodeName(value, rowData) {
 	var names = value.split(",");
 	var lan = names[0];
@@ -198,18 +177,13 @@ function getNodeName(value, rowData) {
 	return lans;
 }
 
-// 过滤
-function doSearch(value) {
-	alert('You input: ' + value);
-}
-
 resourceNameFormatter = function(value, rowData) {
 	if (!value) {
 		return "";
 	}
 	//
 	if (rowData.leaf == true && rowData.parentId != null) {
-		rowData.iconCls = 'icon-reload';
+		//rowData.iconCls = 'icon-reload';
 		rowData.state = 'closed';
 	}
 	/*
@@ -225,50 +199,35 @@ resourceNameFormatter = function(value, rowData) {
 	return lans;
 }
 
-// 点击 Create 按钮，弹出创建产品对话框
-$('#parent_select_btn').on('click', function() {
-	var title = '上一级节点选择';
-	// NavigationView.renderNavigationModal(title, navigation);
-	var $modal = $('#parent_select_modal');
-	$modal.find('.modal-title').text(title);
-	$('#parent_select_modal').modal('show');
-});
+// $('#' + ids[j]).prop("checked", true);
 
 // 保存，含新增和修改
 function doSave() {
-	var values = getFormValues();
-	console.info(values);
-	var selected = $('#authTree').tree('getSelected');
-	if (values.authId != 0) {
-		AuthoritiesService.batchUpdateAuthorities([ values ], function() {
-			// 更新
-			if (selected) {
-				$('#authTree').tree('update', {
-					target : selected.target,
-					parentId : values.parentId,
-					authDesc : values.authDesc,
-					authId : values.authId,
-					authName : values.authName,
-					authCode : values.authCode,
-					text : values.authName
-				// ,
-				// 不用更新id:values.authId
-				});
-			}
-		});
-		// 提交[values]
-	} else {
-		var result = AuthoritiesService.batchInsertAuthorities([ values ]);
-		for (var i = 0; i < result.obj.length; i++) {
-			result.obj[i].id = result.obj[i].authId;
-			result.obj[i].text = result.obj[i].authName;
-		}
-		if (selected == null) {
-			selected = {};
-		}
-		$('#authTree').tree('append', {
-			parent : selected.target,
-			data : result.obj
-		});
+	
+	if(curAuthId==0){
+		alert('请选择权限信息!!!');
+		return ;
 	}
+	
+	var nodes = $('#authResourcesTree').tree('getChecked');
+	var chks = [];
+	for (var i = 0; i < nodes.length; i++) {
+		var item = {};
+		item.resourceId = nodes[i].id;
+		//item.text = nodes[i].text;
+		item.authId = curAuthId;
+		chks.push(item);
+
+	}
+	if(chks.length<1){
+		alert('请选择资源条目!!!');
+		return;
+	}
+	console.info('save authorities ' + curAuthId + ' Resources params', chks);
+
+	var url = BASE + 'authorityResourcesService/batchInsert';
+	AjaxUtil.sendPostData(url,chks, function(data) {
+		console.info(data);
+	});
+
 }
