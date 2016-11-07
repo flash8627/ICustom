@@ -1,4 +1,4 @@
-package com.gwtjs.core.servlet;
+package com.gwtjs.core.util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <h2>获取Servlet参数及对象</h2>
+ * <h2>获取Request参数及对象</h2>
  * 
  * @author aGuang
  *         <p>
@@ -23,7 +23,8 @@ import javax.servlet.http.HttpServletRequest;
  * 示例代码:
  * </pre>
  */
-public class ServletHelper {
+public class RequestUtil {
+	
 	/**
 	 * 获取请求前次页面信息
 	 * 
@@ -149,4 +150,5 @@ public class ServletHelper {
 		}
 		return outStr;
 	}
+	
 }

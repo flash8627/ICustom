@@ -148,7 +148,7 @@ public class PaginationInterceptor implements Interceptor {
 			page.setTotalRows(totalCount);
 			int totalPage = totalCount / page.getPageSize()
 					+ ((totalCount % page.getPageSize() == 0) ? 0 : 1);
-			page.setTotalPage(totalPage);
+			//page.setTotalPage(totalPage);
 
 		} catch (SQLException e) {
 			logger.error("Ignore this exception", e);
