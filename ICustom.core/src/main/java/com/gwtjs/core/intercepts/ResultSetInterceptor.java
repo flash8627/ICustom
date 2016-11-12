@@ -26,8 +26,9 @@ import org.slf4j.LoggerFactory;
  * 拦截处理类
  * 
  * 此类使用MyBatis的插件扩展机制， 拦截需要返回ResultSet 包装结果并将其返回
+	 * Created：2016-3-30
+	 * @author aGuang
  * 
- * @author hkf16418
  */
 
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = {
@@ -54,6 +55,8 @@ public class ResultSetInterceptor implements Interceptor {
 	 *            拦截目标对象
 	 * @return 拦截后的结果
 	 * @throws Throwable
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	public Object intercept(Invocation invocation) throws Throwable {
 
@@ -74,8 +77,8 @@ public class ResultSetInterceptor implements Interceptor {
 	 * @param queryArgs
 	 * @return
 	 * @throws SQLException
-	 *             Created：2013-3-30
-	 * @author:hKF16418
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	private Object getResultSetSql(Invocation invocation, Object[] queryArgs)
 			throws SQLException {
@@ -125,8 +128,8 @@ public class ResultSetInterceptor implements Interceptor {
 	 * dao xml文件配置返回了类型是否是 JalorResultSet
 	 * 
 	 * @param mappedStatement
-	 * @return Created：2013-3-20
-	 * @author:hKF16418
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	private boolean checkResultSet(MappedStatement mappedStatement) {
 		// 如果不存在返回类型 那么直接返回false
@@ -146,6 +149,8 @@ public class ResultSetInterceptor implements Interceptor {
 	 * 尝试关闭
 	 * 
 	 * @param stmt
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	private void tryCloseConnection(Connection connection) {
 		if (connection != null) {
@@ -178,6 +183,8 @@ public class ResultSetInterceptor implements Interceptor {
 	 * 插件方法
 	 * 
 	 * @param target
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	public Object plugin(Object target) {
 		return Plugin.wrap(target, this);

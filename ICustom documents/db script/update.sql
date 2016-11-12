@@ -1,5 +1,16 @@
 
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_ROLES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_ROLES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_ROLES_S
 minvalue 1
@@ -9,6 +20,16 @@ increment by 1
 cache 20;
 
 
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_AUTHORITIES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_AUTHORITIES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_AUTHORITIES_S
 minvalue 1
@@ -18,6 +39,16 @@ increment by 1
 cache 20;
 
 
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_RESOURCES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_RESOURCES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_RESOURCES_S
 minvalue 1
@@ -28,6 +59,16 @@ cache 20;
 
 
 
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_AUTHORITIES_RESOURCES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_AUTHORITIES_RESOURCES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_AUTHORITIES_RESOURCES_S
 minvalue 1
@@ -36,6 +77,17 @@ start with 1
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_USERS_ROLES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_USERS_ROLES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_USERS_ROLES_S
 minvalue 1
@@ -44,6 +96,17 @@ start with 1
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_ROLES_AUTHORITIES_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_ROLES_AUTHORITIES_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_ROLES_AUTHORITIES_S
 minvalue 1
@@ -52,6 +115,17 @@ start with 1
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_USERS_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_USERS_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_USERS_S
 minvalue 1
@@ -60,6 +134,17 @@ start with 1
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_NAVIGATION_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_NAVIGATION_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_NAVIGATION_S
 minvalue 1
@@ -68,6 +153,17 @@ start with 101
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_LOOKUP_CLASSIFY_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_LOOKUP_CLASSIFY_S';
+end if;
+end;
+/
 -- 20160814
 -- Create sequence 
 create sequence SYS_LOOKUP_CLASSIFY_S
@@ -77,6 +173,17 @@ start with 101
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_LOOKUP_ITEM_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_LOOKUP_ITEM_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_LOOKUP_ITEM_S
 minvalue 1
@@ -85,6 +192,17 @@ start with 101
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_REGISTER_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_REGISTER_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_REGISTER_S
 minvalue 1
@@ -93,6 +211,17 @@ start with 101
 increment by 1
 cache 20;
 
+
+-- Drop SEQUENCE
+declare
+v_num number;
+begin
+select count(*) into v_num from user_sequences where sequence_name='SYS_LANGUAGE_S';
+if v_num > 0 then
+execute immediate 'drop SEQUENCE SYS_LANGUAGE_S';
+end if;
+end;
+/
 -- Create sequence 
 create sequence SYS_LANGUAGE_S
 minvalue 1
@@ -101,6 +230,15 @@ start with 101
 increment by 1
 cache 20;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_REGISTER_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_REGISTER_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_REGISTER_T
 (
@@ -147,6 +285,15 @@ alter table SYS_REGISTER_T
   add primary key (REG_ID)
   using index;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_LOOKUP_ITEM_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_LOOKUP_ITEM_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_LOOKUP_ITEM_T
 (
@@ -195,6 +342,15 @@ alter table SYS_LOOKUP_ITEM_T
   add constraint SYS_LOOKUP_ITEM_NAME_UNIQUE unique (class_id,ITEM_NAME)
   using index;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_LOOKUP_CLASSIFY_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_LOOKUP_CLASSIFY_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_LOOKUP_CLASSIFY_T
 (
@@ -235,6 +391,15 @@ comment on column SYS_LOOKUP_CLASSIFY_T.class_code
 alter table SYS_LOOKUP_CLASSIFY_T
   add primary key (CLASS_ID);
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_LANGUAGE_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_LANGUAGE_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_LANGUAGE_T
 (
@@ -291,6 +456,15 @@ alter table SYS_LANGUAGE_T
   add constraint SYS_LANGUAGE_UNIQUE unique (LAN_VALUE, LAN_TYPE)
   using index;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_NAVIGATION_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_NAVIGATION_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_NAVIGATION_T
 (
@@ -311,6 +485,15 @@ alter table SYS_NAVIGATION_T
   add constraint SYS_NAVIGATION_T_UNIQUE unique (parent_id, item_name)
   using index;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_USERS_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_USERS_T';
+end if;
+end;
+/
 /* 权限表 开始　 */
 -- Create table
 create table SYS_USERS_T
@@ -386,7 +569,15 @@ alter table SYS_USERS_T
   using index;
 create unique index USER_ACCOUNT_UNIQUE on SYS_USERS_T (USER_ACCOUNT);
 
-
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_RESOURCES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_RESOURCES_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_RESOURCES_T
 (
@@ -432,7 +623,17 @@ comment on table SYS_RESOURCES_T
    is '（暂不用，保留）';
  comment on column SYS_RESOURCES_T.MODULE
    is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。 （暂不用，保留）';
-   
+  
+
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_AUTHORITIES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_AUTHORITIES_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_AUTHORITIES_T
 (
@@ -469,6 +670,15 @@ alter table SYS_AUTHORITIES_T
   add constraint AUTH_NAME_UNIQUE unique (PARENT_ID, AUTH_NAME, AUTH_CODE)
   using index;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_ROLES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_ROLES_T';
+end if;
+end;
+/
 create table SYS_ROLES_T
 (
   role_id          NUMBER(32) not null primary key,
@@ -500,6 +710,15 @@ create table SYS_ROLES_T
  comment on column SYS_ROLES_T.MODULE
    is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。';
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_ROLES_AUTHORITIES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_ROLES_AUTHORITIES_T';
+end if;
+end;
+/
 --中间表 或关系表 Create table
 create table SYS_ROLES_AUTHORITIES_T
 (
@@ -520,6 +739,16 @@ comment on table SYS_ROLES_AUTHORITIES_T
  alter table SYS_ROLES_AUTHORITIES_T
   add constraint FK_PUB_ROLES_AUTHORITIES_UNIQUE unique (ROLE_ID, AUTH_ID);
   
+
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_USERS_ROLES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_USERS_ROLES_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_USERS_ROLES_T
 (
@@ -549,6 +778,15 @@ alter table SYS_USERS_ROLES_T
   add constraint USER_ROLE_UNIQUE unique (USER_ID, ROLE_ID)
   using index ;
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='SYS_AUTHORITIES_RESOURCES_T';
+if v_num > 0 then
+execute immediate 'drop table SYS_AUTHORITIES_RESOURCES_T';
+end if;
+end;
+/
 -- Create table
 create table SYS_AUTHORITIES_RESOURCES_T
 (
@@ -586,6 +824,15 @@ alter table SYS_AUTHORITIES_RESOURCES_T
 alter table SYS_AUTHORITIES_RESOURCES_T
   add constraint FK_PUB_AUTHORITIES_RE_UQ unique (AUTH_ID, RESOURCE_ID);
 
+declare
+v_num number;
+begin
+select count(*) into v_num from user_tables where table_name='PERSISTENT_LOGINS';
+if v_num > 0 then
+execute immediate 'drop table PERSISTENT_LOGINS';
+end if;
+end;
+/
 -- Create table　
 create table PERSISTENT_LOGINS
 (

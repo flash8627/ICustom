@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="true">
 
 	<bean id="placeholderConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -17,7 +23,7 @@
 	<!-- <context:component-scan base-package="com.gwtjs.*.services..*" /> -->
 	<!-- <context:component-scan base-package="com.gwtjs.*.services.impl" /> -->
 	<context:component-scan base-package="com.gwtjs.*.services..*" />
-	
+
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -49,17 +55,18 @@
 				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
 			</list>
 		</property>
-		<!-- <property name="plugins">
-			<array>
-				<bean class="com.gwtjs.common.intercepts.PaginationInterceptor">
-					<property name="properties">
-						<value>
-							dialect=oracle
-						</value>
-					</property>
-				</bean>
-			</array>
-		</property> -->
+		<property name="plugins">
+			<list>
+				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PagerInterceptor" />
+				<bean id="programInterceptor" class="com.gwtjs.core.intercepts.ProgramInterceptor" />
+			</list>
+		</property>
+		<!-- <property name="pagePlugin"> <array> <bean class="com.gwtjs.core.intercepts.PagerInterceptor" 
+			/> </array> </property> <property name="programPlugin"> <array> <bean class="com.huawei.it.jalor5.core.orm.ProgramInterceptor" 
+			/> </array> </property> -->
+		<!-- <property name="plugins"> <array> <bean class="com.gwtjs.common.intercepts.PaginationInterceptor"> 
+			<property name="properties"> <value> dialect=oracle </value> </property> 
+			</bean> </array> </property> -->
 	</bean>
 
 	<!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
@@ -91,7 +98,7 @@
 		<property name="basePackage" value="com.gwtjs.*.dao" />
 		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
 	</bean>
-	
+
 	<import resource="classpath*:/config/*-service.xml" />
-	
+
 </beans>

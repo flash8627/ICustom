@@ -18,6 +18,8 @@ public class ProgramInterceptor implements Interceptor{
 	
 	/**
 	 * 重新构建MappedStatement对象，用delegate的方式，接入ExtendedSqlSource
+	 * Created：2016-3-30
+	 * @author aGuang
 	 */
 	public MappedStatement buildMappedStatement(MappedStatement mappedStatement){
 		String id=mappedStatement.getId();
