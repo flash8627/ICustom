@@ -41,14 +41,7 @@ public class UserServices implements IUserServices {
 	@Override
 	public PagedResult<SysUsersVO> findListRecords(SysUsersVO record,
 			PagerVO page) {
-		PagedResult<SysUsersVO> paged = new PagedResult<SysUsersVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(userDao.selectListCount(record, page));
-		if (pageVO.getTotalRows() > 0) {
-			paged.setPageVO(pageVO);
-			paged.setResult(userDao.selectList(record, page));
-		}
-		return paged;
+		return userDao.findUserByPage(record, page);
 	}
 
 	@Override

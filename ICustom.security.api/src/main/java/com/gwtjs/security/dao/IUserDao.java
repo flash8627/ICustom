@@ -44,7 +44,7 @@ public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 	SysUsersVO findItem(@Param("userId")long userId);
 
 	//
-	List<SysUsersVO> selectList(SysUsersVO record,PagerVO page);
+	PagedResult<SysUsersVO> findUserByPage(SysUsersVO record,PagerVO page);
 
 	//
 	int selectListCount(SysUsersVO record,PagerVO page);

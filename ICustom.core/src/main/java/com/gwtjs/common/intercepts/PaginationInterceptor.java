@@ -1,15 +1,18 @@
 package com.gwtjs.common.intercepts;
 
+
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
-import org.apache.ibatis.executor.parameter.ParameterHandler;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
-import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.LogFactory;
+import org.apache.ibatis.logging.jdbc.ConnectionLogger;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
@@ -17,244 +20,211 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.ibatis.reflection.MetaObject;
-import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
-import org.apache.ibatis.reflection.factory.ObjectFactory;
-import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
-import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
-import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.common.log.ILogger;
+import com.gwtjs.common.util.ReflectHelperUtil;
+import com.gwtjs.core.intercepts.PagerInterceptor;
+
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 
 /**
- * 通过拦截<code>StatementHandler</code>的<code>prepare</code>方法，重写sql语句实现物理分页。
- * 要拦截的类型只能是接口。
+ * 拦截分页处理类
+ * <p>
+ * 把分页统计和分页记录数合并； 使用mybatis机制拦截需要分页的sql,主要是查询记录的sql ID检测是否有{sqlId}Count
+ * 如果有，包装结果并返回
+ * </p>
  * 
- * @author 湖畔微风
- * 
+ * @author aGuang
+ *
  */
-@Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
+@Intercepts({ @Signature(type = Executor.class, method = "query", args = {
+		MappedStatement.class, Object.class, RowBounds.class,
+		ResultHandler.class }) })
 public class PaginationInterceptor implements Interceptor {
-
-	private static final Log logger = LogFactory
-			.getLog(PaginationInterceptor.class);
-	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
-	private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
-	private static final String DEFAULT_COUNT_SQL = "Count"; // 数据库类型(默认为mysql)
-	private static String defaultDialect = "oracle"; // 数据库类型(默认为mysql)
-	private static String defaultPageSqlId = ".*Page$"; // 需要拦截的ID(正则匹配)
-	private static String dialect = "oracle"; // 数据库类型(默认为mysql)
-	private static String pageSqlId = ""; // 需要拦截的ID(正则匹配)
-	private static String pageSqlCountId = ""; // 需要拦截的ID(正则匹配)
-
+	
+	private static final Log statementLog = LogFactory.getLog(PageInterceptor.class);
+	
+	private static final Logger log = LoggerFactory.getLogger(PaginationInterceptor.class);
+	
+	private static final String COUNT_SQL_FIX = "Count";
+	
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-		StatementHandler statementHandler = (StatementHandler) invocation
-				.getTarget();
-		MetaObject metaStatementHandler = MetaObject.forObject(
-				statementHandler, DEFAULT_OBJECT_FACTORY,
-				DEFAULT_OBJECT_WRAPPER_FACTORY);
-		// 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
-		while (metaStatementHandler.hasGetter("h")) {
-			Object object = metaStatementHandler.getValue("h");
-			metaStatementHandler = MetaObject.forObject(object,
-					DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+		log.info("\nInterceptor invocation...");
+		RoutingStatementHandler statementHandler = (RoutingStatementHandler) invocation.getTarget();
+		StatementHandler delegate = (StatementHandler) ReflectHelperUtil.getFieldValue(statementHandler, "delegate");
+		MappedStatement mappedStatement = (MappedStatement) ReflectHelperUtil.getFieldValue(delegate, "mappedStatement");
+		String sqlId = mappedStatement.getId();
+		log.info("sql id :"+sqlId);
+		BoundSql boundSql = delegate.getBoundSql();
+		Object parameter = boundSql.getParameterObject();
+		PagerVO page = null;
+		// 检查是否需要拦截，如果需要，那么返回page对象
+		page = checkInvocation(sqlId, parameter);
+		if (null == page) {
+			return invocation.proceed();
 		}
-		// 分离最后一个代理对象的目标类
-		while (metaStatementHandler.hasGetter("target")) {
-			Object object = metaStatementHandler.getValue("target");
-			metaStatementHandler = MetaObject.forObject(object,
-					DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+		// 如果有pagevo的参数，则拦截处理
+		Executor executor = (Executor) invocation.getTarget();
+		// 查count处理,总记录数存在则不再获取
+		if (page.getTotalRows() == 0) {
+			//queryCount(queryArgs, mappedStatement, sqlId, page, executor);
 		}
-		Configuration configuration = (Configuration) metaStatementHandler
-				.getValue("delegate.configuration");
-		System.out.println("\nconfiguration:" + configuration.getVariables());
-		if (configuration.getVariables() != null)
-			dialect = configuration.getVariables().getProperty("dialect");
-		if (null == dialect || "".equals(dialect)) {
-			logger.warn("Property dialect is not setted,use default 'oracle' ");
-			dialect = defaultDialect;
-		}
-		if (configuration.getVariables() != null)
-			pageSqlId = configuration.getVariables().getProperty("pageSqlId");
-		if (null == pageSqlId || "".equals(pageSqlId)) {
-			logger.warn("Property pageSqlId is not setted,use default '.*Page$' ");
-			pageSqlId = defaultPageSqlId;
-		}
-		MappedStatement mappedStatement = (MappedStatement) metaStatementHandler
-				.getValue("delegate.mappedStatement");
-		// 只重写需要分页的sql语句。通过MappedStatement的ID匹配，默认重写以Page结尾的MappedStatement的sql
-		if (mappedStatement.getId().matches(pageSqlId)) {
-			pageSqlCountId = pageSqlId + DEFAULT_COUNT_SQL;
-			BoundSql boundSql = (BoundSql) metaStatementHandler
-					.getValue("delegate.boundSql");
-			Object parameterObject = boundSql.getParameterObject();
-			if (parameterObject == null) {
-				throw new NullPointerException("parameterObject is null!");
-			} else {
-				Object param = metaStatementHandler.getValue("delegate.boundSql.parameterObject.1");
-				System.out.println("\n"+param.toString());
-				PagerVO page = (PagerVO) metaStatementHandler
-						.getValue("delegate.boundSql.parameterObject.1");
-				String sql = boundSql.getSql();
-				// 重写sql
-				String pageSql = buildPageSql(sql, page);
-				metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
-				// 采用物理分页后，就不需要mybatis的内存分页了，所以重置下面的两个参数
-				metaStatementHandler.setValue("delegate.rowBounds.offset",
-						RowBounds.NO_ROW_OFFSET);
-				metaStatementHandler.setValue("delegate.rowBounds.limit",
-						RowBounds.NO_ROW_LIMIT);
-				Connection connection = (Connection) invocation.getArgs()[0];
-				// 重设分页参数里的总页数等
-				setPageParameter(sql, connection, mappedStatement, boundSql,
-						page);
+		// 查询结果集处理
+		List resultList = null;
+		// 如果总数count>0才去执行列表sql语句
+		if (page.getTotalRows() > 0) {
+			// 查询结果集
+			//resultList = queryResultList(queryArgs, mappedStatement, executor);
+			if (resultList.size() > page.getTotalRows()) {
+				page.setTotalRows(resultList.size());
 			}
+		} else {
+			resultList = new ArrayList<Object>();
 		}
-		// 将执行权交给下一个拦截器
-		return invocation.proceed();
+		PagedResult<?> result = new PagedResult<Object>();
+		result.setPageVO(page);
+		result.setResult(resultList);
+
+		List<PagedResult> returnResult = new ArrayList<PagedResult>();
+		returnResult.add(result);
+		return returnResult;
+	}
+
+	private PagerVO checkInvocation(String sqlId, Object parameter) {
+		// 如果参数为空，则不进行拦截
+		if (null == parameter) {
+			return null;
+		}
+		if (null != sqlId && !sqlId.endsWith(COUNT_SQL_FIX)) {
+			return findPageVO(parameter);
+		}
+		return null;
 	}
 
 	/**
-	 * 从数据库里查询总的记录数并计算总页数，回写进分页参数<code>PagerVO</code>,这样调用者就可用通过 分页参数
-	 * <code>PagerVO</code>获得相关信息。
-	 * 
-	 * @param sql
-	 * @param connection
-	 * @param mappedStatement
-	 * @param boundSql
-	 * @param page
+	 * 查询Count
 	 */
-	private void setPageParameter(String sql, Connection connection,
-			MappedStatement mappedStatement, BoundSql boundSql, PagerVO page) {
-		// 记录总记录数
-		String countSql = "select count(0) from (" + sql + ")  total";
-		PreparedStatement countStmt = null;
-		ResultSet rs = null;
-		try {
-			countStmt = connection.prepareStatement(countSql);
-			BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(),
-					countSql, boundSql.getParameterMappings(),
-					boundSql.getParameterObject());
-			setParameters(countStmt, mappedStatement, countBS,
-					boundSql.getParameterObject());
-			rs = countStmt.executeQuery();
-			int totalCount = 0;
-			if (rs.next()) {
-				totalCount = rs.getInt(1);
-			}
-			page.setTotalRows(totalCount);
-			int totalPage = totalCount / page.getPageSize()
-					+ ((totalCount % page.getPageSize() == 0) ? 0 : 1);
-			//page.setTotalPage(totalPage);
+	private void queryCount(Object parameter,RowBounds rowBounds,ResultHandler resultHandler,
+			MappedStatement mappedStatement, String sqlId, PagerVO page,
+			Executor executor) throws SQLException {
+		// 按命名规则查count的sql为原sqlId+Count
+		String countSqlId = sqlId + COUNT_SQL_FIX;
+		Configuration configuration = mappedStatement.getConfiguration();
 
-		} catch (SQLException e) {
-			logger.error("Ignore this exception", e);
-		} finally {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				logger.error("Ignore this exception", e);
-			}
-			try {
-				countStmt.close();
-			} catch (SQLException e) {
-				logger.error("Ignore this exception", e);
-			}
-		}
+		// 重新构建查询Count需要的变量
+		MappedStatement queryCountSta = configuration
+				.getMappedStatement(countSqlId);
 
+		ProgramInterceptor pi = new ProgramInterceptor();
+		MappedStatement newStatement = pi.buildMappedStatement(queryCountSta);
+		// 查询count并设置到page中
+		/*List<?> queryCountList = queryResultList(queryArgs, newStatement,executor);
+		int totalRows = Integer.parseInt(queryCountList.get(0).toString());
+		page.setTotalRows(totalRows);*/
 	}
 
 	/**
-	 * 对SQL参数(?)设值
+	 * 检查是否有page参数，并返回对象
 	 * 
-	 * @param ps
-	 * @param mappedStatement
-	 * @param boundSql
-	 * @param parameterObject
-	 * @throws SQLException
-	 */
-	private void setParameters(PreparedStatement ps,
-			MappedStatement mappedStatement, BoundSql boundSql,
-			Object parameterObject) throws SQLException {
-		ParameterHandler parameterHandler = new DefaultParameterHandler(
-				mappedStatement, parameterObject, boundSql);
-		parameterHandler.setParameters(ps);
-	}
-
-	/**
-	 * 根据数据库类型，生成特定的分页sql
-	 * 
-	 * @param sql
-	 * @param page
+	 * @param parameter
 	 * @return
 	 */
-	private String buildPageSql(String sql, PagerVO page) {
-		if (page != null) {
-			StringBuilder pageSql = new StringBuilder();
-			if ("mysql".equals(dialect)) {
-				pageSql = buildPageSqlForMysql(sql, page);
-			} else if ("oracle".equals(dialect)) {
-				pageSql = buildPageSqlForOracle(sql, page);
-			} else {
-				return sql;
+	private PagerVO findPageVO(Object parameter) {
+		if (null == parameter) {
+			return null;
+		}
+		if (parameter instanceof Map) {
+			Map<Object, Object> parameterMap = (Map) parameter;
+			for (Map.Entry<Object, Object> entry : parameterMap.entrySet()) {
+				if (entry.getValue() instanceof PagerVO) {
+					return (PagerVO) entry.getValue();
+				}
 			}
-			return pageSql.toString();
-		} else {
-			return sql;
+		}
+		if (parameter instanceof PagerVO) {
+			return (PagerVO) parameter;
+		}
+		return null;
+	}
+
+	/**
+	 * 查询结果集处理
+	 */
+	private List<?> queryResultList(Object parameter,RowBounds rowBounds,ResultHandler resultHandler,
+			MappedStatement mappedStatement, Executor executor)
+			throws SQLException {
+		Configuration configuration = mappedStatement.getConfiguration();
+		BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+
+		// 查询结果集设置到page中
+		StatementHandler handler = configuration.newStatementHandler(executor,
+				mappedStatement, parameter, rowBounds, resultHandler, boundSql);
+		Statement sm = null;
+		List<?> resultList = new ArrayList<>();
+		try {
+			sm = prepareStatement(executor, handler);
+			resultList = handler.query(sm, resultHandler);
+			return resultList;
+		} catch (SQLException e) {
+			log.error(e.toString());
+			throw e;
+		} finally {
+			tryCloseStatement(sm);
+		}
+
+	}
+
+	/**
+	 * 预处理Statement,并返回
+	 */
+	private Statement prepareStatement(Executor executor,
+			StatementHandler handler) throws SQLException {
+		Statement sm = null;
+		// 从Excecutory中获取事务的连接,数值参数如何传
+		Connection connection = ConnectionLogger.newInstance(executor
+				.getTransaction().getConnection(), statementLog,0);
+		try {
+			sm = handler.prepare(connection);
+			handler.parameterize(sm);
+			return sm;
+		} catch (SQLException e) {
+			tryCloseStatement(sm);
+			throw e;
+		} finally {
+			tryCloseStatement(sm);
 		}
 	}
 
 	/**
-	 * mysql的分页语句
-	 * 
-	 * @param sql
-	 * @param page
-	 * @return String
+	 * 关闭statement
 	 */
-	public StringBuilder buildPageSqlForMysql(String sql, PagerVO page) {
-		StringBuilder pageSql = new StringBuilder(100);
-		String beginrow = String.valueOf((page.getCurPage() - 1)
-				* page.getPageSize());
-		pageSql.append(sql);
-		pageSql.append(" limit " + beginrow + "," + page.getPageSize());
-		return pageSql;
-	}
-
-	/**
-	 * 参考hibernate的实现完成oracle的分页
-	 * 
-	 * @param sql
-	 * @param page
-	 * @return String
-	 */
-	public StringBuilder buildPageSqlForOracle(String sql, PagerVO page) {
-		StringBuilder pageSql = new StringBuilder(100);
-		String beginrow = String.valueOf((page.getCurPage() - 1)
-				* page.getPageSize());
-		String endrow = String.valueOf(page.getCurPage() * page.getPageSize());
-
-		pageSql.append("select * from ( select temp.*, rownum row_id from ( ");
-		pageSql.append(sql);
-		pageSql.append(" ) temp where rownum <= ").append(endrow);
-		pageSql.append(") where row_id > ").append(beginrow);
-		return pageSql;
+	private void tryCloseStatement(Statement sm) {
+		if (sm != null) {
+			try {
+				sm.close();
+			} catch (Exception e) {
+				log.error(e.toString());
+			}
+		}
 	}
 
 	@Override
 	public Object plugin(Object target) {
-		// 当目标类是StatementHandler类型时，才包装目标类，否者直接返回目标本身,减少目标被代理的次数
-		if (target instanceof StatementHandler) {
-			return Plugin.wrap(target, this);
-		} else {
-			return target;
-		}
+		return Plugin.wrap(target, this);
 	}
 
 	@Override
 	public void setProperties(Properties properties) {
+		// TODO Auto-generated method stub
 	}
 	
 }

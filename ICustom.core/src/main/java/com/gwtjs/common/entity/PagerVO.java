@@ -98,7 +98,8 @@ public class PagerVO {
 	}
 
 	public int getMysqlStartIndex() {
-		return mysqlStartIndex == 0 ? (curPage - 1) * pageSize : mysqlStartIndex;
+		return mysqlStartIndex == 0 ? (curPage - 1) * pageSize
+				: mysqlStartIndex;
 	}
 
 	public void setMysqlStartIndex(int mysqlStartIndex) {
@@ -106,11 +107,21 @@ public class PagerVO {
 	}
 
 	public int getMysqlEndIndex() {
-		return mysqlEndIndex == 0 ? curPage * pageSize : (mysqlEndIndex - 1 > totalRows ? totalRows : mysqlEndIndex);
+		return mysqlEndIndex == 0 ? curPage * pageSize
+				: (mysqlEndIndex - 1 > totalRows ? totalRows : mysqlEndIndex);
 	}
 
 	public void setMysqlEndIndex(int mysqlEndIndex) {
 		this.mysqlEndIndex = mysqlEndIndex;
+	}
+
+	@Override
+	public String toString() {
+		return "PagerVO [totalRows=" + totalRows + ", curPage=" + curPage
+				+ ", pageSize=" + pageSize + ", resultMode=" + resultMode
+				+ ", startIndex=" + startIndex + ", endIndex=" + endIndex
+				+ ", mysqlStartIndex=" + mysqlStartIndex + ", mysqlEndIndex="
+				+ mysqlEndIndex + ", orderBy=" + orderBy + "]";
 	}
 
 }
