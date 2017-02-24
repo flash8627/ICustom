@@ -63,9 +63,8 @@ public class PagerInterceptor implements Interceptor {
 		MappedStatement mappedStatement = (MappedStatement) queryArgs[INDEX_MAPPED_STATEMENT];
 		String sqlId = mappedStatement.getId();
 		Object parameter = queryArgs[INDEX_PARAMETER];
-		PagerVO page = null;
 		// 检查是否需要拦截，如果需要，那么返回page对象
-		page = checkInvocation(sqlId, parameter);
+		PagerVO page = checkInvocation(sqlId, parameter);
 		if (null == page) {
 			return invocation.proceed();
 		}

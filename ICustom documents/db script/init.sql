@@ -43,4 +43,7 @@ values (10, 'zh_cn=Data Dictionary,zh_en=Data Dictionary', 61, 'home', null, 1, 
 insert into SYS_NAVIGATION_T (ITEM_ID, ITEM_NAME, PARENT_ID, ICON, URL, ORDER_CODE, CREATED_USER, CREATED_DATE, UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG, RESOURCE_TYPE)
 values (23, 'U_23', 6, 'icon', 'url', 10, null, null, null, null, null, null);
 
+commit;
+
+
 prompt Done.

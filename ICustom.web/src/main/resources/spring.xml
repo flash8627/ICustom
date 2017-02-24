@@ -55,12 +55,26 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
 			</list>
 		</property>
+		
+		<!-- <property name="plugins">
+			<array>
+				<bean id="pagerInterceptor" class="com.gwtjs.common.intercepts.PaginationInterceptor" />
+			</array>
+		</property> -->
+		
 		<property name="plugins">
-			<list>
-				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PagerInterceptor" />
-				<bean id="programInterceptor" class="com.gwtjs.core.intercepts.ProgramInterceptor" />
-			</list>
+			<array>
+				<bean id="pagerInterceptor" class="com.gwtjs.common.intercepts.PageInterceptor" 
+					/>
+				<!-- MyBatis 分页拦截器 2 -->
+				<!-- <bean id="paginationInterceptor" class="com.gwtjs.common.intercepts.PageInterceptor">
+					<property name="dialect" value="oracle" />
+					拦截Mapper.xml文件中，id包含query字符的语句
+					<property name="pageSqlId" value=".*$Page" />
+				</bean> -->
+			</array>
 		</property>
+		
 		<!-- <property name="pagePlugin"> <array> <bean class="com.gwtjs.core.intercepts.PagerInterceptor" 
 			/> </array> </property> <property name="programPlugin"> <array> <bean class="com.huawei.it.jalor5.core.orm.ProgramInterceptor" 
 			/> </array> </property> -->

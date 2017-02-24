@@ -2,11 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>i-custom</title>
+<title>i-custom-html直接访问</title>
 <!-- ALL STYLESHEET -->
 </head>
 <body>
+<!--项目下的文件直接加载-->
+<link href="resources/common.css" rel="stylesheet">
+<!--错误的地址-->
+<script src="resources/error/test.js"></script>
+<!--正确的地址-->
+<script src="resources/js/test.js"></script>
+
+<!--加载jar包里的文件-->
+<link href="resources/css/menu.css" rel="stylesheet">
+<!--正确的地址-->
+<script src="resources/jquery/jquery.js"></script>
+<!--错误的地址-->
+<script src="resources/jquery/error/jquery.js"></script>
 <h2>直接访问测试</h2>
+<h2>Insert title here</h2>
+	<p>Resources Test...</p>
+	<p>
+		<img src="resources/images/pic.png" width="200px" height="150px" />
+	</p>
+	<p>
+		<img src="resources/pic.png" />
+	</p>
 </body>
 </html>
 

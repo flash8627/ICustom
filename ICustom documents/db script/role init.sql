@@ -13,3 +13,4 @@ insert into SYS_ROLES_T (ROLE_ID, ROLE_NAME, ROLE_CODE, ROLE_DESC, ENABLED, ISSY
 values (25, 'info_editor', 'info_editor', '’æµ„–≈œ¢±‡º≠', 0, 0, null, null, null, null, null, null, null, null, null, null, null, 1, 1, to_date('16-09-2016 22:39:00', 'dd-mm-yyyy hh24:mi:ss'), 1, to_date('16-09-2016 22:39:00', 'dd-mm-yyyy hh24:mi:ss'), 1);
 
 
+commit;

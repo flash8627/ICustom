@@ -592,6 +592,7 @@ create table SYS_RESOURCES_T
   priority         NUMBER(1) default 1,
   enabled        INTEGER default 1,
   issys          INTEGER default 0,
+  use_status       INTEGER default 1,
   module           VARCHAR2(4),
   attribute1       VARCHAR2(100),
   attribute2       VARCHAR2(100),
@@ -623,6 +624,8 @@ comment on table SYS_RESOURCES_T
    is '（暂不用，保留）';
  comment on column SYS_RESOURCES_T.MODULE
    is '所属的子系统，比如平台里面包括10个系统，分别为成本、作业、集输等。 （暂不用，保留）';
+ comment on column SYS_RESOURCES_T.use_status
+  is '是否可用，0为不可用，1为可用';
   
 
 declare
@@ -737,7 +740,7 @@ comment on table SYS_ROLES_AUTHORITIES_T
    add constraint FK_PUB_ROLES_AUTHORITIES_ROLES foreign key (ROLE_ID)
    references SYS_ROLES_T (ROLE_ID);
  alter table SYS_ROLES_AUTHORITIES_T
-  add constraint FK_PUB_ROLES_AUTHORITIES_UNIQUE unique (ROLE_ID, AUTH_ID);
+  add constraint FK_ROLES_AUTH_UNIQUE unique (ROLE_ID, AUTH_ID);
   
 
 declare

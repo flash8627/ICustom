@@ -106,8 +106,7 @@
 		<include refid="select_cond" />
 	</select>
 	
-	<select id="selectList" parameterType="hashmap"
-		resultType="com.gwtjs.security.entity.SysUsersVO">
+	<select id="findUserByPage" resultType="com.gwtjs.security.entity.SysUsersVO">
 		<include refid="page_st" />
 		<include refid="Base_Column_List" />
 		<include refid="select_cond" />
@@ -116,7 +115,7 @@
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" resultType="INTEGER">
+	<select id="findUserByPageCount" resultType="INTEGER">
 		SELECT
 		COUNT(1)
 		FROM SYS_USERS_T T1

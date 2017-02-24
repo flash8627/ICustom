@@ -12,7 +12,6 @@ init.sql为导航菜单的初始化脚本
 mvn clean install
 *将项目的模块都安装到本地仓库，因为这些模块并没有在网上提供下载；此动作安装了所有依赖的jar包到本地仓库，并将项目模块也同时安装到本地方便再次构建；
 *如果是第一次执行，时间可能有点长．也可以使用eclipse操作此步骤，动作序列为：点击项目虚拟目录ICustom--右键--Run as -- maven install,同时也可以使用maven动作运行．方法很
-
 多，不说了．有需要的，可以在http://git.oschina.net/zgdong/ICustom留言，即可得到回复．
 
 

@@ -61,4 +61,7 @@ values (101, 'Contact', null, '0', null, null, 6, null, 1, 1, 0, null, null, nul
 insert into sys_resources_t (RESOURCE_ID, RESOURCE_NAME, RESOURCE_DESC, RESOURCE_TYPE, RESOURCE_STRING, ICON, PARENT_ID, RES_URL, PRIORITY, USE_STATUS, ISSYS, MODULE, ATTRIBUTE1, ATTRIBUTE2, ATTRIBUTE3, ATTRIBUTE4, ATTRIBUTE5, ATTRIBUTE6, ATTRIBUTE7, ATTRIBUTE8, ATTRIBUTE9, ATTRIBUTE10, ORDER_CODE, CREATED_USER, CREATED_DATE, UPDATE_LAST_USER, UPDATE_LAST_DATE, VALID_FLAG)
 values (122, '权限资源配置', null, '0', null, null, 18, 'security/auth/resources/AuthResources.html', 1, 1, 0, null, null, null, null, null, null, null, null, null, null, null, 6, 10001, to_date('08-10-2016 00:13:55', 'dd-mm-yyyy hh24:mi:ss'), 0, to_date('09-10-2016 02:20:27', 'dd-mm-yyyy hh24:mi:ss'), 1);
 
+
+commit;
+
 prompt Done.
