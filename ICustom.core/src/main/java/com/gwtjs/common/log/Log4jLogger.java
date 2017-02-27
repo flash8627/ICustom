@@ -34,7 +34,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#debug(java.lang.String)
+	 * @see log.ILogger#debug(java.lang.String)
 	 */
 	public void debug(String message) {
 		logger.log(FQCN, Level.DEBUG, message, null);
@@ -43,7 +43,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#debug(java.lang.String,
+	 * @see log.ILogger#debug(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void debug(String message, Object... params) {
@@ -55,7 +55,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#debug(java.lang.Throwable)
+	 * @see log.ILogger#debug(java.lang.Throwable)
 	 */
 	public void debug(Throwable t) {
 		debug(null, t);
@@ -64,7 +64,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#debug(java.lang.String,
+	 * @see log.ILogger#debug(java.lang.String,
 	 * java.lang.Throwable)
 	 */
 	public void debug(String message, Throwable t) {
@@ -74,7 +74,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#debug(java.lang.String,
+	 * @see log.ILogger#debug(java.lang.String,
 	 * java.lang.Object[], java.lang.Throwable)
 	 */
 	public void debug(String message, Object[] params, Throwable t) {
@@ -86,7 +86,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#info(java.lang.String)
+	 * @see log.ILogger#info(java.lang.String)
 	 */
 	public void info(String message) {
 		logger.log(FQCN, Level.INFO, message, null);
@@ -95,7 +95,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#info(java.lang.String,
+	 * @see ILogger#info(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void info(String message, Object... params) {
@@ -107,7 +107,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#info(java.lang.Throwable)
+	 * @see log.ILogger#info(java.lang.Throwable)
 	 */
 	public void info(Throwable t) {
 		info(null, t);
@@ -116,7 +116,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#info(java.lang.String,
+	 * @see log.ILogger#info(java.lang.String,
 	 * java.lang.Throwable)
 	 */
 	public void info(String message, Throwable t) {
@@ -126,7 +126,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#info(java.lang.String,
+	 * @see log.ILogger#info(java.lang.String,
 	 * java.lang.Object[], java.lang.Throwable)
 	 */
 	public void info(String message, Object[] params, Throwable t) {
@@ -138,7 +138,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#warn(java.lang.String)
+	 * @see log.ILogger#warn(java.lang.String)
 	 */
 	public void warn(String message) {
 		logger.log(FQCN, Level.WARN, message, null);
@@ -147,7 +147,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#warn(java.lang.String,
+	 * @see log.ILogger#warn(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void warn(String message, Object... params) {
@@ -159,7 +159,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#warn(java.lang.Throwable)
+	 * @see log.ILogger#warn(java.lang.Throwable)
 	 */
 	public void warn(Throwable t) {
 		warn(null, t);
@@ -168,7 +168,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#warn(java.lang.String,
+	 * @see log.ILogger#warn(java.lang.String,
 	 * java.lang.Throwable)
 	 */
 	public void warn(String message, Throwable t) {
@@ -178,7 +178,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#warn(java.lang.String,
+	 * @see log.ILogger#warn(java.lang.String,
 	 * java.lang.Object[], java.lang.Throwable)
 	 */
 	public void warn(String message, Object[] params, Throwable t) {
@@ -190,7 +190,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#error(java.lang.String)
+	 * @see log.ILogger#error(java.lang.String)
 	 */
 	public void error(String message) {
 		logger.log(FQCN, Level.ERROR, message, null);
@@ -199,7 +199,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#error(java.lang.String,
+	 * @see log.ILogger#error(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void error(String message, Object... params) {
@@ -211,7 +211,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#error(java.lang.Throwable)
+	 * @see log.ILogger#error(java.lang.Throwable)
 	 */
 	public void error(Throwable t) {
 		error(null, t);
@@ -220,7 +220,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#error(java.lang.String,
+	 * @see log.ILogger#error(java.lang.String,
 	 * java.lang.Throwable)
 	 */
 	public void error(String message, Throwable t) {
@@ -230,7 +230,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#error(java.lang.String,
+	 * @see log.ILogger#error(java.lang.String,
 	 * java.lang.Object[], java.lang.Throwable)
 	 */
 	public void error(String message, Object[] params, Throwable t) {
@@ -242,7 +242,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#fatal(java.lang.String)
+	 * @see log.ILogger#fatal(java.lang.String)
 	 */
 	public void fatal(String message) {
 		logger.log(FQCN, Level.FATAL, message, null);
@@ -251,7 +251,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#fatal(java.lang.String,
+	 * @see log.ILogger#fatal(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void fatal(String message, Object... params) {
@@ -263,7 +263,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#fatal(java.lang.Throwable)
+	 * @see log.ILogger#fatal(java.lang.Throwable)
 	 */
 	public void fatal(Throwable t) {
 		fatal(null, t);
@@ -272,7 +272,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#fatal(java.lang.String,
+	 * @see log.ILogger#fatal(java.lang.String,
 	 * java.lang.Throwable)
 	 */
 	public void fatal(String message, Throwable t) {
@@ -282,7 +282,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#fatal(java.lang.String,
+	 * @see log.ILogger#fatal(java.lang.String,
 	 * java.lang.Object[], java.lang.Throwable)
 	 */
 	public void fatal(String message, Object[] params, Throwable t) {
@@ -294,7 +294,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#trace(java.lang.String,
+	 * @see log.ILogger#trace(java.lang.String,
 	 * java.lang.Object[])
 	 */
 	public void trace(String message) {
@@ -304,7 +304,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * （非 Javadoc）
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#trace(java.lang.String, *
+	 * @see log.ILogger#trace(java.lang.String, *
 	 * java.lang.Object[])
 	 */
 	public void trace(String message, Object... params) {
@@ -316,7 +316,7 @@ public class Log4jLogger implements ILogger {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.huawei.it.jalor5.core.log.ILogger#isDebugEnabled()
+	 * @see log.ILogger#isDebugEnabled()
 	 */
 	public boolean isDebugEnabled() {
 		return logger.isDebugEnabled();

@@ -42,21 +42,22 @@ public class PageInterceptor implements Interceptor {
 			int pageSize = page.getPageSize();
 			int curPage = page.getCurPage();
 			setTotalResult(boundSql, (Connection) invocation.getArgs()[0], metaStatementHandler, paramMap);
-			String sql = getPageSql(pageSize, curPage, boundSql);
-			metaStatementHandler.setValue("delegate.boundSql.sql", sql);
-			metaStatementHandler.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
-			metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
+			//String sql = getPageSql(pageSize, curPage, boundSql);
+			//metaStatementHandler.setValue("delegate.boundSql.sql", sql);
+			//metaStatementHandler.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
+			//metaStatementHandler.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 		}
 		return invocation.proceed();
 	}
 
         // 这个分页方法是借助于网上的
-	private String getPageSql(int pageSize, int pageNo, BoundSql boundSql) {
+	/*private String getPageSql(int pageSize, int pageNo, BoundSql boundSql) {
 		StringBuffer sql = new StringBuffer(boundSql.getSql());
 		sql.insert(0, "select u.*, rownum r from (").append(") u where rownum < ").append(pageSize * pageNo);
 		sql.insert(0, "select * from (").append(") where r >= ").append((pageSize - 1) * pageNo);
 		return sql.toString();
-	}
+	}*/
+	
 	private void setTotalResult(BoundSql boundSql, Connection conn, MetaObject metaObject, Map param) throws SQLException {
 		String countSql = "select count(*) from ( " + boundSql.getSql() + " ) total";
 		PreparedStatement prepareStatement = conn.prepareStatement(countSql);
@@ -64,7 +65,11 @@ public class PageInterceptor implements Interceptor {
 		parameterHandler.setParameters(prepareStatement); // 给sql语句设置参数
 		ResultSet resultSet = prepareStatement.executeQuery();
 		if (resultSet.next()) {
-			param.put("total", resultSet.getObject(1));
+			PagerVO vo = (PagerVO) param.get("1");
+			Object total = resultSet.getObject(1);
+			vo.setTotalRows(Integer.parseInt(total.toString()));
+			param.put("1", vo);
+			System.out.println(vo);
 		}
 		if (resultSet != null) {
 			resultSet.close();

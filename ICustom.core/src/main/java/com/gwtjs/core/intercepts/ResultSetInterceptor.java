@@ -94,14 +94,14 @@ public class ResultSetInterceptor implements Interceptor {
 		Connection connection = null;
 		StatementHandler handler = configuration.newStatementHandler(executor,
 				mappedStatement, parameter, rowBounds, resultHandler, boundSql);
-		/*List<JalorResultSet> returnList = new ArrayList<JalorResultSet>();*/
+		/*List<ResultSet> returnList = new ArrayList<ResultSet>();*/
 		try {
 			// 从Executor中获取事务的连接
 			/*connection = ConnectionLogger.newInstance(executor.getTransaction()
 					.getConnection(), statementLog);*/
 			stmt = handler.prepare(connection);
 			handler.parameterize(stmt);
-			/*JalorResultSet resultSet = new JalorResultSet();
+			/*ResultSet resultSet = new ResultSet();
 			Object ohj = ReflectUtil.getFieldValue(stmt, "h");
 			// 获取预编译中的 sql 和 参数value
 			// resultSet.setResultSetSql((String) ReflectUtil.getFieldValue(ohj,
@@ -125,7 +125,7 @@ public class ResultSetInterceptor implements Interceptor {
 	}
 
 	/**
-	 * dao xml文件配置返回了类型是否是 JalorResultSet
+	 * dao xml文件配置返回了类型是否是 ResultSet
 	 * 
 	 * @param mappedStatement
 	 * Created：2016-3-30
@@ -138,8 +138,8 @@ public class ResultSetInterceptor implements Interceptor {
 			return false;
 		}
 		Class resultType = mappedStatement.getResultMaps().get(0).getType();
-		// 如果类型的JalorResultSet相同 那么返回true
-		if (JalorResultSet.class.getName().equals(resultType.getName())) {
+		// 如果类型的ResultSet相同 那么返回true
+		if (ResultSet.class.getName().equals(resultType.getName())) {
 			return true;
 		}*/
 		return false;
