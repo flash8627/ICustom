@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="common.resources"/>
-	<classpathentry kind="src" path="core"/>
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="security.resources"/>
 	<classpathentry kind="src" path="security.impl"/>
@@ -20,5 +19,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
