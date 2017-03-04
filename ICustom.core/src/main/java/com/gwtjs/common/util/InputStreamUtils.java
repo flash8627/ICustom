@@ -1,10 +1,12 @@
-package com.gwtjs.core.util;
+package com.gwtjs.common.util;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import com.gwtjs.common.util.InputStreamUtils;
 
 public class InputStreamUtils {
 	

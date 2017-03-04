@@ -64,14 +64,8 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 		
 		<property name="plugins">
 			<array>
-				<bean id="pagerInterceptor" class="com.gwtjs.common.intercepts.PageInterceptor" 
+				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PageInterceptor" 
 					/>
-				<!-- MyBatis 分页拦截器 2 -->
-				<!-- <bean id="paginationInterceptor" class="com.gwtjs.common.intercepts.PageInterceptor">
-					<property name="dialect" value="oracle" />
-					拦截Mapper.xml文件中，id包含query字符的语句
-					<property name="pageSqlId" value=".*$Page" />
-				</bean> -->
 			</array>
 		</property>
 		
