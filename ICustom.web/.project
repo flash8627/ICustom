@@ -41,31 +41,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>ICustom.core</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.core/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.resources/src/main/resources</location>
-		</link>
-		<link>
-			<name>common.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.api/src/main/java</location>
-		</link>
-		<link>
-			<name>common.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>common.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.common.impl/src/main/resources</location>
-		</link>
-		<link>
 			<name>security.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.api/src/main/java</location>

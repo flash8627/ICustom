@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" path="ICustom.core"/>
-	<classpathentry kind="src" path="common.resources"/>
-	<classpathentry kind="src" path="ICustom.resources"/>
 	<classpathentry kind="src" path="security.resources"/>
 	<classpathentry kind="src" path="security.impl"/>
 	<classpathentry kind="src" path="security.api"/>
-	<classpathentry kind="src" path="common.api"/>
-	<classpathentry kind="src" path="common.impl"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
