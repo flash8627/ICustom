@@ -19,7 +19,7 @@ mvn clean install
 mvn war:inplace
 *此操作是把相关的模块及依赖的jar包添加到项目web模块中，添加成功后就可以使用tomcat启动项目了．
 可以查看/ICustom.web/src/main/webapp/WEB-INF/lib目录，项目模块和依赖的全打成jar包到此．
-*此动作也可以在eclipse运行中配置，把设置参数Name,Base directory ,Goals即可．
+*此动作也可以在eclipse运行中配置，设置参数Name,Base directory ,Goals即可．
 
 清理并编译项目
 点击eclipse的Project-->clean即可，注意勾选自动编译．动作的目的是把web项目的resources编译到classes下面．
@@ -76,6 +76,6 @@ resources主要是项目的数据源配置．
 3.开发权限细粒度管理功能；				完成!
 4.开发工作流功能；
 5.开发SSO单点登陆；
-6.产品管理样板工程；				
+6.产品管理样板工程,缺少页面验证细节；				
 
 设置用户和角色、角色和权限、权限和资源之间的关系。使用三个菜单进行维护，用户设置、角色设置、资源设置。 在用户设置里分别管理用户、用户与角色的关系；在角色设置里管理角色、角色与权限的关系； 在资源设置里分别管理权限、权限与资源的关系			完成!
