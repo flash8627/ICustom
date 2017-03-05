@@ -55,11 +55,13 @@ public class PageInterceptor implements Interceptor {
 		Object[] queryArgs = invocation.getArgs();
 		MappedStatement mappedStatement = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
 		String sqlId = mappedStatement.getId();
-
+		log.info("sql id:",sqlId);
+		
 		Executor executor = (Executor) invocation.getTarget();
 		Object param = queryArgs[PARAMETER_INDEX];
 		// 检查是否需要拦截，如果需要，那么返回page对象
 		PagerVO page = checkInvocation(sqlId, param);
+		log.info("sql id:",sqlId);
 		
 		// 如果没有分页参数就直接返回
 		if (null == page) {
@@ -152,7 +154,7 @@ public class PageInterceptor implements Interceptor {
 			entityList = handler.query(sm, resultHandler);
 			return entityList;
 		} catch (SQLException ex) {
-			// log.error(ex);
+			log.error(ex);
 			throw ex;
 		} finally {
 			tryCloseStatement(sm);

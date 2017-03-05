@@ -15,8 +15,6 @@ public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 	
 	//
 	PagedResult<SysUsersVO> queryUserByPage(SysUsersVO record);
-	//
-	PagedResult<SysUsersVO> findUserPage(SysUsersVO record,PagerVO page);
 	
 	/**
 	 *@author aGuang 2011-3-30 下午03:51:48
@@ -43,11 +41,7 @@ public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
 	//
 	SysUsersVO findItem(@Param("userId")long userId);
 
-	//
 	PagedResult<SysUsersVO> findUserByPage(SysUsersVO record,PagerVO page);
-
-	//
-	int selectListCount(SysUsersVO record,PagerVO page);
 
 	//
 	int batchRemovePks(List<SysUsersVO> records);

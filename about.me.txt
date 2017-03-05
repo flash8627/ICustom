@@ -38,12 +38,12 @@ resources主要是项目的数据源配置．
 1.icustom.common属于公用插件性质；如公共资源基础类公共资源等；
 2.icustom.core属于基本的核心的代码
 3.icustom.属于对外的web功能，管理功能，如系统主页面；
-4.lookup 另类数据字典
-5.international 国际化
-6.register  数据字典,树型结构
-7.security为权限管理模块，依赖spring security
+4.icustom.lookup 另类数据字典
+5.icustom.international 国际化
+6.icustom.register  数据字典,树型结构
+7.icustom.security为权限管理模块，依赖spring security
 8.ICustom.email为邮件管理系统，暂时待开发　．
-9.angularjs为angularjs资源，可供其它模块依赖，为可选模块，不用angularjs的可不打包在一起,此模块下含有AngularJS单页按需加载的源码示例；
+9.icustom.angularjs为angularjs资源，可供其它模块依赖，为可选模块，不用angularjs的可不打包在一起,此模块下含有AngularJS单页按需加载的源码示例；
 10.ICustom.iexcel为excel导入导出功能，待续;
 11.ICustom.attachments为附件管理模块，上传下载及管理附件；
 12.ICustom.fckeditor为文本编辑器，可选，提供的编辑器插件；
@@ -55,6 +55,7 @@ resources主要是项目的数据源配置．
 
 2016-09-16添加：
 1.添加junit测试功能；
+	测试方式:添加测试项目,一般以模块化方式添加,如icustom.security,则测试项目名称为icustom.security.test,将icustom.web下的resources拷贝到测试项目的resources下,添加测试的依赖,依赖是使用maven管理;详细信息请参考icustom.security.test; 如何编写请参考icustom.security.test; 
 2.缓存配置
 3.分页插件
 4.添加webservices服务描述符WADL；			
@@ -65,7 +66,7 @@ resources主要是项目的数据源配置．
 2.系统分页拦截器服务端插件;
 	参考地址:http://localhost:8080/security/user/index.html
 		 http://localhost:8080/services/sys/userServices/findUserList/10/1
-	说明:不需要添加统计的服务api,只在mybatis里添加相应的统计查询,sql ID跟分页查询一样,后加"Count"即可; 
+	说明:不需要添加统计的服务api,只在mybatis里添加相应的统计查询sql,sql ID跟分页查询一样,后加"Count"即可,如查询列表的mybatis sql id为findUserByPage,则统计的sql id为findUserByPageCount,另外注意service api返回类型为PagedResult,是一个包装类型,里在含有列表实体和分页参数信息; 
 
 3.jar包里加载外部资源；jar包里加载jar 包资源；
 

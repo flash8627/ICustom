@@ -19,10 +19,10 @@ public class UserServices implements IUserServices {
 	@Inject
 	private IUserDAO userDao;
 
-	@Override
+	/*@Override
 	public PagedResult<SysUsersVO> findUserPage(SysUsersVO record, PagerVO page) {
 		return userDao.findUserPage(record, page);
-	}
+	}*/
 
 	@Override
 	public List<String> loadUserAuthorities(SysUsersVO record) {
@@ -38,11 +38,11 @@ public class UserServices implements IUserServices {
 	/**
 	 * 分页的user 条目
 	 */
-	@Override
+	/*@Override
 	public PagedResult<SysUsersVO> findListRecords(SysUsersVO record,
 			PagerVO page) {
 		return userDao.findUserByPage(record, page);
-	}
+	}*/
 
 	@Override
 	public ResultWrapper findItem(long roleId) {
@@ -52,15 +52,15 @@ public class UserServices implements IUserServices {
 
 	@Override
 	public PagedResult<SysUsersVO> findUserList(SysUsersVO record, PagerVO page) {
-		return findListRecords(record, page);
+		return userDao.findUserByPage(record, page);
 	}
 
-	@Override
+	/*@Override
 	public ResultWrapper findUserListCount(SysUsersVO record) {
 		// TODO Auto-generated method stub
 		return ResultWrapper.successResult(userDao
 				.selectListCount(record, null));
-	}
+	}*/
 
 	@Override
 	public ResultWrapper batchRemovePks(List<SysUsersVO> records) {

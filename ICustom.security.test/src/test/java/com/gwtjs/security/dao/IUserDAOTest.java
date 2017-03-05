@@ -39,7 +39,7 @@ public class IUserDAOTest extends SpringTestBase {
 		PagerVO page=new PagerVO();
 		page.setCurPage(1);
 		page.setPageSize(20);
-		PagedResult<SysUsersVO> result = userDAO.findUserPage(user, page);
+		PagedResult<SysUsersVO> result = userDAO.findUserByPage(user, page);
 		System.out.println(result);
 	}
 	

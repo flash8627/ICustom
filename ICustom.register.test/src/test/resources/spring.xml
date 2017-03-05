@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
-	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="true">
+
 	<bean id="placeholderConfig"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>classpath:jdbc.oracle.properties</value>
 		</property>
 	</bean>
-	
-    <!-- 注解探测器 -->
-	<context:component-scan base-package="com.gwtjs.*.services.impl" />
-	
+
+	<!-- 注解探测器 -->
+	<!-- <context:component-scan base-package="com.gwtjs.*.services..*" /> -->
+	<!-- <context:component-scan base-package="com.gwtjs.*.services.impl" /> -->
+	<context:component-scan base-package="com.gwtjs.*.services..*" />
+
 	<!-- 配置DataSource数据源 -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${mybatis.connection.driver_class}" />
 		<property name="url" value="${mybatis.connection.url}" />
 		<property name="username" value="${mybatis.connection.username}" />
@@ -39,20 +47,34 @@
 				<!-- DAO -->
 				<value>classpath:com/gwtjs/**/dao/**/*DAO.xml</value>
 				<value>classpath:com/gwtjs/**/dao/*DAO.xml</value>
+				<!-- Dao -->
+				<value>classpath:com/gwtjs/**/dao/**/*Dao.xml</value>
+				<value>classpath:com/gwtjs/**/dao/*Dao.xml</value>
 				<!-- dao -->
 				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
 				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
 			</list>
 		</property>
+		
+		<property name="plugins">
+			<array>
+				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PageInterceptor" 
+					/>
+			</array>
+		</property>
+		
 	</bean>
 
 	<!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!-- 配置事务的传播特性 -->
-	<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+	<bean id="baseTransactionProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">
 			<props>
@@ -72,5 +94,7 @@
 		<property name="basePackage" value="com.gwtjs.*.dao" />
 		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
 	</bean>
+
+	<import resource="classpath*:/config/*-service.xml" />
 
 </beans>

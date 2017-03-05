@@ -27,22 +27,17 @@ import com.gwtjs.security.entity.SysUsersVO;
 @Produces(MediaType.APPLICATION_JSON)
 public interface IUserServices {
 	
-	@GET
-	@Path("findUserPage/{pageSize}/{curPage}")
-	PagedResult<SysUsersVO> findUserPage(@QueryParam("")SysUsersVO record,@PathParam("")PagerVO page);
-	
-	@GET
-	@Path("findListRecords/{pageSize}/{curPage}")
-	public PagedResult<SysUsersVO> findListRecords(@QueryParam("")SysUsersVO record, @PathParam("")PagerVO page);
-	
 	@GET @Path("findItem/{userId}")
 	ResultWrapper findItem(@PathParam("userId")long userId);
 	
+	/**
+	 * 管理页面,带分页sql
+	 * @param record
+	 * @param page
+	 * @return
+	 */
 	@GET @Path("findUserList/{pageSize}/{curPage}")
 	PagedResult<SysUsersVO> findUserList(@QueryParam("")SysUsersVO record,@PathParam("")PagerVO page);
-
-	@GET @Path("findUserListCount")
-	ResultWrapper findUserListCount(@PathParam("")SysUsersVO record);
 
 	@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<SysUsersVO> records);
