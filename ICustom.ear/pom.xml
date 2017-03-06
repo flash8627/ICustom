@@ -208,7 +208,13 @@
 					<packagingIncludes>META-INF/**,**/ICustom*.jar,**/ICustom*.war</packagingIncludes>
 					<earSourceDirectory>extra</earSourceDirectory>
 					<modules>
-					
+						
+						<webModule>
+							<groupId>com.gwtjs.ICustom</groupId>
+							<artifactId>ICustom.web</artifactId>
+							<contextRoot>/</contextRoot>
+						</webModule>
+						
 						<jarModule>
 							<groupId>com.gwtjs.ICustom</groupId>
 							<artifactId>ICustom.angularjs</artifactId>x
@@ -344,14 +350,7 @@
 							<artifactId>ICustom.browselog.impl</artifactId>
 						</jarModule>
 						
-						<webModule>
-							<groupId>com.gwtjs.ICustom</groupId>
-							<artifactId>ICustom.web</artifactId>
-							<contextRoot>/</contextRoot>
-						</webModule>
-						
 					</modules>
-
 
 				</configuration>
 

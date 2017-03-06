@@ -195,7 +195,7 @@
 
 	<build>
 		<plugins>
-			<!-- <plugin>
+			<plugin>
 				<groupId>com.juvenxu.portable-config-maven-plugin</groupId>
 				<artifactId>portable-config-maven-plugin</artifactId>
 				<executions>
@@ -208,7 +208,7 @@
 				<configuration>
 					<portableConfig>src/main/portable/${environment.type}.xml</portableConfig>
 				</configuration>
-			</plugin> -->
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -217,7 +217,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
@@ -230,11 +230,11 @@
 						</manifest>
 					</archive>
 					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
-					<packagingIncludes>**/*.xml,**/CommonService.properties,**/*.xml,**/*.jar</packagingIncludes>
+					<packagingIncludes>**/*.xml,**/*.properties,**/*.jar</packagingIncludes>
 					<warSourceDirectory>${basedir}/src/main/webapp</warSourceDirectory>
 					<warSourceIncludes>WEB-INF/*.xml</warSourceIncludes>
 				</configuration>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 </project>
