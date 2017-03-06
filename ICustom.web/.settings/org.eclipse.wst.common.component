@@ -7,7 +7,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <property name="java-output-path" value="/ICustom/target/classes"/>
         <property name="context-root" value="ICustom.web"/>
-        <property name="component.inclusion.patterns"/>
-        <property name="component.exclusion.patterns"/>
+        <property name="component.inclusion.patterns" value="**/*.xml,**/*.properties,**/*.jar"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/lib/**/*,classpath:jetty-env.xml"/>
     </wb-module>
 </project-modules>
