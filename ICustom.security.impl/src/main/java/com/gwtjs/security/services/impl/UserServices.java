@@ -9,7 +9,7 @@ import javax.inject.Named;
 import com.gwtjs.common.entity.PagedResult;
 import com.gwtjs.common.entity.PagerVO;
 import com.gwtjs.common.entity.ResultWrapper;
-import com.gwtjs.security.dao.IUserDAO;
+import com.gwtjs.security.dao.ISysUserDao;
 import com.gwtjs.security.entity.SysUsersVO;
 import com.gwtjs.security.services.IUserServices;
 
@@ -17,7 +17,7 @@ import com.gwtjs.security.services.IUserServices;
 public class UserServices implements IUserServices {
 
 	@Inject
-	private IUserDAO userDao;
+	private ISysUserDao userDao;
 
 	/*@Override
 	public PagedResult<SysUsersVO> findUserPage(SysUsersVO record, PagerVO page) {

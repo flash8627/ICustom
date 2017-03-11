@@ -11,7 +11,7 @@ import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysUsersVO;
 
 @Repository(value = "userDao")
-public interface IUserDAO  extends BaseSqlMapper<SysUsersVO>  {
+public interface ISysUserDao  extends BaseSqlMapper<SysUsersVO>  {
 	
 	//
 	PagedResult<SysUsersVO> queryUserByPage(SysUsersVO record);

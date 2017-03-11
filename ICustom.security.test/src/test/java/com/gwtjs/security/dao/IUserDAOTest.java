@@ -17,7 +17,7 @@ import com.gwtjs.security.entity.SysUsersVO;
 public class IUserDAOTest extends SpringTestBase {
 	
 	@Inject
-	private IUserDAO userDAO;
+	private ISysUserDao userDAO;
 	
 	@Test
 	public void findListTest(){
