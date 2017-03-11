@@ -95,6 +95,8 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 		<property name="markerInterface" value="com.gwtjs.core.mapper.SqlMapper" />
 	</bean>
 
+	<import resource="classpath*:/config/*-beans.xml" />
+	<import resource="classpath*:/config/*-config.xml" />
 	<import resource="classpath*:/config/*-service.xml" />
 
 </beans>

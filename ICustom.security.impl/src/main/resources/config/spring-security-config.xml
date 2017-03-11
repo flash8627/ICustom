@@ -1,81 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<b:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/security 
-    http://www.springframework.org/schema/security/spring-security.xsd">
-
-	<http pattern="/login" security="none" />
-	<http pattern="/**/*.jpg" security="none" />
-	<http pattern="/**/*.png" security="none" />
-	<http pattern="/**/*.gif" security="none" />
-	<http pattern="/**/*.css" security="none" />
-	<http pattern="/**/*.js" security="none" />
-	<!-- 登录页面和忘记密码页面不过滤 -->
-	<http pattern="/login.jsp" security="none" />
-	<http pattern="/jsp/forgotpassword.jsp" security="none" />
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
 	<http auto-config="true">
-		<!-- 不要过滤图片等静态资源 -->
-
-		<form-login login-page="/login.jsp"
-			authentication-failure-url="/login.jsp?error=true"
-			default-target-url="/index.jsp" />
-
-		<logout logout-success-url="/index.html" invalidate-session="true" />
-
-		<!-- "记住我"功能，采用持久化策略（将用户的登录信息存放在数据库表中） -->
-		<!-- <remember-me data-source-ref="dataSource" /> -->
-
-		<!-- 检测失效的sessionId,超时时定位到另外一个URL -->
-		<session-management invalid-session-url="/sessionTimeout.jsp" />
-
-		<!-- 增加一个自定义的filter，放在FILTER_SECURITY_INTERCEPTOR之前， 实现用户、角色、权限、资源的数据库管理。 
-			11/3/23 -->
-		<custom-filter ref="customFilter" before="FILTER_SECURITY_INTERCEPTOR" />
-
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/home" access="permitAll" />
+		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/dba**"
+			access="hasRole('ADMIN') and hasRole('DBA')" />
+		<form-login login-page="/login" username-parameter="ssoId"
+			password-parameter="password" authentication-failure-url="/Access_Denied" />
+		<csrf />
 	</http>
 
-	<!-- 一个自定义的filter，必须包含authenticationManager, accessDecisionManager,securityMetadataSource三个属性。 
-		11/3/23 -->
-	<b:bean id="customFilter"
-		class="com.gwtjs.security.filter.CustomFilterSecurityInterceptor">
-		<b:property name="authenticationManager" ref="authenticationManager" />
-		<b:property name="accessDecisionManager" ref="customAccessDecisionManager" />
-		<b:property name="securityMetadataSource" ref="customSecurityMetadataSource" />
-	</b:bean>
-
-
-	<b:bean id="myUserDetailsService"
-		class="com.gwtjs.security.custom.services.CustomUserDetailsService"></b:bean>
-	<b:bean id="bcryptEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-	</b:bean>
-
-	<!-- <sec:authentication-manager> <sec:authentication-provider user-service-ref="myUserDetailsService"> 
-		<sec:password-encoder ref="bcryptEncoder" /> </sec:authentication-provider> 
-		</sec:authentication-manager> -->
-	<!-- 注意能够为authentication-manager 设置alias别名 -->
-	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="myUserDetailsService">
-			<password-encoder ref="bcryptEncoder">
-				<salt-source user-property="userAccount" />
-			</password-encoder>
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="bill" password="abc123" authorities="ROLE_USER" />
+				<user name="admin" password="root123" authorities="ROLE_ADMIN" />
+				<user name="dba" password="root123" authorities="ROLE_ADMIN,ROLE_DBA" />
+			</user-service>
 		</authentication-provider>
 	</authentication-manager>
 
-
-	<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源。11/3/23 -->
-	<b:bean id="customAccessDecisionManager"
-		class="com.gwtjs.security.custom.services.CustomAccessDecisionManager">
-	</b:bean>
-
-	<!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色去访问。11/3/23 -->
-	<b:bean id="customSecurityMetadataSource"
-		class="com.gwtjs.security.custom.services.CustomInvocationSecurityMetadataSourceService">
-		<!-- <b:property name="authoritiesDAO" ref="IAuthoritiesDAO" /> -->
-	</b:bean>
-
-</b:beans>
+</beans:beans>
