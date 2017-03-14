@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.gwtjs.common.entity.TreeModel;
+import com.gwtjs.core.entity.TreeModel;
 
 /**
  * 系统导航

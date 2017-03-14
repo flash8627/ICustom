@@ -11,9 +11,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.springframework.security.core.GrantedAuthority;
-import com.gwtjs.common.util.spring.Assert;
+import com.gwtjs.core.util.spring.Assert;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.core.entity.BaseResource;
 import com.gwtjs.security.CustomUserDetails;
 
 public class SysUsersVO extends BaseResource implements CustomUserDetails {

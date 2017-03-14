@@ -3,16 +3,22 @@
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd  
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
-
+	
+	<!-- 静态资源，不用权限 -->
+    <http pattern="/**/*.css" security="none"/>
+    <http pattern="/**/*.js" security="none"/>
+    <http pattern="/favicon.ico" security="none"/>
+    
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
 		<intercept-url pattern="/dba**"
 			access="hasRole('ADMIN') and hasRole('DBA')" />
-		<form-login login-page="/login" username-parameter="ssoId"
-			password-parameter="password" authentication-failure-url="/Access_Denied" />
-		<csrf />
+		<form-login login-page="/views/login.html" username-parameter="ssoId"
+			password-parameter="password" authentication-failure-url="/views/accessDenied.html" />
+		<!-- <csrf /> -->
+		<csrf disabled="true" />
 	</http>
 
 	<authentication-manager>

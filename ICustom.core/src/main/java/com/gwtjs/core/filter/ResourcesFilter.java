@@ -1,7 +1,7 @@
 package com.gwtjs.core.filter;
 
-import static com.gwtjs.common.util.InputStreamUtils.buildOutStream;
-import static com.gwtjs.common.util.RequestUtil.getUserAgent;
+import static com.gwtjs.core.util.InputStreamUtils.buildOutStream;
+import static com.gwtjs.core.util.RequestUtil.getUserAgent;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import com.gwtjs.common.util.InputStreamUtils;
+import com.gwtjs.core.util.InputStreamUtils;
 
 /**
  * Servlet Filter implementation class ResourceFilter

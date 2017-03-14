@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.dao.IRoleAuthoritiesDao;
 import com.gwtjs.security.entity.SysRolesAuthoritiesVO;
 import com.gwtjs.security.services.IRoleAuthoritiesService;

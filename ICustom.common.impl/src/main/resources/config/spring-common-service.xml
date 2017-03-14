@@ -7,39 +7,6 @@
        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
-	<jaxrs:server address="/product">
-		<jaxrs:serviceBeans>
-			<ref bean="productService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-			<!-- <ref bean="authFilter"/> -->
-		</jaxrs:providers>
-	</jaxrs:server>
-
-	<jaxrs:server address="/nav">
-		<jaxrs:serviceBeans>
-			<ref bean="navigationService" />
-		</jaxrs:serviceBeans>
-		<jaxrs:providers>
-			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
-			<!-- <ref bean="authFilter"/> -->
-		</jaxrs:providers>
-	</jaxrs:server>
-
-	<!-- cxf webservice 服务 配置 begin -->
-	<!--serviceClass定义了webService服务的入口，address定义了请求的名称 -->
-	<jaxws:server id="HelloWorldServiceImpl" serviceClass="com.gwtjs.common.services.impl.HelloWorldService"
-		address="/helloWorldService">
-		<jaxws:serviceBean>
-			<ref bean="HelloWorldService" /><!-- 引用IServiceImpl实现 IService接口 -->
-		</jaxws:serviceBean>
-	</jaxws:server>
-
-	<!-- <bean id="webServicesAgent" class="com.gwtjs.icustom.services.mapping.HandlerMapping">
-		<property name="urlPrefix">
-			<value>/</value>
-		</property>
-	</bean> -->
+	
 
 </beans>

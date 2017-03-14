@@ -8,7 +8,7 @@ import org.apache.ibatis.mapping.MappedStatement.Builder;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.*;
 
-import static com.gwtjs.common.util.StringUtil.*;
+import static com.gwtjs.core.util.StringUtil.*;
 
 @Intercepts({
 	@Signature(type = Executor.class,method="query",args={MappedStatement.class,Object.class,RowBounds.class,ResultHandler.class}),

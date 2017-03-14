@@ -1,6 +1,6 @@
 package com.gwtjs.international.entity;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.core.entity.BaseResource;
 
 public class LanguageVO extends BaseResource {
 

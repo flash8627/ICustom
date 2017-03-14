@@ -30,7 +30,7 @@
 			AND ROWNUM = 1
 	</select>
 	
-	<select id="selectList" resultType="com.gwtjs.international.entity.LanguageVO">
+	<select id="findLanguagePage" resultType="com.gwtjs.international.entity.LanguageVO">
 		<include refid="page_st" />
 		SELECT
 		<include refid="Base_Column_List" />
@@ -42,7 +42,7 @@
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" resultType="int">
+	<select id="findLanguagePageCount" resultType="int">
 		SELECT
 		COUNT(1)
 		FROM SYS_LANGUAGE_T T1 

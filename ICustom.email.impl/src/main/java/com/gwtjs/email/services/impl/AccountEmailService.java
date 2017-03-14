@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.email.exception.AccountEmailException;
 import com.gwtjs.email.services.IAccountEmailService;
 

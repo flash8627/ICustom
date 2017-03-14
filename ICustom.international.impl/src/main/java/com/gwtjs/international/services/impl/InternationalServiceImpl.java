@@ -6,9 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.international.dao.InternationalDAO;
 import com.gwtjs.international.entity.LanguageVO;
 import com.gwtjs.international.services.IInternationalService;
@@ -31,14 +31,7 @@ public class InternationalServiceImpl implements IInternationalService {
 	@Override
 	public PagedResult<LanguageVO> findListRecords(LanguageVO record,
 			PagerVO page) {
-		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(internationalDao.selectListCount(record, page));
-		if (pageVO.getTotalRows() > 0) {
-			paged.setPageVO(pageVO);
-			paged.setResult(internationalDao.selectList(record, page));
-		}
-		return paged;
+		return internationalDao.findLanguagePage(record, page);
 	}
 
 	@Override
@@ -55,20 +48,7 @@ public class InternationalServiceImpl implements IInternationalService {
 
 	@Override
 	public PagedResult<LanguageVO> findLanguageList(LanguageVO record, PagerVO page) {
-		PagedResult<LanguageVO> paged = new PagedResult<LanguageVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(internationalDao.selectListCount(record, page));
-		if (pageVO.getTotalRows() > 0) {
-			paged.setPageVO(pageVO);
-			paged.setResult(internationalDao.selectList(record, page));
-		}
-		return paged;
-	}
-
-	@Override
-	public ResultWrapper findLanguageListCount(LanguageVO record) {
-		return ResultWrapper.successResult(internationalDao
-				.selectListCount(record));
+		return internationalDao.findLanguagePage(record, page);
 	}
 
 	@Override

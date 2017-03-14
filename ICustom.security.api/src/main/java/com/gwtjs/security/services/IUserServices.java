@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.entity.SysUsersVO;
 
 /**

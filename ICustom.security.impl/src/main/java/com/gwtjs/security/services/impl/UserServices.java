@@ -6,9 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.dao.ISysUserDao;
 import com.gwtjs.security.entity.SysUsersVO;
 import com.gwtjs.security.services.IUserServices;

@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysUsersVO;
 

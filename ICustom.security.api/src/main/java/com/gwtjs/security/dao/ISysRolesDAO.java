@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.security.entity.SysRolesVO;
 
@@ -17,10 +18,7 @@ public interface ISysRolesDAO  extends BaseSqlMapper<SysRolesVO>  {
 	SysRolesVO findItem(@Param("roleId")long roleId);
 
 	//
-	List<SysRolesVO> selectList(SysRolesVO record,PagerVO page);
-
-	//
-	int selectListCount(SysRolesVO record,PagerVO page);
+	PagedResult<SysRolesVO> findSysRoles(SysRolesVO record,PagerVO page);
 
 	//
 	int batchRemovePks(List<SysRolesVO> records);

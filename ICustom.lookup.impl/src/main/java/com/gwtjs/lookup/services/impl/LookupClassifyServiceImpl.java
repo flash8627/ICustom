@@ -6,9 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.lookup.dao.ILookupDAO;
 import com.gwtjs.lookup.entity.LookupVO;
 import com.gwtjs.lookup.services.ILookupClassifyService;
@@ -30,14 +30,7 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	 */
 	@Override
 	public PagedResult<LookupVO> findListRecords(LookupVO record, PagerVO page) {
-		PagedResult<LookupVO> paged = new PagedResult<LookupVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(lookupDao.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
-			paged.setPageVO(pageVO);
-			paged.setResult(lookupDao.selectList(record, page));
-		}
-		return paged;
+		return lookupDao.findLookupPage(record, page);
 	}
 	
 	@Override
@@ -49,12 +42,6 @@ public class LookupClassifyServiceImpl implements ILookupClassifyService {
 	@Override
 	public PagedResult<LookupVO> findLookupList(LookupVO record, PagerVO page) {
 		return findListRecords(record, page);
-	}
-
-	@Override
-	public ResultWrapper findLookupListCount(LookupVO record) {
-		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(lookupDao.selectListCount(record,null));
 	}
 
 	@Override

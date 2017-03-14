@@ -80,7 +80,19 @@
 				</div>
 				<div class="col-sm-5">
 					<ul class="list-inline pull-right">
-						<li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+						<li>
+							<div class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-user"></i> My Account <i
+									class="fa fa-angle-down"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Account Set</a></li>
+									<li><a href="/login?logout">Log out</a></li>
+								</ul>
+							</div>
+						</li>
+						
 						<li><a href="#"><i class="fa fa-heart-o"></i> Wishlist
 								(0)</a></li>
 						<li><a href="#"><i class="fa fa-file-o"></i> Compare (0)</a></li>

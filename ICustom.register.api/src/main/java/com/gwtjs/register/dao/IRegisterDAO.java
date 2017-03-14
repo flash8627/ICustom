@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.core.entity.PagerVO;
 import com.gwtjs.core.mapper.BaseSqlMapper;
 import com.gwtjs.register.entity.RegisterVO;
 

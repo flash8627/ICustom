@@ -44,7 +44,7 @@
 		]]>
 	</sql>
 
-	<select id="selectList" parameterType="hashmap"
+	<select id="findLookupPage" parameterType="hashmap"
 		resultType="com.gwtjs.lookup.entity.LookupVO">
 		<include refid="page_st" />
 		SELECT
@@ -57,7 +57,7 @@
 		<include refid="page_et" />
 	</select>
 
-	<select id="selectListCount" resultType="INTEGER">
+	<select id="findLookupPageCount" resultType="INTEGER">
 		SELECT
 		COUNT(1)
 		FROM SYS_LOOKUP_CLASSIFY_T T1

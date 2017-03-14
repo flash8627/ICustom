@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.shiro.authc.Account;
 
-import com.gwtjs.common.test.SpringTestBase;
+import com.gwtjs.core.test.SpringTestBase;
 
 
 /**

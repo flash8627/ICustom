@@ -2,7 +2,7 @@ package com.gwtjs.dao;
 
 import org.junit.Before;
 
-import com.gwtjs.common.test.SpringTestBase;
+import com.gwtjs.core.test.SpringTestBase;
 
 /**
  * 测试基类

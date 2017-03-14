@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.dao.ISysResourcesDAO;
 import com.gwtjs.security.entity.SysResourcesVO;
 import com.gwtjs.security.services.ISysResourcesService;

@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.lookup.entity.LookupVO;
 
 
@@ -37,9 +37,6 @@ public interface ILookupClassifyService {
 	
 	@GET @Path("findLookupList/{pageSize}/{curPage}")
 	PagedResult<LookupVO> findLookupList(@QueryParam("")LookupVO record,@PathParam("")PagerVO page);
-
-	@GET @Path("findLookupListCount")
-	ResultWrapper findLookupListCount(@PathParam("")LookupVO record);
 
 	@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<LookupVO> records);

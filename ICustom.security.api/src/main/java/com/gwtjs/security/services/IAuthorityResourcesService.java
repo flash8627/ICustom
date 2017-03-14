@@ -11,7 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.entity.SysAuthoritiesResourcesVO;
 
 @Path("/authorityResourcesService")

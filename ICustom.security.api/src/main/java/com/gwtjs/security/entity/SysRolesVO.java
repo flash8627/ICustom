@@ -3,7 +3,7 @@ package com.gwtjs.security.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.gwtjs.common.entity.BaseResource;
+import com.gwtjs.core.entity.BaseResource;
 
 public class SysRolesVO extends BaseResource {
 

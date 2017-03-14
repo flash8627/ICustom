@@ -1,6 +1,6 @@
 package com.gwtjs.register.entity;
 
-import com.gwtjs.common.entity.TreeModel;
+import com.gwtjs.core.entity.TreeModel;
 
 /**
  * 数据字典

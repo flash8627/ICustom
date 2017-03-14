@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.entity.SysRolesVO;
 
 
@@ -28,9 +28,6 @@ public interface IRolesService {
 	
 	@GET @Path("findRolesList/{pageSize}/{curPage}")
 	PagedResult<SysRolesVO> findRolesList(@QueryParam("")SysRolesVO record,@PathParam("")PagerVO page);
-
-	@GET @Path("findRolesListCount")
-	ResultWrapper findRolesListCount(@PathParam("")SysRolesVO record);
 
 	@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<SysRolesVO> records);

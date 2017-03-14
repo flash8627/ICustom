@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.core.entity.PagerVO;
 
 /**
  * <b>function:</b> 

@@ -13,29 +13,29 @@
 			<form class="form-inline" method="post" id="language_search_form">
 				<div class="form-group my-form-row">
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="lanCode" style="">键值:</label> 
+						<label for="formLanCode" style="">键值:</label> 
 						<input type="text"
 							class="form-control" style="width: 78%;"
-							placeholder="language code" id="lanCode">
+							placeholder="language code" id="formLanCode">
 					</div>
 
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="lanValue" style="width: 18%; text-align: right;">内容:</label>
+						<label for="formLanValue" style="width: 18%; text-align: right;">内容:</label>
 						<input type="text" class="form-control" style="width: 78%;"
-							placeholder="language Value" id="lanValue">
+							placeholder="language Value" id="formLanValue">
 					</div>
 				</div>
 
 				<div class="form-group my-form-row">
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="remarks" style="">备注:</label> <input type="text"
+						<label for="formRemarks" style="">备注:</label> <input type="text"
 							class="form-control" style="width: 78%;"
-							placeholder="remarks" id="remarks">
+							placeholder="remarks" id="formRemarks">
 					</div>
 
 					<div class="form-group my-form-group" style="width: 48%;">
-						<label for="lanType" style="width: 18%; text-align: right;">语言:</label>
-					        <select class="form-control" style="width: 78%;" id="lanType" name="lanType">
+						<label for="formLanType" style="width: 18%; text-align: right;">语言:</label>
+					        <select class="form-control" style="width: 78%;" id="formLanType" name="lanType">
 					            <option value="1">中文</option>
 					            <option value="2">英文</option>
 					            <option value="3">韩语</option>
@@ -380,17 +380,19 @@
 		$('#language_modal_submit').on('click', function() {
 			var idNode = $('#lanId');
 			var id = $(idNode).val();
-			var language = [{
-				lanId : id,
-				lanCode : $('#lanCode').val().trim(),
-				lanValue : $('#lanValue').val().trim(),
-				lanType : $('#lanType').val().trim(),
-				remarks : $('#remarks').val().trim()
-			}];
+			console.warn($('#lanValue'));
+			console.warn($('#lanValue').val());
+			var language = {
+					lanId : id,
+					lanCode : $('#lanCode').val().trim(),
+					lanValue : $('#lanValue').val().trim(),
+					lanType : $('#lanType').val().trim(),
+					remarks : $('#remarks').val().trim()
+				};
 			$(".actionbtn").toggleClass("l-btn-disabled");
-			
+			console.warn('language',language);
 			if (id == 0) {
-				LanguageService.batchInsertLanguage(language,doExecuteRowspan);
+				LanguageService.batchInsertLanguage([language],doExecuteRowspan);
 			} else {
 				LanguageService.batchUpdateLanguage(language);
 			}

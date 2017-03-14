@@ -24,8 +24,8 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
 
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = {
 		MappedStatement.class, Object.class, RowBounds.class,
@@ -35,7 +35,7 @@ public class PageInterceptor implements Interceptor {
 	/** 查询count的sql后缀 */
 	private static final String COUNT_SQL_FIX = "Count";
 	
-	private static final com.gwtjs.common.log.ILogger log = com.gwtjs.common.log.LoggerFactory
+	private static final com.gwtjs.core.log.ILogger log = com.gwtjs.core.log.LoggerFactory
 			.getLogger(PageInterceptor.class);
 	
 	/**数据连接*/

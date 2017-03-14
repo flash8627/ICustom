@@ -6,9 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.security.dao.ISysRolesDAO;
 import com.gwtjs.security.entity.SysRolesVO;
 import com.gwtjs.security.services.IRolesService;
@@ -27,20 +27,7 @@ public class RolesService implements IRolesService {
 
 	@Override
 	public PagedResult<SysRolesVO> findRolesList(SysRolesVO record, PagerVO page) {
-		PagedResult<SysRolesVO> paged = new PagedResult<SysRolesVO>();
-		PagerVO pageVO = new PagerVO();
-		pageVO.setTotalRows(rolesDao.selectListCount(record,page));
-		if(pageVO.getTotalRows()>0){
-			paged.setPageVO(pageVO);
-			paged.setResult(rolesDao.selectList(record, page));
-		}
-		return paged;
-	}
-
-	@Override
-	public ResultWrapper findRolesListCount(SysRolesVO record) {
-		// TODO Auto-generated method stub
-		return ResultWrapper.successResult(rolesDao.selectListCount(record,null));
+		return rolesDao.findSysRoles(record, page);
 	}
 
 	@Override

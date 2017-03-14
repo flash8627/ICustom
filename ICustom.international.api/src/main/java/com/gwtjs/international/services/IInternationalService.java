@@ -3,7 +3,6 @@ package com.gwtjs.international.services;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -13,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.gwtjs.common.entity.PagedResult;
-import com.gwtjs.common.entity.PagerVO;
-import com.gwtjs.common.entity.ResultWrapper;
+import com.gwtjs.core.entity.PagedResult;
+import com.gwtjs.core.entity.PagerVO;
+import com.gwtjs.core.entity.ResultWrapper;
 import com.gwtjs.international.entity.LanguageVO;
 
 /**
@@ -40,9 +39,6 @@ public interface IInternationalService {
 	
 	@GET @Path("findLanguageList/{pageSize}/{curPage}")
 	PagedResult<LanguageVO> findLanguageList(@QueryParam("")LanguageVO record,@PathParam("")PagerVO page);
-	
-	@GET @Path("findLanguageListCount")
-	ResultWrapper findLanguageListCount(LanguageVO record);
 	
 	/*@DELETE*/@PUT @Path("batchRemovePks")
 	ResultWrapper batchRemovePks(List<LanguageVO> records);

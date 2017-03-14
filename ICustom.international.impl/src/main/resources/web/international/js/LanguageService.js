@@ -31,9 +31,12 @@ var LanguageService = function() {
         },
         createLanguage: function(language) {
         	var lans = [language];
+        	console.warn(lans);
             batchInsertLanguage(lans);
         },
         batchInsertLanguage: function(items,callback) {
+        	alert(123);
+        	alert(items);
             AjaxUtil.sendPostData(BASE + '/batchInsert', items, function(items) {
                 LanguageView.insertLanguageRows(items.obj,callback);
             });

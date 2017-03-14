@@ -41,6 +41,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>ICustom.resources</name>
+			<type>2</type>
+			<location>D:/Workspaces/ICustom/ICustom/ICustom.resources/src/main/resources</location>
+		</link>
+		<link>
 			<name>security.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.api/src/main/java</location>
