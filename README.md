@@ -1,1 +1,82 @@
-#ICustom
+Start installation help:
+在下载项目后可做如下操作使项目运行起来:
+1.初始化数据库
+ICustom\ICustom documents\db script\
+update.sql为数据库序列和表的脚本
+init.sql为导航菜单的初始化脚本
+还有一些其它初始化脚本，自己选用；
+
+2.构建项目
+进入项目根目录"ICustom\"运行：
+***需要先配置maven
+mvn clean install
+*将项目的模块都安装到本地仓库，因为这些模块并没有在网上提供下载；此动作安装了所有依赖的jar包到本地仓库，并将项目模块也同时安装到本地方便再次构建；
+*如果是第一次执行，时间可能有点长．也可以使用eclipse操作此步骤，动作序列为：点击项目虚拟目录ICustom--右键--Run as -- maven install,同时也可以使用maven动作运行．方法很
+多，不说了．有需要的，可以在http://git.oschina.net/zgdong/ICustom留言，即可得到回复．
+
+
+进入web目录运行：
+mvn war:inplace
+*此操作是把相关的模块及依赖的jar包添加到项目web模块中，添加成功后就可以使用tomcat启动项目了．
+可以查看/ICustom.web/src/main/webapp/WEB-INF/lib目录，项目模块和依赖的全打成jar包到此．
+*此动作也可以在eclipse运行中配置，设置参数Name,Base directory ,Goals即可．
+
+清理并编译项目
+点击eclipse的Project-->clean即可，注意勾选自动编译．动作的目的是把web项目的resources编译到classes下面．
+resources主要是项目的数据源配置．
+
+配置tomcat
+配置方式很多种，我是新建一个运行地时tomcat，正好web项目还有impl项目需要添加运行时的jar,添加后eclipse的project Explorer
+视图就会有Servers项目，我直接在项目的server.xml添加了Context节点,具体如下：
+<Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+		<Context path="/" docBase="D:\XXXXXX\ICustom\ICustom.web\src\main\webapp" reloabable="true"/>
+
+经过上述步骤即可启动tomcat了．
+
+
+模块说明：
+1.icustom.common属于公用插件性质；如公共资源基础类公共资源等；
+2.icustom.core属于基本的核心的代码
+3.icustom.属于对外的web功能，管理功能，如系统主页面；
+4.icustom.lookup 另类数据字典
+5.icustom.international 国际化
+6.icustom.register  数据字典,树型结构
+7.icustom.security为权限管理模块，依赖spring security
+8.ICustom.email为邮件管理系统，暂时待开发　．
+9.icustom.angularjs为angularjs资源，可供其它模块依赖，为可选模块，不用angularjs的可不打包在一起,此模块下含有AngularJS单页按需加载的源码示例；
+10.ICustom.iexcel为excel导入导出功能，待续;
+11.ICustom.attachments为附件管理模块，上传下载及管理附件；
+12.ICustom.fckeditor为文本编辑器，可选，提供的编辑器插件；
+13.ICustom.bbs为主要针对产品或主题的轻量级BBS模块．
+14.ICustom.friendly.link为友情链接管理模块．
+15.ICustom.browselog为用户浏览分析管理模块．
+16.增加demo模块,直接link sources就可以访问
+
+当前正在开发的功能点：
+
+2016-09-16添加：
+1.添加junit测试功能；
+	测试方式:添加测试项目,一般以模块化方式添加,如icustom.security,则测试项目名称为icustom.security.test,将icustom.web下的resources拷贝到测试项目的resources下,添加测试的依赖,依赖是使用maven管理;详细信息请参考icustom.security.test; 如何编写请参考icustom.security.test; 
+2.缓存配置
+3.分页插件
+4.添加webservices服务描述符WADL；			
+5.添加webservices WSDL描述符
+
+2017-03-04添加:
+1.系统日志工具;
+2.系统分页拦截器服务端插件;
+	参考地址:http://localhost:8080/security/user/index.html
+		 http://localhost:8080/services/sys/userServices/findUserList/10/1
+	说明:不需要添加统计的服务api,只在mybatis里添加相应的统计查询sql,sql ID跟分页查询一样,后加"Count"即可,如查询列表的mybatis sql id为findUserByPage,则统计的sql id为findUserByPageCount,另外注意service api返回类型为PagedResult,是一个包装类型,里在含有列表实体和分页参数信息; 
+
+3.jar包里加载外部资源；jar包里加载jar 包资源；
+
+当前正在进行中的事项：
+1.权限注解配置
+2.开发附件管理功能
+3.开发权限细粒度管理功能；				完成!
+4.开发工作流功能；
+5.开发SSO单点登陆；
+6.产品管理样板工程,缺少页面验证细节；				
+
+设置用户和角色、角色和权限、权限和资源之间的关系。使用三个菜单进行维护，用户设置、角色设置、资源设置。 在用户设置里分别管理用户、用户与角色的关系；在角色设置里管理角色、角色与权限的关系； 在资源设置里分别管理权限、权限与资源的关系			完成!

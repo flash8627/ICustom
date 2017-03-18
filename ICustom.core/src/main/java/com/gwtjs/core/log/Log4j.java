@@ -11,23 +11,23 @@ import org.apache.log4j.Logger;
  * @author aGuang
  * @since 2013-8-26
  */
-public class Log4jLogger implements ILogger {
+public class Log4j implements ILogger {
 
 	/** log4j的日志实例类 */
 	private Logger logger;
 
 	/** Fully qualified name **/
-	private static final String FQCN = Log4jLogger.class.getName();
+	private static final String FQCN = Log4j.class.getName();
 
 	/** The factory method of Log4jLogger **/
 	public static ILogger getLog(String name) {
-		return new Log4jLogger(Logger.getLogger(name));
+		return new Log4j(Logger.getLogger(name));
 	}
 
 	/**
 	 * @param name
 	 */
-	public Log4jLogger(Logger logger) {
+	public Log4j(Logger logger) {
 		this.logger = logger;
 	}
 

@@ -7,6 +7,7 @@ package com.gwtjs.core.log;
  * @since 2013-8-26
  */
 public final class LoggerFactory {
+	
 	private LoggerFactory() {
 	}
 
@@ -17,7 +18,7 @@ public final class LoggerFactory {
 	 * @return
 	 */
 	public static ILogger getLogger(String name) {
-		return Log4jLogger.getLog(name);
+		return Log4j.getLog(name);
 	}
 
 	/**

@@ -50,6 +50,7 @@ resources主要是项目的数据源配置．
 13.ICustom.bbs为主要针对产品或主题的轻量级BBS模块．
 14.ICustom.friendly.link为友情链接管理模块．
 15.ICustom.browselog为用户浏览分析管理模块．
+16.增加demo模块,直接link sources就可以访问
 
 当前正在开发的功能点：
 

@@ -46,13 +46,10 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 				<value>classpath:com/gwtjs/**/dao/**/*-mapper.xml</value>
 				<!-- DAO -->
 				<value>classpath:com/gwtjs/**/dao/**/*DAO.xml</value>
-				<value>classpath:com/gwtjs/**/dao/*DAO.xml</value>
 				<!-- Dao -->
 				<value>classpath:com/gwtjs/**/dao/**/*Dao.xml</value>
-				<value>classpath:com/gwtjs/**/dao/*Dao.xml</value>
 				<!-- dao -->
 				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
-				<value>classpath:com/gwtjs/**/dao/*dao.xml</value>
 			</list>
 		</property>
 		
