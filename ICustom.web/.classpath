@@ -2,10 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="ICustom.core"/>
-	<classpathentry kind="src" path="ICustom.demo.impl.resources"/>
-	<classpathentry kind="src" path="ICustom.demo.impl"/>
-	<classpathentry kind="src" path="ICustom.demo.api"/>
-	<classpathentry kind="src" path="ICustom.resources"/>
 	<classpathentry kind="src" path="security.resources"/>
 	<classpathentry kind="src" path="security.impl"/>
 	<classpathentry kind="src" path="security.api"/>

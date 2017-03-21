@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.email.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 	</dependencies>

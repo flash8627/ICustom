@@ -46,26 +46,6 @@
 			<location>D:/Workspaces/ICustom/ICustom/ICustom.core/src/main/java</location>
 		</link>
 		<link>
-			<name>ICustom.demo.api</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.demo.api/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.demo.impl</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.demo.impl/src/main/java</location>
-		</link>
-		<link>
-			<name>ICustom.demo.impl.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.demo.impl/src/main/resources</location>
-		</link>
-		<link>
-			<name>ICustom.resources</name>
-			<type>2</type>
-			<location>D:/Workspaces/ICustom/ICustom/ICustom.resources/src/main/resources</location>
-		</link>
-		<link>
 			<name>security.api</name>
 			<type>2</type>
 			<location>D:/Workspaces/ICustom/ICustom/ICustom.security.api/src/main/java</location>

@@ -112,9 +112,9 @@ public class StampParameterDateFilter implements Filter {
 	 * @param file
 	 * @return
 	 */
-	private String getLastFileUpdateTime(String url)
+	private String getLastFileUpdateTime(String file)
 	{
-		File f=new File("my.css");
+		File f=new File(file);
 		long timestamp=f.lastModified();
 		Date when=new Date(timestamp);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddhhmmssS");

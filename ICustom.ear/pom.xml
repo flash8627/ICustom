@@ -24,175 +24,175 @@
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.resources</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.angularjs</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.fckeditor</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.common.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.common.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.lookup.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.lookup.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.security.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.security.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.email.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.email.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.register.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.register.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.iexcel.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.iexcel.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.international.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.international.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.attachments.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.attachments.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.bbs.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.bbs.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.friendly.link.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.friendly.link.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.workflow.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.workflow.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.browselog.api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.browselog.impl</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.gwtjs.ICustom</groupId>
 			<artifactId>ICustom.web</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<type>war</type>
 		</dependency>
 		

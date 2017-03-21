@@ -24,8 +24,16 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import com.gwtjs.security.dao.IAuthoritiesDAO;
 import com.gwtjs.security.dao.IAuthoritiesResourcesDAO;
 
-@Named("customInvocationSecurityMetadataSourceService")
-public class CustomInvocationSecurityMetadataSourceService implements
+/**
+ * <h2>Custom Invocation Security Metadata Source Service</h2>
+ * <p>
+ * 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色去访问
+ * </p>
+ * @author aGuang
+ *
+ */
+@Named("customSecurityMetadataSourceService")
+public class CustomSecurityMetadataSourceService implements
 		FilterInvocationSecurityMetadataSource {
 
 	@Inject
@@ -37,7 +45,7 @@ public class CustomInvocationSecurityMetadataSourceService implements
 
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
-	public CustomInvocationSecurityMetadataSourceService() {
+	public CustomSecurityMetadataSourceService() {
 		loadResourceDefine();
 	}
 

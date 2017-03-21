@@ -20,9 +20,15 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 	</bean>
 
 	<!-- 注解探测器 -->
-	<!-- <context:component-scan base-package="com.gwtjs.*.services..*" /> -->
-	<!-- <context:component-scan base-package="com.gwtjs.*.services.impl" /> -->
-	<context:component-scan base-package="com.gwtjs.*.services..*" />
+	<!-- <context:component-scan
+		base-package="com.gwtjs.security.*.services..*, com.gwtjs.*.services..*" /> -->
+	<context:component-scan base-package="com.gwtjs"
+		use-default-filters="false">
+		<context:include-filter type="regex"
+			expression="com.gwtjs.*.services..*" />
+		<context:include-filter type="regex"
+			expression="com.gwtjs.security.*.services..*" />
+	</context:component-scan>
 
 	<!-- 配置DataSource数据源 -->
 	<bean id="dataSource"
@@ -52,14 +58,13 @@ http://www.springframework.org/schema/context/spring-context.xsd"
 				<value>classpath:com/gwtjs/**/dao/**/*dao.xml</value>
 			</list>
 		</property>
-		
+
 		<property name="plugins">
 			<array>
-				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PageInterceptor" 
-					/>
+				<bean id="pagerInterceptor" class="com.gwtjs.core.intercepts.PageInterceptor" />
 			</array>
 		</property>
-		
+
 	</bean>
 
 	<!-- 配置事务管理器，注意这里的dataSource和SqlSessionFactoryBean的dataSource要一致，不然事务就没有作用了 -->

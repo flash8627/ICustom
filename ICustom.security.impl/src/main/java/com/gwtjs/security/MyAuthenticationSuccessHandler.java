@@ -2,6 +2,7 @@ package com.gwtjs.security;
 
 import java.io.IOException;
 
+import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.gwtjs.security.entity.SysUsersVO;
 import com.gwtjs.security.services.IUserServices;
 
-@Component
+@Named("myUserDetailsService")
 public class MyAuthenticationSuccessHandler extends
 		SavedRequestAwareAuthenticationSuccessHandler {
 	
