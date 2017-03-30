@@ -839,10 +839,11 @@ end;
 -- Create table　
 create table PERSISTENT_LOGINS
 (
-  username  VARCHAR2(40),
-  series    VARCHAR2(256),
-  token     VARCHAR2(256),
-  last_used VARCHAR2(40)
+  username  VARCHAR2(64),
+  series    VARCHAR2(64),
+  token     VARCHAR2(64),
+  last_used VARCHAR2(40),
+  PRIMARY KEY (series) 
 );
 comment on table PERSISTENT_LOGINS
    is '用户登陆日志表';

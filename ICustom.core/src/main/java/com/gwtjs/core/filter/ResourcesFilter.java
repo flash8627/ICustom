@@ -82,10 +82,10 @@ public class ResourcesFilter implements Filter {
 				buildPageToStream(contentIn,response);
 			}else{//带有后缀的访问 ,带有html文件名
 				//log.info("\n  other content File PATH:"+uri);
-				int htmlFlag = uri.lastIndexOf(".html");
+				//int htmlFlag = uri.lastIndexOf(".html");
 				InputStream contentIn = null;
 				//如果是html文件
-				if(htmlFlag != -1){
+				if(uri.lastIndexOf(".html") != -1){
 					contentIn = loaderHtmlResourceAsStream(uri);
 					
 					//如果不空,则加载拼装html
@@ -96,6 +96,9 @@ public class ResourcesFilter implements Filter {
 						chain.doFilter(request, response);
 					}
 					
+				}else if(uri.lastIndexOf(".jsp")!=-1){
+					log.debug("classes目录的jsp不能访问，请改用servlet输出页面!!! ");
+					chain.doFilter(request, response);
 				}else{
 					//如果不是html
 					contentIn = loaderResourceAsStream(uri);
